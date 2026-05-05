@@ -55,7 +55,7 @@ export default {
       boxShadow: {
         'card-dark': '0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)',
         'card-light': '0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06)',
-        'glow-purple': '0 8px 40px rgba(124,58,237,0.35)',
+        'glow-purple': '0 8px 40px rgba(109,40,217,0.4)',
         'poster': '-12px 16px 40px rgba(0,0,0,0.2)',
         'poster-hover': '0 24px 60px rgba(0,0,0,0.15)',
       },

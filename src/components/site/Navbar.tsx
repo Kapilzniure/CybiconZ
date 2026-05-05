@@ -8,6 +8,7 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/cybilearn", label: "CybiLearn" },
   { to: "/careers", label: "Careers" },
+  { to: "/blog", label: "Blog" },
 ];
 
 export default function Navbar() {

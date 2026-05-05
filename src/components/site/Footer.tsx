@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#050608] border-t border-white/5 pt-20 pb-8">
+    <footer className="bg-[#050608] dark-texture border-t border-white/5 pt-20 pb-8">
       <div className="container">
         {/* Newsletter */}
         <div className="bg-white/[0.03] border border-white/[0.06] rounded-3xl p-8 mb-16 grid md:grid-cols-2 gap-6 items-center">
@@ -33,6 +33,7 @@ export default function Footer() {
           <FooterCol title="Company" links={[
             { label: "About", to: "/about" },
             { label: "Work", to: "/work" },
+            { label: "Blog", to: "/blog" },
             { label: "CybiLearn", to: "/cybilearn" },
             { label: "Careers", to: "/careers" },
             { label: "Contact", to: "/contact" },
@@ -50,6 +51,7 @@ export default function Footer() {
             <Link to="#" className="hover:text-white/50">Privacy</Link><span>·</span>
             <Link to="#" className="hover:text-white/50">Terms</Link>
           </div>
+          <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 12 }}>Designed and built by CybiconZ</div>
           <div>Infrastructure by <a href="#" className="hover:text-[#A855F7]">ZenHost</a></div>
         </div>
       </div>

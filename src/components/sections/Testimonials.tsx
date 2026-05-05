@@ -33,7 +33,7 @@ export default function Testimonials() {
       <div className="container">
         <span className="label-eyebrow text-violet">Testimonials</span>
         <h2 className="font-display font-extrabold text-ink-dark mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.03em" }}>What Our Clients Say.</h2>
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-3 gap-5 mb-8">
           {items.map((t, i) => (
             <motion.div key={i}
               initial={{ opacity: 0, y: 24 }}
@@ -59,6 +59,9 @@ export default function Testimonials() {
             </motion.div>
           ))}
         </div>
+        <p className="text-center text-[14px] text-ink-muted italic">
+          Testimonials collected from real clients. Names withheld by client preference.
+        </p>
       </div>
     </section>
   );

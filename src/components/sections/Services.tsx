@@ -3,7 +3,7 @@ import { services } from "@/data/services";
 import { Link } from "react-router-dom";
 
 export default function Services() {
-  const items = services.slice(0, 4);
+  const items = services;
   return (
     <section className="surface-light relative py-[100px] overflow-hidden">
       <div aria-hidden className="absolute right-0 top-20 font-display font-extrabold pointer-events-none select-none" style={{ fontSize: "clamp(120px, 18vw, 260px)", color: "rgba(0,0,0,0.025)", letterSpacing: "-0.05em" }}>SERVICES</div>
@@ -22,10 +22,13 @@ export default function Services() {
             <p className="text-[15px] text-ink-muted max-w-sm leading-relaxed">
               Real engagements with real businesses. We pick projects we can deliver with care, and we stay accountable from kickoff to handoff.
             </p>
+            <Link to="/services" className="inline-flex items-center gap-1 mt-5 text-[13px] font-bold transition-opacity hover:opacity-75" style={{ color: "hsl(var(--accent-from))" }}>
+              View all services →
+            </Link>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((s, i) => (
             <motion.div key={s.id}
               initial={{ opacity: 0, y: 24 }}

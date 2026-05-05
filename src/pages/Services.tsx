@@ -2,6 +2,7 @@ import SiteShell from "@/components/site/SiteShell";
 import { services } from "@/data/services";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import FAQ from "@/components/sections/FAQ";
 import ClosingCTA from "@/components/sections/ClosingCTA";
 
 export default function ServicesPage() {
@@ -42,6 +43,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+      <FAQ />
       <ClosingCTA />
     </SiteShell>
   );

@@ -43,7 +43,18 @@ export default function Portfolio() {
               <div className="font-mono text-[11px] text-ink-muted uppercase tracking-wider">Client · {featured.year}</div>
               <h3 className="font-display font-extrabold text-[30px] text-ink mt-2">{featured.name}</h3>
               <p className="text-[14px] text-ink-muted mt-4 leading-relaxed">{featured.outcome}</p>
-              <div className="flex flex-wrap gap-2 mt-6">
+              <div className="flex flex-wrap gap-2 mt-5">
+                {[
+                  { label: "Multi-country",  bg: "rgba(245,158,11,0.12)",  border: "rgba(245,158,11,0.3)",  color: "#F59E0B" },
+                  { label: "Multi-currency", bg: "rgba(109,40,217,0.12)",  border: "rgba(109,40,217,0.3)",  color: "#A78BFA" },
+                  { label: "Live since 2024",bg: "rgba(16,185,129,0.12)",  border: "rgba(16,185,129,0.3)",  color: "#34D399" },
+                ].map(pill => (
+                  <span key={pill.label} className="font-mono text-[11px] px-3 py-1 rounded-full" style={{ background: pill.bg, border: `1px solid ${pill.border}`, color: pill.color }}>
+                    {pill.label}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-2 mt-3">
                 {featured.tags.map(t => (
                   <span key={t} className="text-[11px] text-ink-muted px-2.5 py-1 rounded-full bg-white/[0.07] border border-white/[0.08]">{t}</span>
                 ))}

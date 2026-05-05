@@ -8,6 +8,8 @@ import Portfolio from "@/components/sections/Portfolio";
 import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
 import CybiLearn from "@/components/sections/CybiLearn";
+import FAQ from "@/components/sections/FAQ";
+import LatestThinking from "@/components/sections/LatestThinking";
 import ClosingCTA from "@/components/sections/ClosingCTA";
 
 export default function Index() {
@@ -21,7 +23,9 @@ export default function Index() {
       <Portfolio />
       <TechStack />
       <Testimonials />
+      <FAQ />
       <CybiLearn />
+      <LatestThinking />
       <ClosingCTA />
     </SiteShell>
   );

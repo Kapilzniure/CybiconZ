@@ -1,38 +1,6 @@
 import { motion } from "framer-motion";
-import { Suspense, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-
-function RotatingKnot() {
-  const ref = useRef<THREE.Mesh>(null!);
-  useFrame((state) => {
-    if (!ref.current) return;
-    ref.current.rotation.y += 0.004;
-    ref.current.rotation.x += 0.001;
-    const tx = state.mouse.y * 0.2;
-    const ty = state.mouse.x * 0.3;
-    ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, tx, 0.04);
-    ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, ref.current.rotation.y + ty * 0.001, 0.04);
-  });
-  return (
-    <mesh ref={ref}>
-      <torusKnotGeometry args={[1.2, 0.35, 200, 20]} />
-      <meshPhongMaterial color="#6D28D9" specular={new THREE.Color("#A78BFA")} shininess={25} transparent opacity={0.9} />
-    </mesh>
-  );
-}
-
-function Scene() {
-  return (
-    <Canvas camera={{ position: [0, 0, 4], fov: 50 }} dpr={[1, 2]}>
-      <ambientLight intensity={0.4} />
-      <pointLight position={[3, 4, 3]} color="#7C3AED" intensity={2} distance={10} />
-      <pointLight position={[-3, -2, 2]} color="#EC4899" intensity={1.5} distance={8} />
-      <Suspense fallback={null}><RotatingKnot /></Suspense>
-    </Canvas>
-  );
-}
 
 const lineVariants = {
   hidden: { clipPath: "inset(100% 0 0 0)" },
@@ -43,13 +11,39 @@ const lineVariants = {
 };
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const deviceRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect || !deviceRef.current) return;
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const xOffset = (x - 0.5) * 2 * 6;
+    const yOffset = (y - 0.5) * 2 * 4;
+    deviceRef.current.style.transition = "transform 0.1s ease";
+    deviceRef.current.style.transform = `perspective(1200px) rotateY(${-8 + xOffset}deg) rotateX(${4 - yOffset}deg)`;
+  };
+
+  const handleMouseLeave = () => {
+    if (!deviceRef.current) return;
+    deviceRef.current.style.transition = "transform 0.6s ease";
+    deviceRef.current.style.transform = "perspective(1200px) rotateY(-8deg) rotateX(4deg)";
+  };
+
   return (
-    <section className="relative min-h-[700px] h-screen overflow-hidden bg-brand-base">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-[700px] h-screen overflow-hidden bg-brand-base dark-texture"
+    >
       <div className="absolute inset-0 grid-overlay" />
       <div className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.15)", filter: "blur(120px)" }} />
       <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(236,72,153,0.08)", filter: "blur(100px)" }} />
 
       <div className="container relative h-full grid lg:grid-cols-[55%_45%] gap-8 items-center pt-12 pb-20">
+        {/* LEFT SIDE — unchanged */}
         <div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 border"
@@ -90,32 +84,167 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[500px] lg:h-full hidden md:block">
-          <Scene />
+        {/* RIGHT SIDE — browser mockup */}
+        <div className="relative h-[500px] lg:h-full hidden md:flex items-center justify-center">
+          {/* Ambient glow */}
+          <div
+            className="absolute w-[600px] h-[600px] rounded-full pointer-events-none"
+            style={{ background: "radial-gradient(circle, rgba(124,58,237,0.12), transparent)", filter: "blur(100px)" }}
+          />
 
-          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-12 -translate-x-8 left-0 w-56 p-4 rounded-2xl backdrop-blur-md"
-            style={{ background: "rgba(13,14,24,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <div className="font-mono text-[10px] text-ink-muted uppercase tracking-wider">LwangBlack Coffee</div>
-            <div className="text-ink text-sm font-semibold mt-1">Global E-Commerce</div>
-            <div className="mt-3 h-16 rounded-lg bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&q=70)" }} />
-          </motion.div>
+          {/* Float wrapper — everything floats together */}
+          <motion.div
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative w-[440px]"
+          >
+            {/* Tilt wrapper — receives mouse-driven perspective transform */}
+            <div
+              ref={deviceRef}
+              style={{ transform: "perspective(1200px) rotateY(-8deg) rotateX(4deg)", transition: "transform 0.6s ease" }}
+            >
+              {/* Browser frame */}
+              <div style={{
+                background: "#0D0E18",
+                border: "1px solid rgba(255,255,255,0.1)",
+                borderRadius: 16,
+                boxShadow: "0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)",
+                overflow: "hidden",
+              }}>
+                {/* Top bar */}
+                <div style={{
+                  height: 36,
+                  background: "#131524",
+                  borderBottom: "1px solid rgba(255,255,255,0.06)",
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  paddingLeft: 12,
+                }}>
+                  {/* Traffic lights */}
+                  <div style={{ display: "flex", gap: 6 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#FF5F57" }} />
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#FEBC2E" }} />
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#28C840" }} />
+                  </div>
+                  {/* URL bar — absolutely centered in bar */}
+                  <div style={{
+                    position: "absolute",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "rgba(255,255,255,0.06)",
+                    borderRadius: 6,
+                    width: 200,
+                    height: 20,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}>
+                    <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "rgba(255,255,255,0.3)" }}>
+                      lwangblack.com
+                    </span>
+                  </div>
+                </div>
+                {/* Screenshot */}
+                <div style={{ position: "relative" }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80"
+                    alt="LwangBlack Coffee storefront"
+                    style={{ width: "100%", display: "block", objectFit: "cover" }}
+                  />
+                  <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, #0D0E18 0%, transparent 40%)",
+                    pointerEvents: "none",
+                  }} />
+                </div>
+              </div>
+            </div>
 
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-8 right-0 translate-x-6 -translate-y-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5"
-            style={{ background: "rgba(13,14,24,0.9)", border: "1px solid rgba(16,185,129,0.2)" }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse-dot" />
-            <span className="text-emerald text-xs font-mono">Available</span>
-          </motion.div>
+            {/* Card 1 — Project badge (left side, ~35% up) */}
+            <div className="absolute left-0" style={{ bottom: "35%", transform: "translateX(-2rem)" }}>
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="rounded-2xl backdrop-blur-md"
+                style={{ padding: 16, background: "rgba(13,14,24,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#F59E0B", flexShrink: 0, display: "inline-block" }} />
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.4)" }}>
+                    E-Commerce
+                  </span>
+                </div>
+                <div style={{ fontFamily: "'Bricolage Grotesque', system-ui, sans-serif", fontWeight: 700, fontSize: 14, color: "white" }}>
+                  LwangBlack Coffee
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 4 }}>
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path d="M2 5L4 7L8 3" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)" }}>
+                    Global · Multi-currency · Delivered
+                  </span>
+                </div>
+              </motion.div>
+            </div>
 
-          <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 3.8, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
-            className="absolute right-0 top-1/2 translate-x-10 p-4 rounded-xl"
-            style={{ background: "rgba(13,14,24,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <div className="font-mono text-[10px] text-ink-muted uppercase tracking-wider mb-2">Stack</div>
-            <div className="flex flex-wrap gap-1.5">
-              {["React", "Node.js", "TypeScript"].map(t => (
-                <span key={t} className="text-[11px] text-ink px-2 py-0.5 rounded-full border border-violet/40 bg-violet/5">{t}</span>
-              ))}
+            {/* Card 2 — Status pill (top-right) */}
+            <div className="absolute top-0 right-0" style={{ transform: "translate(1rem, -0.5rem)" }}>
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  borderRadius: 9999,
+                  padding: "8px 16px",
+                  background: "rgba(13,14,24,0.9)",
+                  border: "1px solid rgba(16,185,129,0.2)",
+                }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald animate-pulse-dot" />
+                <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 600, fontSize: 12, color: "white" }}>
+                  Live & Running
+                </span>
+              </motion.div>
+            </div>
+
+            {/* Card 3 — Tech stack (right side, ~60% down) */}
+            <div className="absolute" style={{ top: "60%", right: 0, transform: "translate(40px, -50%)" }}>
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
+                style={{ padding: 12, borderRadius: 12, background: "rgba(13,14,24,0.9)", border: "1px solid rgba(255,255,255,0.07)" }}
+              >
+                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, color: "rgba(255,255,255,0.3)", marginBottom: 8 }}>
+                  Built with
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  {[
+                    { label: "React",   border: "rgba(124,58,237,0.4)", bg: "rgba(124,58,237,0.08)", color: "#A78BFA" },
+                    { label: "Node.js", border: "rgba(16,185,129,0.3)",  bg: "rgba(16,185,129,0.06)",  color: "#6EE7B7" },
+                    { label: "Stripe",  border: "rgba(245,158,11,0.3)",  bg: "rgba(245,158,11,0.06)",  color: "#FCD34D" },
+                  ].map(pill => (
+                    <span
+                      key={pill.label}
+                      style={{
+                        fontSize: 11,
+                        padding: "4px 12px",
+                        borderRadius: 9999,
+                        border: `1px solid ${pill.border}`,
+                        background: pill.bg,
+                        color: pill.color,
+                        display: "block",
+                      }}
+                    >
+                      {pill.label}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>

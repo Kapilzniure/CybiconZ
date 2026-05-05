@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const steps = [
   { n: "01", c: "#7C3AED", name: "Discovery", d: "We learn about your goals before designing anything." },
@@ -39,6 +40,24 @@ export default function Process() {
               </div>
             </motion.div>
           ))}
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.36 }}
+            className="mt-6 rounded-xl px-5 py-4"
+            style={{ background: "rgba(124,58,237,0.05)", border: "1px solid rgba(124,58,237,0.15)" }}
+          >
+            <Link to="/contact" className="flex items-center justify-between group/cta">
+              <span className="text-[14px] font-semibold" style={{ color: "#0A0B14" }}>
+                Ready to start?
+              </span>
+              <span className="text-[13px] font-bold transition-all group-hover/cta:gap-2" style={{ color: "hsl(var(--accent-from))" }}>
+                Get in touch →
+              </span>
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

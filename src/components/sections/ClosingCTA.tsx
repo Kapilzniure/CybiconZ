@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 export default function ClosingCTA() {
   return (
     <section className="relative overflow-hidden py-[120px]" style={{ background: "linear-gradient(135deg, #07080E, #0E0830, #07080E)" }}>
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.18)", filter: "blur(140px)" }} />
+      <div className="absolute inset-0 dark-texture pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(109,40,217,0.18)", filter: "blur(140px)" }} />
       <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(236,72,153,0.12)", filter: "blur(140px)" }} />
       <div className="container relative max-w-2xl text-center">
         <span className="label-eyebrow text-violet">Ready to start?</span>

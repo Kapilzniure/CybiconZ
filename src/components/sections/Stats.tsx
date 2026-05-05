@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { n: "2+", l: "Live Projects", s: "Quality over volume", g: "linear-gradient(135deg, #EC4899, #F472B6)", c: "#EC4899" },
-  { n: "100%", l: "Delivery Rate", s: "Every project shipped", g: "linear-gradient(135deg, #F59E0B, #FBBF24)", c: "#F59E0B" },
-  { n: "1 day", l: "Response Time", s: "Real human reply", g: "linear-gradient(135deg, #06B6D4, #22D3EE)", c: "#06B6D4" },
-  { n: "2022", l: "Founded", s: "Independent since day one", g: "linear-gradient(135deg, #10B981, #34D399)", c: "#10B981" },
+  { n: "2+", l: "Live Projects", s: "Real clients, real outcomes", g: "linear-gradient(135deg, #EC4899, #F472B6)", c: "#EC4899" },
+  { n: "100%", l: "Delivery Rate", s: "No abandoned projects ever", g: "linear-gradient(135deg, #F59E0B, #FBBF24)", c: "#F59E0B" },
+  { n: "1 day", l: "Response Time", s: "Guaranteed, always", g: "linear-gradient(135deg, #06B6D4, #22D3EE)", c: "#06B6D4" },
+  { n: "2025", l: "Founded", s: "Building since", g: "linear-gradient(135deg, #10B981, #34D399)", c: "#10B981" },
 ];
 
 export default function Stats() {
   return (
     <section className="py-[100px] relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0E0830 0%, #07080E 40%, #070E0A 100%)" }}>
       <div className="absolute inset-0 grid-overlay opacity-50" />
+      <div className="absolute inset-0 dark-texture pointer-events-none" />
       <div className="container relative">
         <div className="grid grid-cols-2 md:grid-cols-4">
           {stats.map((s, i) => (
