@@ -1,22 +1,25 @@
 import { motion } from "framer-motion";
-import { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 import { Link } from "react-router-dom";
 
-function Knot() {
+function RotatingKnot() {
+  const ref = useRef<THREE.Mesh>(null!);
+  useFrame((state) => {
+    if (!ref.current) return;
+    ref.current.rotation.y += 0.004;
+    ref.current.rotation.x += 0.001;
+    const tx = state.mouse.y * 0.2;
+    const ty = state.mouse.x * 0.3;
+    ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, tx, 0.04);
+    ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, ref.current.rotation.y + ty * 0.001, 0.04);
+  });
   return (
-    <mesh rotation={[0.4, 0.2, 0]}>
+    <mesh ref={ref}>
       <torusKnotGeometry args={[1.2, 0.35, 200, 20]} />
-      <meshPhongMaterial color="#6D28D9" specular="#A78BFA" shininess={25} transparent opacity={0.9} />
+      <meshPhongMaterial color="#6D28D9" specular={new THREE.Color("#A78BFA")} shininess={25} transparent opacity={0.9} />
     </mesh>
-  );
-}
-
-function AnimatedKnot() {
-  return (
-    <group>
-      <Knot />
-    </group>
   );
 }
 
@@ -26,34 +29,8 @@ function Scene() {
       <ambientLight intensity={0.4} />
       <pointLight position={[3, 4, 3]} color="#7C3AED" intensity={2} distance={10} />
       <pointLight position={[-3, -2, 2]} color="#EC4899" intensity={1.5} distance={8} />
-      <Suspense fallback={null}>
-        <RotatingKnot />
-      </Suspense>
+      <Suspense fallback={null}><RotatingKnot /></Suspense>
     </Canvas>
-  );
-}
-
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import * as THREE from "three";
-
-function RotatingKnot() {
-  const ref = useRef<THREE.Mesh>(null!);
-  const target = useRef({ x: 0, y: 0 });
-  useFrame((state) => {
-    target.current.x = state.mouse.y * 0.2;
-    target.current.y = state.mouse.x * 0.3;
-    if (ref.current) {
-      ref.current.rotation.y += 0.004;
-      ref.current.rotation.x += 0.001;
-      ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, target.current.x, 0.04);
-    }
-  });
-  return (
-    <mesh ref={ref}>
-      <torusKnotGeometry args={[1.2, 0.35, 200, 20]} />
-      <meshPhongMaterial color="#6D28D9" specular="#A78BFA" shininess={25} transparent opacity={0.9} />
-    </mesh>
   );
 }
 
@@ -67,13 +44,12 @@ const lineVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[700px] h-[100vh] overflow-hidden bg-brand-base">
+    <section className="relative min-h-[700px] h-screen overflow-hidden bg-brand-base">
       <div className="absolute inset-0 grid-overlay" />
       <div className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.15)", filter: "blur(120px)" }} />
       <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(236,72,153,0.08)", filter: "blur(100px)" }} />
 
       <div className="container relative h-full grid lg:grid-cols-[55%_45%] gap-8 items-center pt-12 pb-20">
-        {/* Left */}
         <div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 border"
@@ -114,11 +90,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right */}
         <div className="relative h-[500px] lg:h-full hidden md:block">
           <Scene />
 
-          {/* Floating cards */}
           <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute bottom-12 -translate-x-8 left-0 w-56 p-4 rounded-2xl backdrop-blur-md"
             style={{ background: "rgba(13,14,24,0.85)", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -140,7 +114,7 @@ export default function Hero() {
             <div className="font-mono text-[10px] text-ink-muted uppercase tracking-wider mb-2">Stack</div>
             <div className="flex flex-wrap gap-1.5">
               {["React", "Node.js", "TypeScript"].map(t => (
-                <span key={t} className="text-[11px] text-ink px-2 py-0.5 rounded-full" style={{ background: "transparent", border: "1px solid", borderImage: "linear-gradient(135deg, #7C3AED, #EC4899) 1" }}>{t}</span>
+                <span key={t} className="text-[11px] text-ink px-2 py-0.5 rounded-full border border-violet/40 bg-violet/5">{t}</span>
               ))}
             </div>
           </motion.div>

@@ -1,0 +1,46 @@
+import { motion } from "framer-motion";
+
+const steps = [
+  { n: "01", c: "#7C3AED", name: "Discovery", d: "We learn about your goals before designing anything." },
+  { n: "02", c: "#F59E0B", name: "Design", d: "Direction locked and approved before development starts." },
+  { n: "03", c: "#06B6D4", name: "Build", d: "You review at every milestone. Nothing ships without sign-off." },
+  { n: "04", c: "#10B981", name: "Handoff", d: "Complete product with documentation. Nothing left unexplained." },
+];
+
+export default function Process() {
+  return (
+    <section className="grid md:grid-cols-2">
+      <div className="bg-brand-base p-16 md:p-20 flex flex-col justify-center">
+        <span className="label-eyebrow text-amber mb-4">Process</span>
+        <h2 className="font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
+          How an Engagement Works
+        </h2>
+        <p className="text-ink-muted text-base mt-6 max-w-md">You stay in control at every stage. No surprises.</p>
+        <div className="mt-8 flex flex-col gap-1.5">
+          <div className="h-1 w-10 rounded-full bg-violet" />
+          <div className="h-1 w-10 rounded-full bg-pink" />
+          <div className="h-1 w-10 rounded-full bg-cyan" />
+        </div>
+      </div>
+      <div className="surface-light p-16 md:p-20">
+        <div className="flex flex-col">
+          {steps.map((s, i) => (
+            <motion.div key={s.n}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className={`group flex items-center gap-6 py-7 px-4 -mx-4 rounded-xl transition-colors hover:bg-violet/[0.04] ${i < steps.length - 1 ? "border-b border-black/[0.07]" : ""}`}
+            >
+              <div className="font-display font-extrabold text-[52px] leading-none transition-opacity opacity-[0.12] group-hover:opacity-100" style={{ color: s.c }}>{s.n}</div>
+              <div>
+                <h3 className="font-display font-bold text-[18px] text-ink-dark">{s.name}</h3>
+                <p className="text-sm text-ink-muted mt-1.5 max-w-sm">{s.d}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
