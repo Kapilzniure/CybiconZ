@@ -1,0 +1,8 @@
+export const services = [
+  { id: '01', slug: 'websites', name: 'Website Development', category: 'Development', description: 'Custom design and development. Mobile-responsive. Performance optimized.', gradient: 'linear-gradient(135deg, #7C3AED, #EC4899)', accent: '#A855F7', image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80', popular: true },
+  { id: '02', slug: 'ecommerce', name: 'E-Commerce Systems', category: 'E-Commerce', description: 'Multi-currency storefronts, payment gateways, delivery integrations.', gradient: 'linear-gradient(135deg, #F59E0B, #10B981)', accent: '#F59E0B', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80', popular: true },
+  { id: '03', slug: 'design', name: 'UI/UX Design', category: 'Design', description: 'User research, interface design, and design systems that scale.', gradient: 'linear-gradient(135deg, #06B6D4, #7C3AED)', accent: '#06B6D4', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80', popular: false },
+  { id: '04', slug: 'marketing', name: 'Digital Marketing', category: 'Marketing', description: 'Social media growth, content strategy, analytics for selected clients.', gradient: 'linear-gradient(135deg, #EC4899, #F59E0B)', accent: '#EC4899', image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600&q=80', popular: false },
+  { id: '05', slug: 'applications', name: 'Web Applications', category: 'Development', description: 'Client portals, dashboards, and custom web apps built for real users.', gradient: 'linear-gradient(135deg, #10B981, #06B6D4)', accent: '#10B981', image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=600&q=80', popular: false },
+];
+export type Service = typeof services[number];
