@@ -10,14 +10,14 @@ function Sphere() {
   const meshRef = useRef<THREE.Mesh>(null);
   const wireframeRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.001;
-      meshRef.current.rotation.x += delta * 0.0003;
+      meshRef.current.rotation.y += 0.001;
+      meshRef.current.rotation.x += 0.0003;
     }
     if (wireframeRef.current) {
-      wireframeRef.current.rotation.y += delta * 0.001;
-      wireframeRef.current.rotation.x += delta * 0.0003;
+      wireframeRef.current.rotation.y += 0.001;
+      wireframeRef.current.rotation.x += 0.0003;
     }
   });
 
@@ -108,17 +108,14 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: "#060608" }}>
       {/* Three.js Canvas - positioned behind text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <Canvas
-          camera={{ position: [0, 0, 8], fov: 50 }}
-          style={{ width: "600px", height: "600px" }}
-        >
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
           <Sphere />
         </Canvas>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-[1000px] mx-auto px-6 text-center">
         {/* Top tag */}
         <div className="mb-12">
           <span className="font-mono text-xs uppercase tracking-widest text-white/30">
@@ -175,8 +172,10 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="scroll-indicator absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3">
+      </div>
+
+      {/* Scroll Indicator (viewport-bottom) */}
+      <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10">
           <span className="font-mono text-xs text-white/20 uppercase tracking-wider">
             SCROLL
           </span>
@@ -192,7 +191,6 @@ export default function Hero() {
               ease: "easeInOut"
             }}
           />
-        </div>
       </div>
     </section>
   );
