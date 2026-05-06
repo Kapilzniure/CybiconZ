@@ -3,7 +3,9 @@ import { services } from "@/data/services";
 import { Link } from "react-router-dom";
 import SplitText from "@/components/ui/SplitText";
 
-const panelVariants = {
+import type { Variants } from "framer-motion";
+
+const panelVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { 
     opacity: 1, 
