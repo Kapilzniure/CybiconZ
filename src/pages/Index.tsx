@@ -11,18 +11,25 @@ import CybiLearn from "@/components/sections/CybiLearn";
 import FAQ from "@/components/sections/FAQ";
 import LatestThinking from "@/components/sections/LatestThinking";
 import ClosingCTA from "@/components/sections/ClosingCTA";
+import { SectionBridge } from "@/components/ui/SectionBridge";
 
 export default function Index() {
   return (
     <SiteShell>
       <Hero />
       <Marquee />
+      <SectionBridge direction="to-light" />
       <Services />
+      <SectionBridge direction="to-dark" />
       <Process />
       <Stats />
+      <SectionBridge direction="to-light" />
       <Portfolio />
+      <SectionBridge direction="to-dark" />
       <TechStack />
+      <SectionBridge direction="to-light" />
       <Testimonials />
+      <SectionBridge direction="to-dark" />
       <FAQ />
       <CybiLearn />
       <LatestThinking />

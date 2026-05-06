@@ -22,14 +22,25 @@ text-dark:     #0A0B14  — main text on light backgrounds
 text-dark-muted: #6B6E8F — secondary text on light
 
 ### Accent (Primary — violet only)
-accent:       #7C3AED  — primary violet accent
+accent:       #6D28D9  — primary violet accent (deeper)
+accent-alt:   #7C3AED  — secondary violet (hover/highlights)
 
-Use violet (#7C3AED) on:
+Use violet (#6D28D9) on:
 - Primary CTA buttons: bg #7C3AED, hover #6D28D9
 - Logo "Z" character
 - Eyebrow labels: color rgba(124,58,237,0.8)
 - Active states and focus rings
 - Subtle ambient glows (one per page, behind text)
+
+### Atmospheric Glows (section-specific)
+Large 400-600px radial-gradient overlays positioned behind section content.
+These are background overlays only — NEVER applied to text or borders.
+
+- Hero glow:        rgba(109,40,217,0.15)
+- Services glow:    per-service, rgba, 10-15% opacity
+- Stats glow:       rgba(249,115,22,0.10)  — warm orange
+- Portfolio glow:   rgba(6,182,212,0.10)   — cyan
+- Testimonials glow: rgba(236,72,153,0.08) — pink
 
 REMOVE secondary accents (amber, cyan, emerald, pink) from:
 - Process step numbers
