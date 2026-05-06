@@ -3,7 +3,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
+import { ParticleField } from "@/components/ui/ParticleField";
 
 // Three.js Sphere Component
 function Sphere() {
@@ -142,17 +144,74 @@ export default function Hero() {
     });
   }, []);
 
+  useEffect(() => {
+    const heroSection = document.getElementById('hero-section');
+    const headlineEl = document.getElementById('hero-headline');
+    const subEl = document.getElementById('hero-sub');
+    const ctaEl = document.getElementById('hero-ctas');
+
+    if (!heroSection || !headlineEl) return;
+
+    gsap.to(headlineEl, {
+      scale: 1.08,
+      opacity: 0,
+      y: -40,
+      ease: 'power2.in',
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2,
+      }
+    });
+
+    if (subEl) {
+      gsap.to(subEl, {
+        opacity: 0,
+        y: -20,
+        ease: 'power2.in',
+        scrollTrigger: {
+          trigger: heroSection,
+          start: 'top top',
+          end: '60% top',
+          scrub: 0.8,
+        }
+      });
+    }
+
+    if (ctaEl) {
+      gsap.to(ctaEl, {
+        opacity: 0,
+        y: -15,
+        ease: 'power1.in',
+        scrollTrigger: {
+          trigger: heroSection,
+          start: 'top top',
+          end: '40% top',
+          scrub: 0.6,
+        }
+      });
+    }
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: "#060608" }}>
+    <section id="hero-section" className="relative flex items-center justify-center overflow-hidden" style={{ background: "#060608", minHeight: "140vh" }}>
       {/* Three.js Canvas - positioned behind text */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="absolute inset-x-0 top-0 pointer-events-none z-0" style={{ height: "100vh" }}>
         <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>
           <Sphere />
         </Canvas>
       </div>
 
+      {/* Particle field overlay */}
+      <div className="absolute inset-x-0 top-0 pointer-events-none" style={{ height: "100vh", zIndex: 1 }}>
+        <ParticleField />
+      </div>
+
       {/* Content */}
-      <div className="relative z-10 max-w-[1000px] mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-[1000px] mx-auto px-6 text-center" style={{ position: "absolute", top: "50vh", left: "50%", transform: "translate(-50%, -50%)", width: "100%" }}>
         {/* Top tag */}
         <div className="mb-12">
           <span className="font-mono text-xs uppercase tracking-widest text-white/30">
@@ -161,7 +220,7 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <div ref={headlineRef} className="mb-8">
+        <div ref={headlineRef} id="hero-headline" className="mb-8">
           <div className="block font-display font-black text-white leading-none" style={{
             fontSize: "clamp(64px, 10vw, 140px)",
             letterSpacing: "-0.04em",
@@ -189,12 +248,12 @@ export default function Hero() {
         </div>
 
         {/* Subheadline */}
-        <p className="subheadline font-sans font-normal text-lg text-white/40 max-w-lg mx-auto mb-12">
+        <p id="hero-sub" className="subheadline font-sans font-normal text-lg text-white/40 max-w-lg mx-auto mb-12">
           Not a template shop. Not a disappearing freelancer.
         </p>
 
         {/* CTAs */}
-        <div className="ctas flex flex-col sm:flex-row gap-4 justify-center mb-16">
+        <div id="hero-ctas" className="ctas flex flex-col sm:flex-row gap-4 justify-center mb-16">
           <Link
             to="/contact"
             className="bg-[#7C3AED] text-white font-bold text-sm px-8 py-4 rounded-xl hover:opacity-90 transition-opacity"
@@ -212,7 +271,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator (viewport-bottom) */}
-      <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10">
+      <div className="scroll-indicator absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-10" style={{ top: "calc(100vh - 80px)" }}>
           <span className="font-mono text-xs text-white/20 uppercase tracking-wider">
             SCROLL
           </span>
