@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import SplitText from "@/components/ui/SplitText";
 
 const steps = [
   { n: "01", name: "Discovery", d: "We learn about your goals before designing anything." },
@@ -14,9 +13,9 @@ export default function Process() {
     <section className="grid grid-cols-1 lg:grid-cols-2">
       <div className="bg-brand-base p-8 sm:p-16 md:p-20 flex flex-col justify-center">
         <span className="label-eyebrow text-violet mb-4">Process</span>
-        <SplitText as="h2" className="font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>
+        <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>
           How an Engagement Works
-        </SplitText>
+        </h2>
         <p className="text-ink-muted text-base mt-6 max-w-md">You stay in control at every stage. No surprises.</p>
         <div className="mt-8 flex flex-row gap-1.5">
           <div className="h-1 w-10 rounded-full bg-violet" />
@@ -37,7 +36,7 @@ export default function Process() {
               <div className="font-display font-extrabold text-[44px] sm:text-[52px] leading-none transition-opacity duration-200 opacity-[0.15] group-hover:opacity-[0.9] shrink-0" style={{ color: "#FFFFFF" }}>{s.n}</div>
               <div>
                 <h3 className="font-display font-bold text-[18px] text-ink-dark">{s.name}</h3>
-                <p className="text-sm text-ink-muted mt-1.5 max-w-sm leading-relaxed">{s.d}</p>
+                <p className="service-desc-reveal text-sm text-ink-muted mt-1.5 max-w-sm leading-relaxed">{s.d}</p>
               </div>
             </motion.div>
           ))}

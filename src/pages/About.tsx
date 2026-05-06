@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SiteShell from "@/components/site/SiteShell";
 import SplitText from "@/components/ui/SplitText";
+import { useTextReveal } from "@/hooks/useTextReveal";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -26,6 +27,9 @@ const values = [
 ];
 
 export default function About() {
+  useTextReveal('.section-headline-reveal', { stagger: 0.05 });
+  useTextReveal('.service-desc-reveal', { stagger: 0.03, start: 'top 90%' });
+
   return (
     <SiteShell>
 
@@ -82,14 +86,14 @@ export default function About() {
           <div style={{ maxWidth: 960, margin: "0 auto" }}>
             <motion.div {...fade(0)}>
               <span className="label-eyebrow text-violet">The story</span>
-              <SplitText as="h2" className="font-display font-extrabold text-ink-dark mt-4 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
+              <h2 className="section-headline-reveal font-display font-extrabold text-ink-dark mt-4 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
                 Why CybiconZ exists.
-              </SplitText>
+              </h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8 md:gap-12">
               <motion.div {...fade(0.1)}>
-                <p className="text-[15px] sm:text-[16px] leading-[1.8] text-ink-dark">
+                <p className="service-desc-reveal text-[15px] sm:text-[16px] leading-[1.8] text-ink-dark">
                   Most businesses face the same problem: their website either looks good but doesn't convert, or it's functional but confusing for the people who need to use it. Either way, it's not doing what it should.
                 </p>
                 <p className="text-[15px] sm:text-[16px] leading-[1.8] mt-6 text-ink-dark">

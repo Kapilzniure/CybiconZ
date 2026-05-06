@@ -53,13 +53,12 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
           </div>
 
           {/* Heading */}
-          <SplitText
-            as="h2"
-            className="font-display font-extrabold text-ink"
+          <h2
+            className="section-headline-reveal font-display font-extrabold text-ink"
             style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em", marginTop: 20 }}
           >
             {heading}
-          </SplitText>
+          </h2>
 <p className="text-white/55" style={{ fontSize: 16, marginTop: 12 }}>
             Straight answers. No runaround.
           </p>

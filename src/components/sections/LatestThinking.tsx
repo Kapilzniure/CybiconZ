@@ -20,13 +20,12 @@ export default function LatestThinking() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <span className="label-eyebrow text-violet">Blog &amp; News</span>
-            <SplitText
-              as="h2"
-              className="font-display font-extrabold mt-3"
+            <h2
+              className="section-headline-reveal font-display font-extrabold mt-3"
               style={{ fontSize: "clamp(28px, 4vw, 42px)", letterSpacing: "-0.03em", color: "#0A0B14" }}
             >
               Latest Thinking
-            </SplitText>
+            </h2>
           </div>
           <Link
             to="/blog"

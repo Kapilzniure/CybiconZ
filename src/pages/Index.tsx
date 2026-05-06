@@ -12,8 +12,12 @@ import FAQ from "@/components/sections/FAQ";
 import LatestThinking from "@/components/sections/LatestThinking";
 import ClosingCTA from "@/components/sections/ClosingCTA";
 import { SectionBridge } from "@/components/ui/SectionBridge";
+import { useTextReveal } from "@/hooks/useTextReveal";
 
 export default function Index() {
+  useTextReveal('.section-headline-reveal', { stagger: 0.05 });
+  useTextReveal('.service-desc-reveal', { stagger: 0.03, start: 'top 90%' });
+
   return (
     <SiteShell>
       <Hero />

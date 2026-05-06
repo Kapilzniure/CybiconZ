@@ -21,7 +21,7 @@ export default function Portfolio() {
               <span className="w-4 h-px bg-violet" />
               <span className="label-eyebrow text-violet">Selected Work</span>
             </div>
-            <SplitText as="h2" className="font-display font-extrabold text-ink-dark leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>Work That Delivers.</SplitText>
+            <h2 className="section-headline-reveal font-display font-extrabold text-ink-dark leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>Work That Delivers.</h2>
           </div>
           <div className="flex gap-2 flex-wrap">
             {tabs.map(t => (

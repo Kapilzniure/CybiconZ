@@ -30,7 +30,7 @@ export default function Testimonials() {
     <section className="surface-light py-[100px]">
       <div className="container">
         <span className="label-eyebrow text-[#7C3AED]">Testimonials</span>
-        <SplitText as="h2" className="font-display font-extrabold text-ink-dark mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>What Our Clients Say.</SplitText>
+        <h2 className="section-headline-reveal font-display font-extrabold text-ink-dark mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>What Our Clients Say.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {items.map((t, i) => (
             <motion.div key={i}

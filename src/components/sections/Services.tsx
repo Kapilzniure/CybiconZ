@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { services } from "@/data/services";
 import { Link } from "react-router-dom";
-import SplitText from "@/components/ui/SplitText";
 
 import type { Variants } from "framer-motion";
 
@@ -16,18 +15,21 @@ const panelVariants: Variants = {
 
 export default function Services() {
   return (
-    <section className="bg-[#060608] overflow-hidden">
+    <section className="bg-[#060608] overflow-hidden relative">
+      {/* Violet atmospheric glow */}
+      <div aria-hidden style={{ position: "absolute", top: "-200px", right: "-200px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(124,58,237,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+
       {/* SECTION HEADER */}
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-12 md:pt-[80px] md:pb-[60px] relative">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-12 md:pt-[80px] md:pb-[60px] relative z-10">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-4 h-0.5 bg-[#7C3AED]" />
           <span className="font-mono text-[11px] uppercase tracking-wider text-[#7C3AED]">
             What we build
           </span>
         </div>
-        <SplitText as="h2" className="font-display font-extrabold text-white leading-[0.92] tracking-[-0.04em]" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
+        <h2 className="section-headline-reveal font-display font-extrabold text-white leading-[0.92] tracking-[-0.04em]" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
           Services
-        </SplitText>
+        </h2>
         <div className="hidden lg:block absolute right-20 bottom-[60px]">
           <p className="font-sans text-white/50 text-base">
             Every engagement scoped to your situation.

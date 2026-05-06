@@ -16,9 +16,9 @@ export default function CybiLearn() {
         <div className="absolute -top-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.08)", filter: "blur(120px)" }} />
         <div className="relative">
           <span className="inline-block label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20 text-[10px] sm:text-xs">Also from CybiconZ</span>
-          <SplitText as="h2" className="font-display font-extrabold text-ink mt-5 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
+          <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-5 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
             Introducing CybiLearn
-          </SplitText>
+          </h2>
           <SplitText
             as="h3"
             className="font-display font-extrabold mt-1 leading-[0.95]"
