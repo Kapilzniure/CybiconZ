@@ -4,6 +4,8 @@ import { AnimatePresence } from "framer-motion";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useLenis } from "@/hooks/useLenis";
+import Cursor from "@/components/ui/Cursor";
 import Index from "./pages/Index";
 import ServicesPage from "./pages/Services";
 import WorkPage from "./pages/Work";
@@ -19,6 +21,7 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 function AnimatedRoutes() {
+  useLenis();
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
@@ -45,6 +48,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Cursor />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>

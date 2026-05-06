@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const row1 = [
   { i: "⚛️", n: "React", c: "Library" },
   { i: "▲", n: "Next.js", c: "Framework" },
@@ -38,10 +40,16 @@ function Item({ i, n, c }: { i: string; n: string; c: string }) {
 export default function TechStack() {
   return (
     <section className="py-[100px] bg-brand-base overflow-hidden">
-      <div className="container">
+      <motion.div 
+        className="container"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         <span className="label-eyebrow text-violet">Tech</span>
-        <h2 className="font-display font-extrabold text-ink mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.03em" }}>Our Tech Stack</h2>
-      </div>
+        <h2 className="font-display font-extrabold text-ink mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>Our Tech Stack</h2>
+      </motion.div>
       <div className="space-y-3.5">
         <div className="overflow-hidden">
           <div className="flex animate-marquee-fast w-max">

@@ -1,23 +1,32 @@
 import { Link } from "react-router-dom";
 import PostCard from "./PostCard";
 import { posts } from "@/data/posts";
+import { motion } from "framer-motion";
+import SplitText from "@/components/ui/SplitText";
 
 const featured = posts.slice(0, 3);
 
 export default function LatestThinking() {
   return (
     <section className="surface-light" style={{ padding: "80px 0" }}>
-      <div className="container">
+      <motion.div 
+        className="container"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         {/* Header row */}
         <div className="flex items-end justify-between mb-10">
           <div>
-            <span className="label-eyebrow text-amber">Blog &amp; News</span>
-            <h2
+            <span className="label-eyebrow text-violet">Blog &amp; News</span>
+            <SplitText
+              as="h2"
               className="font-display font-extrabold mt-3"
               style={{ fontSize: "clamp(28px, 4vw, 42px)", letterSpacing: "-0.03em", color: "#0A0B14" }}
             >
               Latest Thinking
-            </h2>
+            </SplitText>
           </div>
           <Link
             to="/blog"
@@ -45,7 +54,7 @@ export default function LatestThinking() {
             View all posts →
           </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

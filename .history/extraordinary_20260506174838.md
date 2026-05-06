@@ -1,0 +1,519 @@
+# CybiconZ — Making It Extraordinary
+# What MDX does, what's achievable, and the exact plan
+
+---
+
+## WHAT MDX ACTUALLY DOES (the real techniques)
+
+### 1. Lenis smooth scroll
+Not GSAP. Just Lenis — a free, lightweight smooth scroll library.
+This alone makes any site feel 10x more premium.
+One npm install changes how the entire site feels.
+npm install @studio-freight/lenis
+
+### 2. GSAP text split animations  
+Headlines animate character by character.
+Not fade-up — each letter slides up from below a clip mask.
+This is what makes "Design That Feels." look alive.
+gsap + @gsap/react + ScrollTrigger (free tier works)
+
+### 3. Custom cursor
+A 40px circle that follows with lag.
+Morphs: grows on hover, changes color on colored sections.
+Blend-mode: mix-blend-mode difference — inverts color against background.
+This single element makes the site feel like a living product.
+
+### 4. One hero visual — a 3D sphere/globe
+Not complex. A Three.js sphere with rotation.
+The "wow" is the surrounding design, not the sphere itself.
+Dark background, soft purple glow behind it, text in front.
+
+### 5. Extreme typographic scale
+MDX uses massive type — "Design That Feels." takes up 40% of the viewport.
+Not just big. Letterforms as visual elements.
+The type IS the design.
+
+### 6. Dark + one glow color
+MDX uses: pure black + soft purple-blue ambient glow.
+Not multiple colors. Not gradients on buttons.
+One ambient color, extremely restrained.
+
+---
+
+## WHAT'S ACHIEVABLE FOR CYBICONZ
+
+### Achievable in 1-2 weeks with Claude Code:
+✅ Lenis smooth scroll — 30 minutes, massive impact
+✅ Custom cursor with morph — 2-3 hours
+✅ GSAP text split on headlines — 1 day
+✅ Hero with proper 3D object — 1 day  
+✅ Extreme typography scale — config change
+✅ Color restraint — remove extra colors, go deep dark + one glow
+
+### NOT achievable reliably with AI prompts:
+❌ Full smooth-scroll section snapping (complex GSAP ScrollTrigger)
+❌ Custom WebGL shaders
+❌ MDX's exact scroll-hijacking behavior
+❌ Particle systems
+❌ Video showreel with custom player
+
+---
+
+## THE CYBICONZ EXTRAORDINARY PLAN
+
+### The philosophy shift
+MDX's headline: "Design That Feels. Experiences That Resonate."
+It's emotional language. Not "we build websites."
+
+CybiconZ's current headline: "CybiconZ Builds. Digital Products."
+This is functional. It doesn't make you FEEL anything.
+
+For CybiconZ to feel extraordinary, the words need to change too.
+New hero direction:
+  Line 1: "We build"
+  Line 2: "digital experiences"
+  Line 3: "that matter."
+
+
+The typography approach: each line animates in character by character.
+The TYPE is the visual. Less decoration, more presence.
+
+---
+
+## THE 5 UPGRADES THAT WILL TRANSFORM THE SITE
+
+### UPGRADE 1: Lenis Smooth Scroll (30 min — highest ROI)
+
+This is the single change that makes the most difference.
+Lenis intercepts scroll events and applies smooth easing.
+The page glides instead of jumping.
+
+Install: npm install @studio-freight/lenis
+Wrap in main.tsx or App.tsx
+
+```tsx
+// src/hooks/useLenis.ts
+import { useEffect } from 'react'
+import Lenis from '@studio-freight/lenis'
+
+export function useLenis() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    })
+
+    function raf(time: number) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    return () => lenis.destroy()
+  }, [])
+}
+```
+
+Call useLenis() in App.tsx. Done. Entire site transforms.
+
+---
+
+### UPGRADE 2: Custom Cursor (2 hours — makes site feel alive)
+
+```tsx
+// src/components/ui/Cursor.tsx
+// A custom cursor that:
+// - Follows mouse with lag (spring physics)
+// - Small dot: 8px, follows instantly
+// - Large ring: 40px, follows with 0.15s lag
+// - On hovering links/buttons: ring grows to 60px, fills slightly
+// - mix-blend-mode: difference on the dot — inverts whatever color is behind it
+// - On hovering images: ring morphs to show "View" text
+
+The cursor hides the default CSS cursor:
+* { cursor: none; }
+Applied globally.
+
+This works on desktop only. On touch devices: disabled.
+```
+
+---
+
+### UPGRADE 3: GSAP Text Animations (1 day — MDX's signature)
+
+Every H1 and H2 animates character by character or word by word.
+
+```
+Install: npm install gsap @gsap/react
+
+Technique — word split reveal:
+1. Take headline text
+2. Wrap each word in a span
+3. Each word has overflow:hidden wrapper
+4. Each word starts at translateY(110%) — hidden below clip
+5. On scroll/mount: each word animates to translateY(0)
+6. Stagger: 0.06s between words
+7. Duration: 0.8s
+8. Easing: power3.out
+
+This is exactly what MDX does with "Design That Feels."
+Each word rises up from below like it's emerging.
+
+Apply to: Hero H1, every section H2
+```
+
+---
+
+### UPGRADE 4: Hero Reimagined — Emotion First
+
+MDX's hero works because it makes you feel something before you understand anything.
+"Design That Feels." — you feel it before you think about it.
+
+CybiconZ's hero needs the same shift.
+
+New hero concept:
+- Full black background. No grid overlay. No ambient orbs. Pure darkness.
+- Center-aligned (not left-aligned — MDX is centered)
+- Small tag top-center: "Digital Agency · Tokyo" — DM Mono, dim white
+- H1 (takes up 50%+ of viewport height):
+  Line 1: "We build" — Bricolage 900, massive, white
+  Line 2: "digital products" — same size, but color: transparent with white stroke (outline text)
+  Line 3: "that work." — same size, white
+- Below headline: one sentence, centered, muted
+- Two CTAs centered below
+- Background: behind the text, a very subtle 3D sphere (Three.js)
+  - The sphere is background element, not hero
+  - Dark purple, barely visible, rotates extremely slowly
+  - Creates depth without competing with text
+- Scroll indicator: "Scroll" in DM Mono + animated line extending down
+
+The outline text on line 2 creates the same contrast MDX uses.
+White / Outline / White — the middle line creates visual tension.
+
+---
+
+### UPGRADE 5: Color Reduction — More Restraint = More Aura
+
+Current CybiconZ: violet gradient + amber + cyan + emerald + pink
+MDX: black + one blue-purple ambient glow
+
+The multiple colors are fighting for attention.
+When you reduce to fewer colors, each one means more.
+
+New palette — 3 colors maximum:
+  Background:  #060608  (near-pure black, very slight blue tint)
+  Text:        #F0EEFF  (very slightly purple-white — not pure white)
+  Accent:      #7C3AED  (violet — ONE accent color, used sparingly)
+  
+  The violet appears ONLY on:
+  - CTA buttons (background)
+  - Logo Z
+  - Eyebrow labels
+  - One element per section maximum
+  
+  Everything else: black and white.
+
+This is the most counterintuitive advice: removing colors makes it look MORE impressive.
+MDX proves this. Cornor Tech proves this. Apple proves this.
+
+---
+
+## THE PROMPT SEQUENCE — DO THIS ORDER
+
+### PROMPT A — Lenis Smooth Scroll
+```
+Read CLAUDE.md.
+
+Install Lenis smooth scroll and apply it to the entire site.
+
+Run: npm install @studio-freight/lenis
+
+Create: src/hooks/useLenis.ts
+
+Content:
+import { useEffect } from 'react'
+import Lenis from '@studio-freight/lenis'
+
+export function useLenis() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+    })
+
+    function raf(time: number) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    
+    const rafId = requestAnimationFrame(raf)
+    return () => {
+      cancelAnimationFrame(rafId)
+      lenis.destroy()
+    }
+  }, [])
+}
+
+In App.tsx or main layout component:
+- Import and call useLenis() at the top level
+- Add to index.css: html.lenis { height: auto; }
+- Add to index.css: .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+Also add to index.css:
+* { cursor: none; }
+(We will add custom cursor in next step)
+
+Test: run dev server. Scroll should now feel silky smooth.
+If Framer Motion scroll animations break, they need lenis.on('scroll', ScrollTrigger.update)
+— flag this if it happens, don't fix it yet.
+
+Only change: Lenis setup + cursor:none. Nothing else.
+```
+
+### PROMPT B — Custom Cursor
+```
+Read CLAUDE.md.
+
+Create a custom cursor component at src/components/ui/CustomCursor.tsx
+
+The cursor has two elements:
+1. Small dot: 10px circle, bg white, position fixed, z-index 9999, pointer-events none
+   Follows mouse instantly (no lag)
+   mix-blend-mode: difference — this inverts the background color
+   
+2. Ring: 36px circle, transparent bg, border 1.5px solid rgba(255,255,255,0.4)
+   position fixed, z-index 9998, pointer-events none
+   Follows mouse with lag using lerp:
+   ringX += (mouseX - ringX) * 0.12
+   ringY += (mouseY - ringY) * 0.12
+   Update with requestAnimationFrame
+   transform: translate(mouseX - 18px, mouseY - 18px)
+
+HOVER STATES:
+Add a global cursor state using React context or simple event listeners:
+When mouse enters ANY of these: a, button, [role="button"], .card-hover
+  - Dot: scale up to 2x
+  - Ring: scale up to 56px, border becomes 1px rgba(255,255,255,0.2), 
+          bg rgba(255,255,255,0.05)
+  - Transition: 0.3s ease
+
+When mouse leaves:
+  - Both return to default
+  - Transition: 0.3s ease
+
+On mobile/touch (prefers-pointer: coarse):
+  - Do not render cursor component
+  - Remove cursor:none from those devices
+  In index.css:
+  @media (pointer: coarse) {
+    * { cursor: auto !important; }
+  }
+
+Add <CustomCursor /> to App.tsx, rendered once at root level.
+
+Use requestAnimationFrame loop for smooth movement.
+Do not use framer-motion for the cursor — use direct DOM manipulation via useRef.
+This is faster and won't cause React re-render lag.
+```
+
+### PROMPT C — Hero Reimagined
+```
+Read CLAUDE.md and docs/DESIGN_SYSTEM.md.
+
+Completely reimagine the Hero section. This is the most important change.
+
+Replace src/components/sections/Hero.tsx entirely with this concept:
+
+LAYOUT: Full viewport, centered content (not left-aligned), dark pure background
+
+Background: #060608
+No grid overlay
+No ambient orbs initially — just pure dark
+
+Behind the headline text (position absolute, centered, z-index 0):
+  A Three.js canvas, 600px x 600px
+  Scene: SphereGeometry(2.5, 64, 64)
+  Material: MeshPhongMaterial({
+    color: 0x1a0a3e,
+    shininess: 15,
+    transparent: true,
+    opacity: 0.6,
+    wireframe: false
+  })
+  Additional: wireframe sphere at same position, opacity 0.06, color 0x7C3AED
+  This creates: solid dark sphere with subtle wireframe overlay
+  Lights: PointLight(0x7C3AED, 2, 10) from top-right
+           AmbientLight(0xffffff, 0.1)
+  Animation: sphere.rotation.y += 0.001, sphere.rotation.x += 0.0003
+  Very slow. Background element only.
+  The sphere is intentionally dim — it creates depth, not spectacle.
+
+CONTENT (position relative, z-index 1, centered, max-w 1000px):
+
+Top tag (mb-12):
+  "Digital Agency · Tokyo, Japan"
+  DM Mono 12px, rgba(255,255,255,0.3), letter-spacing 0.2em, uppercase, centered
+
+HEADLINE (centered, mb-8):
+  Line 1: "We build" 
+    Bricolage Grotesque 900
+    font-size: clamp(64px, 10vw, 140px)
+    color: #F0EEFF (white)
+    letter-spacing: -0.04em
+    line-height: 0.9
+    display: block
+
+  Line 2: "digital products"
+    Same size, same font
+    color: transparent
+    -webkit-text-stroke: 1.5px rgba(240,238,255,0.4)
+    This is the outline text — same trick MDX uses
+    Creates tension between line 1 and line 3
+
+  Line 3: "that work."
+    Same size, same font
+    color: #F0EEFF
+    "." at end is important — adds finality and confidence
+
+All 3 lines animate in using GSAP if installed, or Framer Motion clip-path:
+  initial: clipPath "inset(100% 0 0 0)", y: 20
+  animate: clipPath "inset(0% 0 0 0)", y: 0
+  Stagger: 0.15s between lines
+
+SUBHEADLINE (centered, mb-12):
+  "Not a template shop. Not a disappearing freelancer."
+  Plus Jakarta 400, 18px, rgba(255,255,255,0.4), max-w-lg, centered
+  Fade in after headline, delay 0.5s
+
+CTAs (centered, flex gap-4, mb-16):
+  Primary: "Start a Project" — bg #7C3AED, white 700 15px, px-8 py-4, rounded-xl
+  Secondary: "See our work" — border 1px rgba(255,255,255,0.15), white 600 15px, px-8 py-4, rounded-xl
+
+SCROLL INDICATOR (bottom-center, absolute, bottom: 40px):
+  DM Mono 10px "SCROLL" rgba(255,255,255,0.2) uppercase tracking-wider
+  Below: animated line that extends down, then fades, loops
+
+REMOVE:
+- Left/right column layout
+- The browser device mockup
+- All 3 floating cards (A, B, C)
+- The stats row
+- The availability badge
+
+The new hero is MINIMAL. The type carries everything.
+Less is more. MDX proves this.
+```
+
+### PROMPT D — Color Restraint
+```
+Read CLAUDE.md and docs/DESIGN_SYSTEM.md.
+
+Reduce the color system to create more visual restraint and aura.
+MDX uses near-pure black + one accent. We are doing the same.
+
+Update docs/DESIGN_SYSTEM.md first — change the accent section to:
+
+Primary accent: #7C3AED (violet only — no gradient)
+NO secondary accents per section
+NO amber, cyan, emerald, pink on decorative elements
+
+These colors are ONLY allowed on:
+1. CTA buttons: bg #7C3AED, hover #6D28D9
+2. Logo "Z": color #7C3AED
+3. Eyebrow labels: color rgba(124,58,237,0.8)
+4. Active states and focus rings
+5. The Three.js sphere light
+6. One subtle ambient glow per page (not per section)
+
+REMOVE accent colors from:
+- Process step numbers (make them white at low opacity instead)
+- Stats numbers (make them white, large, no color)
+- Testimonial top bars (make them rgba(255,255,255,0.08) — thin white line)
+- Service panel accent lines (rgba(255,255,255,0.15) — subtle white instead)
+- Section eyebrows (all use rgba(124,58,237,0.7) now — same violet, not different per section)
+
+UPDATE the following files:
+1. Any section with colored numbers → white opacity
+2. Stats section: numbers become white, no gradient text
+3. Testimonials: remove gradient top bars, add single subtle top border
+4. Process steps: numbers rgba(255,255,255,0.15) → rgba(255,255,255,0.9) on hover
+5. Service panels: remove colored sweep line, add white sweep line at 20% opacity
+
+Also update background colors:
+bg-page: #060608 (slightly darker, more like MDX)
+bg-card: #0C0C12
+bg-raised: #111118
+
+After changes, verify:
+- Navbar CTA button still violet (correct)
+- Logo Z still violet (correct)  
+- All other elements are now black/white only
+- Site still reads as premium (it will — restraint = premium)
+
+Update docs/DESIGN_SYSTEM.md to reflect new color rules.
+```
+
+### PROMPT E — Typography Scale
+```
+Read CLAUDE.md and docs/DESIGN_SYSTEM.md.
+
+Increase the typographic scale to MDX level.
+MDX's headlines are enormous — they take up real visual space.
+
+Update these values across the entire site:
+
+HERO H1: 
+Current: clamp(56px, 8vw, 112px)
+New: clamp(64px, 10vw, 140px)
+This is the new hero after Prompt C — already applied there
+
+SECTION H2 (all section headlines):
+Current: clamp(36px, 5vw, 64px)
+New: clamp(40px, 6vw, 80px)
+letter-spacing: -0.04em (tighter than current)
+line-height: 0.95 (tighter — MDX headlines are very tight)
+
+IMPACT NUMBERS (stats, large callouts):
+Current: 72px
+New: 96px on desktop
+These should feel massive and confident
+
+EYEBROW LABELS:
+Current: 11-12px
+Keep the same — they work as contrast to the large headlines
+
+BODY TEXT:
+Current: 15-17px
+New: 16-18px on desktop — slightly more generous
+line-height: 1.8 (more airy — MDX body text breathes)
+
+Apply these changes by updating:
+1. Tailwind config fontSize values
+2. Any hardcoded font sizes in components
+3. Check every H2 on every page renders correctly at new size
+4. Verify mobile sizes still work (clamp handles this)
+
+After applying, the site should feel more architectural — 
+like the typography is structural, not decorative.
+```
+
+---
+
+## FINAL THOUGHT — THE REAL DIFFERENCE
+
+MDX's site took 6-12 months to reach that level.
+Marcelo (the founder) is a professional motion designer and developer.
+
+But here's what's true: the techniques are learnable and some are simple.
+Lenis = 30 minutes. Custom cursor = 2 hours. Text split = 1 day.
+
+These three upgrades alone will make CybiconZ feel like a completely different website.
+
+The rest — restraint, scale, emotion-first copy — are design decisions, not code.
+They cost nothing and change everything.
+
+Do the prompts in order A → B → C → D → E.
+After each one: look at the result. Feel it. Then continue.

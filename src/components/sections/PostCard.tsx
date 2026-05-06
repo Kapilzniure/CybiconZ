@@ -14,7 +14,7 @@ export default function PostCard({ post }: { post: Post }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group block bg-white rounded-2xl overflow-hidden"
+      className="group block bg-white rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-2xl"
       style={{
         border: "1px solid rgba(0,0,0,0.08)",
         boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
@@ -25,7 +25,7 @@ export default function PostCard({ post }: { post: Post }) {
         <img
           src={post.image}
           alt={post.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+          className="w-full h-full object-cover transition-transform duration-500"
         />
         <span
           className="absolute top-3 left-3 text-white text-[11px] font-medium px-2.5 py-1 rounded-full"

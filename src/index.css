@@ -14,26 +14,26 @@
 
 @layer base {
   :root {
-    /* Brand surfaces (dark by default) */
-    --bg-base: 230 28% 4%;       /* #07080E */
-    --bg-card: 233 38% 8%;       /* #0D0E1C — purple tinted */
-    --bg-raised: 232 30% 11%;    /* #131524 */
-    --bg-hover: 230 26% 14%;     /* #191C2E */
+    /* Brand surfaces */
+    --bg-base: 240 14% 3%;       /* #060608 — near-pure black, slight blue */
+    --bg-card: 240 15% 5%;       /* #080810 */
+    --bg-raised: 240 14% 8%;     /* #0D0D15 */
+    --bg-hover: 240 13% 11%;     /* #19191F */
 
-    --bg-light: 250 100% 98.4%;  /* #F8F6FF — warmer purple-white */
+    --bg-light: 250 100% 98.4%;  /* #F8F6FF */
     --bg-light-card: 0 0% 100%;
 
-    --text-white: 245 60% 95%;   /* #EDECFA */
+    --text-white: 247 100% 97%;  /* #F0EEFF — slightly purple-white */
     --text-muted: 234 14% 49%;   /* #6B6E8F */
     --text-dark: 232 33% 6%;     /* #0A0B14 */
 
-    --accent-from: 263 70% 50%;  /* #6D28D9 — deeper */
-    --accent-mid: 272 81% 56%;   /* #9333EA — deeper */
-    --accent-to: 333 71% 51%;    /* #DB2777 — deeper */
+    --accent-from: 262 83% 58%;  /* #7C3AED — violet */
+    --accent-mid: 262 83% 58%;   /* #7C3AED — violet (single accent) */
+    --accent-to: 262 83% 58%;    /* #7C3AED — violet (no more pink) */
 
-    --cyan: 188 94% 43%;         /* #06B6D4 */
-    --amber: 38 92% 50%;         /* #F59E0B */
-    --emerald: 160 84% 39%;      /* #10B981 */
+    --cyan: 188 94% 43%;         /* kept for compat, unused in UI */
+    --amber: 38 92% 50%;         /* kept for compat, unused in UI */
+    --emerald: 160 84% 39%;      /* kept for compat, unused in UI */
 
     /* shadcn semantic tokens — mapped to dark scheme */
     --background: var(--bg-base);
@@ -60,13 +60,23 @@
 }
 
 @layer base {
-  * { @apply border-border/[0.09]; }
-  html { scroll-behavior: smooth; }
+  * { @apply border-border/[0.09]; cursor: none; }
+  html { scroll-behavior: auto; }
   body {
     background: hsl(var(--bg-base));
     color: hsl(var(--text-white));
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+  }
+  /* Lenis smooth scroll support */
+  html.lenis { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  /* Restore functional cursors */
+  input, textarea, [contenteditable] { cursor: text !important; }
+  select { cursor: pointer !important; }
+  /* Touch devices: restore default cursor everywhere */
+  @media (pointer: coarse) {
+    * { cursor: auto !important; }
   }
   ::selection { background: hsl(var(--accent-mid) / 0.35); color: white; }
 }

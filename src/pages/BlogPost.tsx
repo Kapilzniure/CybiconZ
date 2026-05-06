@@ -21,10 +21,10 @@ export default function BlogPost() {
       {/* Dark header */}
       <section
         className="relative overflow-hidden"
-        style={{ background: "#07080E", padding: "80px 0 60px" }}
+        style={{ background: "#060608", padding: "80px 0 60px" }}
       >
         <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(109,40,217,0.1)", filter: "blur(100px)" }} />
+        <div className="absolute -top-24 -right-24 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.1)", filter: "blur(100px)" }} />
         <div className="container relative" style={{ maxWidth: 720 }}>
           <Link to="/blog" className="text-sm text-ink-muted hover:text-ink transition-colors">
             ← Back to Blog
@@ -72,8 +72,8 @@ export default function BlogPost() {
           <div
             className="rounded-2xl"
             style={{
-              background: "rgba(109,40,217,0.06)",
-              border: "1px solid rgba(109,40,217,0.15)",
+              background: "rgba(124,58,237,0.06)",
+              border: "1px solid rgba(124,58,237,0.15)",
               padding: "28px 32px",
             }}
           >

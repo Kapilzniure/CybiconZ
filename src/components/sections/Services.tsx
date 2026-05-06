@@ -1,61 +1,157 @@
 import { motion } from "framer-motion";
 import { services } from "@/data/services";
 import { Link } from "react-router-dom";
+import SplitText from "@/components/ui/SplitText";
+
+const panelVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+  },
+};
 
 export default function Services() {
-  const items = services;
   return (
-    <section className="surface-light relative py-[100px] overflow-hidden">
-      <div aria-hidden className="absolute right-0 top-20 font-display font-extrabold pointer-events-none select-none" style={{ fontSize: "clamp(120px, 18vw, 260px)", color: "rgba(0,0,0,0.025)", letterSpacing: "-0.05em" }}>SERVICES</div>
-      <div className="container relative">
-        <div className="grid md:grid-cols-2 gap-10 mb-16">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-4 h-px bg-violet" />
-              <span className="label-eyebrow text-violet">What we build</span>
-            </div>
-            <h2 className="font-display font-extrabold text-ink-dark leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>
-              We Build Digital Products That Actually Work
-            </h2>
-          </div>
-          <div className="md:pt-16">
-            <p className="text-[15px] text-ink-muted max-w-sm leading-relaxed">
-              Real engagements with real businesses. We pick projects we can deliver with care, and we stay accountable from kickoff to handoff.
-            </p>
-            <Link to="/services" className="inline-flex items-center gap-1 mt-5 text-[13px] font-bold transition-opacity hover:opacity-75" style={{ color: "hsl(var(--accent-from))" }}>
-              View all services →
-            </Link>
-          </div>
+    <section className="bg-[#060608] overflow-hidden">
+      {/* SECTION HEADER */}
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-12 md:pt-[80px] md:pb-[60px] relative">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-4 h-0.5 bg-[#7C3AED]" />
+          <span className="font-mono text-[11px] uppercase tracking-wider text-[#7C3AED]">
+            What we build
+          </span>
         </div>
+        <SplitText as="h2" className="font-display font-extrabold text-white leading-[0.92] tracking-[-0.04em]" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
+          Services
+        </SplitText>
+        <div className="hidden lg:block absolute right-20 bottom-[60px]">
+          <p className="font-sans text-white/50 text-base">
+            Every engagement scoped to your situation.
+          </p>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {items.map((s, i) => (
-            <motion.div key={s.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
-              className="group [perspective:900px]"
-            >
-              <Link to="/services" className="block bg-white rounded-2xl overflow-hidden shadow-poster transition-all duration-[450ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] [transform:perspective(900px)_rotateY(-15deg)_rotateX(6deg)] group-hover:[transform:perspective(900px)_rotateY(0deg)_rotateX(0deg)_translateY(-8px)] group-hover:shadow-poster-hover">
-                <div className="relative aspect-[3/2] overflow-hidden">
-                  <img src={s.image} alt={s.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]" loading="lazy" />
-                  <span className="absolute top-3 left-3 bg-black/45 backdrop-blur text-white text-[10px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider">{s.category}</span>
-                  {s.popular && <span className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ background: "#F59E0B", color: "#0A0B14" }}>Popular</span>}
-                </div>
-                <div className="h-1" style={{ background: s.gradient }} />
-                <div className="p-5">
-                  <div className="font-mono text-[10px] uppercase tracking-wider mb-2" style={{ color: s.accent }}>{s.category}</div>
-                  <h3 className="font-display font-bold text-[18px] text-ink-dark">{s.name}</h3>
-                  <p className="text-[13px] text-ink-muted mt-2 leading-[1.65]">{s.description}</p>
-                  <div className="mt-4 inline-flex items-center gap-1 text-[12px] font-bold transition-all" style={{ color: s.accent }}>
-                    Get Started
-                    <span className="transition-all group-hover:ml-1">→</span>
+      {/* SERVICE PANELS */}
+      <div className="flex flex-col">
+        {services && services.length > 0 ? services.map((service) => (
+          <motion.div
+            key={service.id}
+            variants={panelVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-10%" }}
+            className="group relative w-full h-[260px] sm:h-[360px] lg:h-[420px] overflow-hidden border-b border-white/5 last:border-b-0 cursor-pointer transition-all duration-[250ms] ease-in-out hover:-translate-y-[6px]"
+          >
+            <Link to="/services" className="absolute inset-0 block z-40 md:z-auto" />
+            
+            {/* 1. Background image layer */}
+            <div className="absolute inset-0">
+              <img 
+                src={service.image} 
+                alt={service.name}
+                className="w-full h-full object-cover transition-transform duration-500"
+              />
+            </div>
+
+            {/* 2. Gradient overlay layer */}
+            <div 
+              className="absolute inset-0" 
+              style={{
+                background: "linear-gradient(105deg, rgba(7,8,14,0.92) 0%, rgba(7,8,14,0.75) 40%, rgba(7,8,14,0.35) 70%, rgba(7,8,14,0.1) 100%)"
+              }}
+            />
+
+            {/* 3. Colored accent line */}
+            <div 
+              className="absolute top-0 left-0 right-0 h-[2px] z-20 origin-left transition-transform duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] scale-x-0 group-hover:scale-x-100"
+              style={{ background: service.gradient }}
+            />
+
+            {/* 4. Content layer */}
+            <div className="absolute inset-0 z-10 flex items-center">
+              <div className="container px-6 md:px-10 lg:px-20 max-w-[1280px] mx-auto w-full relative">
+                
+                {/* Left side content */}
+                <div className="max-w-[600px]">
+                  {/* SERVICE NUMBER + CATEGORY ROW */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <span className="font-mono text-[13px] text-white/25">{service.id}</span>
+                    <div className="w-px h-3.5 bg-white/15" />
+                    <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: '#7C3AED' }}>
+                      {service.category}
+                    </span>
+                  </div>
+
+                  {/* SERVICE NAME */}
+                  <h3 
+                    className="font-display font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-4 transition-transform duration-300 group-hover:translate-x-2"
+                    style={{ fontSize: "clamp(24px, 7vw, 52px)" }}
+                  >
+                    {service.name}
+                  </h3>
+
+                  {/* SERVICE DESCRIPTION - Hidden on mobile */}
+                  <p className="hidden md:block font-sans text-[15px] text-white/55 leading-[1.7] max-w-[420px] mb-6 opacity-0 translate-y-0 transition-all duration-300 delay-[50ms] group-hover:opacity-100 group-hover:-translate-y-1">
+                    {service.description}
+                  </p>
+
+                  {/* BOTTOM ROW */}
+                  <div className="flex items-center gap-6">
+                    {service.popular && (
+                      <div 
+                        className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 rounded-full border"
+                        style={{ 
+                          background: `${service.accent}26`, // 15% opacity
+                          borderColor: `${service.accent}40`, // 25% opacity
+                          color: service.accent 
+                        }}
+                      >
+                        Popular
+                      </div>
+                    )}
+                    
+                    <Link 
+                      to="/services" 
+                      className="hidden md:flex items-center gap-2 font-sans font-semibold text-[14px] text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:gap-3"
+                    >
+                      Learn more
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-all">
+                        <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
-              </Link>
-            </motion.div>
-          ))}
+
+                {/* Right side - Ghost number */}
+                <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
+                  <span className="font-mono font-black text-[180px] text-white/[0.03] leading-none select-none">
+                    {service.id}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )) : (
+          <div className="py-20 text-center text-white/30 font-mono text-sm">
+            No services data found.
+          </div>
+        )}
+      </div>
+
+      {/* FOOTER ROW */}
+      <div className="border-t border-white/10 bg-[#060608] py-6">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="font-sans font-medium text-[14px] text-white/40">
+            5 services. Every one delivered end-to-end.
+          </p>
+          <Link 
+            to="/services" 
+            className="text-gradient font-bold text-[14px] hover:opacity-80 transition-opacity"
+          >
+            View full breakdown →
+          </Link>
         </div>
       </div>
     </section>

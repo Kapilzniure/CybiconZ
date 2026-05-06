@@ -8,10 +8,10 @@ export default function Blog() {
       {/* Dark hero */}
       <section
         className="relative overflow-hidden"
-        style={{ background: "#07080E", padding: "80px 0" }}
+        style={{ background: "#060608", padding: "80px 0" }}
       >
         <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(109,40,217,0.1)", filter: "blur(120px)" }} />
+        <div className="absolute -top-32 right-0 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.1)", filter: "blur(120px)" }} />
         <div className="container relative">
           <span className="label-eyebrow text-violet">Blog &amp; News</span>
           <h1

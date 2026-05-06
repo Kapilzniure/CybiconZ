@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SplitText from "@/components/ui/SplitText";
 
 const faqs = [
   {
@@ -28,7 +29,7 @@ const faqs = [
   },
 ];
 
-export default function FAQ() {
+export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -37,7 +38,13 @@ export default function FAQ() {
       className="bg-brand-base"
       style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "100px 0" }}
     >
-      <div className="container">
+      <motion.div 
+        className="container"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
           {/* Label */}
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -46,13 +53,14 @@ export default function FAQ() {
           </div>
 
           {/* Heading */}
-          <h2
+          <SplitText
+            as="h2"
             className="font-display font-extrabold text-ink"
-            style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.03em", marginTop: 20 }}
+            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em", marginTop: 20 }}
           >
-            Questions We Get Asked
-          </h2>
-          <p className="text-ink-muted" style={{ fontSize: 16, marginTop: 12 }}>
+            {heading}
+          </SplitText>
+<p className="text-white/55" style={{ fontSize: 16, marginTop: 12 }}>
             Straight answers. No runaround.
           </p>
 
@@ -141,7 +149,7 @@ export default function FAQ() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

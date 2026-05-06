@@ -6,22 +6,22 @@ export default function Footer() {
     <footer className="bg-[#050608] dark-texture border-t border-white/5 pt-20 pb-8">
       <div className="container">
         {/* Newsletter */}
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-3xl p-8 mb-16 grid md:grid-cols-2 gap-6 items-center">
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-3xl p-6 md:p-8 mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h3 className="font-display font-bold text-lg text-ink">Stay updated with CybiconZ</h3>
             <p className="text-ink-muted text-sm mt-1">Quarterly notes on what we're shipping. No spam, ever.</p>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="flex gap-3">
-            <input type="email" required placeholder="you@business.com" className="flex-1 bg-brand-base border border-white/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus:outline-none focus:border-violet" />
-            <button className="bg-accent-gradient text-white font-bold text-sm px-5 py-3 rounded-xl">Subscribe</button>
+          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3">
+            <input type="email" required placeholder="you@business.com" className="flex-1 min-h-[48px] bg-brand-base border border-white/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus:outline-none focus:border-violet" />
+            <button className="bg-accent-gradient text-white font-bold text-sm px-5 py-4 sm:py-3 rounded-xl min-h-[48px]">Subscribe</button>
           </form>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 mb-16">
+          <div className="sm:col-span-2 lg:col-span-1">
             <Logo />
-            <p className="text-ink-muted text-sm mt-4 leading-relaxed">A digital agency building real products for real businesses. Not a template shop.</p>
-            <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm mt-3 inline-block">hello@cybiconz.com</a>
+            <p className="text-ink-muted text-sm mt-4 leading-relaxed max-w-sm">A digital agency building real products for real businesses. Not a template shop.</p>
+            <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm mt-4 inline-block font-medium underline underline-offset-4 decoration-white/10 hover:decoration-white/30 transition-all">hello@cybiconz.com</a>
           </div>
           <FooterCol title="Services" links={[
             { label: "Website Development", to: "/services" },
@@ -45,14 +45,18 @@ export default function Footer() {
           ]} />
         </div>
 
-        <div className="border-t border-white/5 pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-white/20 gap-2">
-          <div className="flex items-center gap-3">
-            <span>© 2024 CybiconZ</span><span>·</span>
-            <Link to="#" className="hover:text-white/50">Privacy</Link><span>·</span>
-            <Link to="#" className="hover:text-white/50">Terms</Link>
+        <div className="border-t border-white/5 pt-8 flex flex-col lg:flex-row items-center justify-between text-[11px] sm:text-xs text-white/20 gap-6 text-center lg:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <span>© 2024 CybiconZ</span>
+            <span className="hidden sm:inline">·</span>
+            <Link to="#" className="hover:text-white/50 transition-colors">Privacy</Link>
+            <span className="hidden sm:inline">·</span>
+            <Link to="#" className="hover:text-white/50 transition-colors">Terms</Link>
           </div>
-          <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 12 }}>Designed and built by CybiconZ</div>
-          <div>Infrastructure by <a href="#" className="hover:text-[#A855F7]">ZenHost</a></div>
+          <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 11 }} className="order-first lg:order-none font-medium tracking-wide">DESIGNED AND BUILT BY CYBICONZ</div>
+          <div className="flex items-center gap-2">
+            Infrastructure by <a href="#" className="text-white/30 hover:text-violet transition-colors font-medium">ZenHost</a>
+          </div>
         </div>
       </div>
     </footer>

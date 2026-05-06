@@ -1,12 +1,20 @@
 import SiteShell from "@/components/site/SiteShell";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as const },
+});
 
 const culture = [
-  { c: "#7C3AED", t: "Direct Impact", d: "Small team, real ownership of every project you touch." },
-  { c: "#EC4899", t: "Real Projects", d: "No fake portfolio work. Real clients, real outcomes." },
-  { c: "#06B6D4", t: "Remote Flexible", d: "Async by default. Meetings only when they earn it." },
-  { c: "#10B981", t: "Grow Fast", d: "Generalists welcome. Pick what you want to learn next." },
+  { t: "Direct Impact", d: "Small team, real ownership of every project you touch." },
+  { t: "Real Projects", d: "No fake portfolio work. Real clients, real outcomes." },
+  { t: "Remote Flexible", d: "Async by default. Meetings only when they earn it." },
+  { t: "Grow Fast", d: "Generalists welcome. Pick what you want to learn next." },
 ];
 
 const positions = [
@@ -21,32 +29,35 @@ export default function Careers() {
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute -top-32 left-1/3 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }} />
         <div className="container relative">
-          <span className="inline-block label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20">Join us</span>
-          <h1 className="font-display font-extrabold text-ink mt-5 leading-[0.95] max-w-4xl" style={{ fontSize: "clamp(48px, 8vw, 96px)", letterSpacing: "-0.04em" }}>
+          <motion.span className="inline-block label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20" {...fadeUp(0)}>Join us</motion.span>
+          <motion.h1 className="font-display font-extrabold text-ink mt-5 leading-[0.95] max-w-4xl" style={{ fontSize: "clamp(48px, 8vw, 96px)", letterSpacing: "-0.04em" }} {...fadeUp(0.1)}>
             Build the Future of <span className="text-gradient">Digital.</span>
-          </h1>
-          <p className="text-ink-muted text-lg mt-6 max-w-xl">We hire carefully and treat people like adults. Small team, big ownership, real client work.</p>
+          </motion.h1>
+          <motion.p className="text-ink-muted text-lg mt-6 max-w-xl" {...fadeUp(0.2)}>We hire carefully and treat people like adults. Small team, big ownership, real client work.</motion.p>
         </div>
       </section>
 
-      <section className="surface-light py-[100px]">
+      <section className="surface-light py-16 sm:py-24 lg:py-[100px]">
         <div className="container">
-          <span className="label-eyebrow text-violet">Culture</span>
-          <h2 className="font-display font-extrabold text-ink-dark mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.03em" }}>How we work.</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {culture.map(c => (
-              <div key={c.t} className="bg-white rounded-2xl p-6 shadow-card-light" style={{ borderTop: `3px solid ${c.c}` }}>
+          <motion.span className="label-eyebrow text-violet" {...fadeUp(0)}>Culture</motion.span>
+          <motion.h2 className="font-display font-extrabold text-ink-dark mt-3 mb-10 md:mb-12" style={{ fontSize: "clamp(30px, 5vw, 56px)", letterSpacing: "-0.03em" }} {...fadeUp(0.1)}>How we work.</motion.h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {culture.map((c, i) => (
+              <motion.div key={c.t} 
+                {...fadeUp(0.1 + i * 0.08)}
+                className="bg-white rounded-2xl p-6 shadow-card-light transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl" 
+                style={{ borderTop: "3px solid #7C3AED" }}>
                 <h3 className="font-display font-bold text-lg text-ink-dark">{c.t}</h3>
-                <p className="text-sm text-ink-muted mt-2 leading-relaxed">{c.d}</p>
-              </div>
+                <p className="text-[14px] sm:text-sm text-ink-muted mt-2 leading-relaxed">{c.d}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-[100px]">
-        <div className="container max-w-3xl">
-          <span className="label-eyebrow text-cyan">Open positions</span>
+      <section className="py-16 sm:py-24 lg:py-[100px]">
+        <motion.div className="container max-w-3xl" {...fadeUp(0)}>
+          <span className="label-eyebrow text-violet">Open positions</span>
           <h2 className="font-display font-extrabold text-ink mt-3 mb-10" style={{ fontSize: "clamp(36px, 5vw, 56px)", letterSpacing: "-0.03em" }}>Roles we're hiring for.</h2>
           <Accordion type="single" collapsible className="space-y-3">
             {positions.map((p, i) => (
@@ -55,7 +66,7 @@ export default function Careers() {
                   <div className="flex flex-wrap items-center gap-3 text-left">
                     <span className="font-display font-bold text-ink text-lg">{p.role}</span>
                     <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-violet/15 text-violet">{p.type}</span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan/15 text-cyan">{p.loc}</span>
+                    <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/[0.06] text-ink-muted">{p.loc}</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -77,7 +88,7 @@ export default function Careers() {
             </div>
             <Link to="/contact" className="bg-accent-gradient text-white font-bold text-sm px-5 py-3 rounded-xl whitespace-nowrap">Say hello →</Link>
           </div>
-        </div>
+        </motion.div>
       </section>
     </SiteShell>
   );

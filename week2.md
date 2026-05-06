@@ -166,7 +166,7 @@ Rebuild the Services page at src/pages/Services.tsx with full detail for each se
 Use real content below. No placeholder text except where marked // TODO.
 
 ---
-
+Services page
 PAGE STRUCTURE:
 
 SECTION 1 — HERO (dark, pt-40 pb-24):
@@ -322,7 +322,7 @@ export const EMAILJS_CONFIG = {
 
 // EmailJS setup instructions:
 // 1. Go to https://www.emailjs.com and create free account
-// 2. Add Email Service → connect Gmail → use kapilniure4@gmail.com
+// 2. Add Email Service → connect Gmail → use cybiconz@gmail.com
 // 3. Note the Service ID
 // 4. Create Email Template with these variables:
 //    {{from_name}}, {{from_company}}, {{from_email}}, {{service_needed}},
@@ -358,7 +358,7 @@ LEFT COLUMN — Contact info:
     Icon area: 40px square, bg rgba(124,58,237,0.1), rounded-xl, centered
       SVG: envelope (inline, 20px, #9333EA)
     Label: "Send a brief" — DM Mono 11px uppercase text-muted, mt-4, mb-1
-    Value: "kapilniure4@gmail.com" — Plus Jakarta 600 15px white
+    Value: "cybiconz@gmail.com" — Plus Jakarta 600 15px white
     Sub: "Reply within 1 business day" — 12px text-muted
 
   Card 2 — Status:

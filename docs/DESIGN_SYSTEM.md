@@ -6,9 +6,9 @@
 ## Colors
 
 ### Dark Backgrounds
-bg-page:      #07080E   — base of all dark sections
-bg-card:      #0D0E1C   — cards, raised surfaces in dark
-bg-raised:    #131524   — hover backgrounds, inner surfaces
+bg-page:      #060608   — base of all dark sections
+bg-card:      #0C0C12   — cards, raised surfaces in dark
+bg-raised:    #111118   — hover backgrounds, inner surfaces
 bg-hover:     #191C2E   — deepest raised element
 
 ### Light Backgrounds  
@@ -21,30 +21,26 @@ text-muted:    #6B6E8F  — secondary text on dark
 text-dark:     #0A0B14  — main text on light backgrounds
 text-dark-muted: #6B6E8F — secondary text on light
 
-### Accent (Primary — violet-to-pink gradient)
-accent-from:  #6D28D9
-accent-mid:   #9333EA
-accent-to:    #DB2777
-accent-gradient: linear-gradient(135deg, #6D28D9, #9333EA, #DB2777)
+### Accent (Primary — violet only)
+accent:       #7C3AED  — primary violet accent
 
-Use accent-gradient on:
-- Primary CTA buttons
-- Hero H1 "Builds." text
+Use violet (#7C3AED) on:
+- Primary CTA buttons: bg #7C3AED, hover #6D28D9
 - Logo "Z" character
-- Active nav indicators
-- Selected tab states
-DO NOT use accent-gradient on: backgrounds, borders, large areas
+- Eyebrow labels: color rgba(124,58,237,0.8)
+- Active states and focus rings
+- Subtle ambient glows (one per page, behind text)
 
-### Secondary Accents (one per section)
-violet:   #7C3AED — Services eyebrow, FAQ section
-amber:    #F59E0B — Process step 02, Stats, Blog
-cyan:     #06B6D4 — Process step 03, Tech stack
-emerald:  #10B981 — Process step 04, CybiLearn, availability badge
-pink:     #EC4899 — Process step 01, Stats
+REMOVE secondary accents (amber, cyan, emerald, pink) from:
+- Process step numbers
+- Stats numbers
+- Testimonial top bars
+- Service panel accent lines
+- Section eyebrows (now all use same violet accent)
 
 ### Borders
 border-dark:  rgba(255,255,255,0.09)
-border-light: rgba(0,0,0,0.10)
+border-light: rgba(0,0,0,0.08)
 
 ---
 
@@ -56,10 +52,11 @@ Body:       "Plus Jakarta Sans", sans-serif — weights 400, 500, 600
 Labels:     "DM Mono", monospace — weight 400
 
 ### Type Scale
-Hero H1:     clamp(56px, 8vw, 112px) / 800 / tracking -0.04em / lh 0.92
-Section H2:  clamp(36px, 5vw, 64px) / 800 / tracking -0.03em / lh 1.05
+Hero H1:     clamp(64px, 10vw, 140px) / 900 / tracking -0.04em / lh 0.95
+Section H2:  clamp(40px, 6vw, 80px) / 800 / tracking -0.04em / lh 0.92
+Impact Numbers: 96px desktop / 64px mobile / 600
 Card H3:     20-24px / 700 / tracking -0.01em
-Body large:  17-18px / 400 / lh 1.75
+Body large:  16-18px desktop / 15-16px mobile / lh 1.8
 Body:        15-16px / 400 / lh 1.7
 Label:       11-12px / 600 / uppercase / tracking 0.12em
 Mono label:  11px / DM Mono / uppercase / tracking 0.1em
@@ -67,18 +64,18 @@ Mono label:  11px / DM Mono / uppercase / tracking 0.1em
 ### Section Label Pattern (used everywhere)
 Small eyebrow above every H2:
 - DM Mono 11px uppercase tracking-wider
-- Color: section's accent color
+- Color: #7C3AED (violet)
 - Display: flex, align-items center, gap 10px
 - Before: 16px wide, 2px tall line, same color as text
 
 ---
 
 ## Spacing
-Section vertical padding:  100px desktop / 64px mobile
+Section vertical padding:  100px desktop / 80px tablet / 60px mobile
 Card padding:               24-32px
 Component gap:              20-24px
 Max content width:          1280px
-Horizontal page padding:    80px desktop / 40px tablet / 20px mobile
+Horizontal page padding:    80px desktop / 40px tablet / 24px mobile
 
 ---
 
