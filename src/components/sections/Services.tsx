@@ -1,10 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { services } from "@/data/services";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
+import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 export default function Services() {
+  const velocity = useScrollVelocity();
+  const floatSpeed = Math.max(3, 9 - velocity * 0.3);
+
   useEffect(() => {
     const panels = document.querySelectorAll<HTMLElement>('.service-panel-3d');
     if (!panels.length) return;
@@ -69,15 +74,16 @@ export default function Services() {
   }, []);
 
   return (
-    <section className="bg-[#060608] overflow-hidden relative">
+    <section data-section="services-section" className="bg-[#060608] overflow-hidden relative" style={{ "--float-speed": floatSpeed } as CSSProperties}>
       {/* Violet atmospheric glow */}
-      <div aria-hidden style={{ position: "absolute", top: "-200px", right: "-200px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(124,58,237,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div aria-hidden style={{ position: "absolute", top: "-200px", right: "-200px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <FloatingGeometry variant="ring" color="#4F46E5" size={160} opacity={0.12} position={{ top: '8%', right: '3%' }} speed={9} />
 
       {/* SECTION HEADER */}
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-12 md:pt-[80px] md:pb-[60px] relative z-10">
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-4 h-0.5 bg-[#7C3AED]" />
-          <span className="font-mono text-[11px] uppercase tracking-wider text-[#7C3AED]">
+          <div className="w-4 h-0.5 bg-[#4F46E5]" />
+          <span className="font-mono text-[11px] uppercase tracking-wider text-[#4F46E5]">
             What we build
           </span>
         </div>
@@ -136,7 +142,7 @@ export default function Services() {
                   <div className="flex items-center gap-4 mb-4">
                     <span className="font-mono text-[13px] text-white/25">{service.id}</span>
                     <div className="w-px h-3.5 bg-white/15" />
-                    <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: '#7C3AED' }}>
+                    <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: '#4F46E5' }}>
                       {service.category}
                     </span>
                   </div>

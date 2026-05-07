@@ -27,7 +27,7 @@ export function TransitionOverlay() {
       style={{
         position: 'fixed',
         inset: 0,
-        background: '#6D28D9',
+        background: '#4F46E5',
         opacity: 0,
         pointerEvents: 'none',
         zIndex: 9000,

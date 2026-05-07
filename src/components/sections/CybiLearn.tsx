@@ -11,13 +11,13 @@ const features = [
 
 export default function CybiLearn() {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+    <section data-section="cybilearn-section" className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
       {/* Emerald glow — bottom-left */}
       <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(16,185,129,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       {/* Cyan glow — top-right */}
       <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.06), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       <div className="relative p-8 sm:p-16 md:p-20 flex flex-col justify-center">
-        <div className="absolute -top-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.08)", filter: "blur(120px)" }} />
+        <div className="absolute -top-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.08)", filter: "blur(120px)" }} />
         <div className="relative">
           <span className="inline-block label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20 text-[10px] sm:text-xs">Also from CybiconZ</span>
           <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-5 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
@@ -52,7 +52,7 @@ export default function CybiLearn() {
               style={{
                 background: "#0F0F1C",
                 border: "1px solid rgba(255,255,255,0.07)",
-                borderLeft: "4px solid #7C3AED",
+                borderLeft: "4px solid #4F46E5",
               }}>
               <div className="font-display font-bold text-[15px] sm:text-[16px]" style={{ color: "#F0EEFF" }}>{f.t}</div>
               <div className="text-[12px] sm:text-[13px] mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{f.d}</div>

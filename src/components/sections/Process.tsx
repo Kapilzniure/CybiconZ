@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import type { CSSProperties } from "react";
+import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
+import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 const steps = [
   { n: "01", name: "Discovery", d: "We learn about your goals before designing anything." },
@@ -9,10 +12,14 @@ const steps = [
 ];
 
 export default function Process() {
+  const velocity = useScrollVelocity();
+  const floatSpeed = Math.max(3, 7 - velocity * 0.3);
+
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+    <section data-section="process-section" className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", "--float-speed": floatSpeed } as CSSProperties}>
       {/* Orange glow — bottom-left */}
       <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(249,115,22,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <FloatingGeometry variant="cube" color="#F97316" size={80} opacity={0.15} position={{ bottom: '10%', right: '5%' }} speed={7} />
       <div className="bg-[#060608] p-8 sm:p-16 md:p-20 flex flex-col justify-center relative">
         <span className="label-eyebrow text-violet mb-4">Process</span>
         <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>
@@ -49,7 +56,7 @@ export default function Process() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.65, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 rounded-xl px-5 py-4"
-            style={{ background: "rgba(124,58,237,0.05)", border: "1px solid rgba(124,58,237,0.15)" }}
+            style={{ background: "rgba(79,70,229,0.05)", border: "1px solid rgba(79,70,229,0.15)" }}
           >
             <Link to="/contact" className="flex items-center justify-between group/cta">
               <span className="text-[14px] font-semibold text-[#F0EEFF]">

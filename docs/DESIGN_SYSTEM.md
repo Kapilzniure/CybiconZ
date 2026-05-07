@@ -24,14 +24,15 @@ text-primary:  #F0EEFF  — #EDECFA approx — main text
 text-muted:    rgba(255,255,255,0.4–0.55) — secondary text
 text-subtle:   rgba(255,255,255,0.25) — timestamps, meta labels
 
-### Accent (Primary — violet only)
-accent:       #6D28D9  — primary violet accent (deeper)
-accent-alt:   #7C3AED  — secondary violet (hover/highlights)
+### Accent (Primary — electric indigo)
+accent:       #4F46E5  — primary electric indigo
+accent-hover: #4338CA  — darker on hover
+accent-light: #818CF8  — lighter variant (glows, ghost text)
 
-Use violet (#6D28D9) on:
-- Primary CTA buttons: bg #7C3AED, hover #6D28D9
+Use indigo (#4F46E5) on:
+- Primary CTA buttons: bg #4F46E5, hover #4338CA
 - Logo "Z" character
-- Eyebrow labels: color rgba(124,58,237,0.8)
+- Eyebrow labels: color rgba(79,70,229,0.8)
 - Active states and focus rings
 - Subtle ambient glows (one per page, behind text)
 
@@ -39,7 +40,7 @@ Use violet (#6D28D9) on:
 Large 400-600px radial-gradient overlays positioned behind section content.
 These are background overlays only — NEVER applied to text or borders.
 
-- Hero glow:        rgba(109,40,217,0.15)
+- Hero glow:        rgba(79,70,229,0.15)
 - Services glow:    per-service, rgba, 10-15% opacity
 - Stats glow:       rgba(249,115,22,0.10)  — warm orange
 - Portfolio glow:   rgba(6,182,212,0.10)   — cyan
@@ -71,7 +72,7 @@ Mono label:  11px / DM Mono / uppercase / tracking 0.1em
 ### Section Label Pattern (used everywhere)
 Small eyebrow above every H2:
 - DM Mono 11px uppercase tracking-wider
-- Color: #7C3AED (violet)
+- Color: #4F46E5 (electric indigo)
 - Display: flex, align-items center, gap 10px
 - Before: 16px wide, 2px tall line, same color as text
 
@@ -96,7 +97,7 @@ Input border-radius:      10px
 
 ## Shadows
 All cards:    0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)
-CTA button:   0 8px 32px rgba(109,40,217,0.35)
+CTA button:   0 8px 32px rgba(79,70,229,0.35)
 
 ---
 

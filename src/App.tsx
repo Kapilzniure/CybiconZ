@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -9,6 +9,9 @@ import Cursor from "@/components/ui/Cursor";
 import { Preloader } from "@/components/ui/Preloader";
 import { TransitionOverlay } from "@/components/ui/TransitionOverlay";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { CursorOrb } from "@/components/ui/CursorOrb";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import Index from "./pages/Index";
 import ServicesPage from "./pages/Services";
 import WorkPage from "./pages/Work";
@@ -43,6 +46,12 @@ function AnimatedRoutes() {
 }
 
 const App = () => {
+  const velocity = useScrollVelocity();
+
+  useEffect(() => {
+    ScrollTrigger.config({ limitCallbacks: velocity > 20 });
+  }, [velocity]);
+
   const [showPreloader, setShowPreloader] = useState(() => {
     if (typeof window === "undefined") return false;
     if (sessionStorage.getItem("visited")) return false;
@@ -58,6 +67,7 @@ const App = () => {
         {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
         <BrowserRouter>
           <ScrollProgress />
+          <CursorOrb />
           <Cursor />
           <TransitionOverlay />
           <AnimatedRoutes />

@@ -65,9 +65,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero-section" className="relative flex items-center justify-center overflow-hidden dark-texture" style={{ background: "#060608", minHeight: "140vh", position: "relative" }}>
+    <section id="hero-section" data-section="hero-section" className="relative flex items-center justify-center overflow-hidden dark-texture" style={{ background: "#060608", minHeight: "140vh", position: "relative" }}>
       {/* Violet glow — top-right */}
-      <div aria-hidden style={{ position: "absolute", top: "-150px", right: "-150px", width: "700px", height: "700px", borderRadius: "50%", background: "radial-gradient(rgba(109,40,217,0.15), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div aria-hidden style={{ position: "absolute", top: "-150px", right: "-150px", width: "700px", height: "700px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.15), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       {/* Pink glow — bottom-left */}
       <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.06), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
 

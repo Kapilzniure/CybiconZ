@@ -9,8 +9,8 @@ const featured = posts.slice(0, 3);
 export default function LatestThinking() {
   return (
     <section style={{ background: "#060608", padding: "80px 0", borderTop: "1px solid rgba(255,255,255,0.05)", position: "relative", overflow: "hidden" }}>
-      {/* Soft purple glow — top-right */}
-      <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(168,85,247,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      {/* Soft indigo glow — top-right */}
+      <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(129,140,248,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       <motion.div
         className="container relative"
         initial={{ opacity: 0, y: 20 }}

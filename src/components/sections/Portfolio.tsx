@@ -1,20 +1,26 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import SplitText from "@/components/ui/SplitText";
+import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
+import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 const tabs = ["All", "E-Commerce", "Website", "Marketing"];
 
 export default function Portfolio() {
+  const velocity = useScrollVelocity();
+  const floatSpeed = Math.max(3, 10 - velocity * 0.3);
+
   const [active, setActive] = useState("All");
   const featured = projects.find(p => p.featured)!;
   const others = projects.filter(p => !p.featured);
 
   return (
-    <section className="relative py-[100px] overflow-hidden" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+    <section data-section="portfolio-section" className="relative py-[100px] overflow-hidden" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)", "--float-speed": floatSpeed } as CSSProperties}>
       {/* Cyan glow — top-right */}
       <div aria-hidden style={{ position: "absolute", top: "-100px", right: "-100px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.09), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <FloatingGeometry variant="torus" color="#06B6D4" size={140} opacity={0.10} position={{ top: '5%', right: '4%' }} speed={10} />
       {/* Cyan glow — bottom-left, dimmer */}
       <div aria-hidden style={{ position: "absolute", bottom: "-80px", left: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.04), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       <div aria-hidden className="absolute right-0 top-20 font-display font-extrabold pointer-events-none select-none" style={{ fontSize: "clamp(120px, 18vw, 260px)", color: "rgba(255,255,255,0.018)", letterSpacing: "-0.05em" }}>WORK</div>
@@ -46,7 +52,7 @@ export default function Portfolio() {
               <img src={featured.image} alt={featured.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <span aria-hidden className="absolute -top-4 left-2 font-display font-extrabold text-white/[0.05] hidden sm:block" style={{ fontSize: "240px", letterSpacing: "-0.05em" }}>01</span>
-              <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ color: "#9C62F0", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)" }}>{featured.service}</span>
+              <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ color: "#818CF8", background: "rgba(79,70,229,0.15)", border: "1px solid rgba(79,70,229,0.3)" }}>{featured.service}</span>
             </div>
             <div className="p-8 sm:p-12">
               <div className="font-mono text-[11px] text-ink-muted uppercase tracking-wider">Client · {featured.year}</div>
@@ -54,7 +60,7 @@ export default function Portfolio() {
               <p className="text-[14px] text-ink-muted mt-4 leading-relaxed">{featured.outcome}</p>
               <div className="flex flex-wrap gap-2 mt-6">
                 {["Multi-country", "Multi-currency", "Live since 2024"].map(label => (
-                  <span key={label} className="font-mono text-[10px] sm:text-[11px] px-3 py-1 rounded-full" style={{ background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.3)", color: "#9C62F0" }}>
+                  <span key={label} className="font-mono text-[10px] sm:text-[11px] px-3 py-1 rounded-full" style={{ background: "rgba(79,70,229,0.12)", border: "1px solid rgba(79,70,229,0.3)", color: "#818CF8" }}>
                     {label}
                   </span>
                 ))}

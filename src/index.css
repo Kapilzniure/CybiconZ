@@ -27,9 +27,9 @@
     --text-muted: 234 14% 49%;   /* #6B6E8F */
     --text-dark: 232 33% 6%;     /* #0A0B14 */
 
-    --accent-from: 262 83% 58%;  /* #7C3AED — violet */
-    --accent-mid: 262 83% 58%;   /* #7C3AED — violet (single accent) */
-    --accent-to: 262 83% 58%;    /* #7C3AED — violet (no more pink) */
+    --accent-from: 243 75% 59%;  /* #4F46E5 — electric indigo */
+    --accent-mid: 243 75% 59%;   /* #4F46E5 — electric indigo */
+    --accent-to: 243 75% 59%;    /* #4F46E5 — electric indigo */
 
     --cyan: 188 94% 43%;         /* kept for compat, unused in UI */
     --amber: 38 92% 50%;         /* kept for compat, unused in UI */
@@ -172,7 +172,7 @@
   border-radius: inherit;
   background: linear-gradient(
     135deg,
-    #6D28D9, #A855F7, #EC4899, #6D28D9
+    #4338CA, #818CF8, #EC4899, #4338CA
   );
   background-size: 300% 300%;
   animation: borderRotate 4s ease infinite;
@@ -182,4 +182,17 @@
 }
 .btn-animated-border:hover::before {
   opacity: 1;
+}
+
+@keyframes float3d {
+  0%, 100% { transform: translateY(0px) perspective(400px) rotateX(60deg); }
+  50%       { transform: translateY(-20px) perspective(400px) rotateX(60deg); }
+}
+@keyframes spin3d {
+  from { transform: perspective(400px) rotateX(60deg) rotateZ(0deg); }
+  to   { transform: perspective(400px) rotateX(60deg) rotateZ(360deg); }
+}
+@keyframes rotateCube {
+  from { transform: perspective(400px) rotateX(45deg) rotateY(0deg); }
+  to   { transform: perspective(400px) rotateX(45deg) rotateY(360deg); }
 }

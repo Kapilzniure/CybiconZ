@@ -1,17 +1,24 @@
 import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
+import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 export default function ClosingCTA() {
+  const velocity = useScrollVelocity();
+  const floatSpeed = Math.max(3, 6 - velocity * 0.3);
+
   return (
-    <section className="relative overflow-hidden py-[120px] dark-texture" style={{ background: "linear-gradient(135deg, #060608, #0A0520, #060608)", position: "relative" }}>
+    <section data-section="cta-section" className="relative overflow-hidden py-[120px] dark-texture" style={{ background: "linear-gradient(135deg, #060608, #0A0520, #060608)", position: "relative", "--float-speed": floatSpeed } as CSSProperties}>
       <div className="absolute inset-0 dark-texture pointer-events-none" />
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.18)", filter: "blur(140px)" }} />
-      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.08)", filter: "blur(140px)" }} />
-      {/* Centered violet glow — climax */}
-      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "800px", height: "800px", borderRadius: "50%", background: "radial-gradient(rgba(109,40,217,0.14), transparent 65%)", pointerEvents: "none" }} />
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.18)", filter: "blur(140px)" }} />
+      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.08)", filter: "blur(140px)" }} />
+      {/* Centered indigo glow — climax */}
+      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "800px", height: "800px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.14), transparent 65%)", pointerEvents: "none" }} />
       {/* Pink warmth — top-right */}
       <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.06), transparent 65%)", pointerEvents: "none" }} />
+      <FloatingGeometry variant="cube" color="#4F46E5" size={100} opacity={0.12} position={{ top: '20%', right: '8%' }} speed={6} />
       <motion.div 
         className="container relative max-w-2xl text-center"
         initial={{ opacity: 0, y: 20 }}

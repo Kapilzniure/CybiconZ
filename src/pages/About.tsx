@@ -35,11 +35,11 @@ export default function About() {
     <SiteShell>
 
       {/* ─── SECTION 1: HERO ─────────────────────────────────────────────── */}
-      <section className="relative bg-[#060608] overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24">
+      <section data-section="hero-section" className="relative bg-[#060608] overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24">
         <div className="absolute inset-0 grid-overlay pointer-events-none" />
         <div
           className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }}
+          style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }}
         />
         <div className="container relative">
           <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-12 items-center">
@@ -178,7 +178,7 @@ export default function About() {
                   transformPerspective: "1200px"
                 }}
               >
-                <div className="h-[3px] w-12 rounded-full mb-8" style={{ background: "#7C3AED" }} />
+                <div className="h-[3px] w-12 rounded-full mb-8" style={{ background: "#4F46E5" }} />
                 <h3 className="font-display font-bold text-[20px] sm:text-[22px] text-ink mb-4 leading-tight">{v.title}</h3>
                 <p className="text-[14px] sm:text-[15px] text-ink-muted leading-relaxed">{v.body}</p>
               </motion.div>

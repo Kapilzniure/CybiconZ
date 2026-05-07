@@ -19,8 +19,8 @@ export function ParticleField() {
     if (!ctx) return
 
     const colors = [
-      'rgba(124,58,237,',
-      'rgba(168,85,247,',
+      'rgba(79,70,229,',
+      'rgba(129,140,248,',
       'rgba(6,182,212,',
       'rgba(236,72,153,',
     ]

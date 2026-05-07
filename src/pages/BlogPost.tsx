@@ -32,7 +32,7 @@ export default function BlogPost() {
         className="relative overflow-hidden bg-[#060608] pt-32 pb-20"
       >
         <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }} />
+        <div className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }} />
         
         <div className="container relative" style={{ maxWidth: 720 }}>
           <motion.div {...fadeUp(0)}>
@@ -86,8 +86,8 @@ export default function BlogPost() {
           <motion.div
             className="rounded-2xl shadow-xl"
             style={{
-              background: "rgba(124,58,237,0.06)",
-              border: "1px solid rgba(124,58,237,0.15)",
+              background: "rgba(79,70,229,0.06)",
+              border: "1px solid rgba(79,70,229,0.15)",
               padding: "32px 40px",
             }}
             {...fadeUp(0.3)}

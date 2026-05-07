@@ -45,7 +45,7 @@ export default function Contact() {
       {/* HERO */}
       <section className="relative bg-[#060608] pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 grid-overlay pointer-events-none" />
-        <div className="absolute -top-32 right-1/4 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }} />
+        <div className="absolute -top-32 right-1/4 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }} />
         
         <div className="container relative">
           <motion.span className="label-eyebrow text-violet" {...fadeUp(0)}>Contact</motion.span>
@@ -127,7 +127,7 @@ export default function Contact() {
             <div 
               aria-hidden 
               className="absolute w-[600px] h-[600px] rounded-full pointer-events-none opacity-[0.08]"
-              style={{ background: "radial-gradient(#7C3AED, transparent 70%)", top: "50%", left: "50%", transform: "translate(-50%, -50%)", filter: "blur(120px)", zIndex: -1 }}
+              style={{ background: "radial-gradient(#4F46E5, transparent 70%)", top: "50%", left: "50%", transform: "translate(-50%, -50%)", filter: "blur(120px)", zIndex: -1 }}
             />
 
             <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="bg-brand-card border border-white/[0.06] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl relative z-10">
@@ -158,7 +158,7 @@ export default function Contact() {
                   <Select label="Timeline" options={["ASAP", "1–3 months", "3–6 months", "Flexible"]} />
                   
                   {/* Since MagneticButton is for Links, I'll use a styled button here that mimics it but is a submit button */}
-                  <button type="submit" className="md:col-span-2 mt-4 bg-accent-gradient text-white font-bold text-[15px] px-6 py-4.5 rounded-xl shadow-glow-purple min-h-[52px] hover:brightness-110 transition-all active:scale-[0.98]">
+                  <button type="submit" className="md:col-span-2 mt-4 bg-accent-gradient text-white font-bold text-[15px] px-6 py-4.5 rounded-xl shadow-glow-indigo min-h-[52px] hover:brightness-110 transition-all active:scale-[0.98]">
                     Send Project Brief →
                   </button>
                 </div>

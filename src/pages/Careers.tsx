@@ -36,7 +36,7 @@ export default function Careers() {
       {/* HERO */}
       <section className="relative bg-[#060608] pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 grid-overlay pointer-events-none" />
-        <div className="absolute -top-32 right-1/3 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }} />
+        <div className="absolute -top-32 right-1/3 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }} />
         
         <div className="container relative">
           <motion.span className="inline-block label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20" {...fadeUp(0)}>Join us</motion.span>
@@ -75,7 +75,7 @@ export default function Careers() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.65, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="rounded-2xl p-6 transition-all duration-250 ease-in-out hover:-translate-y-[6px]"
-                style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)", borderTop: "3px solid #7C3AED" }}>
+                style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)", borderTop: "3px solid #4F46E5" }}>
                 <h3 className="font-display font-bold text-lg" style={{ color: "#F0EEFF" }}>{c.t}</h3>
                 <p className="text-[14px] sm:text-sm mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{c.d}</p>
               </motion.div>
@@ -104,7 +104,7 @@ export default function Careers() {
                   aria-hidden 
                   className="absolute w-[300px] h-[300px] rounded-full pointer-events-none opacity-[0.03]"
                   style={{ 
-                    background: `radial-gradient(${i % 2 === 0 ? '#7C3AED' : '#06B6D4'}, transparent 70%)`,
+                    background: `radial-gradient(${i % 2 === 0 ? '#4F46E5' : '#06B6D4'}, transparent 70%)`,
                     top: '50%',
                     left: i % 2 === 0 ? '-150px' : 'auto',
                     right: i % 2 !== 0 ? '-150px' : 'auto',

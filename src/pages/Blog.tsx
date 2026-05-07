@@ -19,7 +19,7 @@ export default function Blog() {
         className="relative overflow-hidden bg-[#060608] pt-32 pb-20"
       >
         <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }} />
+        <div className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }} />
         
         <div className="container relative">
           <motion.span className="label-eyebrow text-violet" {...fadeUp(0)}>Blog &amp; News</motion.span>

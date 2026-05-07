@@ -35,11 +35,11 @@ export default function CaseStudy() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="relative bg-[#060608] pt-40 pb-0 overflow-hidden">
+      <section data-section="hero-section" className="relative bg-[#060608] pt-40 pb-0 overflow-hidden">
         <div className="absolute inset-0 grid-overlay pointer-events-none" />
         <div
           className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }}
+          style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }}
         />
 
         <div className="container relative">
@@ -87,8 +87,8 @@ export default function CaseStudy() {
             <motion.div
               className="mt-8 flex items-start gap-4 rounded-xl p-5"
               style={{
-                background: "rgba(124,58,237,0.06)",
-                border: "1px solid rgba(124,58,237,0.15)",
+                background: "rgba(79,70,229,0.06)",
+                border: "1px solid rgba(79,70,229,0.15)",
               }}
               {...fadeUp(0.15)}
             >
@@ -99,15 +99,15 @@ export default function CaseStudy() {
                 fill="none"
                 style={{ flexShrink: 0, marginTop: 2 }}
               >
-                <circle cx="10" cy="10" r="9" stroke="rgba(124,58,237,0.8)" strokeWidth="1.5" />
-                <path d="M10 6v4.5" stroke="rgba(124,58,237,0.8)" strokeWidth="1.5" strokeLinecap="round" />
-                <circle cx="10" cy="13.5" r="0.85" fill="rgba(124,58,237,0.8)" />
+                <circle cx="10" cy="10" r="9" stroke="rgba(79,70,229,0.8)" strokeWidth="1.5" />
+                <path d="M10 6v4.5" stroke="rgba(79,70,229,0.8)" strokeWidth="1.5" strokeLinecap="round" />
+                <circle cx="10" cy="13.5" r="0.85" fill="rgba(79,70,229,0.8)" />
               </svg>
               <p
                 style={{
                   fontFamily: "'Plus Jakarta Sans', sans-serif",
                   fontSize: 14,
-                  color: "rgba(124,58,237,0.9)",
+                  color: "rgba(79,70,229,0.9)",
                   lineHeight: 1.65,
                   margin: 0,
                 }}
@@ -279,7 +279,7 @@ export default function CaseStudy() {
         <div className="absolute inset-0 dark-texture pointer-events-none" />
         <div
           className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none"
-          style={{ background: "rgba(124,58,237,0.15)", filter: "blur(140px)" }}
+          style={{ background: "rgba(79,70,229,0.15)", filter: "blur(140px)" }}
         />
         <div className="container relative max-w-2xl text-center">
           <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(40px, 6vw, 72px)", letterSpacing: "-0.04em" }}>

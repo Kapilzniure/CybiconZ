@@ -29,9 +29,9 @@ export function MagneticButton({
   }
 
   const variantStyles = {
-    primary: 'bg-[#6D28D9] text-white font-bold text-sm px-8 py-4 rounded-xl shadow-[0_0_40px_rgba(109,40,217,0.35)] hover:bg-[#5B21B6] hover:shadow-[0_0_60px_rgba(109,40,217,0.5)] transition-colors duration-200 btn-animated-border',
+    primary: 'bg-[#4F46E5] text-white font-bold text-sm px-8 py-4 rounded-xl shadow-[0_0_40px_rgba(79,70,229,0.35)] hover:bg-[#4338CA] hover:shadow-[0_0_60px_rgba(79,70,229,0.5)] transition-colors duration-200 btn-animated-border',
     secondary: 'border border-white/12 text-white/70 font-semibold text-sm px-8 py-4 rounded-xl bg-white/[0.02] hover:bg-white/5 hover:border-white/25 transition-colors duration-200',
-    ghost: 'text-[#A855F7] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all duration-200',
+    ghost: 'text-[#818CF8] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all duration-200',
   }
 
   const inner = (

@@ -83,7 +83,7 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
         <div
           style={{
             height: '100%',
-            background: '#7C3AED',
+            background: '#4F46E5',
             animation: 'preloaderBar 2s cubic-bezier(0.65,0,0.35,1) forwards',
           }}
         />

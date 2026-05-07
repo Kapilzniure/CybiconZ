@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 function Sphere() {
@@ -8,55 +8,84 @@ function Sphere() {
   const wireframe2Ref = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const mouse = useRef({ tx: 0, ty: 0, cx: 0, cy: 0 });
+  const scroll = useRef(0);
+  const { camera } = useThree();
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       mouse.current.tx = (e.clientX / window.innerWidth - 0.5) * 0.6;
       mouse.current.ty = (e.clientY / window.innerHeight - 0.5) * 0.6;
     };
+    const onScroll = () => { scroll.current = window.scrollY; };
     window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useFrame(() => {
+    const scrollProgress = Math.min(scroll.current / window.innerHeight, 1);
+
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.003;
       meshRef.current.rotation.x += 0.001;
       const pulse = 1 + Math.sin(Date.now() * 0.001) * 0.025;
       meshRef.current.scale.setScalar(pulse);
+      // Fade main sphere out as hero exits
+      const mat = meshRef.current.material as THREE.MeshPhongMaterial;
+      mat.opacity = Math.max(0, 0.85 * (1 - scrollProgress * 1.2));
     }
+
     if (wireframeRef.current) {
       wireframeRef.current.rotation.y += 0.003;
       wireframeRef.current.rotation.x += 0.001;
+      // Wireframe becomes more visible as you scroll
+      const mat = wireframeRef.current.material as THREE.MeshBasicMaterial;
+      mat.opacity = 0.18 + scrollProgress * 0.25;
     }
+
     if (wireframe2Ref.current) {
       wireframe2Ref.current.rotation.y -= 0.001;
       wireframe2Ref.current.rotation.z += 0.0008;
     }
+
     if (groupRef.current) {
+      // Mouse tracking
       mouse.current.cx += (mouse.current.tx - mouse.current.cx) * 0.05;
       mouse.current.cy += (mouse.current.ty - mouse.current.cy) * 0.05;
       groupRef.current.position.x = mouse.current.cx;
-      groupRef.current.position.y = -mouse.current.cy;
+      // Mouse y offset + scroll-driven float upward
+      groupRef.current.position.y = -mouse.current.cy + scrollProgress * 3;
+
+      // Sphere grows as page scrolls
+      const scaleTarget = 1 + scrollProgress * 0.8;
+      groupRef.current.scale.x += (scaleTarget - groupRef.current.scale.x) * 0.08;
+      groupRef.current.scale.y = groupRef.current.scale.x;
+      groupRef.current.scale.z = groupRef.current.scale.x;
     }
+
+    // Camera pulls back slightly as hero exits
+    camera.position.z = 8 + scrollProgress * 2;
   });
 
   return (
     <group ref={groupRef}>
       <mesh ref={meshRef}>
         <sphereGeometry args={[2.2, 64, 64]} />
-        <meshPhongMaterial color={0x2D1B69} shininess={30} transparent opacity={0.85} wireframe={false} />
+        <meshPhongMaterial color={0x1E1B4B} shininess={30} transparent opacity={0.85} wireframe={false} />
       </mesh>
       <mesh ref={wireframeRef}>
         <sphereGeometry args={[2.22, 64, 64]} />
-        <meshBasicMaterial color={0x7C3AED} transparent opacity={0.18} wireframe={true} />
+        <meshBasicMaterial color={0x4F46E5} transparent opacity={0.18} wireframe={true} />
       </mesh>
       <mesh ref={wireframe2Ref}>
         <sphereGeometry args={[2.8, 24, 24]} />
-        <meshBasicMaterial color={0xA855F7} transparent opacity={0.06} wireframe={true} />
+        <meshBasicMaterial color={0x818CF8} transparent opacity={0.06} wireframe={true} />
       </mesh>
       <ambientLight color={0xffffff} intensity={0.25} />
-      <pointLight position={[5, 5, 5]} color={0x7C3AED} intensity={6} distance={20} />
+      <pointLight position={[5, 5, 5]} color={0x4F46E5} intensity={6} distance={20} />
       <pointLight position={[-5, -3, 3]} color={0xEC4899} intensity={3} distance={15} />
       <pointLight position={[0, 6, 0]} color={0x06B6D4} intensity={2} distance={12} />
     </group>

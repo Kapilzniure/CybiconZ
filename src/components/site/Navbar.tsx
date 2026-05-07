@@ -33,13 +33,13 @@ export default function Navbar() {
             }>
               {({ isActive }) => (<>
                 {l.label}
-                {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#7C3AED]" />}
+                {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#4F46E5]" />}
               </>)}
             </NavLink>
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <Link to="/contact" className="hidden md:inline-flex bg-accent-gradient text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-glow-purple hover:opacity-90 transition">
+          <Link to="/contact" className="hidden md:inline-flex bg-accent-gradient text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-glow-indigo hover:opacity-90 transition">
             Let's talk →
           </Link>
           <button onClick={() => setOpen(!open)} className="md:hidden text-ink p-2.5 -mr-2.5 touch-manipulation" aria-label="Menu">

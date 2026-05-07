@@ -17,7 +17,7 @@ export default function AnnouncementBar() {
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="overflow-hidden border-b border-white/[0.06] relative z-50"
-          style={{ background: "linear-gradient(90deg, rgba(124,58,237,0.12), rgba(124,58,237,0.04))" }}
+          style={{ background: "linear-gradient(90deg, rgba(79,70,229,0.12), rgba(79,70,229,0.04))" }}
         >
           <div className="container h-11 flex items-center justify-between text-[13px]">
             <div className="flex items-center gap-3">

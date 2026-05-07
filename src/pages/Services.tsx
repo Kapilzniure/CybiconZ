@@ -23,11 +23,11 @@ export default function ServicesPage() {
   return (
     <SiteShell>
       {/* SECTION 1 — HERO */}
-      <section className="relative bg-[#060608] pt-40 pb-24 overflow-hidden">
+      <section data-section="hero-section" className="relative bg-[#060608] pt-40 pb-24 overflow-hidden">
         <div className="absolute inset-0 grid-overlay pointer-events-none" />
         <div
           className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }}
+          style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }}
         />
         <div className="container relative">
           <motion.span
