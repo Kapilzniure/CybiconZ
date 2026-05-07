@@ -4,6 +4,7 @@ export default function CustomCursor() {
   const [isTouch, setIsTouch] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [hovering, setHovered] = useState<"link" | "image" | null>(null);
+  const [labelState, setLabelState] = useState<{ label: string | null; size: 'normal' | 'large' }>({ label: null, size: 'normal' });
 
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
@@ -36,6 +37,12 @@ export default function CustomCursor() {
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
 
+    const handleLabel = (e: Event) => {
+      const ev = e as CustomEvent<{ label: string | null; size?: 'normal' | 'large' }>;
+      setLabelState({ label: ev.detail.label, size: ev.detail.size === 'large' ? 'large' : 'normal' });
+    };
+    window.addEventListener('cursor:label', handleLabel as EventListener);
+
     const animate = () => {
       if (!dotRef.current || !ringRef.current) return;
 
@@ -58,10 +65,14 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener('cursor:label', handleLabel as EventListener);
     };
   }, [isTouch, isVisible]); // Re-run effect if isTouch or isVisible changes
 
   if (isTouch) return null;
+
+  const ringSize = labelState.size === 'large' ? 80 : 40;
+  const ringOffset = ringSize / 2;
 
   return (
     <>
@@ -89,8 +100,10 @@ export default function CustomCursor() {
           position: "fixed",
           left: 0,
           top: 0,
-          width: "40px",
-          height: "40px",
+          width: `${ringSize}px`,
+          height: `${ringSize}px`,
+          marginLeft: `${20 - ringOffset}px`,
+          marginTop: `${20 - ringOffset}px`,
           transform: "translate(-50%, -50%)",
           opacity: isVisible ? 1 : 0,
           pointerEvents: "none",
@@ -100,7 +113,11 @@ export default function CustomCursor() {
         className="rounded-full border border-white/40 flex items-center justify-center overflow-hidden"
         data-hover={hovering} // Custom attribute for potential CSS state management
       >
-        {hovering === "image" && (
+        {labelState.label ? (
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white text-center px-2">
+            {labelState.label}
+          </span>
+        ) : hovering === "image" && (
           <span
             className="text-[10px] font-bold uppercase tracking-[0.2em] text-white"
           >
