@@ -1,19 +1,73 @@
-import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { services } from "@/data/services";
 import { Link } from "react-router-dom";
-
-import type { Variants } from "framer-motion";
-
-const panelVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
-  },
-};
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Services() {
+  useEffect(() => {
+    const panels = document.querySelectorAll<HTMLElement>('.service-panel-3d');
+    if (!panels.length) return;
+
+    const ctx = gsap.context(() => {
+      panels.forEach((panel, i) => {
+        gsap.set(panel, {
+          rotateX: 8,
+          rotateY: -4,
+          transformPerspective: 1200,
+          transformOrigin: 'center top',
+          opacity: 0,
+          y: 60,
+        });
+        gsap.to(panel, {
+          rotateX: 0,
+          rotateY: 0,
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          ease: 'power3.out',
+          delay: i * 0.08,
+          scrollTrigger: {
+            trigger: panel,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      });
+    });
+
+    const enter = (e: Event) => {
+      const panel = e.currentTarget as HTMLElement;
+      const img = panel.querySelector('img');
+      if (img) (img as HTMLImageElement).style.filter = 'brightness(0.55) saturate(1.1)';
+      const category = panel.dataset.category || 'Explore';
+      window.dispatchEvent(new CustomEvent('cursor:label', { detail: { label: category, size: 'large' } }));
+    };
+    const leave = (e: Event) => {
+      const panel = e.currentTarget as HTMLElement;
+      const img = panel.querySelector('img');
+      if (img) (img as HTMLImageElement).style.filter = 'brightness(0.35) saturate(0.8)';
+      window.dispatchEvent(new CustomEvent('cursor:label', { detail: { label: null, size: 'normal' } }));
+    };
+    panels.forEach(p => {
+      p.addEventListener('mouseenter', enter);
+      p.addEventListener('mouseleave', leave);
+    });
+
+    return () => {
+      ctx.revert();
+      panels.forEach(p => {
+        p.removeEventListener('mouseenter', enter);
+        p.removeEventListener('mouseleave', leave);
+      });
+      ScrollTrigger.getAll().forEach(t => {
+        if (t.vars.trigger instanceof Element && (t.vars.trigger as Element).classList.contains('service-panel-3d')) {
+          t.kill();
+        }
+      });
+    };
+  }, []);
+
   return (
     <section className="bg-[#060608] overflow-hidden relative">
       {/* Violet atmospheric glow */}
@@ -40,13 +94,10 @@ export default function Services() {
       {/* SERVICE PANELS */}
       <div className="flex flex-col">
         {services && services.length > 0 ? services.map((service) => (
-          <motion.div
+          <div
             key={service.id}
-            variants={panelVariants}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-10%" }}
-            className="group relative w-full h-[260px] sm:h-[360px] lg:h-[420px] overflow-hidden border-b border-white/5 last:border-b-0 cursor-pointer transition-all duration-[250ms] ease-in-out hover:-translate-y-[6px]"
+            data-category={service.category}
+            className="service-panel-3d group relative w-full h-[260px] sm:h-[360px] lg:h-[420px] overflow-hidden border-b border-white/5 last:border-b-0 cursor-pointer"
           >
             <Link to="/services" className="absolute inset-0 block z-40 md:z-auto" />
             
@@ -55,7 +106,8 @@ export default function Services() {
               <img 
                 src={service.image} 
                 alt={service.name}
-                className="w-full h-full object-cover transition-transform duration-500"
+                className="w-full h-full object-cover transition-all duration-500"
+                style={{ filter: 'brightness(0.35) saturate(0.8)' }}
               />
             </div>
 
@@ -136,7 +188,7 @@ export default function Services() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         )) : (
           <div className="py-20 text-center text-white/30 font-mono text-sm">
             No services data found.
