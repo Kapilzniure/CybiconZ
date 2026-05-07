@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SiteShell from "@/components/site/SiteShell";
 import SplitText from "@/components/ui/SplitText";
 import { useTextReveal } from "@/hooks/useTextReveal";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -200,12 +200,9 @@ export default function About() {
             <p className="text-white/75 text-[15px] sm:text-[16px] mt-5 leading-relaxed max-w-sm mx-auto">
               Tell us about your project. We'll tell you honestly if we're the right fit.
             </p>
-            <Link
-              to="/contact"
-              className="inline-flex bg-accent-gradient text-white font-bold text-[14px] sm:text-[15px] px-8 sm:px-10 py-4 rounded-xl shadow-glow-purple mt-8 hover:opacity-95 transition"
-            >
-              Start a conversation →
-            </Link>
+            <div className="mt-8 flex justify-center">
+              <MagneticButton href="/contact" variant="primary">Start a conversation →</MagneticButton>
+            </div>
             <div className="mt-5">
               <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm transition-colors">
                 hello@cybiconz.com
