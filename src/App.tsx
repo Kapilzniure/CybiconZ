@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useLenis } from "@/hooks/useLenis";
 import Cursor from "@/components/ui/Cursor";
+import { Preloader } from "@/components/ui/Preloader";
+import { TransitionOverlay } from "@/components/ui/TransitionOverlay";
 import Index from "./pages/Index";
 import ServicesPage from "./pages/Services";
 import WorkPage from "./pages/Work";
@@ -22,10 +24,8 @@ const queryClient = new QueryClient();
 
 function AnimatedRoutes() {
   useLenis();
-  const location = useLocation();
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
+    <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/work" element={<WorkPage />} />
@@ -37,22 +37,32 @@ function AnimatedRoutes() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    </Routes>
   );
 }
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Cursor />
-        <AnimatedRoutes />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const [showPreloader, setShowPreloader] = useState(() => {
+    if (typeof window === "undefined") return false;
+    if (sessionStorage.getItem("visited")) return false;
+    sessionStorage.setItem("visited", "1");
+    return true;
+  });
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
+        <BrowserRouter>
+          <Cursor />
+          <TransitionOverlay />
+          <AnimatedRoutes />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

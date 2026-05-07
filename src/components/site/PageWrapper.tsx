@@ -1,15 +1,20 @@
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { gsap } from "gsap";
 
 export default function PageWrapper({ children }: { children: ReactNode }) {
-  return (
-    <motion.main
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.main>
-  );
+  const ref = useRef<HTMLElement>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }
+    );
+  }, [location.pathname]);
+
+  return <main ref={ref}>{children}</main>;
 }
