@@ -10,8 +10,10 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2">
-      <div className="bg-brand-base p-8 sm:p-16 md:p-20 flex flex-col justify-center">
+    <section className="grid grid-cols-1 lg:grid-cols-2 relative" style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      {/* Orange glow — bottom-left */}
+      <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(249,115,22,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div className="bg-[#060608] p-8 sm:p-16 md:p-20 flex flex-col justify-center relative">
         <span className="label-eyebrow text-violet mb-4">Process</span>
         <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>
           How an Engagement Works
@@ -23,7 +25,7 @@ export default function Process() {
           <div className="h-1 w-10 rounded-full bg-violet opacity-20" />
         </div>
       </div>
-      <div className="surface-light p-8 sm:p-16 md:p-20">
+      <div className="bg-[#0A0A12] p-8 sm:p-16 md:p-20">
         <div className="flex flex-col">
           {steps.map((s, i) => (
             <motion.div key={s.n}
@@ -31,12 +33,12 @@ export default function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className={`group flex items-start sm:items-center gap-5 sm:gap-6 py-7 px-4 -mx-4 rounded-xl transition-colors duration-200 hover:bg-violet/[0.04] ${i < steps.length - 1 ? "border-b border-black/[0.07]" : ""}`}
+              className={`group flex items-start sm:items-center gap-5 sm:gap-6 py-7 px-4 -mx-4 rounded-xl transition-colors duration-200 hover:bg-white/[0.03] ${i < steps.length - 1 ? "border-b border-white/[0.06]" : ""}`}
             >
-              <div className="font-display font-extrabold text-[44px] sm:text-[52px] leading-none transition-opacity duration-200 opacity-[0.15] group-hover:opacity-[0.9] shrink-0" style={{ color: "#FFFFFF" }}>{s.n}</div>
+              <div className="font-display font-extrabold text-[44px] sm:text-[52px] leading-none transition-opacity duration-200 opacity-[0.08] group-hover:opacity-[0.9] shrink-0" style={{ color: "#FFFFFF" }}>{s.n}</div>
               <div>
-                <h3 className="font-display font-bold text-[18px] text-ink-dark">{s.name}</h3>
-                <p className="service-desc-reveal text-sm text-ink-muted mt-1.5 max-w-sm leading-relaxed">{s.d}</p>
+                <h3 className="font-display font-bold text-[18px] text-[#F0EEFF]">{s.name}</h3>
+                <p className="service-desc-reveal text-sm mt-1.5 max-w-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{s.d}</p>
               </div>
             </motion.div>
           ))}
@@ -50,7 +52,7 @@ export default function Process() {
             style={{ background: "rgba(124,58,237,0.05)", border: "1px solid rgba(124,58,237,0.15)" }}
           >
             <Link to="/contact" className="flex items-center justify-between group/cta">
-              <span className="text-[14px] font-semibold" style={{ color: "#0A0B14" }}>
+              <span className="text-[14px] font-semibold text-[#F0EEFF]">
                 Ready to start?
               </span>
               <span className="text-[13px] font-bold transition-all group-hover/cta:gap-2" style={{ color: "hsl(var(--accent-from))" }}>

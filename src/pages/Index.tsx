@@ -11,29 +11,24 @@ import CybiLearn from "@/components/sections/CybiLearn";
 import FAQ from "@/components/sections/FAQ";
 import LatestThinking from "@/components/sections/LatestThinking";
 import ClosingCTA from "@/components/sections/ClosingCTA";
-import { SectionBridge } from "@/components/ui/SectionBridge";
 import { useTextReveal } from "@/hooks/useTextReveal";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function Index() {
-  useTextReveal('.section-headline-reveal', { stagger: 0.05 });
-  useTextReveal('.service-desc-reveal', { stagger: 0.03, start: 'top 90%' });
-
+  usePageMeta({
+    title: "Digital Agency — Websites, E-Commerce & Applications",
+    description: "CybiconZ is a Tokyo-based digital agency. We build websites, e-commerce systems, and applications for businesses that need their digital presence to actually work.",
+  });
   return (
     <SiteShell>
       <Hero />
       <Marquee />
-      <SectionBridge direction="to-light" />
       <Services />
-      <SectionBridge direction="to-dark" />
       <Process />
       <Stats />
-      <SectionBridge direction="to-light" />
       <Portfolio />
-      <SectionBridge direction="to-dark" />
       <TechStack />
-      <SectionBridge direction="to-light" />
       <Testimonials />
-      <SectionBridge direction="to-dark" />
       <FAQ />
       <CybiLearn />
       <LatestThinking />

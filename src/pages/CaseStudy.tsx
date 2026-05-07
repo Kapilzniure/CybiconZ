@@ -3,9 +3,10 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import SiteShell from "@/components/site/SiteShell";
 import { projects } from "@/data/projects";
 import SplitText from "@/components/ui/SplitText";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
   transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as const },
@@ -34,11 +35,11 @@ export default function CaseStudy() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section className="relative bg-brand-base pt-40 pb-0 overflow-hidden">
+      <section className="relative bg-[#060608] pt-40 pb-0 overflow-hidden">
         <div className="absolute inset-0 grid-overlay pointer-events-none" />
         <div
           className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "rgba(124,58,237,0.08)", filter: "blur(120px)" }}
+          style={{ background: "rgba(124,58,237,0.12)", filter: "blur(120px)" }}
         />
 
         <div className="container relative">
@@ -69,13 +70,9 @@ export default function CaseStudy() {
           </div>
 
           {/* Project name */}
-          <SplitText
-            as="h1"
-            className="font-display font-extrabold text-ink leading-[0.95] mt-6"
-            style={{ fontSize: "clamp(52px, 8vw, 96px)", letterSpacing: "-0.04em" }}
-          >
-            {p.name}
-          </SplitText>
+          <h1 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95] mt-6" style={{ fontSize: "clamp(52px, 8vw, 96px)", letterSpacing: "-0.04em" }}>
+            <SplitText as="span">{p.name}</SplitText>
+          </h1>
 
           {/* Service · Sector · Year */}
           <motion.div
@@ -126,10 +123,11 @@ export default function CaseStudy() {
           className="container relative mt-12"
           {...fadeUp(0.2)}
         >
-          <div className="relative rounded-t-3xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
+          <div className="relative rounded-t-3xl overflow-hidden aspect-[16/9] md:aspect-[21/9] shadow-2xl">
             <img
               src={p.image}
               alt={p.name}
+              loading="eager"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div
@@ -141,7 +139,7 @@ export default function CaseStudy() {
       </section>
 
       {/* CONTENT */}
-      <section className="surface-light py-20">
+      <section className="py-20" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="container">
           <div className="flex flex-col md:flex-row gap-16">
             {/* SIDEBAR */}
@@ -159,16 +157,16 @@ export default function CaseStudy() {
                     { label: "Status",  value: p.status  },
                   ] as const
                 ).map(({ label, value }) => (
-                  <div key={label} className="py-4 border-b border-black/[0.07]">
+                  <div key={label} className="py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
                     <p
                       className="font-mono text-[11px] uppercase tracking-wider mb-1"
-                      style={{ color: "#6B6E8F" }}
+                      style={{ color: "rgba(255,255,255,0.35)" }}
                     >
                       {label}
                     </p>
                     <p
                       className="font-sans font-semibold text-[14px]"
-                      style={{ color: "#0A0B14" }}
+                      style={{ color: "#F0EEFF" }}
                     >
                       {value}
                     </p>
@@ -183,7 +181,7 @@ export default function CaseStudy() {
                     <motion.li
                       key={i}
                       className="flex items-start gap-3 text-[14px] leading-relaxed"
-                      style={{ color: "#0A0B14" }}
+                      style={{ color: "rgba(255,255,255,0.55)" }}
                       initial={{ opacity: 0, x: -8 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -215,30 +213,30 @@ export default function CaseStudy() {
                     {block.label}
                   </p>
                   <h3
-                    className="font-display font-bold text-ink-dark leading-tight"
+                    className="font-display font-bold text-ink leading-tight"
                     style={{ fontSize: 28 }}
                   >
                     {block.h3}
                   </h3>
                   <p
                     className="mt-4"
-                    style={{ fontSize: 16, color: "#444", lineHeight: 1.8 }}
+                    style={{ fontSize: 16, color: "rgba(255,255,255,0.55)", lineHeight: 1.8 }}
                   >
                     {block.body}
                   </p>
                 </motion.div>
               ))}
 
-              <hr className="my-12 border-black/[0.08]" />
+              <hr className="my-12" style={{ borderColor: "rgba(255,255,255,0.07)" }} />
 
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
                 <h3
-                  className="font-display font-bold text-ink-dark leading-tight mb-6"
+                  className="section-headline-reveal font-display font-bold text-ink leading-tight mb-6"
                   style={{ fontSize: 28 }}
                 >
                   What we're building
@@ -247,8 +245,8 @@ export default function CaseStudy() {
                   {p.delivering.map((item, i) => (
                     <motion.li
                       key={i}
-                      className="flex items-center gap-4 bg-white rounded-xl p-4"
-                      style={{ border: "1px solid rgba(0,0,0,0.06)" }}
+                      className="flex items-center gap-4 rounded-xl p-4 transition-all hover:bg-white/[0.04]"
+                      style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)" }}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -260,7 +258,7 @@ export default function CaseStudy() {
                       />
                       <span
                         className="font-sans font-medium text-[15px]"
-                        style={{ color: "#0A0B14" }}
+                        style={{ color: "rgba(255,255,255,0.75)" }}
                       >
                         {item}
                       </span>
@@ -275,7 +273,7 @@ export default function CaseStudy() {
 
       {/* CTA */}
       <section
-        className="relative overflow-hidden py-20"
+        className="relative overflow-hidden py-24"
         style={{ background: "linear-gradient(135deg, #060608, #0A0520, #060608)" }}
       >
         <div className="absolute inset-0 dark-texture pointer-events-none" />
@@ -284,7 +282,7 @@ export default function CaseStudy() {
           style={{ background: "rgba(124,58,237,0.15)", filter: "blur(140px)" }}
         />
         <div className="container relative max-w-2xl text-center">
-          <h2 className="font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(40px, 6vw, 72px)", letterSpacing: "-0.04em" }}>
+          <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(40px, 6vw, 72px)", letterSpacing: "-0.04em" }}>
             <SplitText as="span" className="block">Building something</SplitText>
             <SplitText as="span" className="block" innerClassName="text-gradient" delay={0.24}>similar?</SplitText>
           </h2>
@@ -295,24 +293,19 @@ export default function CaseStudy() {
           >
             Tell us about your project. We'll tell you what's involved and whether we're the right fit.
           </motion.p>
-          <motion.div
-            {...fadeUp(0.2)}
-          >
-            <Link
-              to="/contact"
-              className="inline-flex bg-accent-gradient text-white font-bold text-[15px] px-10 py-4 rounded-xl shadow-glow-purple mt-10 hover:opacity-95 transition"
-            >
+          <div className="mt-10 flex justify-center">
+            <MagneticButton href="/contact" variant="primary">
               Start a conversation →
-            </Link>
-            <div className="mt-6">
-              <a
-                href="mailto:hello@cybiconz.com"
-                className="text-ink-muted hover:text-ink text-sm transition"
-              >
-                hello@cybiconz.com
-              </a>
-            </div>
-          </motion.div>
+            </MagneticButton>
+          </div>
+          <div className="mt-6">
+            <a
+              href="mailto:hello@cybiconz.com"
+              className="text-ink-muted hover:text-ink text-sm transition"
+            >
+              hello@cybiconz.com
+            </a>
+          </div>
         </div>
       </section>
     </SiteShell>

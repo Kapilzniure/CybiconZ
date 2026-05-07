@@ -3,10 +3,8 @@ import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#050608] dark-texture border-t border-white/5 pt-20 pb-8 overflow-hidden" style={{ position: "relative" }}>
-      {/* Dim violet glow — top-center, fading story */}
-      <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(109,40,217,0.05), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
-      <div className="container relative">
+    <footer className="bg-[#050608] dark-texture border-t border-white/5 pt-20 pb-8" style={{ position: "relative" }}>
+      <div className="container">
         {/* Newsletter */}
         <div className="bg-white/[0.03] border border-white/[0.06] rounded-3xl p-6 md:p-8 mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>

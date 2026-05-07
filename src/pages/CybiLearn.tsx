@@ -1,6 +1,7 @@
 import SiteShell from "@/components/site/SiteShell";
 import ClosingCTA from "@/components/sections/ClosingCTA";
 import { motion } from "framer-motion";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -19,6 +20,10 @@ const topics = [
 ];
 
 export default function CybiLearnPage() {
+  usePageMeta({
+    title: "CybiLearn — Digital Education for Business Owners",
+    description: "Practical guides on working with agencies, understanding your website, e-commerce basics, and digital marketing. No jargon. Just what you need to know.",
+  });
   return (
     <SiteShell>
       <section className="relative pt-32 pb-20 overflow-hidden" style={{ background: "#060608" }}>
@@ -31,16 +36,16 @@ export default function CybiLearnPage() {
           <motion.p className="text-ink-muted text-lg mt-6 max-w-2xl" {...fadeUp(0.2)}>Not a course platform. Not theory. Real guidance from the people who build the products — for the people who buy them.</motion.p>
         </div>
       </section>
-      <section className="surface-light py-16 sm:py-20 lg:py-[100px]">
+      <section className="py-16 sm:py-20 lg:py-[100px]" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {topics.map((t, i) => (
-              <motion.div key={t.t} 
+              <motion.div key={t.t}
                 {...fadeUp(i * 0.08)}
-                className="bg-white rounded-2xl p-6 shadow-card-light transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl"
-                style={{ borderTop: "3px solid #7C3AED" }}>
-                <h3 className="font-display font-bold text-lg text-ink-dark">{t.t}</h3>
-                <p className="text-sm text-ink-muted mt-2 leading-relaxed">{t.d}</p>
+                className="rounded-2xl p-6 transition-all duration-250 ease-in-out hover:-translate-y-[6px]"
+                style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)", borderTop: "3px solid #7C3AED" }}>
+                <h3 className="font-display font-bold text-lg" style={{ color: "#F0EEFF" }}>{t.t}</h3>
+                <p className="text-sm mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{t.d}</p>
                 <div className="mt-4 font-mono text-[11px] uppercase tracking-wider text-violet">Coming soon →</div>
               </motion.div>
             ))}

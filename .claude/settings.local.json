@@ -4,7 +4,8 @@
       "Bash(npx tsc *)",
       "Bash(bun add *)",
       "PowerShell(Get-Command *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(bun run *)"
     ]
   }
 }

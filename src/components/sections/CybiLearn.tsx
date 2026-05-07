@@ -11,7 +11,11 @@ const features = [
 
 export default function CybiLearn() {
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ background: "#060608" }}>
+    <section className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      {/* Emerald glow — bottom-left */}
+      <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(16,185,129,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      {/* Cyan glow — top-right */}
+      <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.06), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       <div className="relative p-8 sm:p-16 md:p-20 flex flex-col justify-center">
         <div className="absolute -top-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(124,58,237,0.08)", filter: "blur(120px)" }} />
         <div className="relative">
@@ -36,7 +40,7 @@ export default function CybiLearn() {
           </Link>
         </div>
       </div>
-      <div className="surface-light p-8 sm:p-16 md:p-20">
+      <div className="p-8 sm:p-16 md:p-20" style={{ background: "#0A0A12" }}>
         <div className="space-y-3.5">
           {features.map((f, i) => (
             <motion.div key={f.t}
@@ -44,10 +48,14 @@ export default function CybiLearn() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-white rounded-xl p-5 shadow-sm transition-all hover:-translate-y-[6px] hover:shadow-md border-l-4"
-              style={{ borderLeftColor: "#7C3AED" }}>
-              <div className="font-display font-bold text-[15px] sm:text-[16px] text-ink-dark">{f.t}</div>
-              <div className="text-[12px] sm:text-[13px] text-ink-muted mt-1">{f.d}</div>
+              className="rounded-xl p-5 transition-all hover:translate-x-[6px] border-l-4"
+              style={{
+                background: "#0F0F1C",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderLeft: "4px solid #7C3AED",
+              }}>
+              <div className="font-display font-bold text-[15px] sm:text-[16px]" style={{ color: "#F0EEFF" }}>{f.t}</div>
+              <div className="text-[12px] sm:text-[13px] mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{f.d}</div>
             </motion.div>
           ))}
         </div>

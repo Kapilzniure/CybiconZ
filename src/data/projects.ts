@@ -9,7 +9,7 @@ export const projects = [
     status: 'In Development',
     statusColor: '#7C3AED',
     outcome: 'Building a global e-commerce infrastructure with multi-country support, multi-currency checkout, and delivery integrations.',
-    image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=75',
     tags: ['E-Commerce', 'Multi-Country', 'Multi-Currency', 'Delivery Integration'],
     featured: true,
 
@@ -42,7 +42,7 @@ export const projects = [
     status: 'In Progress',
     statusColor: '#7C3AED',
     outcome: 'Building consistent digital presence through website development and active social media management.',
-    image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=75',
     tags: ['Website', 'Digital Marketing', 'Social Media', 'Brand Consistency'],
     featured: false,
 

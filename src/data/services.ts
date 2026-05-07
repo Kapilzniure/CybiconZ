@@ -7,7 +7,7 @@ export const services = [
     description: 'Custom design and development. Built to perform, not just to look good.',
     gradient: 'linear-gradient(135deg, #7C3AED, #9C62F0)',
     accent: '#7C3AED',
-    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&q=75',
     popular: true,
     whoFor: "Businesses that need to look and perform credibly online. If your current site is embarrassing, outdated, or simply not working — this is for you.",
     delivers: [
@@ -29,7 +29,7 @@ export const services = [
     description: 'Multi-currency storefronts, payment gateways, delivery integrations. Built for real commercial scale.',
     gradient: 'linear-gradient(135deg, #7C3AED, #9C62F0)',
     accent: '#7C3AED',
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=75',
     popular: true,
     whoFor: "Businesses selling products online — especially those with complex requirements like multiple markets, currencies, or delivery systems. If you need a real commercial infrastructure, not a basic shop template.",
     delivers: [
@@ -51,7 +51,7 @@ export const services = [
     description: 'User research, interface design, and design systems. Design that works for real people.',
     gradient: 'linear-gradient(135deg, #7C3AED, #9C62F0)',
     accent: '#7C3AED',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=75',
     popular: false,
     whoFor: "Businesses whose product exists but the interface is confusing, inconsistent, or losing users. Also for teams who want design completed before development begins — the right way to build.",
     delivers: [
@@ -72,7 +72,7 @@ export const services = [
     description: 'Client portals, dashboards, and custom tools. Built for the people who use them every day.',
     gradient: 'linear-gradient(135deg, #7C3AED, #9C62F0)',
     accent: '#7C3AED',
-    image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=1200&q=75',
     popular: false,
     whoFor: "Teams that need internal tools, client portals, booking systems, or dashboards. If you need something that does a specific job for your business and no off-the-shelf tool does it well enough.",
     delivers: [
@@ -94,7 +94,7 @@ export const services = [
     description: 'Social media growth, content strategy, and analytics. For selected clients only.',
     gradient: 'linear-gradient(135deg, #7C3AED, #9C62F0)',
     accent: '#7C3AED',
-    image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1400&q=80',
+    image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=1200&q=75',
     popular: false,
     whoFor: "Selected clients — businesses that need to build or grow their digital presence alongside their web product. We take on marketing work when it connects directly to a digital product we've built or are building.",
     delivers: [

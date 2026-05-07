@@ -25,12 +25,20 @@ const items = [
   },
 ];
 
+const cardGlows = [
+  "rgba(109,40,217,0.05)",   // violet — card 1
+  "rgba(6,182,212,0.05)",    // cyan   — card 2
+  "rgba(249,115,22,0.05)",   // orange — card 3
+];
+
 export default function Testimonials() {
   return (
-    <section className="surface-light py-[100px]">
-      <div className="container">
+    <section className="py-[100px] relative overflow-hidden" style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      {/* Pink glow — top-center */}
+      <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div className="container relative">
         <span className="label-eyebrow text-[#7C3AED]">Testimonials</span>
-        <h2 className="section-headline-reveal font-display font-extrabold text-ink-dark mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>What Our Clients Say.</h2>
+        <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>What Our Clients Say.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
           {items.map((t, i) => (
             <motion.div key={i}
@@ -38,21 +46,22 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.65, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-white rounded-2xl shadow-card-light overflow-hidden flex flex-col transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }} // Subtle white line
+              className="rounded-2xl overflow-hidden flex flex-col transition-all duration-250 ease-in-out hover:-translate-y-[6px] relative"
+              style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)" }}
             >
-              <div className="h-[1px] w-full" style={{ background: "rgba(255,255,255,0.05)" }} /> {/* Thin white line */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col">
+              {/* Per-card ambient glow */}
+              <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "120px", background: `radial-gradient(${cardGlows[i]} 0%, transparent 70%)`, pointerEvents: "none", zIndex: 0 }} />
+              <div className="p-6 sm:p-8 flex-1 flex flex-col relative z-10">
                 <div className="flex items-start justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white" style={{ background: "#7C3AED" }}>{t.badge}</span>
                   <span aria-hidden className="font-display font-extrabold leading-none select-none pointer-events-none text-gradient" style={{ fontSize: "60px", opacity: 0.18 }}>"</span>
                 </div>
-                <p className="italic text-[14px] sm:text-[15px] text-[#444] leading-[1.7] sm:leading-[1.8] mt-2 flex-1">{t.quote}</p>
-                <div className="border-t border-black/[0.07] mt-6 pt-5 flex items-center gap-3">
-                  <img src={t.avatar} alt={t.name} className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-white object-cover" />
+                <p className="italic text-[14px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] mt-2 flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>{t.quote}</p>
+                <div className="mt-6 pt-5 flex items-center gap-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+                  <img src={t.avatar} alt={t.name} loading="lazy" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover" style={{ border: "2px solid rgba(255,255,255,0.1)" }} />
                   <div>
-                    <div className="font-display font-bold text-[13px] sm:text-[14px] text-ink-dark">{t.name}</div>
-                    <div className="text-[11px] sm:text-[12px] text-ink-muted">{t.role}</div>
+                    <div className="font-display font-bold text-[13px] sm:text-[14px]" style={{ color: "#F0EEFF" }}>{t.name}</div>
+                    <div className="text-[11px] sm:text-[12px]" style={{ color: "rgba(255,255,255,0.35)" }}>{t.role}</div>
                   </div>
                 </div>
               </div>

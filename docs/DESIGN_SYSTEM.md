@@ -5,21 +5,24 @@
 
 ## Colors
 
-### Dark Backgrounds
-bg-page:      #060608   — base of all dark sections
-bg-card:      #0C0C12   — cards, raised surfaces in dark
-bg-raised:    #111118   — hover backgrounds, inner surfaces
-bg-hover:     #191C2E   — deepest raised element
+### Dark Background Levels (site is fully dark — no light sections)
+bg-page:      #060608   — deepest: hero, CTA, footer, testimonials, closing sections
+bg-section:   #0A0A12   — lifted: services, portfolio, alternating sections
+bg-card:      #0F0F1C   — all card surfaces everywhere
+bg-raised:    #141428   — hover states, inner cards
 
-### Light Backgrounds  
-bg-light:     #F8F6FF   — light sections (Services, Portfolio, Testimonials)
-bg-light-card: #FFFFFF  — cards within light sections
+Section alternation uses depth only — no color flips:
+  Level 1 (deepest): #060608
+  Level 2 (lifted):  #0A0A12
+  Level 3 (cards):   #0F0F1C
+  Level 4 (raised):  #141428
+
+Section separation: 1px rgba(255,255,255,0.05–0.06) border-top lines
 
 ### Text
-text-primary:  #EDECFA  — main text on dark backgrounds
-text-muted:    #6B6E8F  — secondary text on dark
-text-dark:     #0A0B14  — main text on light backgrounds
-text-dark-muted: #6B6E8F — secondary text on light
+text-primary:  #F0EEFF  — #EDECFA approx — main text
+text-muted:    rgba(255,255,255,0.4–0.55) — secondary text
+text-subtle:   rgba(255,255,255,0.25) — timestamps, meta labels
 
 ### Accent (Primary — violet only)
 accent:       #6D28D9  — primary violet accent (deeper)
@@ -42,16 +45,9 @@ These are background overlays only — NEVER applied to text or borders.
 - Portfolio glow:   rgba(6,182,212,0.10)   — cyan
 - Testimonials glow: rgba(236,72,153,0.08) — pink
 
-REMOVE secondary accents (amber, cyan, emerald, pink) from:
-- Process step numbers
-- Stats numbers
-- Testimonial top bars
-- Service panel accent lines
-- Section eyebrows (now all use same violet accent)
-
 ### Borders
-border-dark:  rgba(255,255,255,0.09)
-border-light: rgba(0,0,0,0.08)
+border-dark:  rgba(255,255,255,0.07)  — standard card/section borders
+border-sep:   rgba(255,255,255,0.05–0.06) — section separator top borders
 
 ---
 
@@ -99,20 +95,29 @@ Input border-radius:      10px
 ---
 
 ## Shadows
-Dark section cards:   0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)
-Light section cards:  0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06)
-CTA button:           0 8px 32px rgba(109,40,217,0.35)
+All cards:    0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)
+CTA button:   0 8px 32px rgba(109,40,217,0.35)
 
 ---
 
 ## Section Alternation Rule
-ALWAYS: dark → light → dark → light
+Site is ALL DARK. No light sections exist.
+Sections alternate between depth levels only:
+
 Homepage order:
-1. Hero (dark)        2. Marquee (dark)      3. Services (LIGHT)
-4. Process (split)    5. Stats (dark)         6. Portfolio (LIGHT)
-7. Tech Stack (dark)  8. Testimonials (LIGHT) 9. CybiLearn (dark)
-10. Blog teaser (LIGHT) 11. FAQ (dark)        12. Closing CTA (dark)
-13. Footer (dark)
+1.  Hero (bg-page #060608)
+2.  Marquee (bg-page #060608)
+3.  Services (bg-page #060608)
+4.  Process (left: #060608, right: #0A0A12)
+5.  Stats (bg-page #060608)
+6.  Portfolio (bg-section #0A0A12)
+7.  TechStack (bg-page #060608)
+8.  Testimonials (bg-page #060608)
+9.  FAQ (bg-page #060608)
+10. CybiLearn (bg-page #060608, right: #0A0A12)
+11. LatestThinking (bg-page #060608)
+12. ClosingCTA (bg-page #060608)
+13. Footer (darkest #030305)
 
 ---
 
@@ -133,11 +138,9 @@ Buttons:
   Secondary: border 1px rgba(255,255,255,0.12), white 600, px-8 py-4, rounded-xl
   Never: background + border together, border-radius > 12px
 
-Cards (dark):
-  bg: bg-card, border: border-dark, rounded-2xl or 3xl, shadow-card-dark
-
-Cards (light):
-  bg: white, border: border-light, rounded-2xl, shadow-card-light
+Cards (all dark):
+  bg: #0F0F1C, border: rgba(255,255,255,0.07), rounded-2xl or 3xl
+  shadow: 0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)
 
 Badges/Pills:
   Filled: bg rgba(color,0.1), border 1px rgba(color,0.2), text color, rounded-full

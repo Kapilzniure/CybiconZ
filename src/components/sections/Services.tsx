@@ -103,9 +103,10 @@ export default function Services() {
             
             {/* 1. Background image layer */}
             <div className="absolute inset-0">
-              <img 
-                src={service.image} 
+              <img
+                src={service.image}
                 alt={service.name}
+                loading="lazy"
                 className="w-full h-full object-cover transition-all duration-500"
                 style={{ filter: 'brightness(0.35) saturate(0.8)' }}
               />

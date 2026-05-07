@@ -8,9 +8,11 @@ const featured = posts.slice(0, 3);
 
 export default function LatestThinking() {
   return (
-    <section className="surface-light" style={{ padding: "80px 0" }}>
-      <motion.div 
-        className="container"
+    <section style={{ background: "#060608", padding: "80px 0", borderTop: "1px solid rgba(255,255,255,0.05)", position: "relative", overflow: "hidden" }}>
+      {/* Soft purple glow — top-right */}
+      <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(168,85,247,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <motion.div
+        className="container relative"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
@@ -22,7 +24,7 @@ export default function LatestThinking() {
             <span className="label-eyebrow text-violet">Blog &amp; News</span>
             <h2
               className="section-headline-reveal font-display font-extrabold mt-3"
-              style={{ fontSize: "clamp(28px, 4vw, 42px)", letterSpacing: "-0.03em", color: "#0A0B14" }}
+              style={{ fontSize: "clamp(28px, 4vw, 42px)", letterSpacing: "-0.03em", color: "#F0EEFF" }}
             >
               Latest Thinking
             </h2>
