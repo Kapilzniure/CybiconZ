@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import { ParticleField } from "@/components/ui/ParticleField";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 // Three.js Sphere Component
 function Sphere() {
@@ -253,19 +254,9 @@ export default function Hero() {
         </p>
 
         {/* CTAs */}
-        <div id="hero-ctas" className="ctas flex flex-col sm:flex-row gap-4 justify-center mb-16">
-          <Link
-            to="/contact"
-            className="bg-[#7C3AED] text-white font-bold text-sm px-8 py-4 rounded-xl hover:opacity-90 transition-opacity"
-          >
-            Start a Project
-          </Link>
-          <Link
-            to="/work"
-            className="border border-white/15 text-white font-semibold text-sm px-8 py-4 rounded-xl hover:bg-white/5 transition-colors"
-          >
-            See our work
-          </Link>
+        <div id="hero-ctas" className="ctas flex flex-col sm:flex-row gap-4 justify-center mb-16 items-center">
+          <MagneticButton href="/contact" variant="primary">Start a Project →</MagneticButton>
+          <MagneticButton href="/work" variant="secondary">See our work</MagneticButton>
         </div>
 
       </div>

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import SplitText from "@/components/ui/SplitText";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export default function ClosingCTA() {
   return (
@@ -25,9 +25,9 @@ export default function ClosingCTA() {
         <p className="text-white/75 text-[16px] mt-6 max-w-lg mx-auto leading-relaxed">
           Tell us what you need. We respond within one business day. If we're not the right fit, we'll say so.
         </p>
-        <Link to="/contact" className="inline-flex bg-accent-gradient text-white font-bold text-[15px] px-10 py-4 rounded-xl shadow-glow-purple mt-10 hover:opacity-95 transition">
-          Start a conversation →
-        </Link>
+        <div className="mt-10 flex justify-center">
+          <MagneticButton href="/contact" variant="primary">Start a conversation →</MagneticButton>
+        </div>
         <div className="mt-6">
           <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm transition">hello@cybiconz.com</a>
         </div>
