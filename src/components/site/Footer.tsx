@@ -4,9 +4,10 @@ import Logo from "./Logo";
 export default function Footer() {
   return (
     <footer className="bg-[#050608] dark-texture border-t border-white/5 pt-20 pb-8 overflow-hidden" style={{ position: "relative" }}>
+      {/* Glow Story - Footer */}
       {/* Dim violet glow — top-center, fading story */}
-      <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.05), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
-      <div className="container relative">
+      <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "300px", height: "300px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.05), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
+      <div className="container relative z-10">
         {/* Newsletter */}
         <div className="bg-white/[0.03] border border-white/[0.06] rounded-3xl p-6 md:p-8 mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>

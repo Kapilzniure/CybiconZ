@@ -59,9 +59,29 @@ export default {
         'poster': '-12px 16px 40px rgba(0,0,0,0.2)',
         'poster-hover': '0 24px 60px rgba(0,0,0,0.15)',
       },
-      transitionDelay: {
-        '50': '50ms',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ["Bricolage Grotesque", "sans-serif"],
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            mono: ["DM Mono", "monospace"],
+          },
+          colors: {
+            'brand-base': '#060608',
+            'brand-card': '#0A0A12',
+            'brand-raised': '#0F0F1C',
+            'surface-light': '#0A0A12',
+            'ink': '#F0EEFF',
+            'ink-muted': 'rgba(240,238,255,0.62)',
+            'ink-dark': '#B4B2C7',
+            violet: '#7C3AED',
+            pink: '#EC4899',
+            cyan: '#06B6D4',
+            amber: '#F59E0B',
+            emerald: '#10B981',
+          },
+          transitionDelay: {
+            '50': '50ms',
+          },
+        },
       },
-    },
-  },
-} satisfies Config;

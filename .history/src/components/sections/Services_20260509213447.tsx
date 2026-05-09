@@ -158,7 +158,7 @@ export default function Services() {
                   </h3>
 
                   {/* SERVICE DESCRIPTION - Hidden on mobile */}
-                  <p className="hidden md:block font-sans text-[15px] text-white/55 leading-[1.7] max-w-[420px] mb-6 opacity-0 translate-y-0 transition-all duration-300 delay-50 group-hover:opacity-100 group-hover:-translate-y-1">
+                  <p className="hidden md:block font-sans text-[15px] text-white/55 leading-[1.7] max-w-[420px] mb-6 opacity-0 translate-y-0 transition-all duration-300 delay-[50ms] group-hover:opacity-100 group-hover:-translate-y-1">
                     {service.description}
                   </p>
 

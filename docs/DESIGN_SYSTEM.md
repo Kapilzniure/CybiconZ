@@ -36,15 +36,19 @@ Use indigo (#4F46E5) on:
 - Active states and focus rings
 - Subtle ambient glows (one per page, behind text)
 
-### Atmospheric Glows (section-specific)
-Large 400-600px radial-gradient overlays positioned behind section content.
-These are background overlays only — NEVER applied to text or borders.
+### Atmospheric Glows (The Glow Story)
+Large radial-gradient overlays positioned behind section content to define section personality. These are background overlays only — NEVER applied to text or borders.
 
-- Hero glow:        rgba(79,70,229,0.15)
-- Services glow:    per-service, rgba, 10-15% opacity
-- Stats glow:       rgba(249,115,22,0.10)  — warm orange
-- Portfolio glow:   rgba(6,182,212,0.10)   — cyan
-- Testimonials glow: rgba(236,72,153,0.08) — pink
+- Hero glow:        Violet rgba(79,70,229,0.18) top-right, Pink rgba(236,72,153,0.08) bottom-left
+- Services glow:    Violet rgba(79,70,229,0.1) top-right + per-service hover glows (Indigo, Amber, Pink, Cyan)
+- Process glow:     Orange rgba(249,115,22,0.09) bottom-left
+- Stats glow:       Orange rgba(249,115,22,0.12) center
+- Portfolio glow:   Cyan rgba(6,182,212,0.1) top-right, rgba(6,182,212,0.05) bottom-left
+- Tech Stack glow:  Violet rgba(79,70,229,0.08) left-center
+- Testimonials glow: Pink rgba(236,72,153,0.09) top-center
+- CybiLearn glow:   Emerald rgba(16,185,129,0.12) bottom-left, Cyan rgba(6,182,212,0.06) top-right
+- Closing CTA glow: Violet rgba(79,70,229,0.15) center, Pink rgba(236,72,153,0.07) top-right
+- Footer glow:      Dim Violet rgba(79,70,229,0.05) top-center
 
 ### Borders
 border-dark:  rgba(255,255,255,0.07)  — standard card/section borders

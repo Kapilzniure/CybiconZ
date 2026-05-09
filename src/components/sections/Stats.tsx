@@ -59,19 +59,22 @@ export default function Stats() {
   return (
     <section data-section="stats-section" className="py-[100px] relative overflow-hidden dark-texture" style={{ background: "#060608", position: "relative", "--float-speed": floatSpeed } as CSSProperties}>
       <FloatingGeometry variant="pyramid" color="#F97316" size={100} opacity={0.12} position={{ top: '5%', left: '3%' }} speed={11} />
-      {/* Warm atmospheric glow */}
+      {/* Glow Story - Stats */}
+      {/* Warm atmospheric glow — orange center */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           top: "50%",
-          left: "30%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
-          width: "500px",
-          height: "500px",
+          width: "600px",
+          height: "600px",
           borderRadius: "50%",
           background: "radial-gradient(rgba(249,115,22,0.12), transparent 65%)",
           pointerEvents: "none",
+          zIndex: 0,
+          filter: "blur(1px)"
         }}
       />
       <div className="absolute inset-0 grid-overlay opacity-40" />

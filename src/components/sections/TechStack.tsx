@@ -40,10 +40,11 @@ function Item({ i, n, c }: { i: string; n: string; c: string }) {
 export default function TechStack() {
   return (
     <section data-section="tech-section" className="py-[100px] bg-brand-base overflow-hidden dark-texture" style={{ position: "relative" }}>
+      {/* Glow Story - Tech Stack */}
       {/* Violet glow — left-center */}
-      <div aria-hidden style={{ position: "absolute", top: "50%", left: "-100px", transform: "translateY(-50%)", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div aria-hidden style={{ position: "absolute", top: "50%", left: "-100px", transform: "translateY(-50%)", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
       <motion.div
-        className="container"
+        className="container relative z-10"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}

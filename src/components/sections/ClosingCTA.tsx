@@ -12,15 +12,15 @@ export default function ClosingCTA() {
   return (
     <section data-section="cta-section" className="relative overflow-hidden py-[120px] dark-texture" style={{ background: "linear-gradient(135deg, #060608, #0A0520, #060608)", position: "relative", "--float-speed": floatSpeed } as CSSProperties}>
       <div className="absolute inset-0 dark-texture pointer-events-none" />
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.18)", filter: "blur(140px)" }} />
-      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.08)", filter: "blur(140px)" }} />
+      {/* Glow Story - Closing CTA */}
       {/* Centered indigo glow — climax */}
-      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "800px", height: "800px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.14), transparent 65%)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "800px", height: "800px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.15), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
       {/* Pink warmth — top-right */}
-      <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.06), transparent 65%)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", top: "-100px", right: "-100px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.07), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
+      
       <FloatingGeometry variant="cube" color="#4F46E5" size={100} opacity={0.12} position={{ top: '20%', right: '8%' }} speed={6} />
       <motion.div 
-        className="container relative max-w-2xl text-center"
+        className="container relative max-w-2xl text-center z-10"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}

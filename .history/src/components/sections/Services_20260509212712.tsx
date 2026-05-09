@@ -10,7 +10,6 @@ export default function Services() {
   const velocity = useScrollVelocity();
   const floatSpeed = Math.max(3, 9 - velocity * 0.3);
 
-  useEffect(() => {
     const panels = document.querySelectorAll<HTMLElement>('.service-panel-3d');
     if (!panels.length) return;
 
@@ -53,6 +52,49 @@ export default function Services() {
       const img = panel.querySelector('img');
       if (img) (img as HTMLImageElement).style.filter = 'brightness(0.35) saturate(0.8)';
       window.dispatchEvent(new CustomEvent('cursor:label', { detail: { label: null, size: 'normal' } }));
+  return (
+    <section data-section="services-section" className="bg-[#060608] overflow-hidden relative" style={{ "--float-speed": floatSpeed } as CSSProperties}>
+      {/* Violet atmospheric glow */}
+      <div aria-hidden style={{ position: "absolute", top: "-200px", right: "-200px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <FloatingGeometry variant="ring" color="#4F46E5" size={160} opacity={0.12} position={{ top: '8%', right: '3%' }} speed={9} />
+      {/* Service panels */}
+      <div className="container relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mt-12">
+          {services.map((service, idx) => (
+            <div
+              key={service.id}
+              className="service-panel-3d group bg-brand-card rounded-2xl p-7 pb-8 flex flex-col gap-6 shadow-lg border border-white/7 transition-transform duration-300 relative overflow-hidden"
+              data-category={service.category}
+              style={{ perspective: 1200 }}
+            >
+              {/* Sweep line */}
+              <div className="absolute left-0 top-0 h-1 w-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" style={{ background: service.color }} />
+              {/* Category label */}
+              <div className="label-eyebrow mb-2" style={{ color: service.color }}>{service.category}</div>
+              {/* Service number */}
+              <div className="font-mono text-[13px] font-bold mb-2 transition-colors duration-300 group-hover:text-shadow" style={{ color: undefined, transition: 'color 0.3s', ...(service.color ? { color: '#fff' } : {}) }}>
+                <span className="transition-colors duration-300 group-hover:text-shadow" style={{ color: undefined, ...(service.color ? { color: service.color } : {}) }}>{service.id}</span>
+              </div>
+              {/* ...existing code... */}
+              {/* Arrow button */}
+              <Link
+                to={`/services#${service.slug}`}
+                className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-white/10 text-sm font-bold transition-colors duration-300 group-hover:bg-opacity-10"
+                style={{ borderColor: service.color, background: undefined }}
+                onMouseEnter={e => (e.currentTarget.style.background = service.color + '22')}
+                onMouseLeave={e => (e.currentTarget.style.background = '')}
+              >
+                Learn More
+                <span className="ml-1">→</span>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* ...existing code... */}
+    </section>
+  );
+}
     };
     panels.forEach(p => {
       p.addEventListener('mouseenter', enter);
@@ -75,10 +117,8 @@ export default function Services() {
 
   return (
     <section data-section="services-section" className="bg-[#060608] overflow-hidden relative" style={{ "--float-speed": floatSpeed } as CSSProperties}>
-      {/* Glow Story - Services */}
-      {/* Global violet atmospheric glow */}
-      <div aria-hidden style={{ position: "absolute", top: "-150px", right: "-150px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.1), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
-      
+      {/* Violet atmospheric glow */}
+      <div aria-hidden style={{ position: "absolute", top: "-200px", right: "-200px", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
       <FloatingGeometry variant="ring" color="#4F46E5" size={160} opacity={0.12} position={{ top: '8%', right: '3%' }} speed={9} />
 
       {/* SECTION HEADER */}
@@ -158,7 +198,7 @@ export default function Services() {
                   </h3>
 
                   {/* SERVICE DESCRIPTION - Hidden on mobile */}
-                  <p className="hidden md:block font-sans text-[15px] text-white/55 leading-[1.7] max-w-[420px] mb-6 opacity-0 translate-y-0 transition-all duration-300 delay-50 group-hover:opacity-100 group-hover:-translate-y-1">
+                  <p className="hidden md:block font-sans text-[15px] text-white/55 leading-[1.7] max-w-[420px] mb-6 opacity-0 translate-y-0 transition-all duration-300 delay-[50ms] group-hover:opacity-100 group-hover:-translate-y-1">
                     {service.description}
                   </p>
 

@@ -5,11 +5,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useLenis } from "@/hooks/useLenis";
-import Cursor from "@/components/ui/Cursor";
+import { Cursor } from "@/components/ui/Cursor";
 import { Preloader } from "@/components/ui/Preloader";
 import { TransitionOverlay } from "@/components/ui/TransitionOverlay";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
-import { CursorOrb } from "@/components/ui/CursorOrb";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import Index from "./pages/Index";
@@ -67,7 +66,6 @@ const App = () => {
         {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
         <BrowserRouter>
           <ScrollProgress />
-          <CursorOrb />
           <Cursor />
           <TransitionOverlay />
           <AnimatedRoutes />

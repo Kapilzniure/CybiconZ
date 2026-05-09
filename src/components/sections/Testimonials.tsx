@@ -40,10 +40,12 @@ export default function Testimonials() {
 
   return (
     <section data-section="testimonials-section" className="py-[100px] relative overflow-hidden" style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)", "--float-speed": floatSpeed } as CSSProperties}>
+      {/* Glow Story - Testimonials */}
       {/* Pink glow — top-center */}
-      <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(236,72,153,0.09), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
+      
       <FloatingGeometry variant="ring" color="#EC4899" size={120} opacity={0.10} position={{ bottom: '5%', left: '2%' }} speed={8} />
-      <div className="container relative">
+      <div className="container relative z-10">
         <span className="label-eyebrow text-[#4F46E5]">Testimonials</span>
         <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-3 mb-12" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>What Our Clients Say.</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">

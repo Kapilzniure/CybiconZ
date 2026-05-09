@@ -1,119 +1,142 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring, useVelocity, useTransform, AnimatePresence } from "framer-motion";
 
-type CursorState = "default" | "hover" | "view";
+const SPRING_CONFIG = { stiffness: 160, damping: 22 };
 
-export default function Cursor() {
-  const [mounted, setMounted] = useState(false);
-  const [state, setState] = useState<CursorState>("default");
+export function Cursor() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [cursorState, setCursorState] = useState<"default" | "hover" | "view">("default");
+  const [sectionColor, setSectionColor] = useState("#FFFFFF");
 
-  // Dot follows instantly
-  const mouseX = useMotionValue(-200);
-  const mouseY = useMotionValue(-200);
+  // Mouse positions
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
 
-  // Ring follows with spring lag (~0.15s)
-  const ringX = useSpring(mouseX, { stiffness: 160, damping: 22, mass: 0.5 });
-  const ringY = useSpring(mouseY, { stiffness: 160, damping: 22, mass: 0.5 });
+  // Smooth positions for the ring
+  const smoothX = useSpring(mouseX, SPRING_CONFIG);
+  const smoothY = useSpring(mouseY, SPRING_CONFIG);
+
+  // Velocity tracking
+  const xVelocity = useVelocity(mouseX);
+  const yVelocity = useVelocity(mouseY);
+
+  // Transform velocity magnitude into skew and scale
+  // We use Math.abs because velocity can be negative
+  const skewX = useTransform([xVelocity, yVelocity], ([vx, vy]) => {
+    const magnitude = Math.sqrt(Number(vx) ** 2 + Number(vy) ** 2);
+    return Math.min(magnitude * 0.0004, 0.3); // Cap skew at 0.3
+  });
+
+  const scaleX = useTransform([xVelocity, yVelocity], ([vx, vy]) => {
+    const magnitude = Math.sqrt(Number(vx) ** 2 + Number(vy) ** 2);
+    return 1 + Math.min(magnitude * 0.0006, 0.4); // Cap scale at 1.4 total
+  });
 
   useEffect(() => {
-    // Desktop (fine pointer) only
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    setMounted(true);
+    // Only render on desktop (pointer: fine)
+    const checkDevice = () => {
+      setIsDesktop(window.matchMedia("(pointer: fine)").matches);
+    };
+    checkDevice();
 
-    const onMove = (e: MouseEvent) => {
+    const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-    };
 
-    const onOver = (e: MouseEvent) => {
-      const el = e.target as HTMLElement;
-      if (el.closest("[data-cursor='view']")) {
-        setState("view");
-      } else if (el.closest("a, button, [role='button']")) {
-        setState("hover");
+      const target = e.target as HTMLElement;
+      if (!target) return;
+
+      // Update Cursor State (Size/Morph)
+      if (target.closest('[data-cursor="view"]')) {
+        setCursorState("view");
+      } else if (target.closest('a, button, [role="button"], input, textarea, select')) {
+        setCursorState("hover");
       } else {
-        setState("default");
+        setCursorState("default");
+      }
+
+      // Update Section-aware Color
+      const section = target.closest('[data-section]') as HTMLElement;
+      const sectionName = section?.dataset.section;
+
+      switch (sectionName) {
+        case "hero-section":
+          setSectionColor("#4F46E5"); // Indigo
+          break;
+        case "services-section":
+          setSectionColor("#06B6D4"); // Cyan
+          break;
+        case "portfolio-section":
+          setSectionColor("#F97316"); // Orange
+          break;
+        case "testimonials-section":
+          setSectionColor("#EC4899"); // Pink
+          break;
+        default:
+          setSectionColor("#FFFFFF"); // Default White
       }
     };
 
-    window.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseover", onOver);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseover", onOver);
-    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  if (!mounted) return null;
+  if (!isDesktop) return null;
 
-  const ringSize = state === "view" ? 72 : state === "hover" ? 60 : 40;
+  const ringSizes = {
+    default: 40,
+    hover: 56,
+    view: 72,
+  };
 
   return (
-    <>
-      {/* Small dot — instant follow, mix-blend-mode: difference */}
+    <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden">
+      {/* 1. Small Dot (follows instantly) */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full bg-white"
         style={{
           x: mouseX,
           y: mouseY,
           translateX: "-50%",
           translateY: "-50%",
-          width: 8,
-          height: 8,
-          mixBlendMode: "difference",
         }}
+        className="w-2 h-2 bg-white rounded-full mix-blend-difference absolute"
       />
 
-      {/* Large ring — spring lag, morphs on state change */}
+      {/* 2. Large Ring (spring lag + velocity effects) */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9998] rounded-full flex items-center justify-center overflow-hidden"
         style={{
-          x: ringX,
-          y: ringY,
+          x: smoothX,
+          y: smoothY,
           translateX: "-50%",
           translateY: "-50%",
-          border: "1px solid rgba(255,255,255,0.5)",
+          skewX,
+          scaleX,
         }}
         animate={{
-          width: ringSize,
-          height: ringSize,
-          backgroundColor:
-            state === "view"
-              ? "rgba(255,255,255,0.12)"
-              : state === "hover"
-              ? "rgba(255,255,255,0.06)"
-              : "rgba(255,255,255,0)",
-          borderColor:
-            state === "default"
-              ? "rgba(255,255,255,0.5)"
-              : "rgba(255,255,255,0.85)",
+          width: ringSizes[cursorState],
+          height: ringSizes[cursorState],
+          borderColor: sectionColor,
         }}
-        transition={{ type: "spring", stiffness: 280, damping: 28, mass: 0.5 }}
+        transition={{
+          type: "spring",
+          ...SPRING_CONFIG,
+        }}
+        className="border-[1.5px] rounded-full absolute flex items-center justify-center"
       >
         <AnimatePresence>
-          {state === "view" && (
+          {cursorState === "view" && (
             <motion.span
-              key="view"
-              initial={{ opacity: 0, scale: 0.6 }}
+              initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.6 }}
-              transition={{ duration: 0.18 }}
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: 10,
-                fontWeight: 600,
-                color: "white",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                userSelect: "none",
-                whiteSpace: "nowrap",
-              }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              className="text-[10px] font-bold uppercase tracking-widest"
+              style={{ color: sectionColor }}
             >
               View
             </motion.span>
           )}
         </AnimatePresence>
       </motion.div>
-    </>
+    </div>
   );
 }

@@ -1,3 +1,41 @@
+## UPGRADE 9 — Performance & Polish Fixes
+
+**All five fixes complete. Zero type errors. Build passes.**
+
+**FIX 1 — delay-[50ms] replaced:**
+- `src/components/sections/Services.tsx:161` — `delay-[50ms]` → `delay-50`
+- `tailwind.config.ts` — rewrote file: fixed broken structure (was 87 lines, missing closing braces, `transitionDelay` buried inside a wrongly-nested `theme.extend.theme` block); `transitionDelay: { '50': '50ms' }` now lives in the correct `extend` block.
+
+**FIX 2 — use-toast stub deleted:**
+- `src/components/ui/use-toast.ts` deleted (was a 1-line comment stub; `toaster.tsx` already imported from `@/hooks/use-toast` directly).
+
+**FIX 3 — Image loading attributes:**
+- All non-hero images already have `loading="lazy"`. Hero images have `loading="eager"`. No changes needed.
+
+**FIX 4 — will-change for animated elements:**
+- Already present in `src/index.css` (lines 15–20). No changes needed.
+
+**FIX 5 — Stale imports:**
+- No remaining imports of `SectionBridge`, `Cursor`, `CursorOrb`, or `CustomCursor` found anywhere. Already clean from Upgrade 8.
+
+---
+
+## UPGRADE 8 — Cursor Consolidation (Performance)
+
+**Goal:** Eliminate three concurrent cursor components running separate rAF loops. Replace with one `UnifiedCursor` that handles dot, ring, and orb in a single animation loop.
+
+**Changes:**
+- Created `src/components/ui/UnifiedCursor.tsx` — single rAF loop, touch-device guard, dot + ring + orb.
+- `src/App.tsx` — removed `Cursor` and `CursorOrb` imports/renders; added `<UnifiedCursor />`.
+- `src/components/site/SiteShell.tsx` — removed duplicate `<Cursor />` render and its import.
+- Deleted `src/components/ui/Cursor.tsx` (replaced).
+- Deleted `src/components/ui/CursorOrb.tsx` (replaced).
+- Deleted `src/components/ui/CustomCursor.tsx` (was never rendered, now removed).
+- Deleted `src/components/ui/SectionBridge.tsx` (ghost component, unused).
+- Kept `src/hooks/useMagneticButton.ts` (still used by `MagneticButton.tsx`).
+
+---
+
 ## UPGRADE 7 — Section Ambient Glows (Week 4)
 
 **Goal:** Each section gets a unique colored ambient glow defining its personality. Creates the glow story: Violet → Orange → Cyan → Pink → Emerald → Violet → Fade.

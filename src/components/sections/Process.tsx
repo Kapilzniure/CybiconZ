@@ -17,10 +17,12 @@ export default function Process() {
 
   return (
     <section data-section="process-section" className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ borderTop: "1px solid rgba(255,255,255,0.05)", "--float-speed": floatSpeed } as CSSProperties}>
+      {/* Glow Story - Process */}
       {/* Orange glow — bottom-left */}
-      <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(249,115,22,0.08), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "-150px", left: "-150px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(249,115,22,0.09), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
+      
       <FloatingGeometry variant="cube" color="#F97316" size={80} opacity={0.15} position={{ bottom: '10%', right: '5%' }} speed={7} />
-      <div className="bg-[#060608] p-8 sm:p-16 md:p-20 flex flex-col justify-center relative">
+      <div className="bg-[#060608] p-8 sm:p-16 md:p-20 flex flex-col justify-center relative z-10">
         <span className="label-eyebrow text-violet mb-4">Process</span>
         <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}>
           How an Engagement Works

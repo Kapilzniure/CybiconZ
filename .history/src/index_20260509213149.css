@@ -1,3 +1,9 @@
+.animate-marquee, .animate-marquee-fast, .animate-marquee-slow {
+  will-change: transform;
+}
+.float3d, .spin3d, .rotateCube {
+  will-change: transform;
+}
 @import "@fontsource/bricolage-grotesque/400.css";
 @import "@fontsource/bricolage-grotesque/700.css";
 @import "@fontsource/bricolage-grotesque/800.css";
@@ -15,27 +21,27 @@
 @layer base {
   :root {
     /* Brand surfaces */
-    --bg-base: 240 14% 3%;
-    --bg-card: 240 15% 5%;
-    --bg-raised: 240 14% 8%;
-    --bg-hover: 240 13% 11%;
+    --bg-base: 240 14% 3%;       /* #060608 — near-pure black, slight blue */
+    --bg-card: 240 15% 5%;       /* #080810 */
+    --bg-raised: 240 14% 8%;     /* #0D0D15 */
+    --bg-hover: 240 13% 11%;     /* #19191F */
 
-    --bg-light: 240 20% 7%;
-    --bg-light-card: 240 22% 9%;
+    --bg-light: 240 20% 7%;       /* #0A0A12 — lifted dark section */
+    --bg-light-card: 240 22% 9%; /* #0F0F1C — dark card surface */
 
-    --text-white: 247 100% 97%;
-    --text-muted: 234 14% 49%;
-    --text-dark: 232 33% 6%;
+    --text-white: 247 100% 97%;  /* #F0EEFF — slightly purple-white */
+    --text-muted: 234 14% 49%;   /* #6B6E8F */
+    --text-dark: 232 33% 6%;     /* #0A0B14 */
 
-    --accent-from: 243 75% 59%;
-    --accent-mid: 243 75% 59%;
-    --accent-to: 243 75% 59%;
+    --accent-from: 243 75% 59%;  /* #4F46E5 — electric indigo */
+    --accent-mid: 243 75% 59%;   /* #4F46E5 — electric indigo */
+    --accent-to: 243 75% 59%;    /* #4F46E5 — electric indigo */
 
-    --cyan: 188 94% 43%;
-    --amber: 38 92% 50%;
-    --emerald: 160 84% 39%;
+    --cyan: 188 94% 43%;         /* kept for compat, unused in UI */
+    --amber: 38 92% 50%;         /* kept for compat, unused in UI */
+    --emerald: 160 84% 39%;      /* kept for compat, unused in UI */
 
-    /* shadcn semantic tokens */
+    /* shadcn semantic tokens — mapped to dark scheme */
     --background: var(--bg-base);
     --foreground: var(--text-white);
     --card: var(--bg-card);
@@ -74,7 +80,7 @@
   /* Restore functional cursors */
   input, textarea, [contenteditable] { cursor: text !important; }
   select { cursor: pointer !important; }
-  /* Touch devices */
+  /* Touch devices: restore default cursor everywhere */
   @media (pointer: coarse) {
     * { cursor: auto !important; }
   }

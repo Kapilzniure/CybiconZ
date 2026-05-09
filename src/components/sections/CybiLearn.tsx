@@ -12,12 +12,13 @@ const features = [
 export default function CybiLearn() {
   return (
     <section data-section="cybilearn-section" className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden" style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      {/* Glow Story - CybiLearn */}
       {/* Emerald glow — bottom-left */}
-      <div aria-hidden style={{ position: "absolute", bottom: "-100px", left: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(16,185,129,0.10), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
+      <div aria-hidden style={{ position: "absolute", bottom: "-150px", left: "-150px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(16,185,129,0.12), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
       {/* Cyan glow — top-right */}
-      <div aria-hidden style={{ position: "absolute", top: "-80px", right: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.06), transparent 65%)", pointerEvents: "none", zIndex: 0 }} />
-      <div className="relative p-8 sm:p-16 md:p-20 flex flex-col justify-center">
-        <div className="absolute -top-20 -left-20 w-[400px] h-[400px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.08)", filter: "blur(120px)" }} />
+      <div aria-hidden style={{ position: "absolute", top: "-100px", right: "-100px", width: "300px", height: "300px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.06), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
+      
+      <div className="relative p-8 sm:p-16 md:p-20 flex flex-col justify-center z-10">
         <div className="relative">
           <span className="inline-block label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20 text-[10px] sm:text-xs">Also from CybiconZ</span>
           <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-5 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
