@@ -33,10 +33,10 @@ export function ScrollProgress() {
         ref={ref}
         style={{
           height: '100%',
-          background: 'linear-gradient(90deg, #4338CA, #818CF8, #EC4899)',
+          background: 'var(--theme-primary, #4F46E5)',
           transformOrigin: 'left',
           transform: 'scaleX(0)',
-          transition: 'transform 0.1s linear',
+          transition: 'transform 0.1s linear, background 600ms ease',
         }}
       />
     </div>

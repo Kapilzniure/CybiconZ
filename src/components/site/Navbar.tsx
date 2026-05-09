@@ -33,7 +33,7 @@ export default function Navbar() {
             }>
               {({ isActive }) => (<>
                 {l.label}
-                {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#4F46E5]" />}
+                {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-primary, #4F46E5)", transition: "background 600ms ease" }} />}
               </>)}
             </NavLink>
           ))}
