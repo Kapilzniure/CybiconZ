@@ -34,6 +34,39 @@ export default function Hero() {
     gsap.to(".scroll-indicator", { opacity: 1, duration: 0.6, delay: 1.2, ease: "power2.out" });
   }, []);
 
+  // Character scramble animation on the headline
+  useEffect(() => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const targets = document.querySelectorAll<HTMLSpanElement>("[data-scramble]");
+    const timers: number[] = [];
+
+    targets.forEach((el, i) => {
+      const final = el.dataset.final ?? el.textContent ?? "";
+      const delay = i * 40; // 0.04s per character
+      const totalDuration = 400; // 0.4s per char
+      const cycles = 6;
+      const interval = totalDuration / cycles;
+
+      const start = window.setTimeout(() => {
+        if (final === " ") { el.textContent = " "; return; }
+        let count = 0;
+        const id = window.setInterval(() => {
+          if (count >= cycles) {
+            el.textContent = final;
+            window.clearInterval(id);
+            return;
+          }
+          el.textContent = chars[Math.floor(Math.random() * chars.length)];
+          count++;
+        }, interval);
+        timers.push(id);
+      }, delay);
+      timers.push(start);
+    });
+
+    return () => { timers.forEach((t) => { window.clearTimeout(t); window.clearInterval(t); }); };
+  }, []);
+
   useEffect(() => {
     const heroSection = document.getElementById("hero-section");
     const headlineEl = document.getElementById("hero-headline");
@@ -94,13 +127,19 @@ export default function Hero() {
 
         <div ref={headlineRef} id="hero-headline" className="mb-8">
           <div className="block font-display font-black text-white leading-none" style={{ fontSize: "clamp(64px, 10vw, 140px)", letterSpacing: "-0.04em", lineHeight: "0.9" }}>
-            We build
+            {Array.from("We build").map((c, i) => (
+              <span key={`l1-${i}`} data-scramble data-final={c} style={{ display: "inline-block", whiteSpace: "pre" }}>{c}</span>
+            ))}
           </div>
           <div className="block font-display font-black leading-none" style={{ fontSize: "clamp(64px, 10vw, 140px)", letterSpacing: "-0.04em", lineHeight: "0.9", WebkitTextStroke: "1.5px rgba(240,238,255,0.4)", WebkitTextFillColor: "transparent", color: "transparent" }}>
-            digital products
+            {Array.from("digital products").map((c, i) => (
+              <span key={`l2-${i}`} data-scramble data-final={c} style={{ display: "inline-block", whiteSpace: "pre" }}>{c}</span>
+            ))}
           </div>
           <div className="block font-display font-black text-white leading-none" style={{ fontSize: "clamp(64px, 10vw, 140px)", letterSpacing: "-0.04em", lineHeight: "0.9" }}>
-            that work.
+            {Array.from("that work.").map((c, i) => (
+              <span key={`l3-${i}`} data-scramble data-final={c} style={{ display: "inline-block", whiteSpace: "pre" }}>{c}</span>
+            ))}
           </div>
         </div>
 
