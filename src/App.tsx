@@ -9,6 +9,8 @@ import { Cursor } from "@/components/ui/Cursor";
 import { Preloader } from "@/components/ui/Preloader";
 import { TransitionOverlay } from "@/components/ui/TransitionOverlay";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { ThemeOverlay } from "@/components/ui/ThemeOverlay";
+import { ScrollThemeProvider } from "@/hooks/useScrollTheme";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import Index from "./pages/Index";
@@ -65,10 +67,13 @@ const App = () => {
         <Sonner />
         {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
         <BrowserRouter>
-          <ScrollProgress />
-          <Cursor />
-          <TransitionOverlay />
-          <AnimatedRoutes />
+          <ScrollThemeProvider>
+            <ThemeOverlay />
+            <ScrollProgress />
+            <Cursor />
+            <TransitionOverlay />
+            <AnimatedRoutes />
+          </ScrollThemeProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
