@@ -1,4 +1,4 @@
-import { useEffect, useRef, Suspense, lazy } from "react";
+import { useEffect, Suspense, lazy } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ParticleField } from "@/components/ui/ParticleField";
@@ -6,33 +6,33 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const HeroCanvas = lazy(() => import("./HeroCanvas"));
 
-function useScramble(text: string, delay = 0) {
-  const ref = useRef<HTMLSpanElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%&";
-    let interval: number | undefined;
-    const timeout = window.setTimeout(() => {
-      const letters = text.split("");
-      let iteration = 0;
-      interval = window.setInterval(() => {
-        el.innerText = letters
-          .map((c, i) => (c === " " ? " " : i < iteration ? c : chars[Math.floor(Math.random() * chars.length)]))
-          .join("");
-        if (iteration >= letters.length) {
-          window.clearInterval(interval);
-          el.innerText = text;
-        }
-        iteration += 0.45;
-      }, 38);
-    }, delay);
-    return () => {
-      window.clearTimeout(timeout);
-      if (interval) window.clearInterval(interval);
-    };
-  }, [text, delay]);
-  return ref;
+/**
+ * Splits a string into per-letter spans wrapped in per-word mask containers.
+ * Each letter is class "hero-char" (ready for GSAP stagger).
+ */
+function SplitLine({ text, className = "", style }: { text: string; className?: string; style?: React.CSSProperties }) {
+  const words = text.split(" ");
+  return (
+    <span className={className} style={style}>
+      {words.map((word, wi) => (
+        <span
+          key={wi}
+          className="inline-block overflow-hidden align-bottom"
+          style={{ paddingBottom: "0.12em", marginRight: wi < words.length - 1 ? "0.28em" : 0 }}
+        >
+          {word.split("").map((ch, ci) => (
+            <span
+              key={ci}
+              className="hero-char inline-block"
+              style={{ transform: "translateY(110%)", willChange: "transform, opacity", opacity: 0 }}
+            >
+              {ch}
+            </span>
+          ))}
+        </span>
+      ))}
+    </span>
+  );
 }
 
 const TICKER = [
@@ -41,19 +41,34 @@ const TICKER = [
 ];
 
 export default function Hero() {
-  const line1Ref = useScramble("We build", 350);
-  const line2Ref = useScramble("digital", 600);
-  const line3Ref = useScramble("products", 850);
-  const line4Ref = useScramble("that work.", 1100);
-
   useEffect(() => {
-    gsap.set([".hero-eyebrow", ".hero-meta", ".subheadline", ".ctas", ".hero-stats", ".scroll-indicator"], { opacity: 0 });
-    gsap.to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.6, delay: 0.15, ease: "power2.out" });
-    gsap.to(".hero-meta", { opacity: 1, duration: 0.8, delay: 0.3, ease: "power2.out" });
-    gsap.to(".subheadline", { opacity: 1, y: 0, duration: 0.7, delay: 0.95, ease: "power2.out" });
-    gsap.to(".ctas", { opacity: 1, y: 0, duration: 0.7, delay: 1.15, ease: "power2.out" });
-    gsap.to(".hero-stats", { opacity: 1, y: 0, duration: 0.7, delay: 1.3, ease: "power2.out" });
-    gsap.to(".scroll-indicator", { opacity: 1, duration: 0.6, delay: 1.5, ease: "power2.out" });
+    const ctx = gsap.context(() => {
+      gsap.set([".hero-eyebrow", ".hero-meta", ".subheadline", ".ctas", ".hero-stats", ".scroll-indicator", ".hero-shimmer"], { opacity: 0 });
+
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.7, delay: 0.1 })
+        .to(".hero-meta", { opacity: 1, duration: 0.8 }, "<0.1")
+        // Letter mask reveal — the headline
+        .to(".hero-char", {
+          y: 0,
+          opacity: 1,
+          duration: 1.1,
+          ease: "expo.out",
+          stagger: { each: 0.022, from: "start" },
+        }, "-=0.4")
+        // Gradient shimmer sweep across the whole headline
+        .fromTo(".hero-shimmer",
+          { opacity: 0, backgroundPosition: "-150% 0" },
+          { opacity: 1, backgroundPosition: "250% 0", duration: 1.6, ease: "power2.inOut" },
+          "-=0.8"
+        )
+        .to(".subheadline", { opacity: 1, y: 0, duration: 0.7 }, "-=0.7")
+        .to(".ctas",       { opacity: 1, y: 0, duration: 0.7 }, "-=0.55")
+        .to(".hero-stats", { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
+        .to(".scroll-indicator", { opacity: 1, duration: 0.6 }, "-=0.4");
+    });
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {
@@ -151,39 +166,56 @@ export default function Hero() {
           </div>
 
           {/* Headline — editorial, mixed treatments */}
-          <h1 id="hero-headline" className="font-display font-black text-white leading-[0.86] mb-10" style={{ letterSpacing: "-0.045em" }}>
-            <span className="block" style={{ fontSize: "clamp(56px, 9.5vw, 132px)" }}>
-              <span ref={line1Ref}>We build</span>
-            </span>
-            <span className="block" style={{ fontSize: "clamp(56px, 9.5vw, 132px)" }}>
-              <span
-                ref={line2Ref}
+          <h1
+            id="hero-headline"
+            className="font-display font-black text-white leading-[0.88] mb-10 relative"
+            style={{ letterSpacing: "-0.045em" }}
+          >
+            <SplitLine
+              text="We build"
+              className="block"
+              style={{ fontSize: "clamp(48px, 9.5vw, 132px)" }}
+            />
+            <span className="block" style={{ fontSize: "clamp(48px, 9.5vw, 132px)" }}>
+              <SplitLine
+                text="digital"
+                className="bg-clip-text"
                 style={{
-                  backgroundImage: "linear-gradient(135deg, #818CF8 0%, #4F46E5 45%, #EC4899 100%)",
+                  backgroundImage: "linear-gradient(135deg, #A5B4FC 0%, #818CF8 35%, #4F46E5 65%, #EC4899 100%)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
-                digital
-              </span>{" "}
-              <span
-                ref={line3Ref}
-                className="italic font-light"
-                style={{
-                  fontFamily: "'Bricolage Grotesque', serif",
-                  WebkitTextStroke: "1.5px rgba(240,238,255,0.55)",
                   WebkitTextFillColor: "transparent",
                   color: "transparent",
                 }}
-              >
-                products
-              </span>
+              />
+              <span aria-hidden style={{ display: "inline-block", width: "0.28em" }} />
+              <SplitLine
+                text="products"
+                className="italic font-light"
+                style={{
+                  fontFamily: "'Bricolage Grotesque', serif",
+                  color: "rgba(255,255,255,0.92)",
+                }}
+              />
             </span>
-            <span className="block" style={{ fontSize: "clamp(56px, 9.5vw, 132px)" }}>
-              <span ref={line4Ref}>that work.</span>
-              <span aria-hidden className="inline-block align-middle ml-2 w-3 h-[0.7em] bg-white/80 animate-pulse" />
+            <span className="block" style={{ fontSize: "clamp(48px, 9.5vw, 132px)" }}>
+              <SplitLine text="that work." className="" />
+              <span aria-hidden className="inline-block align-middle ml-2 w-2.5 h-[0.65em] bg-violet-400 animate-pulse" />
             </span>
+
+            {/* Shimmer sweep overlay (purely decorative) */}
+            <span
+              aria-hidden
+              className="hero-shimmer pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%)",
+                backgroundSize: "200% 100%",
+                backgroundRepeat: "no-repeat",
+                WebkitMaskImage: "linear-gradient(#000, #000)",
+                mixBlendMode: "overlay",
+              }}
+            />
           </h1>
 
           {/* Sub */}
