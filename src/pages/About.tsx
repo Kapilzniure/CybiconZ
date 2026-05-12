@@ -75,17 +75,9 @@ export default function About() {
             </div>
 
             {/* Right — founder image */}
-            <motion.div 
-              {...fade(0.18)} 
+            <motion.div
+              {...fade(0.18)}
               className="relative max-w-sm lg:max-w-none"
-              animate={{
-                y: [0, -8, 0]
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
             >
               {/* TODO: Replace with real founder photo */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/5", background: "#080810", border: "1px solid rgba(255,255,255,0.08)" }}>

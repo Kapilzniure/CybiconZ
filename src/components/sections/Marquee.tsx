@@ -13,7 +13,7 @@ const items = [
 
 export default function Marquee() {
   const velocity = useScrollVelocity();
-  const duration = Math.max(8, 35 - velocity * 2);
+  const duration = Math.max(30, 80 - velocity * 2);
 
   return (
     <div className="h-[52px] overflow-hidden border-y border-white/5 bg-white/[0.015] flex items-center group">

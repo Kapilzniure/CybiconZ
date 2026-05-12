@@ -1,222 +1,163 @@
-import { useEffect, type CSSProperties } from "react";
-import { services } from "@/data/services";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
-import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { services } from "@/data/services";
+import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export default function Services() {
-  const velocity = useScrollVelocity();
-  const floatSpeed = Math.max(3, 9 - velocity * 0.3);
-
-  useEffect(() => {
-    const panels = document.querySelectorAll<HTMLElement>('.service-panel-3d');
-    if (!panels.length) return;
-
-    const ctx = gsap.context(() => {
-      panels.forEach((panel, i) => {
-        gsap.set(panel, {
-          rotateX: 8,
-          rotateY: -4,
-          transformPerspective: 1200,
-          transformOrigin: 'center top',
-          opacity: 0,
-          y: 60,
-        });
-        gsap.to(panel, {
-          rotateX: 0,
-          rotateY: 0,
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-          ease: 'power3.out',
-          delay: i * 0.08,
-          scrollTrigger: {
-            trigger: panel,
-            start: 'top 85%',
-            once: true,
-          },
-        });
-      });
-    });
-
-    const enter = (e: Event) => {
-      const panel = e.currentTarget as HTMLElement;
-      const img = panel.querySelector('img');
-      if (img) (img as HTMLImageElement).style.filter = 'brightness(0.55) saturate(1.1)';
-      const category = panel.dataset.category || 'Explore';
-      window.dispatchEvent(new CustomEvent('cursor:label', { detail: { label: category, size: 'large' } }));
-    };
-    const leave = (e: Event) => {
-      const panel = e.currentTarget as HTMLElement;
-      const img = panel.querySelector('img');
-      if (img) (img as HTMLImageElement).style.filter = 'brightness(0.35) saturate(0.8)';
-      window.dispatchEvent(new CustomEvent('cursor:label', { detail: { label: null, size: 'normal' } }));
-    };
-    panels.forEach(p => {
-      p.addEventListener('mouseenter', enter);
-      p.addEventListener('mouseleave', leave);
-    });
-
-    return () => {
-      ctx.revert();
-      panels.forEach(p => {
-        p.removeEventListener('mouseenter', enter);
-        p.removeEventListener('mouseleave', leave);
-      });
-      ScrollTrigger.getAll().forEach(t => {
-        if (t.vars.trigger instanceof Element && (t.vars.trigger as Element).classList.contains('service-panel-3d')) {
-          t.kill();
-        }
-      });
-    };
-  }, []);
-
   return (
-    <section data-section="services-section" className="bg-[#060608] overflow-hidden relative" style={{ "--float-speed": floatSpeed } as CSSProperties}>
-      {/* Glow Story - Services */}
-      {/* Global violet atmospheric glow */}
-      <div aria-hidden style={{ position: "absolute", top: "-150px", right: "-150px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.1), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
-      
-      <FloatingGeometry variant="ring" color="#4F46E5" size={160} opacity={0.12} position={{ top: '8%', right: '3%' }} speed={9} />
+    <section data-section="services-section" className="bg-[#060608] overflow-hidden relative py-20 sm:py-28">
+      {/* Ambient violet glow */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute", top: "-150px", right: "-150px",
+          width: "600px", height: "600px", borderRadius: "50%",
+          background: "radial-gradient(rgba(79,70,229,0.09), transparent 65%)",
+          pointerEvents: "none", zIndex: 0, filter: "blur(60px)",
+        }}
+      />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute", bottom: "-100px", left: "-100px",
+          width: "400px", height: "400px", borderRadius: "50%",
+          background: "radial-gradient(rgba(79,70,229,0.06), transparent 65%)",
+          pointerEvents: "none", zIndex: 0, filter: "blur(60px)",
+        }}
+      />
 
-      {/* SECTION HEADER */}
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-12 md:pt-[80px] md:pb-[60px] relative z-10">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-4 h-0.5 bg-[#4F46E5]" />
-          <span className="font-mono text-[11px] uppercase tracking-wider text-[#4F46E5]">
-            What we build
-          </span>
-        </div>
-        <h2 className="section-headline-reveal font-display font-extrabold text-white leading-[0.92] tracking-[-0.04em]" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
-          Services
-        </h2>
-        <div className="hidden lg:block absolute right-20 bottom-[60px]">
-          <p className="font-sans text-white/50 text-base">
+      <div className="container relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12 sm:mb-16">
+          <div>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-4 h-0.5 bg-[#4F46E5]" />
+              <span className="font-mono text-[11px] uppercase tracking-wider text-[#4F46E5]">
+                What we build
+              </span>
+            </div>
+            <h2
+              className="section-headline-reveal font-display font-extrabold text-white leading-[0.92] tracking-[-0.04em]"
+              style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
+            >
+              Services
+            </h2>
+          </div>
+          <p className="font-sans text-white/40 text-[15px] max-w-xs md:text-right hidden md:block">
             Every engagement scoped to your situation.
           </p>
         </div>
-      </div>
 
-      {/* SERVICE PANELS */}
-      <div className="flex flex-col">
-        {services && services.length > 0 ? services.map((service) => (
-          <div
-            key={service.id}
-            data-category={service.category}
-            className="service-panel-3d group relative w-full h-[260px] sm:h-[360px] lg:h-[420px] overflow-hidden border-b border-white/5 last:border-b-0 cursor-pointer"
-          >
-            <Link to="/services" className="absolute inset-0 block z-40 md:z-auto" />
-            
-            {/* 1. Background image layer */}
-            <div className="absolute inset-0">
-              <img
-                src={service.image}
-                alt={service.name}
-                loading="lazy"
-                className="w-full h-full object-cover transition-all duration-500"
-                style={{ filter: 'brightness(0.35) saturate(0.8)' }}
-              />
-            </div>
-
-            {/* 2. Gradient overlay layer */}
-            <div 
-              className="absolute inset-0" 
+        {/* Card grid — 2 cols on desktop, last card spans full width */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.65, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -5, transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] } }}
+              className={`group relative rounded-2xl cursor-pointer overflow-hidden${i === 4 ? " md:col-span-2" : ""}`}
               style={{
-                background: "linear-gradient(105deg, rgba(7,8,14,0.92) 0%, rgba(7,8,14,0.75) 40%, rgba(7,8,14,0.35) 70%, rgba(7,8,14,0.1) 100%)"
+                background: "#0F0F1C",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderTop: `2px solid ${service.color}`,
               }}
-            />
+            >
+              <Link
+                to="/services"
+                className="absolute inset-0 z-10"
+                aria-label={`Learn about ${service.name}`}
+              />
 
-            {/* 3. Colored accent line */}
-            <div 
-              className="absolute top-0 left-0 right-0 h-[2px] z-20 origin-left transition-transform duration-500 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] scale-x-0 group-hover:scale-x-100"
-              style={{ background: service.gradient }}
-            />
+              {/* Ghost number */}
+              <div
+                aria-hidden
+                className="absolute bottom-0 right-5 font-display font-extrabold pointer-events-none select-none leading-none"
+                style={{ fontSize: "clamp(90px, 12vw, 140px)", color: "rgba(255,255,255,0.025)" }}
+              >
+                {service.id}
+              </div>
 
-            {/* 4. Content layer */}
-            <div className="absolute inset-0 z-10 flex items-center">
-              <div className="container px-6 md:px-10 lg:px-20 max-w-[1280px] mx-auto w-full relative">
-                
-                {/* Left side content */}
-                <div className="max-w-[600px]">
-                  {/* SERVICE NUMBER + CATEGORY ROW */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="font-mono text-[13px] text-white/25">{service.id}</span>
-                    <div className="w-px h-3.5 bg-white/15" />
-                    <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: '#4F46E5' }}>
+              <div
+                className={`relative z-[1] p-7 sm:p-9${i === 4 ? " md:grid md:grid-cols-[1fr_auto] md:gap-8 md:items-end" : ""}`}
+              >
+                {/* Main content */}
+                <div>
+                  {/* Top meta row */}
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="font-mono text-[10px] text-white/25 uppercase tracking-wider">
+                      {service.id}
+                    </span>
+                    <span className="w-px h-3 bg-white/10" />
+                    <span
+                      className="font-mono text-[10px] uppercase tracking-wider"
+                      style={{ color: service.color }}
+                    >
                       {service.category}
                     </span>
+                    {service.popular && (
+                      <span
+                        className="ml-auto font-mono text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full"
+                        style={{
+                          background: `${service.color}20`,
+                          color: service.color,
+                          border: `1px solid ${service.color}40`,
+                        }}
+                      >
+                        Popular
+                      </span>
+                    )}
                   </div>
 
-                  {/* SERVICE NAME */}
-                  <h3 
-                    className="font-display font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-4 transition-transform duration-300 group-hover:translate-x-2"
-                    style={{ fontSize: "clamp(24px, 7vw, 52px)" }}
+                  {/* Service name */}
+                  <h3
+                    className="font-display font-extrabold text-white leading-tight mb-3 transition-transform duration-300 group-hover:translate-x-1"
+                    style={{ fontSize: "clamp(20px, 2.6vw, 30px)", letterSpacing: "-0.02em" }}
                   >
                     {service.name}
                   </h3>
 
-                  {/* SERVICE DESCRIPTION - Hidden on mobile */}
-                  <p className="hidden md:block font-sans text-[15px] text-white/55 leading-[1.7] max-w-[420px] mb-6 opacity-0 translate-y-0 transition-all duration-300 delay-50 group-hover:opacity-100 group-hover:-translate-y-1">
+                  {/* Description */}
+                  <p
+                    className="text-[13px] sm:text-[14px] leading-relaxed"
+                    style={{ color: "rgba(255,255,255,0.4)" }}
+                  >
                     {service.description}
                   </p>
-
-                  {/* BOTTOM ROW */}
-                  <div className="flex items-center gap-6">
-                    {service.popular && (
-                      <div 
-                        className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 rounded-full border"
-                        style={{ 
-                          background: `${service.accent}26`, // 15% opacity
-                          borderColor: `${service.accent}40`, // 25% opacity
-                          color: service.accent 
-                        }}
-                      >
-                        Popular
-                      </div>
-                    )}
-                    
-                    <Link 
-                      to="/services" 
-                      className="hidden md:flex items-center gap-2 font-sans font-semibold text-[14px] text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:gap-3"
-                    >
-                      Learn more
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-all">
-                        <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </Link>
-                  </div>
                 </div>
 
-                {/* Right side - Ghost number */}
-                <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <span className="font-mono font-black text-[180px] text-white/[0.03] leading-none select-none">
-                    {service.id}
+                {/* Bottom: timeline + arrow */}
+                <div
+                  className={`flex items-center justify-between gap-4${i === 4 ? " mt-5 md:mt-0 md:flex-col md:items-end md:justify-end" : " mt-6"}`}
+                >
+                  <span
+                    className="font-mono text-[11px]"
+                    style={{ color: "rgba(255,255,255,0.2)" }}
+                  >
+                    {service.timeline}
+                  </span>
+                  <span
+                    className="text-[12px] sm:text-[13px] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 group-hover:gap-2.5 transition-all duration-300 whitespace-nowrap"
+                    style={{ color: service.color }}
+                  >
+                    Explore <span>→</span>
                   </span>
                 </div>
               </div>
-            </div>
-          </div>
-        )) : (
-          <div className="py-20 text-center text-white/30 font-mono text-sm">
-            No services data found.
-          </div>
-        )}
-      </div>
+            </motion.div>
+          ))}
+        </div>
 
-      {/* FOOTER ROW */}
-      <div className="border-t border-white/10 bg-[#060608] py-6">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="font-sans font-medium text-[14px] text-white/40">
+        {/* Footer row */}
+        <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/[0.06]">
+          <p className="font-sans font-medium text-[14px] text-white/35">
             5 services. Every one delivered end-to-end.
           </p>
-          <Link 
-            to="/services" 
-            className="text-gradient font-bold text-[14px] hover:opacity-80 transition-opacity"
-          >
+          <MagneticButton href="/services" variant="ghost">
             View full breakdown →
-          </Link>
+          </MagneticButton>
         </div>
       </div>
     </section>

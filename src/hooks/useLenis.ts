@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import Lenis from '@studio-freight/lenis'
 
+export let lenisInstance: Lenis | null = null
+
 export function useLenis() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -9,6 +11,8 @@ export function useLenis() {
       smoothWheel: true,
       touchMultiplier: 2,
     })
+
+    lenisInstance = lenis
 
     function raf(time: number) {
       lenis.raf(time)
@@ -20,6 +24,7 @@ export function useLenis() {
     return () => {
       cancelAnimationFrame(rafId)
       lenis.destroy()
+      lenisInstance = null
     }
   }, [])
 }
