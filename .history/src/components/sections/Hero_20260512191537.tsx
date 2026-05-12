@@ -42,28 +42,28 @@ export default function Hero() {
       />
 
       {/* TOP: Headline Cluster (Just below Navigation) */}
-      <div className="relative z-10 w-full pt-2 md:pt-2 px-6 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full pt-28 md:pt-32 px-6 flex flex-col items-center text-center">
         <div className="hero-content-reveal mb-2 flex items-center gap-3">
           <div className="h-px w-6 bg-brand-blue/30" />
          
           <div className="h-px w-6 bg-brand-blue/30" />
         </div>
         <h1 className="hero-content-reveal font-display font-extrabold leading-none tracking-tighter text-white"
-            style={{ fontSize: 'clamp(30px, 5vw, 74px)' }}>
+            style={{ fontSize: 'clamp(40px, 6vw, 84px)' }}>
           We build <span className="text-brand-blue">digital</span> products.
         </h1>
       </div>
 
       {/* CENTER: Heroic Logo Showcase */}
       <div className="relative z-10 w-full flex flex-col items-center justify-center flex-grow px-6">
-        <div className="hero-content-reveal relative max-w-[105vw] md:max-w-[1500px] w-full flex flex-col items-center">
+        <div className="hero-content-reveal relative max-w-[85vw] md:max-w-[700px] w-full flex flex-col items-center">
           <img 
             src="/cybiconz-logo.png" 
             alt="CybiconZ Logo" 
             className="w-full h-auto object-contain"
             style={{ 
               filter: 'drop-shadow(0 0 80px rgba(0,196,255,0.2))',
-              maxHeight: '50vh'
+              maxHeight: '40vh'
             }}
           />
           

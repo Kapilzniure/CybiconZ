@@ -56,6 +56,12 @@
     --input: 0 0% 100%;
     --ring: var(--accent-from);
     --radius: 1.25rem;
+
+    /* Elite Brand Colors */
+    --brand-blue: #00C4FF;
+    --brand-green: #39FF14;
+    --brand-dark-blue: #0066FF;
+    --hero-bg: #020408;
   }
 }
 
@@ -84,6 +90,14 @@
 @layer utilities {
   .font-display { font-family: 'Bricolage Grotesque', system-ui, sans-serif; letter-spacing: -0.03em; }
   .font-mono { font-family: 'DM Mono', ui-monospace, monospace; }
+
+  .text-brand-blue { color: var(--brand-blue); }
+  .text-brand-green { color: var(--brand-green); }
+  .shadow-blue { box-shadow: 0 0 30px rgba(0,196,255,0.35); }
+  .shadow-green { box-shadow: 0 0 30px rgba(57,255,20,0.25); }
+  .border-blue { border-color: rgba(0,196,255,0.25); }
+  .glow-text-blue { text-shadow: 0 0 20px rgba(0,196,255,0.5); }
+  .glow-text-green { text-shadow: 0 0 20px rgba(57,255,20,0.5); }
 
   .text-gradient {
     background: linear-gradient(135deg, hsl(var(--accent-from)), hsl(var(--accent-mid)), hsl(var(--accent-to)));
