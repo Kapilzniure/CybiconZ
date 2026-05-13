@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import type { CSSProperties } from "react";
 import { useCountUp } from "@/hooks/useCountUp";
-import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 export default function Stats() {
@@ -16,50 +15,54 @@ export default function Stats() {
       number: (
         <span
           ref={stat1.ref as React.RefObject<HTMLSpanElement>}
-          className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none text-white tabular-nums"
+          className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none tabular-nums"
+          style={{ color: '#00C4FF' }}
         >
           {stat1.count}{stat1.suffix}
         </span>
       ),
       label: "Live Projects",
       sub: "Real clients, real outcomes",
+      color: '#00C4FF',
     },
     {
       number: (
         <span
           ref={stat2.ref as React.RefObject<HTMLSpanElement>}
-          className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none text-white tabular-nums"
+          className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none tabular-nums"
+          style={{ color: '#39FF14' }}
         >
           {stat2.count}{stat2.suffix}
         </span>
       ),
       label: "Delivery Rate",
       sub: "No abandoned projects ever",
+      color: '#39FF14',
     },
     {
       number: (
-        <span className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none text-white">
+        <span className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none" style={{ color: '#00C4FF' }}>
           1 day
         </span>
       ),
       label: "Response Time",
       sub: "Guaranteed, always",
+      color: '#00C4FF',
     },
     {
       number: (
-        <span className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none text-white">
+        <span className="font-display font-extrabold text-[48px] sm:text-[64px] lg:text-[72px] leading-none" style={{ color: 'rgba(255,255,255,0.6)' }}>
           2025
         </span>
       ),
       label: "Founded",
       sub: "Building since",
+      color: 'rgba(255,255,255,0.2)',
     },
   ];
 
   return (
     <section data-section="stats-section" className="py-[100px] relative overflow-hidden dark-texture" style={{ background: "#060608", position: "relative", "--float-speed": floatSpeed } as CSSProperties}>
-      <FloatingGeometry variant="pyramid" color="#F97316" size={100} opacity={0.12} position={{ top: '5%', left: '3%' }} speed={11} />
-      {/* Glow Story - Stats */}
       {/* Warm atmospheric glow — orange center */}
       <div
         aria-hidden
@@ -91,7 +94,7 @@ export default function Stats() {
               transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className={`px-6 py-10 border-r border-b lg:border-b-0 border-white/[0.06] ${i >= 2 ? "border-b-0" : "lg:border-b-0"}`}
             >
-              <div className="h-1 w-10 rounded-full mb-6" style={{ background: "#4F46E5" }} />
+              <div className="h-1 w-10 rounded-full mb-6" style={{ background: item.color }} />
               {item.number}
               <div className="text-white/60 text-[14px] sm:text-[15px] font-semibold mt-3">{item.label}</div>
               <div className="font-mono text-[10px] sm:text-[11px] text-white/20 mt-1 uppercase tracking-wider">{item.sub}</div>

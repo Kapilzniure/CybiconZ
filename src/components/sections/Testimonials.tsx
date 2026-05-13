@@ -62,7 +62,7 @@ export default function Testimonials() {
               <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "120px", background: `radial-gradient(${cardGlows[i]} 0%, transparent 70%)`, pointerEvents: "none", zIndex: 0 }} />
               <div className="p-6 sm:p-8 flex-1 flex flex-col relative z-10">
                 <div className="flex items-start justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white" style={{ background: "#4F46E5" }}>{t.badge}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white" style={{ background: "linear-gradient(135deg, #00C4FF, #0066FF)" }}>{t.badge}</span>
                   <span aria-hidden className="font-display font-extrabold leading-none select-none pointer-events-none text-gradient" style={{ fontSize: "60px", opacity: 0.18 }}>"</span>
                 </div>
                 <p className="italic text-[14px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] mt-2 flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>{t.quote}</p>

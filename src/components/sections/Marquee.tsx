@@ -23,7 +23,7 @@ export default function Marquee() {
       >
         {[...items, ...items].map((it, i) => (
           <div key={i} className="flex items-center gap-3 px-8">
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#4F46E5" }} />
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#00C4FF" }} />
             <span className="text-ink-muted text-sm font-medium">{it}</span>
           </div>
         ))}

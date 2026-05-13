@@ -16,7 +16,7 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function Index() {
   usePageMeta({
-    title: "Digital Agency — Websites, E-Commerce & Applications",
+    title: "CybiconZ — We Build Digital Products That Actually Work",
     description: "CybiconZ is a Tokyo-based digital agency. We build websites, e-commerce systems, and applications for businesses that need their digital presence to actually work.",
   });
   return (

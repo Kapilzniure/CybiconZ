@@ -37,6 +37,18 @@ export default function ClosingCTA() {
         <div className="mt-10 flex justify-center">
           <MagneticButton href="/contact" variant="primary">Start a conversation →</MagneticButton>
         </div>
+        <div aria-hidden style={{
+          position: 'absolute',
+          bottom: '25%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 300,
+          height: 60,
+          background: 'rgba(0,196,255,0.08)',
+          filter: 'blur(40px)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+        }} />
         <div className="mt-6">
           <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm transition">hello@cybiconz.com</a>
         </div>

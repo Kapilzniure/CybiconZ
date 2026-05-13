@@ -33,13 +33,13 @@ export default function Navbar() {
             }>
               {({ isActive }) => (<>
                 {l.label}
-                {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-primary, #4F46E5)", transition: "background 600ms ease" }} />}
+                {isActive && <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full" style={{ background: "var(--theme-primary, #00C4FF)", transition: "background 600ms ease" }} />}
               </>)}
             </NavLink>
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <Link to="/contact" className="hidden md:inline-flex bg-accent-gradient text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-glow-indigo hover:opacity-90 transition">
+          <Link to="/contact" className="hidden md:inline-flex text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:opacity-90 transition" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)', boxShadow: '0 0 24px rgba(0,196,255,0.25)' }}>
             Let's talk →
           </Link>
           <button onClick={() => setOpen(!open)} className="md:hidden text-ink p-2.5 -mr-2.5 touch-manipulation" aria-label="Menu">
@@ -53,7 +53,7 @@ export default function Navbar() {
             {links.map(l => (
               <NavLink key={l.to} to={l.to} className="text-ink text-xl font-medium py-1">{l.label}</NavLink>
             ))}
-            <Link to="/contact" className="bg-accent-gradient text-white text-center font-bold px-5 py-4 rounded-xl mt-2">Let's talk →</Link>
+            <Link to="/contact" className="text-white text-center font-bold px-5 py-4 rounded-xl mt-2" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)' }}>Let's talk →</Link>
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 
 export const sectionThemes: Record<string, { primary: string; secondary: string; glow: string }> = {
-  "hero-section":         { primary: "#4F46E5", secondary: "#818CF8", glow: "rgba(79,70,229,0.15)"   },
+  "hero-section":         { primary: "#00C4FF", secondary: "#39FF14", glow: "rgba(0,196,255,0.12)"  },
   "services-section":     { primary: "#06B6D4", secondary: "#22D3EE", glow: "rgba(6,182,212,0.12)"   },
   "process-section":      { primary: "#F97316", secondary: "#FB923C", glow: "rgba(249,115,22,0.12)"  },
   "stats-section":        { primary: "#F97316", secondary: "#FBBF24", glow: "rgba(249,115,22,0.10)"  },

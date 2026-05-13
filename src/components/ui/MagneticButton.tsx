@@ -29,15 +29,24 @@ export function MagneticButton({
   }
 
   const variantStyles = {
-    primary: 'bg-[#4F46E5] text-white font-bold text-sm px-8 py-4 rounded-xl shadow-[0_0_40px_rgba(79,70,229,0.35)] hover:bg-[#4338CA] hover:shadow-[0_0_60px_rgba(79,70,229,0.5)] transition-colors duration-200 btn-animated-border',
+    primary: 'text-white font-bold text-sm px-8 py-4 rounded-xl transition-all duration-200 btn-animated-border',
     secondary: 'border border-white/12 text-white/70 font-semibold text-sm px-8 py-4 rounded-xl bg-white/[0.02] hover:bg-white/5 hover:border-white/25 transition-colors duration-200',
-    ghost: 'text-[#818CF8] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all duration-200',
+    ghost: 'text-[#00C4FF] font-bold text-sm flex items-center gap-2 hover:gap-4 transition-all duration-200',
+  }
+
+  const variantInlineStyles: Record<string, React.CSSProperties> = {
+    primary: {
+      background: 'linear-gradient(135deg, #00C4FF 0%, #0066FF 100%)',
+      boxShadow: '0 0 40px rgba(0,196,255,0.3)',
+    },
+    secondary: {},
+    ghost: {},
   }
 
   const inner = (
     <span
       ref={ref as React.Ref<HTMLSpanElement>}
-      style={baseStyles}
+      style={{ ...baseStyles, ...variantInlineStyles[variant] }}
       className={`${variantStyles[variant]} ${className}`}
     >
       <span className="magnetic-inner" style={{ display: 'flex', alignItems: 'center', gap: 'inherit', pointerEvents: 'none' }}>

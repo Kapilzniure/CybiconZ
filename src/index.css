@@ -145,6 +145,10 @@
   }
 
   .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  .divide-y > * + * {
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
 }
 
 @keyframes marquee {
@@ -186,7 +190,7 @@
   border-radius: inherit;
   background: linear-gradient(
     135deg,
-    #4338CA, #818CF8, #EC4899, #4338CA
+    #00C4FF, #39FF14, #0066FF, #00C4FF
   );
   background-size: 300% 300%;
   animation: borderRotate 4s ease infinite;

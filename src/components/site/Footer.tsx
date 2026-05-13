@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
           <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3">
             <input type="email" required placeholder="you@business.com" className="flex-1 min-h-[48px] bg-brand-base border border-white/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus:outline-none focus:border-violet" />
-            <button className="bg-accent-gradient text-white font-bold text-sm px-5 py-4 sm:py-3 rounded-xl min-h-[48px]">Subscribe</button>
+            <button className="text-white font-bold text-sm px-5 py-4 sm:py-3 rounded-xl min-h-[48px]" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)' }}>Subscribe</button>
           </form>
         </div>
 
