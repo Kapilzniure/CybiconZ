@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import SplitText from "@/components/ui/SplitText";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
@@ -33,23 +37,91 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
   const [open, setOpen] = useState<number | null>(null);
   const [hovered, setHovered] = useState<number | null>(null);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const eyebrowLineRef = useRef<HTMLDivElement>(null);
+  const eyebrowLabelRef = useRef<HTMLSpanElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const closingRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Eyebrow: line draws then label fades in
+      gsap.set(eyebrowLineRef.current, { width: 0 });
+      gsap.set(eyebrowLabelRef.current, { opacity: 0 });
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 75%",
+        once: true,
+        onEnter: () => {
+          gsap
+            .timeline()
+            .to(eyebrowLineRef.current, { width: 16, duration: 0.4, ease: "power2.out" })
+            .to(eyebrowLabelRef.current, { opacity: 1, duration: 0.3, ease: "power1.out" }, "-=0.1");
+        },
+      });
+
+      // FAQ items: staggered slide-in from x: -16
+      const items = itemRefs.current.filter((el): el is HTMLDivElement => el !== null);
+      gsap.set(items, { opacity: 0, x: -16 });
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 75%",
+        once: true,
+        onEnter: () => {
+          gsap.to(items, {
+            opacity: 1,
+            x: 0,
+            duration: 0.5,
+            stagger: 0.06,
+            ease: "power2.out",
+          });
+        },
+      });
+
+      // Closing row: fade in with delay after last item
+      gsap.set(closingRef.current, { opacity: 0 });
+
+      ScrollTrigger.create({
+        trigger: closingRef.current,
+        start: "top 90%",
+        once: true,
+        onEnter: () => {
+          gsap.to(closingRef.current, {
+            opacity: 1,
+            duration: 0.3,
+            delay: 0.3,
+            ease: "power1.out",
+          });
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="bg-brand-base"
       style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "100px 0" }}
     >
-      <motion.div 
-        className="container"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <div className="container">
         <div style={{ maxWidth: 960, margin: "0 auto" }}>
-          {/* Label */}
+
+          {/* Eyebrow label */}
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 16, height: 1, background: "hsl(var(--accent-from))" }} />
-            <span className="label-eyebrow text-violet">FAQ</span>
+            <div
+              ref={eyebrowLineRef}
+              style={{ height: 1, background: "#A78BFA", flexShrink: 0 }}
+            />
+            <span
+              ref={eyebrowLabelRef}
+              className="label-eyebrow text-violet"
+            >
+              FAQ
+            </span>
           </div>
 
           {/* Heading */}
@@ -59,96 +131,263 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
           >
             {heading}
           </h2>
-<p className="text-white/55" style={{ fontSize: 16, marginTop: 12 }}>
+
+          <p className="text-white/55" style={{ fontSize: 16, marginTop: 12 }}>
             Straight answers. No runaround.
+          </p>
+
+          <p
+            style={{
+              fontFamily: "'DM Mono', monospace",
+              fontSize: 10,
+              color: "rgba(255,255,255,0.2)",
+              marginTop: 6,
+              letterSpacing: "0.04em",
+            }}
+          >
+            6 questions — most asked by clients before they sign
           </p>
 
           {/* Accordion */}
           <div style={{ marginTop: 48 }}>
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                style={{
-                  borderBottom: i < faqs.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                }}
-              >
-                {/* Question row */}
-                <button
-                  onClick={() => setOpen(open === i ? null : i)}
+            {faqs.map((faq, i) => {
+              const isOpen = open === i;
+              const isHovered = hovered === i;
+
+              return (
+                <div
+                  key={i}
+                  ref={(el) => { itemRefs.current[i] = el; }}
+                  style={{
+                    position: "relative",
+                    borderBottom: i < faqs.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                    background: isOpen
+                      ? "rgba(167,139,250,0.04)"
+                      : isHovered
+                      ? "rgba(167,139,250,0.03)"
+                      : "transparent",
+                    boxShadow: isOpen ? "inset 2px 0 8px rgba(167,139,250,0.15)" : "none",
+                    transition: "background 0.25s ease, box-shadow 0.25s ease",
+                  }}
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "24px 0",
-                    cursor: "pointer",
-                    background: "none",
-                    border: "none",
-                    outline: "none",
-                    textAlign: "left",
-                  }}
                 >
-                  <span
+                  {/* Open-state left border */}
+                  <div
                     style={{
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
-                      fontWeight: 600,
-                      fontSize: 17,
-                      color: open === i || hovered === i ? "#A78BFA" : "white",
-                      transition: "color 0.2s ease",
+                      position: "absolute",
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      width: 2,
+                      background: "#A78BFA",
+                      opacity: isOpen ? 0.8 : 0,
+                      transition: "opacity 0.25s ease",
+                      pointerEvents: "none",
+                    }}
+                  />
+
+                  {/* Hover-state left border (scaleY) */}
+                  <motion.div
+                    animate={{ scaleY: isHovered && !isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    style={{
+                      position: "absolute",
+                      left: -1,
+                      top: 0,
+                      bottom: 0,
+                      width: 1,
+                      background: "rgba(167,139,250,0.5)",
+                      transformOrigin: "top",
+                      pointerEvents: "none",
+                    }}
+                  />
+
+                  {/* Question row */}
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "24px 0",
+                      cursor: "pointer",
+                      background: "none",
+                      border: "none",
+                      outline: "none",
+                      textAlign: "left",
                     }}
                   >
-                    {faq.q}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: open === i ? 180 : 0 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
-                    style={{ flexShrink: 0, marginLeft: 24 }}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <path
-                        d="M5 7.5L10 12.5L15 7.5"
-                        stroke="rgba(255,255,255,0.4)"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.div>
-                </button>
-
-                {/* Answer */}
-                <AnimatePresence initial={false}>
-                  {open === i && (
-                    <motion.div
-                      key="answer"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ overflow: "hidden" }}
-                    >
-                      <p
+                    <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1 }}>
+                      {/* Index number */}
+                      <span
                         style={{
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          fontSize: 15,
-                          color: "rgba(255,255,255,0.55)",
-                          lineHeight: 1.75,
-                          padding: "0 0 24px 0",
-                          maxWidth: 720,
+                          fontFamily: "'DM Mono', monospace",
+                          fontSize: 11,
+                          color: isOpen || isHovered ? "#A78BFA" : "rgba(255,255,255,0.2)",
+                          fontWeight: isOpen ? 700 : 400,
+                          width: 32,
+                          flexShrink: 0,
+                          transition: "color 0.25s ease, font-weight 0.15s ease",
+                          display: "block",
                         }}
                       >
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      {/* Question text */}
+                      <span
+                        style={{
+                          fontFamily: "'Plus Jakarta Sans', sans-serif",
+                          fontWeight: 600,
+                          fontSize: 17,
+                          color: isOpen || isHovered ? "#A78BFA" : "white",
+                          transition: "color 0.25s ease",
+                        }}
+                      >
+                        {faq.q}
+                      </span>
+                    </div>
+
+                    {/* Chevron ↔ minus morph */}
+                    <div
+                      style={{
+                        flexShrink: 0,
+                        marginLeft: 24,
+                        width: 20,
+                        height: 20,
+                        position: "relative",
+                      }}
+                    >
+                      <AnimatePresence mode="wait">
+                        {isOpen ? (
+                          <motion.div
+                            key="minus"
+                            initial={{ opacity: 0, scale: 0.6 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.6 }}
+                            transition={{ duration: 0.18, ease: "easeInOut" }}
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                              <path
+                                d="M4 10H16"
+                                stroke="#A78BFA"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="chevron"
+                            initial={{ opacity: 0, scale: 0.6 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.6 }}
+                            transition={{ duration: 0.18, ease: "easeInOut" }}
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                              <path
+                                d="M5 7.5L10 12.5L15 7.5"
+                                stroke="rgba(255,255,255,0.4)"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </button>
+
+                  {/* Answer panel: height + clip-path reveal */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        key="answer"
+                        initial={{ height: 0 }}
+                        animate={{ height: "auto" }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <motion.div
+                          initial={{ clipPath: "inset(0 0 100% 0)" }}
+                          animate={{ clipPath: "inset(0 0 0% 0)" }}
+                          exit={{ clipPath: "inset(0 0 100% 0)" }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <p
+                            style={{
+                              fontFamily: "'Plus Jakarta Sans', sans-serif",
+                              fontSize: 15,
+                              color: "rgba(255,255,255,0.55)",
+                              lineHeight: 1.8,
+                              padding: "0 0 24px 48px",
+                              maxWidth: 720,
+                            }}
+                          >
+                            {faq.a}
+                          </p>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
+
+          {/* Closing line */}
+          <div
+            ref={closingRef}
+            style={{
+              marginTop: 40,
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 14,
+                color: "rgba(255,255,255,0.4)",
+              }}
+            >
+              Still have a question?
+            </span>
+            <Link
+              to="/contact"
+              style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 14,
+                fontWeight: 700,
+                color: "#A78BFA",
+                textDecoration: "none",
+              }}
+            >
+              Ask us directly →
+            </Link>
+          </div>
+
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

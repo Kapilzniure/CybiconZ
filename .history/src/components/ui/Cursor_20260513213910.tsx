@@ -85,7 +85,6 @@ export function Cursor() {
   const ringBorderRadius = isImageTarget ? "8px" : "50%";
 
   useEffect(() => {
-    setIsClient(true);
     const media = window.matchMedia("(pointer: fine)");
     const handlePointerChange = (event: MediaQueryListEvent) => {
       setIsDesktop(event.matches);

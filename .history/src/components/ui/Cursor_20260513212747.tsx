@@ -39,7 +39,6 @@ const rgbToString = (r: number, g: number, b: number): string => {
 
 export function Cursor() {
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [cursorState, setCursorState] = useState<"default" | "hover" | "view">(
     "default"
   );
@@ -85,7 +84,6 @@ export function Cursor() {
   const ringBorderRadius = isImageTarget ? "8px" : "50%";
 
   useEffect(() => {
-    setIsClient(true);
     const media = window.matchMedia("(pointer: fine)");
     const handlePointerChange = (event: MediaQueryListEvent) => {
       setIsDesktop(event.matches);
@@ -140,25 +138,14 @@ export function Cursor() {
 
     // Canvas and color lerp animation loop
     const canvas = canvasRef.current;
-    if (!canvas) {
-      return () => {
-        media.removeEventListener("change", handlePointerChange);
-        window.removeEventListener("mousemove", handleMouseMove);
-      };
-    }
+    if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return () => {
-        media.removeEventListener("change", handlePointerChange);
-        window.removeEventListener("mousemove", handleMouseMove);
-      };
-    }
+    if (!ctx) return;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let rafId: number;
     const animate = () => {
       const now = performance.now();
       const timeSinceMove = now - lastMovementTimeRef.current;
@@ -210,10 +197,10 @@ export function Cursor() {
         });
       }
 
-      rafId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     };
 
-    rafId = requestAnimationFrame(animate);
+    const rafId = requestAnimationFrame(animate);
 
     const handleResize = () => {
       if (canvas) {
@@ -230,7 +217,7 @@ export function Cursor() {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   if (!isDesktop || isInputTarget) return null;
 

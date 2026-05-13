@@ -68,9 +68,7 @@ export default function Hero() {
             className="w-full h-auto object-contain"
             style={{ 
               filter: 'drop-shadow(0 0 80px rgba(0,196,255,0.2))',
-              maxHeight: '50vh',
-              willChange: 'transform',
-              transform: 'translateZ(0)'
+              maxHeight: '50vh'
             }}
           />
           

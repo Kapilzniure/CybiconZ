@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Post } from "@/data/posts";
+import { motion } from "framer-motion";
 
 function formatDate(d: string) {
   const [y, m, day] = d.split("-").map(Number);
@@ -10,59 +11,129 @@ function formatDate(d: string) {
   });
 }
 
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({ post, featured = false }: { post: Post; featured?: boolean }) {
+  if (featured) {
+    return (
+      <motion.div
+        initial="initial"
+        whileHover="hover"
+        className="h-full"
+      >
+        <Link
+          to={`/blog/${post.slug}`}
+          className="group relative block h-full rounded-2xl overflow-hidden"
+          style={{ background: "#0F0F1C" }}
+        >
+          {/* Image Container */}
+          <div className="aspect-video lg:aspect-auto lg:h-full overflow-hidden relative">
+            <motion.img
+              src={post.image}
+              alt={post.title}
+              loading="lazy"
+              className="w-full h-full object-cover"
+              variants={{
+                hover: { scale: 1.05 }
+              }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            />
+            {/* Gradient Overlay */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" 
+              style={{ zIndex: 1 }}
+            />
+            
+            {/* Category Badge */}
+            <span
+              className="absolute top-6 left-6 text-white text-[11px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider"
+              style={{ 
+                background: "rgba(129, 140, 248, 0.2)", 
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(129, 140, 248, 0.3)",
+                zIndex: 2 
+              }}
+            >
+              {post.category}
+            </span>
+
+            {/* Content Overlay */}
+            <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10" style={{ zIndex: 2 }}>
+              <div className="font-mono text-[12px] text-white/40 mb-3">
+                {formatDate(post.date)} — {post.readTime}
+              </div>
+              <h3
+                className="font-display font-bold text-white leading-[1.2] mb-6"
+                style={{ fontSize: "clamp(22px, 3vw, 32px)" }}
+              >
+                {post.title}
+              </h3>
+              
+              <div className="flex items-center gap-2 overflow-hidden">
+                <motion.span 
+                  className="text-[#818CF8] font-bold text-[14px] flex items-center gap-1"
+                  variants={{
+                    initial: { x: -8, opacity: 0 },
+                    hover: { x: 0, opacity: 1 }
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Read more →
+                </motion.span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </motion.div>
+    );
+  }
+
+  // Secondary / Compact Layout
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group block rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-2xl"
+      className="group block p-4 transition-all duration-300 rounded-xl"
       style={{
-        background: "#0F0F1C",
-        border: "1px solid rgba(255,255,255,0.07)",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "transparent",
       }}
     >
-      {/* Image */}
-      <div className="aspect-video overflow-hidden relative">
-        <img
-          src={post.image}
-          alt={post.title}
-          loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-500"
-        />
-        <span
-          className="absolute top-3 left-3 text-white text-[11px] font-medium px-2.5 py-1 rounded-full"
-          style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)" }}
-        >
-          {post.category}
-        </span>
+      <div className="flex gap-4">
+        {/* Thumbnail */}
+        <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden border border-white/5">
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="flex flex-col justify-center">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#818CF8]">
+              {post.category}
+            </span>
+            <span className="text-[10px] text-white/20">•</span>
+            <span className="text-[10px] text-white/30 font-mono">
+              {post.readTime}
+            </span>
+          </div>
+          <h3
+            className="font-display font-bold text-[16px] leading-tight text-white/75 group-hover:text-white transition-colors duration-300"
+          >
+            {post.title}
+          </h3>
+          <p className="text-[13px] text-white/40 line-clamp-1 mt-1 font-light">
+            {post.excerpt}
+          </p>
+        </div>
       </div>
 
-      {/* Body */}
-      <div>
-        <div
-          className="font-mono text-[12px] px-6 mt-4"
-          style={{ color: "rgba(255,255,255,0.25)" }}
-        >
-          {formatDate(post.date)}
-        </div>
-        <h3
-          className="font-display font-bold text-[20px] px-6 mt-2"
-          style={{ color: "#F0EEFF", lineHeight: 1.3 }}
-        >
-          {post.title}
-        </h3>
-        <p
-          className="px-6 mt-3 text-[14px] line-clamp-3"
-          style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.65 }}
-        >
-          {post.excerpt}
-        </p>
-        <div className="px-6 pb-6 mt-4 flex items-center justify-between">
-          <span className="font-mono text-[11px]" style={{ color: "rgba(255,255,255,0.25)" }}>
-            {post.readTime}
-          </span>
-          <span className="text-gradient font-bold text-[13px]">Read more →</span>
-        </div>
-      </div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .group:hover {
+          border-color: rgba(129, 140, 248, 0.3) !important;
+          background: rgba(129, 140, 248, 0.02) !important;
+        }
+      `}} />
     </Link>
   );
 }

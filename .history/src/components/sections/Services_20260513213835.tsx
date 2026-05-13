@@ -156,13 +156,6 @@ function ServiceRow({ service, index, prefersReduced }: { service: Service; inde
 }
 
 export default function Services() {
-  const [prefersReduced, setPrefersReduced] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReduced(media.matches);
-  }, []);
-
   return (
     <section data-section="services-section" className="bg-[#060608] overflow-hidden relative py-20 sm:py-28">
       {/* Ambient violet glow */}
@@ -210,7 +203,7 @@ export default function Services() {
         {/* Service List */}
         <div className="divide-y" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           {services.map((service, i) => (
-            <ServiceRow key={service.id} service={service} index={i} prefersReduced={prefersReduced} />
+            <ServiceRow key={service.id} service={service} index={i} />
           ))}
         </div>
 

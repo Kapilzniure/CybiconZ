@@ -39,7 +39,6 @@ const rgbToString = (r: number, g: number, b: number): string => {
 
 export function Cursor() {
   const [isDesktop, setIsDesktop] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [cursorState, setCursorState] = useState<"default" | "hover" | "view">(
     "default"
   );
@@ -85,7 +84,6 @@ export function Cursor() {
   const ringBorderRadius = isImageTarget ? "8px" : "50%";
 
   useEffect(() => {
-    setIsClient(true);
     const media = window.matchMedia("(pointer: fine)");
     const handlePointerChange = (event: MediaQueryListEvent) => {
       setIsDesktop(event.matches);

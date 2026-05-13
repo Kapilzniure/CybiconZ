@@ -98,22 +98,6 @@
   .font-display { font-family: 'Bricolage Grotesque', system-ui, sans-serif; letter-spacing: -0.03em; }
   .font-mono { font-family: 'DM Mono', ui-monospace, monospace; }
 
-  /* GPU Performance Utilities */
-  .animate-gpu {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-
-  /* Scrollbar Utilities */
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
   .text-brand-blue { color: var(--brand-blue); }
   .text-brand-green { color: var(--brand-green); }
   .shadow-blue { box-shadow: 0 0 30px rgba(0,196,255,0.35); }
