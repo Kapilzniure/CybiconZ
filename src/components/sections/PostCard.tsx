@@ -21,8 +21,8 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
       >
         <Link
           to={`/blog/${post.slug}`}
-          className="group relative block h-full rounded-2xl overflow-hidden"
-          style={{ background: "#0F0F1C" }}
+          className="group relative block h-full rounded-2xl overflow-hidden animate-gpu"
+          style={{ background: "#0F0F1C", transform: "translateZ(0)" }}
         >
           {/* Image Container */}
           <div className="aspect-video lg:aspect-auto lg:h-full overflow-hidden relative">
@@ -30,6 +30,7 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
               src={post.image}
               alt={post.title}
               loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
               variants={{
                 hover: { scale: 1.05 }
@@ -90,10 +91,11 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group block p-4 transition-all duration-300 rounded-xl"
+      className="group block p-4 transition-all duration-300 rounded-xl animate-gpu"
       style={{
         borderTop: "1px solid rgba(255,255,255,0.06)",
         background: "transparent",
+        transform: "translateZ(0)"
       }}
     >
       <div className="flex gap-4">
@@ -102,6 +104,8 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
           <img
             src={post.image}
             alt={post.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
         </div>

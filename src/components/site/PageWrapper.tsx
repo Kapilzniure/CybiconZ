@@ -2,6 +2,7 @@ import { ReactNode, useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useTextReveal } from "@/hooks/useTextReveal";
 import { triggerTransition, triggerTransitionIn } from "@/components/ui/TransitionOverlay";
+import { lenisInstance } from "@/hooks/useLenis";
 
 let isFirstLoad = true;
 
@@ -9,34 +10,36 @@ export default function PageWrapper({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const location = useLocation();
 
-  // Text reveals with delay — they fire after transition completes
+  // Text reveals fire AFTER transition completes (300ms delay)
   useTextReveal('.section-headline-reveal', { stagger: 0.05, delay: 0.3 });
   useTextReveal('.service-desc-reveal', { stagger: 0.03, start: 'top 90%', delay: 0.3 });
 
   useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // First load: just fade in, no transition
+    // Skip transition on the very first load/mount
     if (isFirstLoad) {
       isFirstLoad = false;
       return;
     }
 
-    // Subsequent navigations: use the cinematic transition system
+    // Subsequent navigations: Trigger cinematic wipe out
     triggerTransition(() => {
-      // Route change happens here (wipe panel covers screen)
-      // Content will update and then transition in
+      // Screen is now fully covered by the wipe panel
+      // Scroll to top immediately (invisible jump)
+      window.scrollTo(0, 0);
+      lenisInstance?.scrollTo(0, { immediate: true });
+      
+      // Trigger cinematic wipe in and content reveal
+      triggerTransitionIn(ref.current);
     });
 
-    // Start transition in after a brief delay
-    const inTimer = setTimeout(() => {
-      triggerTransitionIn();
-    }, 420);
-
-    return () => clearTimeout(inTimer);
   }, [location.pathname]);
 
-  return <main ref={ref}>{children}</main>;
+  return (
+    <main 
+      ref={ref} 
+      className="flex-grow flex flex-col"
+    >
+      {children}
+    </main>
+  );
 }
-

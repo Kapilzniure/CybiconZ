@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -18,24 +18,35 @@ const features = [
 export default function CybiLearn() {
   const sectionRef = useRef<HTMLElement>(null);
   const scanLineRef = useRef<HTMLDivElement>(null);
+  const [prefersReduced, setPrefersReduced] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(media.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
 
   useGSAP(() => {
-    if (!scanLineRef.current || !sectionRef.current) return;
+    if (!scanLineRef.current || !sectionRef.current || prefersReduced) return;
 
+    // Sweep scan line once across section width on scroll entry
     gsap.fromTo(scanLineRef.current, 
       { scaleX: 0 },
       { 
         scaleX: 1, 
-        duration: 0.8, 
-        ease: "power2.inOut",
+        ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none"
+          start: "top 95%",
+          end: "top 20%",
+          scrub: 1,
+          once: true
         }
       }
     );
-  }, { scope: sectionRef });
+  }, { scope: sectionRef, dependencies: [prefersReduced] });
 
   return (
     <section 
@@ -45,11 +56,13 @@ export default function CybiLearn() {
       style={{ background: "#060608" }}
     >
       {/* Scan Line (GSAP) */}
-      <div 
-        ref={scanLineRef}
-        className="absolute top-0 left-0 w-full h-[1px] bg-[#10B981] opacity-40 z-50 origin-left"
-        style={{ transform: "scaleX(0)" }}
-      />
+      {!prefersReduced && (
+        <div 
+          ref={scanLineRef}
+          className="absolute top-0 left-0 w-full h-[1px] bg-[#10B981] opacity-40 z-50 origin-left"
+          style={{ transform: "scaleX(0)" }}
+        />
+      )}
 
       {/* Vertical Divider (Desktop Only) */}
       <div 
@@ -67,10 +80,10 @@ export default function CybiLearn() {
         <div className="relative">
           {/* Badge with clip-path reveal */}
           <motion.div
-            initial={{ clipPath: "inset(0 100% 0 0)" }}
+            initial={prefersReduced ? { clipPath: "inset(0 0% 0 0)" } : { clipPath: "inset(0 100% 0 0)" }}
             whileInView={{ clipPath: "inset(0 0% 0 0)" }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="inline-block"
           >
             <span className="label-eyebrow text-violet px-3 py-1 rounded-full bg-violet/10 border border-violet/20 text-[10px] sm:text-xs">
@@ -78,15 +91,20 @@ export default function CybiLearn() {
             </span>
           </motion.div>
 
-          <h2 className="section-headline-reveal font-display font-extrabold text-white mt-5 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
+          <SplitText
+            as="h2"
+            className="font-display font-extrabold text-white mt-5 leading-[0.95]"
+            style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}
+            stagger={prefersReduced ? 0 : 0.08}
+          >
             Introducing CybiLearn
-          </h2>
+          </SplitText>
           <SplitText
             as="h3"
             className="font-display font-extrabold mt-1 leading-[0.95]"
             style={{ fontSize: "clamp(24px, 4vw, 44px)", letterSpacing: "-0.03em" }}
             innerClassName="text-gradient"
-            delay={0.08}
+            stagger={prefersReduced ? 0 : 0.08}
           >
             Practical help for when you get stuck.
           </SplitText>
@@ -96,7 +114,7 @@ export default function CybiLearn() {
           </p>
 
           {/* Proof Stats */}
-          <div className="flex items-center gap-2 mt-8 mb-8 font-mono text-[10px] text-white/25 uppercase tracking-widest">
+          <div className="flex items-center gap-2 mt-8 mb-8 font-mono text-[10px] text-white/25 uppercase tracking-widest select-none">
             <span>Free to access</span>
             <span className="text-white/10">·</span>
             <span>No account needed</span>
@@ -121,7 +139,7 @@ export default function CybiLearn() {
         {/* Emerald breathing glow — bottom-left */}
         <motion.div 
           aria-hidden 
-          animate={{ opacity: [0.08, 0.16, 0.08] }}
+          animate={prefersReduced ? { opacity: 0.12 } : { opacity: [0.08, 0.16, 0.08] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           style={{ 
             position: "absolute", 
@@ -140,20 +158,21 @@ export default function CybiLearn() {
         <div className="space-y-4 relative z-10">
           {features.map((f, i) => (
             <motion.div key={f.t}
-              initial={{ opacity: 0, x: 20 }}
+              initial={prefersReduced ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative rounded-xl p-5 transition-all duration-300 overflow-hidden"
+              className="group relative rounded-xl p-5 transition-all duration-300 overflow-hidden animate-gpu"
               style={{
                 background: "#0F0F1C",
                 border: "1px solid rgba(255,255,255,0.07)",
+                transform: "translateZ(0)"
               }}
             >
               {/* Border Reveal Accent */}
               <motion.div 
-                className="absolute left-0 top-0 w-[4px] h-full origin-top"
-                initial={{ scaleY: 0 }}
+                className="absolute left-0 top-0 w-[4px] h-full origin-top transition-all duration-300 group-hover:brightness-150"
+                initial={prefersReduced ? { scaleY: 1 } : { scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
@@ -172,24 +191,15 @@ export default function CybiLearn() {
                 </div>
               </div>
 
-              {/* Hover Glow Effect */}
+              {/* Hover Background Shift (roughly 0.04 opacity) */}
               <div 
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{ 
-                  background: `linear-gradient(90deg, ${f.color}10 0%, transparent 100%)` 
-                }}
+                style={{ backgroundColor: `${f.color}0a` }}
               />
             </motion.div>
           ))}
         </div>
       </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        [data-section="cybilearn-section"] .group:hover {
-          background: rgba(255, 255, 255, 0.02) !important;
-          border-color: rgba(255, 255, 255, 0.15) !important;
-        }
-      `}} />
     </section>
   );
 }

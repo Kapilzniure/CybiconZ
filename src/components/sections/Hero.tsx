@@ -10,19 +10,24 @@ export default function Hero() {
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReduced(media.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    media.addEventListener('change', listener);
 
     const ctx = gsap.context(() => {
       // Professional fade-ins for content
       gsap.from(".hero-content-reveal", { 
         opacity: 0, 
-        y: 10, 
+        y: prefersReduced ? 0 : 10, 
         duration: prefersReduced ? 0.01 : 0.8, 
         stagger: prefersReduced ? 0 : 0.1, 
         ease: "power2.out", 
         delay: prefersReduced ? 0 : 0.4 
       });
     });
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      media.removeEventListener('change', listener);
+    };
   }, [prefersReduced]);
 
   return (
@@ -34,7 +39,7 @@ export default function Hero() {
       {/* 3D Background - Simplified wireframe cityscape */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <Suspense fallback={null}>
-          <HeroCanvas />
+          {!prefersReduced && <HeroCanvas />}
         </Suspense>
       </div>
 
@@ -50,7 +55,6 @@ export default function Hero() {
       <div className="relative z-10 w-full pt-2 md:pt-2 px-6 flex flex-col items-center text-center">
         <div className="hero-content-reveal mb-2 flex items-center gap-3">
           <div className="h-px w-6 bg-brand-blue/30" />
-         
           <div className="h-px w-6 bg-brand-blue/30" />
         </div>
         <h1 className="hero-content-reveal font-display font-extrabold leading-none tracking-tighter text-white"
@@ -65,12 +69,11 @@ export default function Hero() {
           <img 
             src="/cybiconz-logo.png" 
             alt="CybiconZ Logo" 
-            className="w-full h-auto object-contain"
+            decoding="async"
+            className="w-full h-auto object-contain animate-gpu"
             style={{ 
               filter: 'drop-shadow(0 0 80px rgba(0,196,255,0.2))',
               maxHeight: '50vh',
-              willChange: 'transform',
-              transform: 'translateZ(0)'
             }}
           />
           

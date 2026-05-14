@@ -1,28 +1,53 @@
 import { motion } from "framer-motion";
-import { useState, type CSSProperties } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
-import SplitText from "@/components/ui/SplitText";
 import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 const tabs = ["All", "E-Commerce", "Website", "Marketing"];
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      delay: i * 0.08,
+      ease: [0.22, 1, 0.36, 1]
+    }
+  })
+};
+
+const reducedVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.01 } }
+};
 
 export default function Portfolio() {
   const velocity = useScrollVelocity();
   const floatSpeed = Math.max(3, 10 - velocity * 0.3);
 
   const [active, setActive] = useState("All");
+  const [prefersReduced, setPrefersReduced] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(media.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
+
   const featured = projects.find(p => p.featured)!;
   const others = projects.filter(p => !p.featured);
 
   return (
     <section data-section="portfolio-section" className="relative py-[100px] overflow-hidden" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)", "--float-speed": floatSpeed } as CSSProperties}>
       {/* Glow Story - Portfolio */}
-      {/* Cyan glow — top-right */}
       <div aria-hidden style={{ position: "absolute", top: "-100px", right: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.1), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
-      <FloatingGeometry variant="torus" color="#06B6D4" size={140} opacity={0.10} position={{ top: '5%', right: '4%' }} speed={10} />
-      {/* Cyan glow — bottom-left */}
+      {!prefersReduced && <FloatingGeometry variant="torus" color="#06B6D4" size={140} opacity={0.10} position={{ top: '5%', right: '4%' }} speed={10} />}
       <div aria-hidden style={{ position: "absolute", bottom: "-50px", left: "-50px", width: "300px", height: "300px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.05), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
       
       <div aria-hidden className="absolute right-0 top-20 font-display font-extrabold pointer-events-none select-none" style={{ fontSize: "clamp(120px, 18vw, 260px)", color: "rgba(255,255,255,0.018)", letterSpacing: "-0.05em" }}>WORK</div>
@@ -45,15 +70,16 @@ export default function Portfolio() {
         {/* Featured */}
         <Link to={`/work/${featured.slug}`} className="block group" data-cursor="view">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-brand-card rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] border border-white/[0.06] transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:border-violet/30 hover:shadow-2xl"
-            style={{ borderTop: '3px solid #F59E0B' }} // Amber for LwangBlack
+            variants={prefersReduced ? reducedVariants : cardVariants}
+            custom={0}
+            className="bg-brand-card rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] border border-white/[0.06] transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:border-violet/30 hover:shadow-2xl animate-gpu"
+            style={{ borderTop: '3px solid #F59E0B' }}
           >
             <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto">
-              <img src={featured.image} alt={featured.name} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" />
+              <img src={featured.image} alt={featured.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <span aria-hidden className="absolute -top-4 left-2 font-display font-extrabold text-white/[0.05] hidden sm:block" style={{ fontSize: "240px", letterSpacing: "-0.05em" }}>01</span>
               <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ color: "#818CF8", background: "rgba(79,70,229,0.15)", border: "1px solid rgba(79,70,229,0.3)" }}>{featured.service}</span>
@@ -84,19 +110,19 @@ export default function Portfolio() {
         {/* Grid below */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
           {others.map((p, i) => {
-            // Johnnies Liquor card gets pink top border
             const isJohnnies = p.slug === 'johnnies-liquor';
             return (
               <Link key={p.slug} to={`/work/${p.slug}`} className="group" data-cursor="view">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial="hidden"
+                  whileInView="visible"
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className="rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl"
+                  variants={prefersReduced ? reducedVariants : cardVariants}
+                  custom={i + 1}
+                  className="rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl animate-gpu"
                   style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)", borderTop: isJohnnies ? '3px solid #EC4899' : undefined }}>
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700" />
+                    <img src={p.image} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700" />
                     <span aria-hidden className="absolute -bottom-6 right-2 font-display font-extrabold text-white/15 hidden sm:block" style={{ fontSize: "120px", letterSpacing: "-0.05em" }}>0{i+2}</span>
                   </div>
                   <div className="p-5">

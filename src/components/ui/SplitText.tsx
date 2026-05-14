@@ -13,6 +13,7 @@ interface SplitTextProps {
   innerClassName?: string;
   innerStyle?: React.CSSProperties;
   delay?: number;
+  stagger?: number;
   /** Fire on mount instead of scroll-trigger (use for above-fold hero headings) */
   onMount?: boolean;
 }
@@ -25,6 +26,7 @@ export default function SplitText({
   innerClassName,
   innerStyle,
   delay = 0,
+  stagger = 0.06,
   onMount = false,
 }: SplitTextProps) {
   const ref = useRef<HTMLElement>(null);
@@ -39,7 +41,7 @@ export default function SplitText({
         yPercent: 0,
         duration: 0.8,
         ease: "power3.out",
-        stagger: 0.06,
+        stagger,
         delay,
       };
 
@@ -52,6 +54,7 @@ export default function SplitText({
             trigger: ref.current,
             start: "top 88%",
             toggleActions: "play none none none",
+            once: true,
           },
         });
       }

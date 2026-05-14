@@ -5,13 +5,12 @@ import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
 import Stats from "@/components/sections/Stats";
 import Portfolio from "@/components/sections/Portfolio";
-import TechStack from "@/components/sections/TechStack";
+// import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
 import CybiLearn from "@/components/sections/CybiLearn";
 import FAQ from "@/components/sections/FAQ";
 import LatestThinking from "@/components/sections/LatestThinking";
 import ClosingCTA from "@/components/sections/ClosingCTA";
-import { useTextReveal } from "@/hooks/useTextReveal";
 import { usePageMeta } from "@/hooks/usePageMeta";
 
 export default function Index() {
@@ -27,7 +26,7 @@ export default function Index() {
       <Process />
       <Stats />
       <Portfolio />
-      <TechStack />
+      {/* <TechStack /> */}
       <Testimonials />
       <FAQ />
       <CybiLearn />

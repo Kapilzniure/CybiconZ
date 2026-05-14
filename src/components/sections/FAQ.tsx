@@ -33,6 +33,26 @@ const faqs = [
   },
 ];
 
+const indexVariants = {
+  hidden: { opacity: 0, x: -8 },
+  visible: (isOpen: boolean) => ({
+    opacity: 1, 
+    x: 0,
+    fontWeight: isOpen ? 700 : 400,
+    transition: { duration: 0.25 }
+  })
+};
+
+const answerVariants = {
+  hidden: { opacity: 0, scaleY: 0, originY: 0, y: -10 },
+  visible: { 
+    opacity: 1, 
+    scaleY: 1, 
+    y: 0,
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+  }
+};
+
 export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const [hovered, setHovered] = useState<number | null>(null);
@@ -158,8 +178,8 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                 <div
                   key={i}
                   ref={(el) => { itemRefs.current[i] = el; }}
+                  className="relative transition-all duration-300 animate-gpu"
                   style={{
-                    position: "relative",
                     borderBottom: i < faqs.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
                     background: isOpen
                       ? "rgba(167,139,250,0.04)"
@@ -167,7 +187,7 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                       ? "rgba(167,139,250,0.03)"
                       : "transparent",
                     boxShadow: isOpen ? "inset 2px 0 8px rgba(167,139,250,0.15)" : "none",
-                    transition: "background 0.25s ease, box-shadow 0.25s ease",
+                    transform: "translateZ(0)"
                   }}
                   onMouseEnter={() => setHovered(i)}
                   onMouseLeave={() => setHovered(null)}
@@ -191,75 +211,40 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                   <motion.div
                     animate={{ scaleY: isHovered && !isOpen ? 1 : 0 }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    style={{
-                      position: "absolute",
-                      left: -1,
-                      top: 0,
-                      bottom: 0,
-                      width: 1,
-                      background: "rgba(167,139,250,0.5)",
-                      transformOrigin: "top",
-                      pointerEvents: "none",
-                    }}
+                    className="absolute -left-[1px] top-0 bottom-0 w-[1px] bg-[#A78BFA]/50 origin-top pointer-events-none"
                   />
 
                   {/* Question row */}
                   <button
+                    type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "24px 0",
-                      cursor: "pointer",
-                      background: "none",
-                      border: "none",
-                      outline: "none",
-                      textAlign: "left",
-                    }}
+                    aria-expanded={isOpen}
+                    className="w-full flex justify-between items-center py-6 cursor-pointer bg-none border-none outline-none text-left"
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1 }}>
+                    <div className="flex items-center gap-4 flex-1">
                       {/* Index number */}
-                      <span
-                        style={{
-                          fontFamily: "'DM Mono', monospace",
-                          fontSize: 11,
-                          color: isOpen || isHovered ? "#A78BFA" : "rgba(255,255,255,0.2)",
-                          fontWeight: isOpen ? 700 : 400,
-                          width: 32,
-                          flexShrink: 0,
-                          transition: "color 0.25s ease, font-weight 0.15s ease",
-                          display: "block",
-                        }}
+                      <motion.span
+                        initial="hidden"
+                        animate="visible"
+                        variants={indexVariants}
+                        custom={isOpen}
+                        className="font-mono text-[11px] w-8 shrink-0 transition-colors duration-250 block"
+                        style={{ color: isOpen || isHovered ? "#A78BFA" : "rgba(255,255,255,0.2)" }}
                       >
                         {String(i + 1).padStart(2, "0")}
-                      </span>
+                      </motion.span>
 
                       {/* Question text */}
                       <span
-                        style={{
-                          fontFamily: "'Plus Jakarta Sans', sans-serif",
-                          fontWeight: 600,
-                          fontSize: 17,
-                          color: isOpen || isHovered ? "#A78BFA" : "white",
-                          transition: "color 0.25s ease",
-                        }}
+                        className="font-sans font-semibold text-[17px] transition-colors duration-250"
+                        style={{ color: isOpen || isHovered ? "#A78BFA" : "white" }}
                       >
                         {faq.q}
                       </span>
                     </div>
 
                     {/* Chevron ↔ minus morph */}
-                    <div
-                      style={{
-                        flexShrink: 0,
-                        marginLeft: 24,
-                        width: 20,
-                        height: 20,
-                        position: "relative",
-                      }}
-                    >
+                    <div className="shrink-0 ml-6 w-5 h-5 relative">
                       <AnimatePresence mode="wait">
                         {isOpen ? (
                           <motion.div
@@ -268,21 +253,10 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.6 }}
                             transition={{ duration: 0.18, ease: "easeInOut" }}
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
+                            className="absolute inset-0 flex items-center justify-center"
                           >
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                              <path
-                                d="M4 10H16"
-                                stroke="#A78BFA"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                              />
+                              <path d="M4 10H16" stroke="#A78BFA" strokeWidth="1.5" strokeLinecap="round" />
                             </svg>
                           </motion.div>
                         ) : (
@@ -292,22 +266,10 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.6 }}
                             transition={{ duration: 0.18, ease: "easeInOut" }}
-                            style={{
-                              position: "absolute",
-                              inset: 0,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
+                            className="absolute inset-0 flex items-center justify-center"
                           >
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                              <path
-                                d="M5 7.5L10 12.5L15 7.5"
-                                stroke="rgba(255,255,255,0.4)"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
+                              <path d="M5 7.5L10 12.5L15 7.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                           </motion.div>
                         )}
@@ -315,36 +277,20 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                     </div>
                   </button>
 
-                  {/* Answer panel: height + clip-path reveal */}
+                  {/* Answer panel: scaleY + opacity reveal */}
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
                         key="answer"
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ overflow: "hidden" }}
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={answerVariants}
+                        className="overflow-hidden will-change-transform"
                       >
-                        <motion.div
-                          initial={{ clipPath: "inset(0 0 100% 0)" }}
-                          animate={{ clipPath: "inset(0 0 0% 0)" }}
-                          exit={{ clipPath: "inset(0 0 100% 0)" }}
-                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                          <p
-                            style={{
-                              fontFamily: "'Plus Jakarta Sans', sans-serif",
-                              fontSize: 15,
-                              color: "rgba(255,255,255,0.55)",
-                              lineHeight: 1.8,
-                              padding: "0 0 24px 48px",
-                              maxWidth: 720,
-                            }}
-                          >
-                            {faq.a}
-                          </p>
-                        </motion.div>
+                        <p className="font-sans text-[15px] text-white/55 leading-relaxed pb-6 pl-12 max-w-[720px]">
+                          {faq.a}
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -356,31 +302,14 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
           {/* Closing line */}
           <div
             ref={closingRef}
-            style={{
-              marginTop: 40,
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-            }}
+            className="mt-10 flex items-center gap-2.5"
           >
-            <span
-              style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontSize: 14,
-                color: "rgba(255,255,255,0.4)",
-              }}
-            >
+            <span className="font-sans text-[14px] text-white/40">
               Still have a question?
             </span>
             <Link
               to="/contact"
-              style={{
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                fontSize: 14,
-                fontWeight: 700,
-                color: "#A78BFA",
-                textDecoration: "none",
-              }}
+              className="font-sans text-[14px] font-bold text-[#A78BFA] hover:underline"
             >
               Ask us directly →
             </Link>

@@ -21,6 +21,20 @@ const steps = [
   { n: "04", name: "Handoff",   d: "Complete product with documentation. Nothing left unexplained.", color: "#F97316" },
 ];
 
+const ctaVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.65, delay: 0.36, ease: [0.22, 1, 0.36, 1] }
+  }
+};
+
+const reducedVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.01 } }
+};
+
 export default function Process() {
   const velocity   = useScrollVelocity();
   const floatSpeed = Math.max(3, 7 - velocity * 0.3);
@@ -31,7 +45,16 @@ export default function Process() {
   const [activeStep,  setActiveStep]  = useState(-1);
   const [flashStep,   setFlashStep]   = useState<number | null>(null);
   const [ctaHovered,  setCtaHovered]  = useState(false);
+  const [prefersReduced, setPrefersReduced] = useState(false);
   const prevActive = useRef(-1);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(media.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
 
   // Progress line fill tied to scroll through section
   const { scrollYProgress } = useScroll({
@@ -42,6 +65,8 @@ export default function Process() {
 
   // GSAP entrance — each step slides in from x:28 when "top 75%" hits viewport
   useEffect(() => {
+    if (prefersReduced) return;
+
     const ctx = gsap.context(() => {
       stepRefs.current.forEach((el) => {
         if (!el) return;
@@ -57,13 +82,14 @@ export default function Process() {
               trigger: el,
               start: "top 75%",
               toggleActions: "play none none none",
+              once: true
             },
           }
         );
       });
     });
     return () => ctx.revert();
-  }, []);
+  }, [prefersReduced]);
 
   // IntersectionObserver — step becomes active when it crosses the middle 40% band
   useEffect(() => {
@@ -85,12 +111,12 @@ export default function Process() {
 
   // Brief horizontal flash when active step changes
   useEffect(() => {
-    if (activeStep < 0 || activeStep === prevActive.current) return;
+    if (prefersReduced || activeStep < 0 || activeStep === prevActive.current) return;
     prevActive.current = activeStep;
     setFlashStep(activeStep);
     const t = setTimeout(() => setFlashStep(null), 450);
     return () => clearTimeout(t);
-  }, [activeStep]);
+  }, [activeStep, prefersReduced]);
 
   return (
     <section
@@ -109,16 +135,18 @@ export default function Process() {
           pointerEvents: "none", zIndex: 0, filter: "blur(1px)",
         }}
       />
-      <FloatingGeometry
-        variant="cube" color="#F97316" size={80} opacity={0.15}
-        position={{ bottom: "10%", right: "5%" }} speed={7}
-      />
+      {!prefersReduced && (
+        <FloatingGeometry
+          variant="cube" color="#F97316" size={80} opacity={0.15}
+          position={{ bottom: "10%", right: "5%" }} speed={7}
+        />
+      )}
 
       {/* ── LEFT PANEL — cinematic sticky ───────────────────────── */}
       <div className="bg-[#060608] p-8 sm:p-16 md:p-20 flex flex-col justify-center relative z-10 lg:sticky lg:top-0 lg:h-screen overflow-hidden">
         {/* Step-reactive background glow — color crossfades with active step */}
         <AnimatePresence>
-          {activeStep >= 0 && (
+          {activeStep >= 0 && !prefersReduced && (
             <motion.div
               key={activeStep}
               initial={{ opacity: 0 }}
@@ -177,7 +205,7 @@ export default function Process() {
               style={{ backgroundColor: s.color }}
               animate={{
                 opacity:   activeStep === i ? 1.0 : 0.45,
-                boxShadow: activeStep === i
+                boxShadow: (activeStep === i && !prefersReduced)
                   ? `0 0 8px ${s.color}, 0 0 14px ${s.color}60`
                   : "none",
               }}
@@ -210,13 +238,14 @@ export default function Process() {
               key={s.n}
               ref={(el) => { stepRefs.current[i] = el; }}
               data-step-index={i}
-              className="relative flex items-start gap-6 py-8 px-4 -mx-4 rounded-2xl transition-colors duration-200 hover:bg-white/[0.025] opacity-0"
+              className={`relative flex items-start gap-6 py-8 px-4 -mx-4 rounded-2xl transition-colors duration-200 hover:bg-white/[0.025] ${prefersReduced ? 'opacity-100' : 'opacity-0'} animate-gpu`}
               style={{
                 borderBottom: i < steps.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                transform: "translateZ(0)"
               }}
             >
               {/* Horizontal flash at step boundary */}
-              {flashStep === i && (
+              {flashStep === i && !prefersReduced && (
                 <motion.div
                   key={`flash-${i}-${flashStep}`}
                   className="absolute left-4 right-4 top-0 h-px pointer-events-none z-10"
@@ -232,12 +261,9 @@ export default function Process() {
                 style={{ color: s.color }}
                 animate={{
                   opacity:    activeStep === i ? 0.85 : 0.12,
-                  textShadow: activeStep === i
+                  textShadow: (activeStep === i && !prefersReduced)
                     ? `0 0 24px ${s.color}90, 0 0 48px ${s.color}40`
                     : "none",
-                  filter: activeStep === i
-                    ? `drop-shadow(0 0 16px ${s.color}60)`
-                    : `drop-shadow(0 0 12px ${s.color}40)`,
                 }}
                 transition={{ duration: 0.4 }}
               >
@@ -249,16 +275,17 @@ export default function Process() {
                 <div className="flex items-center gap-3 mb-2">
                   <div
                     className="w-1.5 h-1.5 rounded-full shrink-0"
-                    style={{ background: s.color, boxShadow: `0 0 8px ${s.color}60` }}
+                    style={{ background: s.color, boxShadow: (activeStep === i && !prefersReduced) ? `0 0 8px ${s.color}60` : "none" }}
                   />
-                  {/* Name grows 2px + brightens when active */}
+                  {/* Name grows with scale + brightens when active */}
                   <motion.h3
-                    className="font-display font-bold"
+                    className="font-display font-bold origin-left"
                     animate={{
-                      fontSize: activeStep === i ? "20px" : "18px",
-                      color:    activeStep === i ? "#FFFFFF" : "#F0EEFF",
+                      scale: activeStep === i ? 1.1 : 1,
+                      color: activeStep === i ? "#FFFFFF" : "#F0EEFF",
                     }}
                     transition={{ duration: 0.3 }}
+                    style={{ fontSize: "18px" }}
                   >
                     {s.name}
                   </motion.h3>
@@ -281,11 +308,12 @@ export default function Process() {
 
           {/* CTA card */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.65, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 rounded-xl px-5 py-4 border-t-0"
+            variants={prefersReduced ? reducedVariants : ctaVariants}
+            className="mt-6 rounded-xl px-5 py-4 border-t-0 animate-gpu"
+            style={{ transform: "translateZ(0)" }}
           >
             <div
               className="rounded-xl px-5 py-4"
@@ -312,7 +340,7 @@ export default function Process() {
                   <motion.span
                     className="block w-[6px] h-[6px] rounded-full flex-shrink-0"
                     style={{ background: "#4F46E5" }}
-                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    animate={prefersReduced ? { opacity: 1 } : { opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
                   />
                   Get in touch

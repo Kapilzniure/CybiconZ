@@ -1,14 +1,42 @@
 import { motion } from "framer-motion";
-import type { CSSProperties } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+
+const statVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      delay: i * 0.08,
+      ease: [0.22, 1, 0.36, 1]
+    }
+  })
+};
+
+const reducedVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.01 } }
+};
 
 export default function Stats() {
   const velocity = useScrollVelocity();
   const floatSpeed = Math.max(3, 11 - velocity * 0.3);
 
-  const stat1 = useCountUp({ end: 2,   suffix: '+', duration: 1500 });
-  const stat2 = useCountUp({ end: 100, suffix: '%', duration: 2000 });
+  const [prefersReduced, setPrefersReduced] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(media.matches);
+    const listener = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
+
+  const stat1 = useCountUp({ end: 2,   suffix: '+', duration: prefersReduced ? 10 : 1500 });
+  const stat2 = useCountUp({ end: 100, suffix: '%', duration: prefersReduced ? 10 : 2000 });
 
   const items = [
     {
@@ -88,11 +116,13 @@ export default function Stats() {
           {items.map((item, i) => (
             <motion.div
               key={item.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className={`px-6 py-10 border-r border-b lg:border-b-0 border-white/[0.06] ${i >= 2 ? "border-b-0" : "lg:border-b-0"}`}
+              variants={prefersReduced ? reducedVariants : statVariants}
+              custom={i}
+              className={`px-6 py-10 border-r border-b lg:border-b-0 border-white/[0.06] ${i >= 2 ? "border-b-0" : "lg:border-b-0"} animate-gpu`}
+              style={{ transform: "translateZ(0)" }}
             >
               <div className="h-1 w-10 rounded-full mb-6" style={{ background: item.color }} />
               {item.number}
