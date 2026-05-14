@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import SiteShell from "@/components/site/SiteShell";
 import { projects } from "@/data/projects";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ProjectImagePlaceholder } from "@/components/ui/ProjectImagePlaceholder";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -28,6 +30,7 @@ const contentBlocks = (p: (typeof projects)[number]) => [
 export default function CaseStudy() {
   const { slug } = useParams();
   const p = projects.find(x => x.slug === slug);
+  const [heroImageError, setHeroImageError] = useState(false);
   if (!p) return <Navigate to="/work" replace />;
 
   const rgb = hexToRgb(p.statusColor);
@@ -124,12 +127,17 @@ export default function CaseStudy() {
           {...fadeUp(0.2)}
         >
           <div className="relative rounded-t-3xl overflow-hidden aspect-[16/9] md:aspect-[21/9] shadow-2xl">
-            <img
-              src={p.image}
-              alt={p.name}
-              loading="eager"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            {heroImageError ? (
+              <ProjectImagePlaceholder projectName={p.name} serviceColor={p.serviceColor} />
+            ) : (
+              <img
+                src={p.image}
+                alt={p.name}
+                loading="eager"
+                className="absolute inset-0 w-full h-full object-cover"
+                onError={() => setHeroImageError(true)}
+              />
+            )}
             <div
               className="absolute inset-0"
               style={{ background: "linear-gradient(to bottom, #060608 0%, transparent 30%)" }}

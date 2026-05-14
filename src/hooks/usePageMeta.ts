@@ -3,36 +3,30 @@ import { useEffect } from "react";
 interface PageMeta {
   title: string;
   description: string;
+  ogImage?: string;
 }
 
 const SITE = "CybiconZ";
+const DEFAULT_OG_IMAGE = "/og-default.jpg";
 
-export function usePageMeta({ title, description }: PageMeta) {
+function ensureMeta(name: string, attr: "name" | "property", value: string) {
+  let meta = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute(attr, name);
+    document.head.appendChild(meta);
+  }
+  meta.content = value;
+}
+
+export function usePageMeta({ title, description, ogImage }: PageMeta) {
   useEffect(() => {
     document.title = `${title} | ${SITE}`;
 
-    let metaDesc = document.querySelector<HTMLMetaElement>('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement("meta");
-      metaDesc.name = "description";
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.content = description;
-
-    let ogTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
-    if (!ogTitle) {
-      ogTitle = document.createElement("meta");
-      ogTitle.setAttribute("property", "og:title");
-      document.head.appendChild(ogTitle);
-    }
-    ogTitle.content = `${title} | ${SITE}`;
-
-    let ogDesc = document.querySelector<HTMLMetaElement>('meta[property="og:description"]');
-    if (!ogDesc) {
-      ogDesc = document.createElement("meta");
-      ogDesc.setAttribute("property", "og:description");
-      document.head.appendChild(ogDesc);
-    }
-    ogDesc.content = description;
-  }, [title, description]);
+    ensureMeta("description", "name", description);
+    ensureMeta("og:title", "property", `${title} | ${SITE}`);
+    ensureMeta("og:description", "property", description);
+    ensureMeta("og:image", "property", ogImage ?? DEFAULT_OG_IMAGE);
+    ensureMeta("twitter:image", "name", ogImage ?? DEFAULT_OG_IMAGE);
+  }, [title, description, ogImage]);
 }

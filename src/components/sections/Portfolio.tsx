@@ -3,6 +3,7 @@ import { useState, useEffect, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
+import { ProjectImagePlaceholder } from "@/components/ui/ProjectImagePlaceholder";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 
 const tabs = ["All", "E-Commerce", "Website", "Marketing"];
@@ -31,6 +32,7 @@ export default function Portfolio() {
 
   const [active, setActive] = useState("All");
   const [prefersReduced, setPrefersReduced] = useState(false);
+  const [assetError, setAssetError] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -79,7 +81,18 @@ export default function Portfolio() {
             style={{ borderTop: '3px solid #F59E0B' }}
           >
             <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto">
-              <img src={featured.image} alt={featured.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700" />
+              {assetError[featured.slug] ? (
+                <ProjectImagePlaceholder projectName={featured.name} serviceColor={featured.serviceColor} />
+              ) : (
+                <img
+                  src={featured.image}
+                  alt={featured.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
+                  onError={() => setAssetError((prev) => ({ ...prev, [featured.slug]: true }))}
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <span aria-hidden className="absolute -top-4 left-2 font-display font-extrabold text-white/[0.05] hidden sm:block" style={{ fontSize: "240px", letterSpacing: "-0.05em" }}>01</span>
               <span className="absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ color: "#818CF8", background: "rgba(79,70,229,0.15)", border: "1px solid rgba(79,70,229,0.3)" }}>{featured.service}</span>
@@ -122,7 +135,18 @@ export default function Portfolio() {
                   className="rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl animate-gpu"
                   style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)", borderTop: isJohnnies ? '3px solid #EC4899' : undefined }}>
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={p.image} alt={p.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700" />
+                    {assetError[p.slug] ? (
+                      <ProjectImagePlaceholder projectName={p.name} serviceColor={p.serviceColor} />
+                    ) : (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700"
+                        onError={() => setAssetError((prev) => ({ ...prev, [p.slug]: true }))}
+                      />
+                    )}
                     <span aria-hidden className="absolute -bottom-6 right-2 font-display font-extrabold text-white/15 hidden sm:block" style={{ fontSize: "120px", letterSpacing: "-0.05em" }}>0{i+2}</span>
                   </div>
                   <div className="p-5">

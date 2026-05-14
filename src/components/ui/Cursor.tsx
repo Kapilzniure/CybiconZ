@@ -49,7 +49,6 @@ export function Cursor() {
   const [isClient, setIsClient] = useState(false);
   const [cursorState, setCursorState] = useState<"default" | "hover" | "view">("default");
   const [isImageTarget, setIsImageTarget] = useState(false);
-  const [isInputTarget, setIsInputTarget] = useState(false);
 
   // Motion values for positions
   const mouseX = useMotionValue(-100);
@@ -59,6 +58,7 @@ export function Cursor() {
 
   // Motion values for dynamic styles (to avoid re-renders)
   const ringOpacity = useMotionValue(0.5);
+  const dotOpacity = useMotionValue(1);
   const sectionColor = useMotionValue("#ffffff");
   const auraOpacity = useMotionValue(0.06);
 
@@ -72,6 +72,10 @@ export function Cursor() {
   );
 
   // Refs for logic & canvas
+  const cursorStateRef = useRef<"default" | "hover" | "view">("default");
+  const isInputTargetRef = useRef(false);
+  const isTransitioningRef = useRef(false);
+  
   const auraRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const targetColorRef = useRef("#ffffff");
@@ -89,7 +93,6 @@ export function Cursor() {
 
   useEffect(() => {
     setIsClient(true);
-    // Media query check
     const media = window.matchMedia("(pointer: fine)");
     setIsDesktop(media.matches);
     const handleMediaChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
@@ -107,8 +110,8 @@ export function Cursor() {
       if (!target) return;
 
       // Detect input/textarea
-      const isInput = !!target.closest("input, textarea");
-      setIsInputTarget(isInput);
+      const isInput = !!target.closest("input, textarea, select, [contenteditable]");
+      isInputTargetRef.current = isInput;
 
       // Detect special states
       const isHover = !!target.closest("a, button, [role='button']");
@@ -116,9 +119,9 @@ export function Cursor() {
       const isImage = !!target.closest("img, [data-cursor='image']");
 
       setIsImageTarget(isImage);
-      if (isView) setCursorState("view");
-      else if (isHover) setCursorState("hover");
-      else setCursorState("default");
+      const newState = isView ? "view" : isHover ? "hover" : "default";
+      cursorStateRef.current = newState;
+      setCursorState(newState);
 
       // Detect section color
       const section = target.closest("[data-section]") as HTMLElement;
@@ -126,9 +129,28 @@ export function Cursor() {
       targetColorRef.current = sectionColorMap[sectionId as keyof typeof sectionColorMap] || sectionColorMap.default;
     };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    const handleFocusIn = (e: FocusEvent) => {
+      const isInput = !!(e.target as HTMLElement).closest('input, textarea, select, [contenteditable]');
+      isInputTargetRef.current = isInput;
+      // Trigger logic update
+      mouseX.set(mouseX.get());
+    };
 
-    // Animation Loop (Canvas + Color + Velocity Logic)
+    const handleFocusOut = () => {
+      isInputTargetRef.current = false;
+      mouseX.set(mouseX.get());
+    };
+
+    const handleTransitionStart = () => { isTransitioningRef.current = true; };
+    const handleTransitionEnd = () => { isTransitioningRef.current = false; };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener('focusin', handleFocusIn);
+    document.addEventListener('focusout', handleFocusOut);
+    window.addEventListener('transition:start', handleTransitionStart);
+    window.addEventListener('transition:end', handleTransitionEnd);
+
+    // Animation Loop
     let rafId: number;
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
@@ -137,13 +159,14 @@ export function Cursor() {
       const now = performance.now();
       const currentX = mouseX.get();
       const currentY = mouseY.get();
+      const state = cursorStateRef.current;
       
+      const isHidden = isInputTargetRef.current || isTransitioningRef.current;
+
       // Calculate Velocity
       const dx = currentX - lastMousePosRef.current.x;
       const dy = currentY - lastMousePosRef.current.y;
       const instantVelocity = Math.sqrt(dx * dx + dy * dy);
-      
-      // Smooth velocity a bit
       velocityRef.current = velocityRef.current * 0.8 + instantVelocity * 0.2;
       
       // Update Trail Buffer
@@ -158,15 +181,18 @@ export function Cursor() {
         sectionColor.set(currentColorRef.current);
       }
 
-      // Dynamic Opacity based on velocity
-      const targetRingOpacity = 0.45 + Math.min(velocityRef.current / 200, 1) * 0.2;
+      // Dynamic Opacity based on velocity + visibility
+      const targetRingOpacity = isHidden ? 0 : (0.45 + Math.min(velocityRef.current / 200, 1) * 0.2);
       ringOpacity.set(targetRingOpacity);
+      dotOpacity.set(isHidden ? 0 : 1);
 
-      // Aura logic (pulse on view)
-      if (cursorState === "view") {
+      // Aura logic
+      if (isHidden) {
+        auraOpacity.set(0);
+      } else if (state === "view") {
         const pulse = Math.sin((now / 1500) * Math.PI * 2) * 0.04 + 0.16;
         auraOpacity.set(pulse);
-      } else if (cursorState === "hover") {
+      } else if (state === "hover") {
         auraOpacity.set(0.12);
       } else {
         auraOpacity.set(0.06);
@@ -177,7 +203,7 @@ export function Cursor() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         const timeSinceMove = now - lastMoveTimeRef.current;
-        if (velocityRef.current > 80 && timeSinceMove < 300) {
+        if (!isHidden && velocityRef.current > 80 && timeSinceMove < 300) {
           const rgb = hexToRgb(currentColorRef.current);
           trailBufferRef.current.forEach((p, i) => {
             const alpha = (i / trailBufferRef.current.length) * 0.25;
@@ -208,11 +234,15 @@ export function Cursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       media.removeEventListener("change", handleMediaChange);
+      document.removeEventListener('focusin', handleFocusIn);
+      document.removeEventListener('focusout', handleFocusOut);
+      window.removeEventListener('transition:start', handleTransitionStart);
+      window.removeEventListener('transition:end', handleTransitionEnd);
       cancelAnimationFrame(rafId);
     };
-  }, [cursorState]);
+  }, []); // Run once on mount
 
-  if (!isClient || !isDesktop || isInputTarget) return null;
+  if (!isClient || !isDesktop) return null;
 
   return (
     <>
@@ -261,6 +291,7 @@ export function Cursor() {
             background: ringBackground,
             opacity: ringOpacity,
             borderStyle: "solid",
+            borderWidth: "1.5px", // Default stable width
             willChange: "transform",
             transform: "translateZ(0)",
           }}
@@ -304,6 +335,7 @@ export function Cursor() {
             width: 5,
             height: 5,
             backgroundColor: sectionColor,
+            opacity: dotOpacity,
             mixBlendMode: "difference",
             willChange: "transform",
             transform: "translateZ(0)",

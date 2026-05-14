@@ -3,25 +3,33 @@ import { useState, useEffect, type CSSProperties } from "react";
 import SplitText from "@/components/ui/SplitText";
 import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { InitialsAvatar } from "@/components/ui/Avatar";
 
+// TODO: replace these placeholder quotes with real client quotes when available.
 const items = [
   {
     badge: "E-Commerce",
     quote: "They built a system that just works. Orders come in, payments clear, and we ship. No firefighting, no surprise breakage.",
-    name: "LwangBlack Founder", role: "Coffee Brand · LwangBlack",
-    avatar: "https://i.pravatar.cc/88?img=12",
+    name: "LwangBlack Founder",
+    role: "Coffee Brand · LwangBlack",
+    accentColor: "#4F46E5",
+    verified: false,
   },
   {
     badge: "Website + Marketing",
     quote: "Our online presence finally matches the store. Direct communication every step — they actually pick up the phone.",
-    name: "Johnnies Owner", role: "Liquor Retail · Johnnies",
-    avatar: "https://i.pravatar.cc/88?img=8",
+    name: "Johnnies Owner",
+    role: "Liquor Retail · Johnnies",
+    accentColor: "#06B6D4",
+    verified: false,
   },
   {
     badge: "Website",
     quote: "Working with CybiconZ felt like having a team, not a vendor. They asked the right questions and delivered exactly what we needed.",
-    name: "Business Owner", role: "Independent · Local Brand",
-    avatar: "https://i.pravatar.cc/88?img=3",
+    name: "Business Owner",
+    role: "Independent · Local Brand",
+    accentColor: "#F97316",
+    verified: false,
   },
 ];
 
@@ -94,10 +102,20 @@ export default function Testimonials() {
                 </div>
                 <p className="italic text-[14px] sm:text-[15px] leading-[1.7] sm:leading-[1.8] mt-2 flex-1" style={{ color: "rgba(255,255,255,0.65)" }}>{t.quote}</p>
                 <div className="mt-6 pt-5 flex items-center gap-3" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-                  <img src={t.avatar} alt={t.name} loading="lazy" decoding="async" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover" style={{ border: "2px solid rgba(255,255,255,0.1)" }} />
+                  <InitialsAvatar name={t.name} />
                   <div>
                     <div className="font-display font-bold text-[13px] sm:text-[14px]" style={{ color: "#F0EEFF" }}>{t.name}</div>
-                    <div className="text-[11px] sm:text-[12px]" style={{ color: "rgba(255,255,255,0.35)" }}>{t.role}</div>
+                    <div className="flex items-center gap-2 text-[11px] sm:text-[12px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                      <span>{t.role}</span>
+                      {t.verified && (
+                        <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: `${t.accentColor}1A`, color: t.accentColor, border: `1px solid ${t.accentColor}33` }}>
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.5 5.5L4.25 7.25L7.75 3.75" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                          Real client
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

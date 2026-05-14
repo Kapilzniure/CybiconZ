@@ -6,6 +6,7 @@ const HeroCanvas = lazy(() => import("./HeroCanvas"));
 
 export default function Hero() {
   const [prefersReduced, setPrefersReduced] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -66,16 +67,27 @@ export default function Hero() {
       {/* CENTER: Heroic Logo Showcase */}
       <div className="relative z-10 w-full flex flex-col items-center justify-center flex-grow px-6">
         <div className="hero-content-reveal relative max-w-[105vw] md:max-w-[1500px] w-full flex flex-col items-center">
-          <img 
-            src="/cybiconz-logo.png" 
-            alt="CybiconZ Logo" 
-            decoding="async"
-            className="w-full h-auto object-contain animate-gpu"
-            style={{ 
-              filter: 'drop-shadow(0 0 80px rgba(0,196,255,0.2))',
-              maxHeight: '50vh',
-            }}
-          />
+          {logoError ? (
+            <div className="w-full max-w-[560px] aspect-[3/1] rounded-3xl bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 border border-white/10 shadow-[0_0_120px_rgba(56,189,248,0.12)] flex items-center justify-center px-6 py-10 text-center">
+              <div>
+                <div className="text-[9px] uppercase tracking-[0.35em] text-slate-400 mb-3">CybiconZ</div>
+                <div className="text-4xl sm:text-5xl font-display font-extrabold text-white">Digital Product Studio</div>
+                <div className="mt-3 text-sm text-slate-300 max-w-2xl mx-auto">Premium digital products, product strategy, and polished website experiences built for brands that need clarity and performance.</div>
+              </div>
+            </div>
+          ) : (
+            <img 
+              src="/cybiconz-logo.png" 
+              alt="CybiconZ Logo" 
+              decoding="async"
+              className="w-full h-auto object-contain animate-gpu"
+              style={{ 
+                filter: 'drop-shadow(0 0 80px rgba(0,196,255,0.2))',
+                maxHeight: '50vh',
+              }}
+              onError={() => setLogoError(true)}
+            />
+          )}
           
           {/* Actions - Directly below the Logo */}
           <div className="hero-content-reveal flex flex-col sm:flex-row gap-4 mt-12 w-full justify-center items-center">

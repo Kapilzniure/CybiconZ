@@ -82,34 +82,25 @@ export default function BlogPost() {
             {post.excerpt}
           </motion.p>
 
-          {/* Coming soon notice */}
-          <motion.div
-            className="rounded-2xl shadow-xl"
-            style={{
-              background: "rgba(79,70,229,0.06)",
-              border: "1px solid rgba(79,70,229,0.15)",
-              padding: "32px 40px",
-            }}
-            {...fadeUp(0.3)}
-          >
-            <p
+          {post.content.trim().split(/\n\n+/).map((paragraph, index) => (
+            <motion.p
+              key={index}
+              className="rounded-2xl shadow-xl"
               style={{
+                background: "rgba(79,70,229,0.06)",
+                border: "1px solid rgba(79,70,229,0.15)",
+                padding: "32px 40px",
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: 16,
-                color: "rgba(255,255,255,0.65)",
-                lineHeight: 1.7,
+                color: "rgba(255,255,255,0.75)",
+                lineHeight: 1.9,
+                marginBottom: 24,
               }}
+              {...fadeUp(0.3 + index * 0.05)}
             >
-              Full article coming soon.{" "}
-              <a
-                href="mailto:hello@cybiconz.com"
-                className="font-bold text-gradient hover:opacity-80 transition-opacity"
-              >
-                Subscribe to be notified
-              </a>{" "}
-              when it's published.
-            </p>
-          </motion.div>
+              {paragraph}
+            </motion.p>
+          ))}
 
           <motion.div className="mt-16 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} {...fadeUp(0.4)}>
             <Link to="/blog" className="text-sm font-bold hover:opacity-80 transition-opacity" style={{ color: "hsl(var(--accent-from))" }}>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import SiteShell from "@/components/site/SiteShell";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -27,6 +28,8 @@ const values = [
 ];
 
 export default function About() {
+  const [founderImageError, setFounderImageError] = useState(false);
+
   usePageMeta({
     title: "About — A Focused Team Building Real Products",
     description: "CybiconZ is a digital agency led directly by its founder, based in Tokyo. Every project gets personal attention from the person making decisions — not an account manager.",
@@ -81,12 +84,23 @@ export default function About() {
             >
               {/* TODO: Replace with real founder photo */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/5", background: "#080810", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=75"
-                  alt="Niure Kapil — Founder, CybiconZ"
-                  loading="eager"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+                {founderImageError ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-zinc-900 text-white text-center p-6">
+                    <div>
+                      <div className="mb-2 text-xs uppercase tracking-[0.22em] text-slate-400">Founder</div>
+                      <div className="text-3xl font-display font-bold">Niure Kapil</div>
+                      <div className="mt-2 text-sm text-slate-300">CybiconZ · Tokyo</div>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=75"
+                    alt="Niure Kapil — Founder, CybiconZ"
+                    loading="eager"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={() => setFounderImageError(true)}
+                  />
+                )}
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, #060608 0%, transparent 70%)" }} />
                 <div className="absolute bottom-5 left-5 rounded-xl p-3 backdrop-blur-md" style={{ background: "rgba(13,14,28,0.9)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <div className="font-display font-bold text-[13px] sm:text-[14px] text-white">Niure Kapil</div>
