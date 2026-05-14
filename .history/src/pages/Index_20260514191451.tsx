@@ -8,7 +8,7 @@ import Portfolio from "@/components/sections/Portfolio";
 // import TechStack from "@/components/sections/TechStack";
 import Testimonials from "@/components/sections/Testimonials";
 import CybiLearn from "@/components/sections/CybiLearn";
-import FAQ from "@/components/sections/FAQ";  
+import FAQ from "@/components/sections/FAQ";
 import LatestThinking from "@/components/sections/LatestThinking";
 import ClosingCTA from "@/components/sections/ClosingCTA";
 import { usePageMeta } from "@/hooks/usePageMeta";
