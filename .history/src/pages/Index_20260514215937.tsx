@@ -23,7 +23,6 @@ export default function Index() {
   return (
     <SiteShell>
       <Hero />
-      <ProofBar />
       <Marquee />
       <Services />
       <Process />

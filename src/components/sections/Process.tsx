@@ -15,10 +15,42 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
-  { n: "01", name: "Discovery", d: "We learn about your goals before designing anything.",          color: "#00C4FF" },
-  { n: "02", name: "Design",    d: "Direction locked and approved before development starts.",      color: "#4F46E5" },
-  { n: "03", name: "Build",     d: "You review at every milestone. Nothing ships without sign-off.", color: "#39FF14" },
-  { n: "04", name: "Handoff",   d: "Complete product with documentation. Nothing left unexplained.", color: "#F97316" },
+  {
+    n: "01",
+    name: "Discovery",
+    d: "We learn about your goals, your customers, and what success actually looks like for your business.",
+    guarantee: "No cost. No commitment.",
+    clientFeels: "\"I'm not sure if they'll understand my business\"",
+    youGet: ["Honest scope assessment", "Clear timeline and cost range", "Decision to proceed — or not"],
+    color: "#00C4FF"
+  },
+  {
+    n: "02",
+    name: "Design",
+    d: "Visual direction is built and approved before a single line of code is written.",
+    guarantee: "Nothing moves forward without your sign-off.",
+    clientFeels: "\"What if I don't like what they build?\"",
+    youGet: ["Full visual mockup in Figma", "2 rounds of revisions included", "Your approval before development"],
+    color: "#4F46E5"
+  },
+  {
+    n: "03",
+    name: "Build",
+    d: "Development happens in milestones. You see real progress, not a black box.",
+    guarantee: "Weekly updates. Always reachable.",
+    clientFeels: "\"What's actually happening? Are they still working on it?\"",
+    youGet: ["Staging URL you can check anytime", "Milestone sign-offs before proceeding", "Direct line to the developer"],
+    color: "#39FF14"
+  },
+  {
+    n: "04",
+    name: "Handoff",
+    d: "You leave with everything — the product, the knowledge to run it, and documentation.",
+    guarantee: "You'll never need us just to make a change.",
+    clientFeels: "\"I'm going to be dependent on them forever\"",
+    youGet: ["Video walkthrough of everything built", "Written documentation", "30-day support window included"],
+    color: "#F97316"
+  }
 ];
 
 const ctaVariants = {
@@ -33,6 +65,19 @@ const ctaVariants = {
 const reducedVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.01 } }
+};
+
+const youGetVariants = {
+  hidden: { opacity: 0, y: -8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.06,
+      duration: 0.3,
+      ease: "easeOut"
+    }
+  })
 };
 
 export default function Process() {
@@ -171,9 +216,13 @@ export default function Process() {
           >
             How an Engagement Works
           </h2>
+          
+          <div className="mt-4 font-mono text-[11px] text-white/30 uppercase tracking-widest">
+            From first call to handoff: typically 3–14 weeks depending on scope.
+          </div>
 
           {/* Active step label — fades out old, fades in new */}
-          <div className="h-6 mt-3 overflow-hidden">
+          <div className="h-6 mt-6 overflow-hidden">
             <AnimatePresence mode="wait">
               {activeStep >= 0 && (
                 <motion.span
@@ -213,6 +262,25 @@ export default function Process() {
             />
           ))}
         </div>
+
+        {/* Trust Signals */}
+        <div className="relative z-10 mt-12 space-y-3">
+          {[
+            "Fixed price. No surprise invoices.",
+            "You own everything we build.",
+            "We work with 2-3 clients at a time. You're never deprioritized."
+          ].map((signal, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <span 
+                className="text-[14px] leading-none" 
+                style={{ color: activeStep >= 0 ? steps[activeStep].color : "rgba(255,255,255,0.5)" }}
+              >
+                ✓
+              </span>
+              <span className="font-sans text-[13px] text-white/50">{signal}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ── RIGHT PANEL — steps ─────────────────────────────────── */}
@@ -238,7 +306,7 @@ export default function Process() {
               key={s.n}
               ref={(el) => { stepRefs.current[i] = el; }}
               data-step-index={i}
-              className={`relative flex items-start gap-6 py-8 px-4 -mx-4 rounded-2xl transition-colors duration-200 hover:bg-white/[0.025] ${prefersReduced ? 'opacity-100' : 'opacity-0'} animate-gpu`}
+              className={`relative flex items-start gap-6 py-10 px-4 -mx-4 rounded-2xl transition-colors duration-200 hover:bg-white/[0.025] ${prefersReduced ? 'opacity-100' : 'opacity-0'} animate-gpu`}
               style={{
                 borderBottom: i < steps.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
                 transform: "translateZ(0)"
@@ -290,7 +358,8 @@ export default function Process() {
                     {s.name}
                   </motion.h3>
                 </div>
-                {/* Description dims when another step is focused */}
+                
+                {/* Description */}
                 <motion.p
                   className="text-sm leading-relaxed max-w-sm"
                   animate={{
@@ -302,6 +371,50 @@ export default function Process() {
                 >
                   {s.d}
                 </motion.p>
+
+                {/* You Get ( deliverables list ) */}
+                <AnimatePresence>
+                  {activeStep === i && (
+                    <motion.ul className="mt-5 space-y-2">
+                      {s.youGet.map((item, idx) => (
+                        <motion.li
+                          key={item}
+                          custom={idx}
+                          initial="hidden"
+                          animate="visible"
+                          exit="hidden"
+                          variants={youGetVariants}
+                          className="flex items-center gap-2 text-[12px] text-white/60"
+                        >
+                          <div className="w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: s.color }} />
+                          {item}
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+
+                {/* Guarantee Pill */}
+                <div className="mt-6 flex">
+                  <span 
+                    className="font-mono text-[10px] px-2.5 py-1 rounded-[4px] border uppercase tracking-wider"
+                    style={{ 
+                      background: `${s.color}1a`,
+                      borderColor: `${s.color}4d`,
+                      color: s.color,
+                      fontWeight: 700
+                    }}
+                  >
+                    {s.guarantee}
+                  </span>
+                </div>
+
+                {/* Client Feels */}
+                <div className="mt-3">
+                  <span className="italic text-[13px] text-white/30">
+                    {s.clientFeels}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
