@@ -1,3 +1,13 @@
+## UPGRADE 10 — Hero Split Layout + Device Mockup
+
+**Goal:** Redesign Hero from centered logo layout to a cinematic split layout with a floating browser mockup on the right.
+
+**Files changed:**
+- `src/components/sections/Hero.tsx` — full rewrite: split layout (55/45), eyebrow pill with pulsing dot, 3-line staggered H1, subheadline, CTAs (full-width mobile), social proof avatars, stats pill row (moved from bottom bar), Three.js canvas at 60% opacity, mouse parallax (stiffness 30/damping 15), scroll-based right-side fade+y exit via `useScroll`/`useTransform`.
+- `src/components/sections/HeroMockup.tsx` — new component: browser chrome with traffic lights + URL bar, LwangBlack Coffee placeholder mock (gradient bg, fake nav, hero image, product cards), two floating metric cards (100% Delivery top-right 5s, Live since 2024 bottom-left 7s opposite phase), browser float animation 6s loop.
+
+---
+
 ## UPGRADE 9 — Performance & Polish Fixes
 
 **All five fixes complete. Zero type errors. Build passes.**
