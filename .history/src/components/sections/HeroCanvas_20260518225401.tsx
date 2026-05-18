@@ -78,16 +78,16 @@ function Building({ b, index }: { b: typeof BUILDINGS[0]; index: number }) {
   const meshRef = useRef<THREE.LineSegments>(null);
 
   const baseOpacity = useMemo(() => {
-    if (b.z > -2)  return 0.22;  // near canyon walls — subtle framing
-    if (b.z > -4)  return 0.50;  // primary skyline — most visible
-    if (b.z >= -7) return 0.38;  // mid-range
-    return 0.25;                  // far background
+    if (b.z > -2)  return 0.015;
+    if (b.z > -4)  return 0.04;
+    if (b.z >= -7) return 0.025;
+    return 0.012;
   }, [b.z]);
 
   useFrame((state) => {
     if (meshRef.current) {
       const mat = meshRef.current.material as THREE.LineBasicMaterial;
-      mat.opacity = baseOpacity + Math.sin(state.clock.elapsedTime * 0.3 + index * 0.7) * 0.02;
+      mat.opacity = baseOpacity + Math.sin(state.clock.elapsedTime * 0.3 + index * 0.7) * 0.005;
     }
   });
 
@@ -236,7 +236,7 @@ function CameraRig() {
   const scroll = useRef(0);
 
   // Smoothed camera state — prevents jitter
-  const camState = useRef({ z: 12, fogDensity: 0.012 });
+  const camState = useRef({ z: 12, fogDensity: 0.024 });
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -296,8 +296,8 @@ function CameraRig() {
     camera.lookAt(0, 0, 0);
 
     // ── Fog: thin as city is revealed ────────────────────────────
-    // Start sparse (0.012) → nearly clear when deep in city (0.006)
-    const targetFog = 0.012 - scrollProgress * 0.006;
+    // Dense at start (0.024) → thin when deep in city (0.008)
+    const targetFog = 0.024 - scrollProgress * 0.016;
     camState.current.fogDensity += (targetFog - camState.current.fogDensity) * 0.04;
 
     if (scene.fog && scene.fog instanceof THREE.FogExp2) {
@@ -315,8 +315,8 @@ function SceneSetup() {
   const beaconRef     = useRef<THREE.PointLight>(null);
 
   useEffect(() => {
-    scene.fog        = new THREE.FogExp2(0x010306, 0.012);
-    scene.background = null; // transparent — parent div provides #020408 background
+    scene.fog        = new THREE.FogExp2(0x010306, 0.024);
+    scene.background = new THREE.Color(0x020408);
     return () => { scene.fog = null; scene.background = null; };
   }, [scene]);
 

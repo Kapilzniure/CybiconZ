@@ -47,7 +47,7 @@ function hexToRgb(hex: string) {
 export function Cursor() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [cursorState, setCursorState] = useState<"default" | "hover" | "view">("default");
+  const [cursorState, setCursorState] = useState<"default" | "hover" | "view" | "explore">("default");
   const [isImageTarget, setIsImageTarget] = useState(false);
 
   // Motion values for positions
@@ -67,12 +67,12 @@ export function Cursor() {
     `radial-gradient(circle, ${c}cc 0%, transparent 70%)`
   );
   
-  const ringBackground = useTransform(sectionColor, (c) => 
-    cursorState === "hover" ? `${c}14` : "transparent"
+  const ringBackground = useTransform(sectionColor, (c) =>
+    cursorState === "hover" || cursorState === "explore" ? `${c}14` : "transparent"
   );
 
   // Refs for logic & canvas
-  const cursorStateRef = useRef<"default" | "hover" | "view">("default");
+  const cursorStateRef = useRef<"default" | "hover" | "view" | "explore">("default");
   const isInputTargetRef = useRef(false);
   const isTransitioningRef = useRef(false);
   
@@ -88,6 +88,7 @@ export function Cursor() {
   const ringSize = useMemo(() => {
     if (cursorState === "hover") return 52;
     if (cursorState === "view") return 68;
+    if (cursorState === "explore") return 56;
     return 36;
   }, [cursorState]);
 
@@ -116,10 +117,13 @@ export function Cursor() {
       // Detect special states
       const isHover = !!target.closest("a, button, [role='button']");
       const isView = !!target.closest("[data-cursor='view']");
+      const isExplore =
+        !!target.closest("[data-cursor='explore']") &&
+        !target.closest("a, button, [role='button']");
       const isImage = !!target.closest("img, [data-cursor='image']");
 
       setIsImageTarget(isImage);
-      const newState = isView ? "view" : isHover ? "hover" : "default";
+      const newState = isView ? "view" : isExplore ? "explore" : isHover ? "hover" : "default";
       cursorStateRef.current = newState;
       setCursorState(newState);
 
@@ -191,6 +195,9 @@ export function Cursor() {
         auraOpacity.set(0);
       } else if (state === "view") {
         const pulse = Math.sin((now / 1500) * Math.PI * 2) * 0.04 + 0.16;
+        auraOpacity.set(pulse);
+      } else if (state === "explore") {
+        const pulse = Math.sin((now / 2000) * Math.PI * 2) * 0.02 + 0.08;
         auraOpacity.set(pulse);
       } else if (state === "hover") {
         auraOpacity.set(0.12);
@@ -279,8 +286,11 @@ export function Cursor() {
             height: ringSize,
             borderWidth: cursorState === "hover" ? "1px" : "1.5px",
             borderRadius: isImageTarget ? "8px" : "50%",
-            rotate: cursorState === "view" ? 360 : 0,
-            backgroundColor: cursorState === "hover" ? `${currentColorRef.current}14` : "transparent",
+            rotate: cursorState === "view" || cursorState === "explore" ? 360 : 0,
+            backgroundColor:
+              cursorState === "hover" || cursorState === "explore"
+                ? `${currentColorRef.current}0d`
+                : "transparent",
           }}
           style={{
             x: ringX,
@@ -300,7 +310,7 @@ export function Cursor() {
             height: { type: "spring", ...SPRING_CONFIG },
             borderWidth: { duration: 0.2 },
             borderRadius: { duration: 0.25 },
-            rotate: cursorState === "view" 
+            rotate: cursorState === "view" || cursorState === "explore"
               ? { duration: 3, repeat: Infinity, ease: "linear" }
               : { duration: 0.3 },
             backgroundColor: { duration: 0.2 }
@@ -309,6 +319,7 @@ export function Cursor() {
           <AnimatePresence>
             {cursorState === "view" && (
               <motion.span
+                key="view"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
@@ -316,6 +327,18 @@ export function Cursor() {
                 style={{ color: sectionColor }}
               >
                 VIEW
+              </motion.span>
+            )}
+            {cursorState === "explore" && (
+              <motion.span
+                key="explore"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                className="text-[8px] pointer-events-none select-none"
+                style={{ color: sectionColor }}
+              >
+                ✦
               </motion.span>
             )}
           </AnimatePresence>
