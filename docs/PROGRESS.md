@@ -1,3 +1,28 @@
+## FIX — Hero Critical Bugs (4 issues resolved)
+
+**Problem 1: Canvas was invisible (black screen)**
+- Root cause: `useHeroIntro` called `gsap.set(canvasWrapperRef, {opacity:0})` on mount; if the GSAP timeline didn't complete, the canvas stayed at 0.
+- Fix: Canvas wrapper `opacity: 0.4` now set directly in JSX. GSAP no longer controls canvas opacity. City is always visible.
+- Also fixed: building opacity values were 0.22–0.50 (too dim at 40% canvas opacity). Raised to 0.48–0.92 so wireframes are actually visible.
+
+**Problem 2: Dark box behind "digital"**
+- Root cause: The `overflow:"hidden"` parent div created a GPU compositing layer filled with the page background (#020408). Compounded by `-webkit-text-fill-color` triggering WebKit's text rendering path.
+- Fix: Added `background:"transparent"` to the overflow parent. Removed `WebkitTextFillColor` (redundant — `color:"#00C4FF"` is sufficient). Reduced text-shadow from `60px/120px` to single `40px` to stay within the compositing rect.
+
+**Problem 3: GSAP eyebrow animation unreliable**
+- Root cause: Eyebrow used `clipPath: "inset(0 100% 0 0)"` initial state, which can fail in some browsers/GSAP builds without explicit CSS support.
+- Fix: Eyebrow now uses `opacity: 0, x: -12` as initial state and `opacity: 1, x: 0` as target — reliable across all browsers.
+
+**Problem 4: Scroll cinematics (verified working)**
+- `CameraRig` correctly reads `window.scrollY` and moves camera from z=12→4 over 2 viewport heights. No code change needed — this was masked by Problem 1.
+
+**Files changed:**
+- `src/components/sections/Hero.tsx`
+- `src/hooks/useHeroIntro.ts`
+- `src/components/sections/HeroCanvas.tsx`
+
+---
+
 ## UPGRADE 18 — "SIGNAL" Hero Concept (Complete Rebuild)
 
 **Concept:** "Receiving a transmission from the future." Fast. Precise. Alive. Tokyo at night meets a control room.

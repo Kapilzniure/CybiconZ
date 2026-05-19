@@ -65,8 +65,8 @@ function BuildingLights({ w, h, d, buildingIndex }: {
     <group>
       {lights.map((l, i) => (
         <mesh key={i} position={l.pos} ref={(el) => { refs.current[i] = el; }} visible={l.visible}>
-          <sphereGeometry args={[0.02]} />
-          <meshBasicMaterial color={BRAND_BLUE} transparent opacity={0.2} />
+          <sphereGeometry args={[0.025]} />
+          <meshBasicMaterial color={BRAND_BLUE} transparent opacity={0.6} />
         </mesh>
       ))}
     </group>
@@ -78,10 +78,10 @@ function Building({ b, index }: { b: typeof BUILDINGS[0]; index: number }) {
   const meshRef = useRef<THREE.LineSegments>(null);
 
   const baseOpacity = useMemo(() => {
-    if (b.z > -2)  return 0.22;  // near canyon walls — subtle framing
-    if (b.z > -4)  return 0.50;  // primary skyline — most visible
-    if (b.z >= -7) return 0.38;  // mid-range
-    return 0.25;                  // far background
+    if (b.z > -2)  return 0.55;  // near canyon walls
+    if (b.z > -4)  return 0.92;  // primary skyline — most visible
+    if (b.z >= -7) return 0.70;  // mid-range
+    return 0.48;                  // far background
   }, [b.z]);
 
   useFrame((state) => {
@@ -149,7 +149,7 @@ function FloatingParticles() {
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
         <bufferAttribute attach="attributes-color"    count={count} array={colors}    itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.010} vertexColors transparent opacity={0.25} depthWrite={false} />
+      <pointsMaterial size={0.018} vertexColors transparent opacity={0.60} depthWrite={false} />
     </points>
   );
 }
@@ -160,8 +160,8 @@ const mistFragment = `
   uniform float uTime; uniform vec3 uColor; varying vec2 vUv;
   void main(){
     float dist=length(vUv-0.5)*2.0;
-    float alpha=smoothstep(1.0,0.0,dist)*0.12;
-    float wave=sin(vUv.x*8.0+uTime*0.012)*0.03;
+    float alpha=smoothstep(1.0,0.0,dist)*0.28;
+    float wave=sin(vUv.x*8.0+uTime*0.012)*0.06;
     alpha*=(0.7+wave);
     gl_FragColor=vec4(uColor,alpha);
   }`;
@@ -193,7 +193,7 @@ const gridFragment = `
     vec3 colorB=vec3(0.02,0.02,0.06);
     float radialPulse=pow(max(0.0,sin(dist*4.0-uTime*0.35)*0.5+0.5),4.0);
     vec3 color=mix(colorB,colorA,radialPulse*0.6);
-    float alpha=(g*fade*0.06)+(radialPulse*fade*0.04);
+    float alpha=(g*fade*0.18)+(radialPulse*fade*0.10);
     gl_FragColor=vec4(color,alpha);
   }`;
 
@@ -332,12 +332,12 @@ function SceneSetup() {
 
   return (
     <>
-      <ambientLight color={0x020408} intensity={0.2} />
-      <pointLight ref={blueLightRef} position={[0,10,10]}  color={BRAND_BLUE}  intensity={2}   distance={50} />
-      <pointLight                    position={[10,-5,5]}  color={BRAND_GREEN} intensity={1}   distance={30} />
-      <pointLight                    position={[0,8,-5]}   color={BRAND_GREEN} intensity={0.4} distance={25} />
-      <pointLight                    position={[-8,5,8]}   color={0x001122}    intensity={0.5} distance={40} />
-      <pointLight ref={beaconRef}    position={[0,20,15]}  color={0x003366}    intensity={3}   distance={60} />
+      <ambientLight color={0x0a1428} intensity={0.8} />
+      <pointLight ref={blueLightRef} position={[0,10,10]}  color={BRAND_BLUE}  intensity={5}   distance={50} />
+      <pointLight                    position={[10,-5,5]}  color={BRAND_GREEN} intensity={2.5} distance={30} />
+      <pointLight                    position={[0,8,-5]}   color={BRAND_GREEN} intensity={0.8} distance={25} />
+      <pointLight                    position={[-8,5,8]}   color={0x001122}    intensity={0.8} distance={40} />
+      <pointLight ref={beaconRef}    position={[0,20,15]}  color={0x003366}    intensity={5}   distance={60} />
     </>
   );
 }

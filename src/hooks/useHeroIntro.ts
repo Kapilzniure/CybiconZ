@@ -33,8 +33,6 @@ export function useHeroIntro({
   onLine2CompleteRef.current = onLine2Complete;
 
   useEffect(() => {
-    let breathingTween:  gsap.core.Tween | null = null;
-    let breathingTimer:  ReturnType<typeof setTimeout> | null = null;
     let scrollTimer:     ReturnType<typeof setTimeout> | null = null;
     let scrollCleanup:   (() => void) | null = null;
 
@@ -42,9 +40,9 @@ export function useHeroIntro({
 
       // ── Reduced motion: snap everything to final state ──────────
       if (prefersReduced) {
-        gsap.set(canvasWrapperRef.current,  { opacity: 0.4 });
-        gsap.set(eyebrowRef.current,        { clipPath: "inset(0 0% 0 0)" });
-        gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], { yPercent: 0 });
+        gsap.set(canvasWrapperRef.current,  { opacity: 0.5 });
+        gsap.set(eyebrowRef.current,        { opacity: 1 });
+        gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], { opacity: 1, y: 0 });
         gsap.set([subtitleRef.current, ctaRowRef.current], { opacity: 1, y: 0 });
         gsap.set(scrollIndicatorRef.current, { opacity: 0.4 });
         if (statsRef.current) {
@@ -55,10 +53,10 @@ export function useHeroIntro({
 
       // ── Set initial hidden states — GSAP owns these, NOT JSX ────
       gsap.set(canvasWrapperRef.current,  { opacity: 0 });
-      gsap.set(eyebrowRef.current,        { clipPath: "inset(0 100% 0 0)" });
-      gsap.set(line1Ref.current,          { yPercent: 110 });
-      gsap.set(line2Ref.current,          { yPercent: 110 });
-      gsap.set(line3Ref.current,          { yPercent: 110 });
+      gsap.set(eyebrowRef.current,        { opacity: 0, x: -12 });
+      gsap.set(line1Ref.current,          { opacity: 0, y: 24 });
+      gsap.set(line2Ref.current,          { opacity: 0, y: 24 });
+      gsap.set(line3Ref.current,          { opacity: 0, y: 24 });
       gsap.set([subtitleRef.current, ctaRowRef.current], { opacity: 0, y: 16 });
       gsap.set(scrollIndicatorRef.current, { opacity: 0 });
       if (statsRef.current) {
@@ -68,21 +66,21 @@ export function useHeroIntro({
       // ── Master timeline ──────────────────────────────────────────
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // t=0    — canvas fades in
-      tl.to(canvasWrapperRef.current,  { opacity: 0.4, duration: 1.2, ease: "power1.inOut" }, 0);
+      // t=0 — canvas fades in slowly as scene loads
+      tl.to(canvasWrapperRef.current,  { opacity: 0.5, duration: 2.0, ease: "power1.out" }, 0);
 
-      // t=0.16 — eyebrow clips in left→right
-      tl.to(eyebrowRef.current,        { clipPath: "inset(0 0% 0 0)", duration: 0.8 }, 0.16);
+      // t=0.16 — eyebrow fades + slides in
+      tl.to(eyebrowRef.current,        { opacity: 1, x: 0, duration: 0.8 }, 0.16);
 
-      // t=0.38 — "We build" rises
-      tl.to(line1Ref.current,          { yPercent: 0, duration: 0.9 }, 0.38);
+      // t=0.38 — "We build" fades up
+      tl.to(line1Ref.current,          { opacity: 1, y: 0, duration: 0.9 }, 0.38);
 
-      // t=0.52 — "digital" rises
-      tl.to(line2Ref.current,          { yPercent: 0, duration: 0.9 }, 0.52);
+      // t=0.52 — "digital" fades up
+      tl.to(line2Ref.current,          { opacity: 1, y: 0, duration: 0.9 }, 0.52);
 
-      // t=0.66 — "products." rises
+      // t=0.66 — "products." fades up
       tl.to(line3Ref.current,          {
-        yPercent: 0, duration: 0.9,
+        opacity: 1, y: 0, duration: 0.9,
         onComplete: () => onLine2CompleteRef.current?.(),
       }, 0.66);
 
@@ -103,19 +101,8 @@ export function useHeroIntro({
       tl.to(scrollIndicatorRef.current, { opacity: 0.4, duration: 0.5, ease: "power1.out" }, 1.48);
     });
 
-    // Breathing glow on "digital" — starts after reveal completes
+    // Dismiss scroll indicator on first scroll
     if (!prefersReduced) {
-      breathingTimer = setTimeout(() => {
-        breathingTween = gsap.to(line2Ref.current, {
-          textShadow: "0 0 100px rgba(0,196,255,0.8), 0 0 200px rgba(0,196,255,0.3)",
-          duration: 4,
-          repeat: -1,
-          yoyo: true,
-          ease: "power1.inOut",
-        });
-      }, 1500);
-
-      // Dismiss scroll indicator on first scroll
       scrollTimer = setTimeout(() => {
         const onScroll = () => {
           if (window.scrollY > 80) {
@@ -131,8 +118,6 @@ export function useHeroIntro({
 
     return () => {
       ctx.revert();
-      breathingTween?.kill();
-      if (breathingTimer) clearTimeout(breathingTimer);
       if (scrollTimer)    clearTimeout(scrollTimer);
       scrollCleanup?.();
     };
