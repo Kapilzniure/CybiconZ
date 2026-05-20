@@ -1,4 +1,4 @@
-import { lazy, Suspense, Component } from "react";
+import { lazy, Suspense, Component, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 
 const SplineScene = lazy(() =>
@@ -20,18 +20,29 @@ class SplineErrorBoundary extends Component<
 }
 
 export default function SplineHero() {
-  if (typeof window !== "undefined" && window.innerWidth < 768) return null;
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    // Only show Spline on desktop-ish screens to save resources
+    if (window.innerWidth >= 768) {
+      setShow(true);
+    }
+  }, []);
+
+  if (!show) return null;
 
   return (
-    <SplineErrorBoundary>
-      <Suspense fallback={null}>
-        <SplineScene
-          scene="https://prod.spline.design/Muui7g5HLutyfcP4/scene.splinecode"
-          style={{ width: "100%", height: "100%" }}
-          // @ts-ignore - crossOrigin is passed to the internal canvas element
-          crossOrigin="anonymous"
-        />
-      </Suspense>
-    </SplineErrorBoundary>
+    <div style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}>
+      <SplineErrorBoundary>
+        <Suspense fallback={null}>
+          <SplineScene
+            scene="https://prod.spline.design/Muui7g5HLutyfcP4/scene.splinecode"
+            style={{ width: "100%", height: "100%" }}
+            // @ts-ignore - crossOrigin is passed to the internal canvas element
+            crossOrigin="anonymous"
+          />
+        </Suspense>
+      </SplineErrorBoundary>
+    </div>
   );
 }

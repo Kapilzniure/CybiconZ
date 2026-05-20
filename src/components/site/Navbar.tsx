@@ -13,17 +13,46 @@ const links = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
   const [open, setOpen] = useState(false);
   const loc = useLocation();
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const currentScroll = window.scrollY;
+      setScrolled(currentScroll > 80);
+      
+      // Only delay on the landing page's hero section
+      if (loc.pathname === "/") {
+        // Show navbar only after the 300vh hero sequence is mostly complete
+        setShowNavbar(currentScroll > window.innerHeight * 2.5);
+      } else {
+        setShowNavbar(true);
+      }
+    };
+
+    onScroll(); // Initial check
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [loc.pathname]);
+
   useEffect(() => { setOpen(false); }, [loc.pathname]);
 
+  const isHidden = loc.pathname === "/" && !showNavbar;
+
   return (
-    <header className={`sticky top-0 z-40 transition-colors duration-300 ${scrolled ? "bg-brand-base/90 backdrop-filter backdrop-blur-xl border-b border-white/[0.06]" : "bg-transparent"}`}>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? "bg-brand-base/90 backdrop-filter backdrop-blur-xl border-b border-white/[0.06]" 
+          : "bg-transparent"
+      }`}
+      style={{
+        opacity: isHidden ? 0 : 1,
+        pointerEvents: isHidden ? "none" : "auto",
+        transition: "opacity 500ms ease, background 300ms ease",
+      }}
+    >
       <div className="container h-16 flex items-center justify-between">
         <Logo />
         <nav className="hidden md:flex items-center gap-8">
