@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { services } from "@/data/services";
 import type { Service } from "@/data/services";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import SplineServices from "./SplineServices";
 
 const serviceRowVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -295,21 +296,36 @@ export default function Services() {
           ))}
         </div>
 
-        {/* Service List */}
-        <div className="divide-y border-y border-white/5">
-          {services.map((service, i) => (
-            <ServiceRow key={service.id} service={service} index={i} prefersReduced={prefersReduced} />
-          ))}
-        </div>
+        {/* Service List Area */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-16">
 
-        {/* Footer row */}
-        <div className="mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/5">
-          <p className="text-white/30 text-[14px]">
-            5 services. Every one delivered end-to-end.
-          </p>
-          <MagneticButton href="/services" variant="ghost">
-            Full breakdown →
-          </MagneticButton>
+          {/* Left column — sticky robot */}
+          <div
+            className="hidden lg:block lg:sticky"
+            style={{ top: "120px" }}
+          >
+            <div style={{ width: "100%", height: "520px", position: "relative" }}>
+              <SplineServices />
+            </div>
+          </div>
+
+          {/* Right column — service rows + footer */}
+          <div>
+            <div className="divide-y border-y border-white/5">
+              {services.map((service, i) => (
+                <ServiceRow key={service.id} service={service} index={i} prefersReduced={prefersReduced} />
+              ))}
+            </div>
+            <div className="mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/5">
+              <p className="text-white/30 text-[14px]">
+                5 services. Every one delivered end-to-end.
+              </p>
+              <MagneticButton href="/services" variant="ghost">
+                Full breakdown →
+              </MagneticButton>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

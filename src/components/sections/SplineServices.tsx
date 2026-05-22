@@ -17,7 +17,7 @@ class SplineErrorBoundary extends Component<
   }
 }
 
-export default function SplineAbout() {
+export default function SplineServices() {
   const [show, setShow] = useState(false);
   useEffect(() => {
     if (window.innerWidth >= 768) setShow(true);
@@ -28,7 +28,7 @@ export default function SplineAbout() {
       <SplineErrorBoundary>
         <Suspense fallback={null}>
           <SplineScene
-            scene="https://prod.spline.design/8BNM2v6Tv0F86S2F/scene.splinecode"
+            scene="https://prod.spline.design/Lhok2-1bzJCNFvXo/scene.splinecode"
             style={{ width: "100%", height: "100%" }}
           />
         </Suspense>

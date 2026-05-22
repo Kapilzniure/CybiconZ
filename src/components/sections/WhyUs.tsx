@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import GlowingSphere from "./GlowingSphere";
 
 const objections = [
   {
@@ -144,9 +145,9 @@ export default function WhyUs() {
       />
 
       <div className="container relative z-10">
-        {/* Two-column header + cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-12 lg:gap-16 items-start">
-          {/* LEFT */}
+        {/* Three-column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr_1fr] gap-12 lg:gap-16 items-start">
+          {/* LEFT — sticky heading */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -169,7 +170,7 @@ export default function WhyUs() {
             </p>
           </motion.div>
 
-          {/* RIGHT — objection cards */}
+          {/* MIDDLE — objection cards */}
           <div className="flex flex-col gap-4">
             {objections.map((obj, i) => {
               const isHovered = hoveredIndex === i;
@@ -228,6 +229,13 @@ export default function WhyUs() {
                 </motion.div>
               );
             })}
+          </div>
+
+          {/* RIGHT — glowing sphere */}
+          <div className="hidden lg:flex items-center justify-center lg:sticky lg:top-32">
+            <div style={{ width: "420px", height: "420px" }}>
+              <GlowingSphere />
+            </div>
           </div>
         </div>
 
