@@ -1,8 +1,6 @@
 import SiteShell from "@/components/site/SiteShell";
 import Hero from "@/components/sections/Hero";
 import ProofBar from "@/components/sections/ProofBar";
-import Marquee from "@/components/sections/Marquee";
-import ClientStrip from "@/components/sections/ClientStrip";
 import Services from "@/components/sections/Services";
 import Process from "@/components/sections/Process";
 import Stats from "@/components/sections/Stats";
@@ -25,8 +23,6 @@ export default function Index() {
     <SiteShell>
       <Hero />
       <ProofBar />
-      <Marquee />
-      <ClientStrip />
       <Services />
       <Process />
       <Stats />

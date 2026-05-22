@@ -83,18 +83,7 @@ export default function Stats() {
       color: '#EC4899',
       glow: 'rgba(236,72,153,0.6)',
     },
-    {
-      number: (
-        <span className="font-display font-extrabold leading-none" style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(30px, 8vw, 56px)' }}>
-          Tokyo · Japan
-        </span>
-      ),
-      label: 'Our base',
-      sub: 'Local creative HQ',
-      ghost: '04',
-      color: 'rgba(255,255,255,0.7)',
-      glow: 'rgba(255,255,255,0.3)',
-    },
+    
   ];
 
   return (

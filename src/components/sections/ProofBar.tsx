@@ -5,11 +5,9 @@ import { useCountUp } from "@/hooks/useCountUp";
 import { useScramble } from "@/hooks/useScramble";
 
 const proofPoints = [
-  { value: "100%", label: "Project completion rate", color: "#39FF14" },
-  { value: "< 24h", label: "Response time guaranteed", color: "#00C4FF" },
-  { value: "2", label: "Clients per time slot", detail: "You're never a number", color: "#F59E0B" },
-  { value: "Tokyo", label: "Based in Japan, global clients", color: "#fff" },
-  { value: "0", label: "Abandoned projects. Ever.", color: "#39FF14" },
+  { value: "25+",   label: "Projects delivered" },
+  { value: "100%",  label: "Delivery rate"       },
+  { value: "Tokyo", label: "Japan · Global reach" },
 ];
 
 const fadeUp = (delay = 0) => ({
@@ -27,7 +25,6 @@ interface ProofPoint {
   value: string;
   label: string;
   detail?: string;
-  color: string;
 }
 
 function ProofPointItem({ point, index, active }: { point: ProofPoint; index: number; active: boolean }) {
@@ -45,26 +42,25 @@ function ProofPointItem({ point, index, active }: { point: ProofPoint; index: nu
   const displayValue = numeric ? `${count}${suffix}` : scrambledValue;
 
   const dividerClasses = [
-    index !== proofPoints.length - 1 ? "lg:border-r" : "",
-    index !== proofPoints.length - 1 && index % 2 === 0 ? "sm:border-r" : "",
+    index !== proofPoints.length - 1 ? "sm:border-r" : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
     <motion.div
-      className={`proof-bar-item relative flex min-h-[72px] items-center border-white/10 ${dividerClasses} py-5 md:py-0 md:h-[72px] px-4 sm:px-5 lg:px-6`}
+      className={`proof-bar-item relative flex min-h-[72px] items-center border-[rgba(255,255,255,0.06)] ${dividerClasses} py-5 md:py-0 md:h-[72px] px-4 sm:px-5 lg:px-6`}
       {...fadeUp(index * 0.08)}
     >
       <div className="w-full">
         <div
-          className="proof-value font-display font-extrabold text-[22px] leading-none"
-          style={{ color: point.color, opacity: 0.6 }}
+          className="proof-value font-display font-extrabold text-[clamp(28px,3.5vw,44px)] leading-none"
+          style={{ color: "rgba(255,255,255,0.9)", opacity: 0.6 }}
           ref={countRef as RefObject<HTMLSpanElement>}
         >
           {displayValue}
         </div>
-        <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-white/30">
+        <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-[rgba(255,255,255,0.25)]">
           {point.label}
         </div>
         {point.detail ? (
@@ -101,10 +97,24 @@ export default function ProofBar() {
   return (
     <motion.section
       ref={sectionRef}
-      className="relative bg-[#060608] border-t border-b border-white/5"
+      className="relative bg-[#020408]"
+      style={{ padding: "48px 0" }}
       onViewportEnter={() => setScrambleActive(true)}
     >
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-5 border-white/10">
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "60px",
+          background: "linear-gradient(to bottom, #020408, transparent)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-0 sm:grid-cols-3 lg:grid-cols-3">
         {proofPoints.map((point, index) => (
           <ProofPointItem key={point.label} point={point} index={index} active={scrambleActive} />
         ))}

@@ -85,7 +85,7 @@ export default function Stats() {
     },
     {
       number: (
-        <span className="font-display font-extrabold leading-none" style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(30px, 8vw, 56px)' }}>
+        <span className="font-display font-extrabold leading-none" style={{ color: 'rgba(255,255,255,0.9)', fontSize: 'clamp(40px, 8vw, 66px)' }}>
           Tokyo · Japan
         </span>
       ),
