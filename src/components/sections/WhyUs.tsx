@@ -240,8 +240,8 @@ export default function WhyUs() {
           </div>
 
           {/* RIGHT — glowing sphere */}
-          <div className="hidden lg:flex items-center justify-center lg:sticky lg:top-32">
-            <div style={{ width: "420px", height: "420px" }}>
+          <div className="flex items-center justify-center lg:sticky lg:top-32">
+            <div style={{ width: "min(420px, 80vw)", height: "min(420px, 80vw)" }}>
               <GlowingSphere accentColor={hoveredIndex !== null ? accentColors[hoveredIndex] : null} />
             </div>
           </div>

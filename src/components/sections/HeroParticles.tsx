@@ -33,7 +33,7 @@ export default function HeroParticles() {
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
-    const COUNT = prefersReduced ? 30 : isMobile ? 80 : 200;
+    const COUNT = prefersReduced ? 30 : isMobile ? 120 : 200;
 
     let W = 0, H = 0;
     let particles: Particle[] = [];

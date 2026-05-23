@@ -23,10 +23,7 @@ export default function SplineHero() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Only show Spline on desktop-ish screens to save resources
-    if (window.innerWidth >= 768) {
-      setShow(true);
-    }
+    setShow(true);
   }, []);
 
   if (!show) return null;

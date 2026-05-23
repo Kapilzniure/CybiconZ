@@ -20,7 +20,7 @@ class SplineErrorBoundary extends Component<
 export default function SplineClosingCTA() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    if (window.innerWidth >= 768) setShow(true);
+    setShow(true);
   }, []);
   if (!show) return null;
   return (
