@@ -12,7 +12,32 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [
+    react(),
+    mode === "development" && componentTagger(),
+    // Serve .m4a files with the correct MIME type so Chrome can decode them
+    {
+      name: "audio-mime",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = req.url?.toLowerCase() ?? "";
+          if (url.endsWith(".m4a") || url.endsWith(".mp4")) {
+            res.setHeader("Content-Type", "audio/mp4");
+          }
+          next();
+        });
+      },
+      configurePreviewServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = req.url?.toLowerCase() ?? "";
+          if (url.endsWith(".m4a") || url.endsWith(".mp4")) {
+            res.setHeader("Content-Type", "audio/mp4");
+          }
+          next();
+        });
+      },
+    },
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

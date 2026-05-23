@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Logo from "./Logo";
+import { MusicToggle } from "@/components/ui/MusicToggle";
 
 const links = [
   { to: "/services", label: "Services" },
@@ -68,6 +69,7 @@ export default function Navbar() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
+          <MusicToggle />
           <Link to="/contact" className="hidden md:inline-flex text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:opacity-90 transition" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)', boxShadow: '0 0 24px rgba(0,196,255,0.25)' }}>
             Let's talk →
           </Link>

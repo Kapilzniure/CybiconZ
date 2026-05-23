@@ -57,7 +57,9 @@ export default function Footer() {
             <Link to="#" className="hover:text-white/50 transition-colors">Terms</Link>
           </div>
           <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 11 }} className="order-first lg:order-none font-medium tracking-wide">DESIGNED AND BUILT BY CYBICONZ</div>
-          
+          <div className="flex items-center gap-2">
+            Infrastructure by <a href="#" className="text-white/30 hover:text-violet transition-colors font-medium">ZenHost</a>
+          </div>
         </div>
       </div>
     </footer>

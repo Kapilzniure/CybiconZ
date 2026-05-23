@@ -9,6 +9,7 @@ import HeroParticles from "./HeroParticles";
 import SplineHero from "./SplineHero";
 import { useHeroIntro } from "@/hooks/useHeroIntro";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { MusicToggle } from "@/components/ui/MusicToggle";
 
 export default function Hero() {
   const prefersReduced = useReducedMotion();
@@ -231,6 +232,11 @@ export default function Hero() {
             </Link>
           </div>
         </motion.div>
+
+        {/* ── z-20: Music toggle — top-left ────────────────────────── */}
+        <div style={{ position: "absolute", top: 20, left: 24, zIndex: 20 }}>
+          <MusicToggle />
+        </div>
 
         {/* ── z-10: Scroll indicator ─────────────────────────────── */}
         <motion.div
