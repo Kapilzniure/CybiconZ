@@ -69,6 +69,14 @@ function Icon({ name, color }: { name: IconType; color: string }) {
   );
 }
 
+// RGB 0-1 tuples matching each card's accent hex
+const accentColors: [number, number, number][] = [
+  [0,     0.769, 1.0  ], // #00C4FF cyan  — trust
+  [0.224, 1.0,   0.078], // #39FF14 green — price
+  [0.961, 0.620, 0.043], // #F59E0B amber — understanding
+  [0.310, 0.275, 0.898], // #4F46E5 indigo — timeline
+];
+
 const cardVariants = {
   hidden: (i: number) => ({ opacity: 0, x: i % 2 === 0 ? -20 : 20 }),
   visible: (i: number) => ({
@@ -234,7 +242,7 @@ export default function WhyUs() {
           {/* RIGHT — glowing sphere */}
           <div className="hidden lg:flex items-center justify-center lg:sticky lg:top-32">
             <div style={{ width: "420px", height: "420px" }}>
-              <GlowingSphere />
+              <GlowingSphere accentColor={hoveredIndex !== null ? accentColors[hoveredIndex] : null} />
             </div>
           </div>
         </div>
