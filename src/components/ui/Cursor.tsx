@@ -233,8 +233,17 @@ export function Cursor() {
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafId);
+      } else {
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+
     handleResize();
     window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     rafId = requestAnimationFrame(animate);
 
     return () => {
@@ -245,6 +254,7 @@ export function Cursor() {
       document.removeEventListener('focusout', handleFocusOut);
       window.removeEventListener('transition:start', handleTransitionStart);
       window.removeEventListener('transition:end', handleTransitionEnd);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(rafId);
     };
   }, []); // Run once on mount

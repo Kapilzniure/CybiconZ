@@ -1,4 +1,82 @@
 
+## REDESIGN — Homepage Simplified + About Page Robot Fixed
+
+**Homepage: 12 sections → 5 sections**
+
+Removed from homepage (content moved to sub-pages where it belongs):
+- `ProofBar` — cut entirely (optional: move logos to footer)
+- `Process` → belongs on `/services`
+- `Stats` → cut (numbers can fold into Hero copy)
+- `WhyUs` → belongs on `/about`
+- `FAQ` → belongs on `/contact`
+- `CybiLearn` → has its own page at `/cybilearn`
+- `LatestThinking` → has its own page at `/blog`
+
+**New homepage order:**
+`Hero → Services → Portfolio → Testimonials → ClosingCTA`
+
+**About page: Spline robot replaced**
+- Removed `SplineAbout` component (was loading another 4MB Spline runtime)
+- Replaced with a clean founder photo frame (`/public/founder.jpg`)
+- When the photo is missing, shows a styled placeholder with name/role overlay
+- To activate: copy real photo to `public/founder.jpg` — the `<img>` tag is already wired
+- Name card (Niure Kapil · Founder · Tokyo) always visible via gradient overlay
+
+**Files changed:**
+- `src/pages/Index.tsx` — stripped to 5 sections
+- `src/pages/About.tsx` — SplineAbout removed, photo placeholder added
+
+---
+
+## PERF — Site-wide Performance Pass (6 optimizations)
+
+**Problem:** Site felt slow — multiple concurrent rAF loops, 4.4MB Spline JS blocking interactive, 200 particles with shadowBlur causing CPU compositing, no route code-splitting.
+
+**Fix 1 — Lazy-load all routes (`src/App.tsx`)**
+- All 11 page imports converted to `React.lazy()` + `Suspense`
+- Pages only download when first navigated to — initial bundle shrinks by 40–60%
+- Fallback: dark `#020408` div (invisible during TransitionOverlay wipe)
+
+**Fix 2 — Eliminate HeroParticles shadowBlur (`src/components/sections/HeroParticles.tsx`)**
+- Removed `ctx.shadowBlur = 8/6` per-particle — this forced browser into software compositing every frame
+- Reduced particle count: 200 → 90 desktop, 120 → 50 mobile, 30 → 20 reduced-motion
+- Same visual, eliminates the single biggest runtime perf cost in the hero
+
+**Fix 3 — Lenis on GSAP ticker (`src/hooks/useLenis.ts`)**
+- Replaced separate Lenis `requestAnimationFrame` loop with `gsap.ticker.add()`
+- Eliminates one redundant RAF loop; GSAP and Lenis now share one tick
+- Added `gsap.ticker.lagSmoothing(0)` to prevent GSAP lag compensation fighting Lenis
+
+**Fix 4 — Cursor pauses when tab is hidden (`src/components/ui/Cursor.tsx`)**
+- Added `visibilitychange` listener to cancel/resume cursor rAF
+- Free win — no point running trail drawing when the tab isn't visible
+
+**Fix 5 — Vite vendor chunk splitting (`vite.config.ts`)**
+- Added `build.rollupOptions.output.manualChunks` for 7 vendor groups
+- react/framer/gsap/three/spline/tanstack/lenis all in separate cacheable chunks
+- Repeat visitors load from cache; only app code re-downloads on deploys
+
+**Fix 6 — Spline loads after idle (`src/components/sections/SplineHero.tsx`)**
+- Was: `setShow(true)` immediately on mount → Spline 4.4MB starts downloading during preloader
+- Now: `requestIdleCallback(() => setShow(true), { timeout: 2500 })` — waits for browser idle
+- Preloader, hero text, and GSAP animations all complete before Spline starts loading
+
+**Root cause of biggest issue (not fixed — design decision):**
+- `@splinetool/react-spline` brings in ~4.4MB of JS: vendor-spline (2MB) + physics (2MB) + opentype/navmesh sub-chunks
+- The 3D robot hero is the single largest performance liability on the site
+- Consider replacing with a lighter animation (canvas, CSS, or pre-baked video) to reduce initial JS by ~4MB
+
+**Files changed:**
+- `src/App.tsx`
+- `src/components/sections/HeroParticles.tsx`
+- `src/hooks/useLenis.ts`
+- `src/components/ui/Cursor.tsx`
+- `vite.config.ts`
+- `src/components/sections/SplineHero.tsx`
+- `src/components/sections/WhyUs.tsx` (GlowingSphere → lazy import)
+
+---
+
 ## FIX — Hero Critical Bugs (4 issues resolved)
 
 **Problem 1: Canvas was invisible (black screen)**

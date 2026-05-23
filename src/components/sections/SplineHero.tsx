@@ -23,7 +23,12 @@ export default function SplineHero() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    setShow(true);
+    // Defer Spline until the browser is idle so the hero text and
+    // preloader finish before the 4MB Spline runtime starts downloading.
+    const schedule = typeof window.requestIdleCallback === "function"
+      ? (cb: () => void) => window.requestIdleCallback(cb, { timeout: 2500 })
+      : (cb: () => void) => setTimeout(cb, 500);
+    schedule(() => setShow(true));
   }, []);
 
   if (!show) return null;

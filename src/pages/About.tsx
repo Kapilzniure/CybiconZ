@@ -1,103 +1,205 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import SiteShell from "@/components/site/SiteShell";
-import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import SplineAbout from "@/components/sections/SplineAbout";
 
 const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as const },
+  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
 });
 
 const values = [
   {
     title: "We build things that work.",
-    body: "A design that looks good in Figma but breaks on mobile isn't finished. We build to completion — tested, functional, and ready for real users. Not demos. Not prototypes. Finished products.",
+    body: "A design that looks good in Figma but breaks on mobile isn't finished. We build to completion — tested, functional, ready for real users.",
   },
   {
     title: "We're direct.",
-    body: "If something won't serve your business goals, we say so before you pay for it. If a project is outside our current scope, we say that too. No runaround, no overselling. Honest communication at every stage.",
+    body: "If something won't serve your goals, we say so before you pay for it. No runaround, no overselling. Honest at every stage.",
   },
   {
-    title: "We take handoffs seriously.",
-    body: "Every project ends with documentation. You should be able to understand what was built, how it runs, and how to manage it — without depending on us for everything. You own what we build.",
+    title: "You own what we build.",
+    body: "Every project ends with documentation. You should understand what was built and how to manage it — without depending on us for everything.",
   },
 ];
 
 export default function About() {
-  const [founderImageError, setFounderImageError] = useState(false);
-
   usePageMeta({
     title: "About — A Focused Team Building Real Products",
-    description: "CybiconZ is a digital agency led directly by its founder, based in Tokyo. Every project gets personal attention from the person making decisions — not an account manager.",
+    description: "CybiconZ is a digital agency led directly by its founder, based in Tokyo. Every project gets personal attention from the person making decisions.",
   });
+
   return (
     <SiteShell>
 
-      {/* ─── SECTION 1: HERO ─────────────────────────────────────────────── */}
-      <section data-section="hero-section" className="relative bg-[#060608] overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-24">
-        <div className="absolute inset-0 grid-overlay pointer-events-none" />
+      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      <section
+        data-section="hero-section"
+        className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28"
+        style={{ background: "#060608" }}
+      >
         <div
-          className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }}
+          aria-hidden
+          className="absolute -top-40 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
+          style={{ background: "rgba(79,70,229,0.10)", filter: "blur(140px)" }}
         />
-        <div className="container relative">
-          <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-12 items-center">
 
-            {/* Left — text */}
-            <div className="relative z-10">
-              <motion.div {...fade(0)} className="flex items-center gap-3 mb-6">
-                <span className="w-4 h-px" style={{ background: "hsl(var(--accent-from))" }} />
-                <span className="label-eyebrow text-violet">About us</span>
+        <div className="container relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            {/* LEFT — text */}
+            <div>
+              <motion.div {...fade(0)} className="flex items-center gap-3 mb-7">
+                <span className="w-4 h-px bg-violet-500" />
+                <span className="label-eyebrow text-violet">About</span>
               </motion.div>
 
-              <h1 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.93]" style={{ fontSize: "clamp(42px, 8vw, 88px)", letterSpacing: "-0.04em" }}>
-                <SplitText as="div" delay={0.08}>A focused team.</SplitText>
-                <SplitText as="div" delay={0.25}>Building real products.</SplitText>
-              </h1>
+              <motion.h1
+                {...fade(0.06)}
+                className="font-display font-extrabold text-white leading-[0.92]"
+                style={{ fontSize: "clamp(44px, 7vw, 84px)", letterSpacing: "-0.04em" }}
+              >
+                A focused team.<br />
+                <span style={{ color: "rgba(255,255,255,0.35)" }}>Building real products.</span>
+              </motion.h1>
 
-              <motion.p 
-                className="text-white/75 text-[15px] sm:text-[16px] mt-6 max-w-lg leading-relaxed"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+              <motion.p
+                {...fade(0.14)}
+                className="mt-7 text-[15px] sm:text-[16px] leading-[1.8] max-w-md"
+                style={{ color: "rgba(255,255,255,0.55)" }}
               >
-                CybiconZ is a digital agency based in Tokyo, Japan. We build websites, e-commerce systems, and applications for businesses that need their digital presence to actually work — not just exist.
+                CybiconZ is a digital agency based in Tokyo. We build websites,
+                e-commerce systems, and applications for businesses that need
+                their digital presence to actually work — not just exist.
               </motion.p>
-              <motion.p 
-                className="text-white/75 text-[15px] sm:text-[16px] mt-4 max-w-lg leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+
+              <motion.p
+                {...fade(0.2)}
+                className="mt-4 text-[15px] sm:text-[16px] leading-[1.8] max-w-md"
+                style={{ color: "rgba(255,255,255,0.55)" }}
               >
-                The agency is led directly by the founder. Every project gets personal attention from the person making decisions — not an account manager, not outsourced development.
+                The agency is led directly by the founder. Every project gets
+                personal attention from the person making decisions — not an
+                account manager, not outsourced development.
               </motion.p>
+
+              <motion.div {...fade(0.28)} className="mt-9 flex items-center gap-5">
+                <MagneticButton href="/contact" variant="primary">
+                  Start a project →
+                </MagneticButton>
+                <a
+                  href="mailto:hello@cybiconz.com"
+                  className="text-[13px] font-mono transition-colors"
+                  style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.02em" }}
+                >
+                  hello@cybiconz.com
+                </a>
+              </motion.div>
             </div>
 
-            {/* Right — Spline Robot */}
-            <motion.div
-              {...fade(0.18)}
-              className="relative"
-              style={{ height: "520px" }}
-            >
-              <SplineAbout />
+            {/* RIGHT — founder photo (square) */}
+            <motion.div {...fade(0.12)} className="flex justify-center lg:justify-end">
               <div
-                className="absolute bottom-5 left-5 rounded-xl p-3 backdrop-blur-md z-10"
                 style={{
-                  background: "rgba(13,14,28,0.9)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  width: "min(420px, 100%)",
+                  aspectRatio: "1 / 1",
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  background: "#0d0e1c",
+                  position: "relative",
                 }}
               >
-                <div className="font-display font-bold text-[13px] text-white">
-                  Niure Kapil
+                {/* Real photo — replace /founder.jpg with your image */}
+                <img
+                  src="/founder.jpg"
+                  alt="Niure Kapil — Founder, CybiconZ"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                />
+
+                {/* Placeholder (shown when photo is missing) */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 12,
+                    background: "linear-gradient(145deg, #0e0f22 0%, #0a0b18 100%)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: "50%",
+                      background: "rgba(79,70,229,0.12)",
+                      border: "1px solid rgba(79,70,229,0.22)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(79,70,229,0.55)" strokeWidth="1.5" strokeLinecap="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: 9,
+                      fontFamily: "monospace",
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: "rgba(255,255,255,0.15)",
+                      textAlign: "center",
+                    }}
+                  >
+                    Add photo to<br />/public/founder.jpg
+                  </span>
                 </div>
-                <div className="text-[11px] text-ink-muted mt-0.5">
-                  Founder, CybiconZ · Tokyo
+
+                {/* Bottom gradient + name */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: 100,
+                    background: "linear-gradient(to top, rgba(6,6,8,0.88) 0%, transparent 100%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                <div style={{ position: "absolute", bottom: 18, left: 20 }}>
+                  <div style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontWeight: 700, fontSize: 14, color: "#fff" }}>
+                    Niure Kapil
+                  </div>
+                  <div style={{ fontSize: 11, marginTop: 2, color: "rgba(255,255,255,0.38)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
+                    Founder · CybiconZ · Tokyo
+                  </div>
                 </div>
+
+                {/* Accent dot */}
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    top: 16,
+                    right: 16,
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#4F46E5",
+                    boxShadow: "0 0 10px rgba(79,70,229,0.9)",
+                  }}
+                />
               </div>
             </motion.div>
 
@@ -105,160 +207,138 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── SECTION 2: THE STORY ────────────────────────────────────────── */}
-      <section className="relative py-16 sm:py-24 overflow-hidden" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        {/* Warm atmospheric glow */}
-        <div 
-          aria-hidden 
-          className="absolute w-[600px] h-[600px] rounded-full pointer-events-none opacity-[0.07]"
-          style={{ background: "radial-gradient(#F97316, transparent 70%)", top: "-100px", left: "-100px", filter: "blur(100px)" }}
+      {/* ── THE STORY + ROBOT ────────────────────────────────────────────── */}
+      <section
+        className="relative overflow-hidden py-20 sm:py-28"
+        style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+      >
+        <div
+          aria-hidden
+          className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: "rgba(249,115,22,0.06)", filter: "blur(120px)" }}
         />
-        
+
         <div className="container relative z-10">
-          <div style={{ maxWidth: 960, margin: "0 auto" }}>
-            <motion.div {...fade(0)}>
-              <span className="label-eyebrow text-violet">The story</span>
-              <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-4 leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}>
-                Why CybiconZ exists.
-              </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Left — story text */}
+            <div>
+              <motion.div {...fade(0)} className="mb-8">
+                <span className="label-eyebrow text-violet">The story</span>
+                <h2
+                  className="font-display font-extrabold text-white mt-3 leading-[0.95]"
+                  style={{ fontSize: "clamp(28px, 4vw, 48px)", letterSpacing: "-0.03em" }}
+                >
+                  Why CybiconZ exists.
+                </h2>
+              </motion.div>
+
+              <motion.p {...fade(0.08)} className="text-[15px] sm:text-[16px] leading-[1.85]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                Most businesses face the same problem: their website either looks good
+                but doesn't convert, or it's functional but confusing. Either way,
+                it's not doing what it should.
+              </motion.p>
+              <motion.p {...fade(0.14)} className="mt-5 text-[15px] sm:text-[16px] leading-[1.85]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                I started CybiconZ after noticing this gap repeatedly. The problem
+                wasn't always the technology — it was the approach. CybiconZ exists
+                to build digital systems that are simple to understand and effective
+                for the people who use them.
+              </motion.p>
+              <motion.p {...fade(0.2)} className="mt-5 text-[15px] sm:text-[16px] leading-[1.85]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                We're based in Tokyo and work with clients globally. Small by design —
+                focused work produces better results than large teams spread thin.
+              </motion.p>
+            </div>
+
+            {/* Right — Spline robot */}
+            <motion.div
+              {...fade(0.1)}
+              style={{ height: "clamp(360px, 45vw, 520px)", position: "relative" }}
+            >
+              <SplineAbout />
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8 md:gap-12">
-              <motion.div {...fade(0.1)}>
-                <p className="service-desc-reveal text-[15px] sm:text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.55)" }}>
-                  Most businesses face the same problem: their website either looks good but doesn't convert, or it's functional but confusing for the people who need to use it. Either way, it's not doing what it should.
-                </p>
-                <p className="text-[15px] sm:text-[16px] leading-[1.8] mt-6" style={{ color: "rgba(255,255,255,0.55)" }}>
-                  I started CybiconZ after noticing this gap repeatedly. Business owners were spending money on digital work and getting results that didn't match what they needed. The problem wasn't always the technology — it was the approach.
-                </p>
-              </motion.div>
-              <motion.div {...fade(0.18)}>
-                <p className="text-[15px] sm:text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.55)" }}>
-                  CybiconZ exists to build digital systems that are simple for the business owner to understand and effective for the customers who use them. No unnecessary complexity. No jargon. Just finished products that work.
-                </p>
-                <p className="text-[15px] sm:text-[16px] leading-[1.8] mt-6" style={{ color: "rgba(255,255,255,0.55)" }}>
-                  We're based in Tokyo and work with clients globally. The team is small by design — focused work produces better results than large teams spread thin.
-                </p>
-              </motion.div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 3: VALUES ───────────────────────────────────────────── */}
-      <section className="relative bg-brand-base py-16 sm:py-24 overflow-hidden">
-        {/* Cyan atmospheric glow */}
-        <div 
-          aria-hidden 
-          className="absolute w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.06]"
-          style={{ background: "radial-gradient(#06B6D4, transparent 70%)", bottom: "-100px", right: "-100px", filter: "blur(100px)" }}
+      {/* ── VALUES ───────────────────────────────────────────────────────── */}
+      <section
+        className="relative overflow-hidden py-20 sm:py-28"
+        style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+      >
+        <div
+          aria-hidden
+          className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: "rgba(6,182,212,0.05)", filter: "blur(120px)" }}
         />
-
         <div className="container relative z-10">
-          <motion.div {...fade(0)}>
-            <span className="label-eyebrow text-violet">What we stand for</span>
-            <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-4 leading-[0.95]" style={{ fontSize: "clamp(30px, 4vw, 48px)", letterSpacing: "-0.03em" }}>
+          <motion.div {...fade(0)} className="mb-12 sm:mb-14">
+            <span className="label-eyebrow text-violet">Principles</span>
+            <h2
+              className="font-display font-extrabold text-white mt-3 leading-[0.95]"
+              style={{ fontSize: "clamp(28px, 4vw, 48px)", letterSpacing: "-0.03em" }}
+            >
               Three things we never compromise on.
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 sm:mt-16">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {values.map((v, i) => (
-              <motion.div key={v.title} 
-                initial={{ opacity: 0, y: 24, rotateX: 6 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.8, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-2xl p-6 sm:p-8"
-                style={{ 
-                  background: "#080810", 
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  transformPerspective: "1200px"
+                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                  background: "#0A0A12",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  borderRadius: 14,
+                  padding: "28px 28px 32px",
                 }}
               >
-                <div className="h-[3px] w-12 rounded-full mb-8" style={{ background: "#4F46E5" }} />
-                <h3 className="font-display font-bold text-[20px] sm:text-[22px] text-ink mb-4 leading-tight">{v.title}</h3>
-                <p className="text-[14px] sm:text-[15px] text-ink-muted leading-relaxed">{v.body}</p>
+                <div style={{ width: 28, height: 2, borderRadius: 2, background: "#4F46E5", marginBottom: 24 }} />
+                <h3
+                  className="font-display font-bold text-white leading-tight mb-3"
+                  style={{ fontSize: "clamp(17px, 1.5vw, 20px)" }}
+                >
+                  {v.title}
+                </h3>
+                <p className="text-[14px] leading-[1.75]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  {v.body}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 4: PARTNER ──────────────────────────────────────────── */}
-      <section className="relative py-16 sm:py-20 overflow-hidden" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        {/* Emerald atmospheric glow */}
-        <div 
-          aria-hidden 
-          className="absolute w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.08]"
-          style={{ background: "radial-gradient(#10B981, transparent 70%)", top: "50%", right: "10%", transform: "translateY(-50%)", filter: "blur(120px)" }}
-        />
-
-        <div className="container relative z-10">
-          <div style={{ maxWidth: 960, margin: "0 auto" }}>
-            <div className="grid grid-cols-1 md:grid-cols-[55%_45%] gap-10 sm:gap-12 items-center">
-
-              {/* Left */}
-              <motion.div {...fade(0)}>
-                <span className="label-eyebrow text-violet">Infrastructure partner</span>
-                <h2 className="section-headline-reveal font-display font-extrabold text-ink mt-4 leading-[0.95]" style={{ fontSize: "clamp(28px, 4vw, 48px)", letterSpacing: "-0.03em" }}>
-                  We trust ZenHost.
-                </h2>
-                <p className="text-[15px] sm:text-[16px] mt-6 leading-[1.8]" style={{ color: "rgba(255,255,255,0.55)" }}>
-                  For hosting and managed infrastructure on client projects, we work with ZenHost. It's a deliberate choice — infrastructure we've evaluated, tested, and stand behind.
-                </p>
-                <p className="text-[15px] sm:text-[16px] mt-4 leading-[1.8]" style={{ color: "rgba(255,255,255,0.55)" }}>
-                  When your project goes live, it lives on infrastructure we'd use ourselves. Not the cheapest option. Not a random hosting service. A vetted partner.
-                </p>
-                <a
-                  href="https://zenhost.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gradient font-bold text-[14px] mt-6 inline-flex items-center gap-1 hover:gap-2 transition-all"
-                >
-                  Visit ZenHost →
-                </a>
-              </motion.div>
-
-              {/* Right — ZenHost card */}
-              <motion.div {...fade(0.12)} className="max-w-sm">
-                <div className="rounded-2xl p-6 sm:p-8" style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)" }}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={{ color: "hsl(var(--accent-from))", marginBottom: 16 }}>
-                    <rect x="2" y="3" width="20" height="7" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                    <rect x="2" y="14" width="20" height="7" rx="2" stroke="currentColor" strokeWidth="1.5" />
-                    <circle cx="6" cy="6.5" r="1" fill="currentColor" />
-                    <circle cx="6" cy="17.5" r="1" fill="currentColor" />
-                    <line x1="10" y1="6.5" x2="18" y2="6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                    <line x1="10" y1="17.5" x2="18" y2="17.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                  <div className="font-display font-extrabold text-[22px] sm:text-[24px]" style={{ color: "#F0EEFF" }}>ZenHost</div>
-                  <div className="text-[13px] sm:text-[14px] text-ink-muted mb-6 mt-1">Managed hosting &amp; infrastructure</div>
-                  {["Managed hosting", "Reliable uptime", "Infrastructure we've vetted"].map(f => (
-                    <p key={f} className="text-[13px] sm:text-[14px] mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>✓ {f}</p>
-                  ))}
-                </div>
-              </motion.div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SECTION 5: CTA ──────────────────────────────────────────────── */}
-      <section className="bg-brand-base py-16 sm:py-20">
+      {/* ── CTA ──────────────────────────────────────────────────────────── */}
+      <section
+        className="py-20 sm:py-28"
+        style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+      >
         <div className="container">
-          <motion.div {...fade(0)} className="max-w-2xl mx-auto text-center">
-            <h2 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]" style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.04em" }}>
+          <motion.div {...fade(0)} className="max-w-xl mx-auto text-center">
+            <h2
+              className="font-display font-extrabold text-white leading-[0.95]"
+              style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.04em" }}
+            >
               Work with us.
             </h2>
-            <p className="text-white/75 text-[15px] sm:text-[16px] mt-5 leading-relaxed max-w-sm mx-auto">
+            <p className="mt-5 text-[15px] sm:text-[16px] leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
               Tell us about your project. We'll tell you honestly if we're the right fit.
             </p>
-            <div className="mt-8 flex justify-center">
-              <MagneticButton href="/contact" variant="primary">Start a conversation →</MagneticButton>
-            </div>
-            <div className="mt-5">
-              <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm transition-colors">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <MagneticButton href="/contact" variant="primary">
+                Start a conversation →
+              </MagneticButton>
+              <a
+                href="mailto:hello@cybiconz.com"
+                className="text-[13px] font-mono"
+                style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.02em" }}
+              >
                 hello@cybiconz.com
               </a>
             </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -13,17 +13,22 @@ import { ThemeOverlay } from "@/components/ui/ThemeOverlay";
 import { ScrollThemeProvider } from "@/hooks/useScrollTheme";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
-import Index from "./pages/Index";
-import ServicesPage from "./pages/Services";
-import WorkPage from "./pages/Work";
-import CaseStudy from "./pages/CaseStudy";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import CybiLearnPage from "./pages/CybiLearn";
-import Careers from "./pages/Careers";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
-import NotFound from "./pages/NotFound";
+
+const Index         = lazy(() => import("./pages/Index"));
+const ServicesPage  = lazy(() => import("./pages/Services"));
+const WorkPage      = lazy(() => import("./pages/Work"));
+const CaseStudy     = lazy(() => import("./pages/CaseStudy"));
+const About         = lazy(() => import("./pages/About"));
+const Contact       = lazy(() => import("./pages/Contact"));
+const CybiLearnPage = lazy(() => import("./pages/CybiLearn"));
+const Careers       = lazy(() => import("./pages/Careers"));
+const Blog          = lazy(() => import("./pages/Blog"));
+const BlogPost      = lazy(() => import("./pages/BlogPost"));
+const NotFound      = lazy(() => import("./pages/NotFound"));
+
+function PageFallback() {
+  return <div style={{ background: "#020408", minHeight: "100vh" }} />;
+}
 
 const queryClient = new QueryClient();
 
@@ -40,19 +45,21 @@ function AnimatedRoutes() {
   return (
     <>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/work" element={<WorkPage />} />
-        <Route path="/work/:slug" element={<CaseStudy />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/cybilearn" element={<CybiLearnPage />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Suspense fallback={<PageFallback />}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/work" element={<WorkPage />} />
+          <Route path="/work/:slug" element={<CaseStudy />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/cybilearn" element={<CybiLearnPage />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import GlowingSphere from "./GlowingSphere";
+
+const GlowingSphere = lazy(() => import("./GlowingSphere"));
 
 const objections = [
   {
@@ -242,7 +243,9 @@ export default function WhyUs() {
           {/* RIGHT — glowing sphere */}
           <div className="flex items-center justify-center lg:sticky lg:top-32">
             <div style={{ width: "min(420px, 80vw)", height: "min(420px, 80vw)" }}>
-              <GlowingSphere accentColor={hoveredIndex !== null ? accentColors[hoveredIndex] : null} />
+              <Suspense fallback={null}>
+                <GlowingSphere accentColor={hoveredIndex !== null ? accentColors[hoveredIndex] : null} />
+              </Suspense>
             </div>
           </div>
         </div>

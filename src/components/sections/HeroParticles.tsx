@@ -33,7 +33,7 @@ export default function HeroParticles() {
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
-    const COUNT = prefersReduced ? 30 : isMobile ? 120 : 200;
+    const COUNT = prefersReduced ? 20 : isMobile ? 50 : 90;
 
     let W = 0, H = 0;
     let particles: Particle[] = [];
@@ -115,22 +115,8 @@ export default function HeroParticles() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 
-        if (p.colorIndex === 1) {
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = "rgba(0,196,255,0.4)";
-          ctx.fillStyle = COLORS[1](alpha);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        } else if (p.colorIndex === 2) {
-          ctx.shadowBlur = 6;
-          ctx.shadowColor = "rgba(57,255,20,0.35)";
-          ctx.fillStyle = COLORS[2](alpha);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        } else {
-          ctx.fillStyle = COLORS[0](alpha);
-          ctx.fill();
-        }
+        ctx.fillStyle = COLORS[p.colorIndex](alpha);
+        ctx.fill();
       }
     };
 

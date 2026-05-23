@@ -6,7 +6,8 @@
       "PowerShell(Get-Command *)",
       "Bash(npm run *)",
       "Bash(bun run *)",
-      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\niure\\\\OneDrive\\\\Desktop\\\\CybiconZ\\\\src\\\\components\\\\ui\\\\\" | Where-Object { $_.Name -match \"Cursor|Orb|Magnetic|Bridge|Hook\" } | Select-Object Name)"
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\niure\\\\OneDrive\\\\Desktop\\\\CybiconZ\\\\src\\\\components\\\\ui\\\\\" | Where-Object { $_.Name -match \"Cursor|Orb|Magnetic|Bridge|Hook\" } | Select-Object Name)",
+      "WebFetch(domain:mdx.so)"
     ]
   }
 }

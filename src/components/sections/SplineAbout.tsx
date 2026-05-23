@@ -20,7 +20,10 @@ class SplineErrorBoundary extends Component<
 export default function SplineAbout() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    setShow(true);
+    const schedule = typeof window.requestIdleCallback === "function"
+      ? (cb: () => void) => window.requestIdleCallback(cb, { timeout: 2000 })
+      : (cb: () => void) => setTimeout(cb, 300);
+    schedule(() => setShow(true));
   }, []);
   if (!show) return null;
   return (

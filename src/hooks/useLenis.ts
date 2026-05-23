@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Lenis from '@studio-freight/lenis'
+import { gsap } from 'gsap'
 
 export let lenisInstance: Lenis | null = null
 
@@ -19,15 +20,14 @@ export function useLenis() {
 
     lenisInstance = lenis
 
-    function raf(time: number) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    const rafId = requestAnimationFrame(raf)
+    // Drive Lenis from the GSAP ticker instead of a separate RAF loop.
+    // gsap.ticker time is in seconds; lenis.raf expects milliseconds.
+    gsap.ticker.lagSmoothing(0)
+    const onTick = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(onTick)
 
     return () => {
-      cancelAnimationFrame(rafId)
+      gsap.ticker.remove(onTick)
       lenis.destroy()
       lenisInstance = null
     }
