@@ -105,7 +105,7 @@ export default function Testimonials() {
                   <InitialsAvatar name={t.name} />
                   <div>
                     <div className="font-display font-bold text-[13px] sm:text-[14px]" style={{ color: "#F0EEFF" }}>{t.name}</div>
-                    <div className="flex items-center gap-2 text-[11px] sm:text-[12px]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                    <div className="flex items-center gap-2 text-[11px] sm:text-[12px]" style={{ color: "rgba(255,255,255,0.65)" }}>
                       <span>{t.role}</span>
                       {t.verified && (
                         <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: `${t.accentColor}1A`, color: t.accentColor, border: `1px solid ${t.accentColor}33` }}>

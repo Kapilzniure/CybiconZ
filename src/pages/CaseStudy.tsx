@@ -168,7 +168,7 @@ export default function CaseStudy() {
                   <div key={label} className="py-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
                     <p
                       className="font-mono text-[11px] uppercase tracking-wider mb-1"
-                      style={{ color: "rgba(255,255,255,0.35)" }}
+                      style={{ color: "rgba(255,255,255,0.65)" }}
                     >
                       {label}
                     </p>
@@ -308,10 +308,10 @@ export default function CaseStudy() {
           </div>
           <div className="mt-6">
             <a
-              href="mailto:hello@cybiconz.com"
+              href="mailto:cybiconz@gmail.com"
               className="text-ink-muted hover:text-ink text-sm transition"
             >
-              hello@cybiconz.com
+             cybiconz@gmail.com
             </a>
           </div>
         </div>

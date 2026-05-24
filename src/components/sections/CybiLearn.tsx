@@ -114,11 +114,11 @@ export default function CybiLearn() {
           </p>
 
           {/* Proof Stats */}
-          <div className="flex items-center gap-2 mt-8 mb-8 font-mono text-[10px] text-white/25 uppercase tracking-widest select-none">
+          <div className="flex items-center gap-2 mt-8 mb-8 font-mono text-[10px] text-white/60 uppercase tracking-widest select-none">
             <span>Free to access</span>
-            <span className="text-white/10">·</span>
+            <span className="text-white/45">·</span>
             <span>No account needed</span>
-            <span className="text-white/10">·</span>
+            <span className="text-white/45">·</span>
             <span>Plain language</span>
           </div>
 
@@ -186,7 +186,7 @@ export default function CybiLearn() {
                 >
                   {f.t}
                 </div>
-                <div className="text-[12px] sm:text-[13px] mt-1 text-white/40 transition-colors group-hover:text-white/60">
+                <div className="text-[12px] sm:text-[13px] mt-1 text-white/70 transition-colors group-hover:text-white/85">
                   {f.d}
                 </div>
               </div>

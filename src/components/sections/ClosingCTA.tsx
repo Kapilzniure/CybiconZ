@@ -54,14 +54,13 @@ export default function ClosingCTA() {
               pointerEvents: 'none',
             }} />
             <div className="mt-6">
-              <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm transition">hello@cybiconz.com</a>
+              <a href="mailto:cybiconz@gmail.com" className="text-ink-muted hover:text-ink text-sm transition">cybiconz@gmail.com</a>
             </div>
           </motion.div>
 
-          {/* Right — robot */}
+          {/* Robot — below content on mobile, right on desktop */}
           <div
-            className="hidden lg:block"
-            style={{ height: "500px", position: "relative" }}
+            className="w-full h-[420px] sm:h-[400px] lg:h-[550px] relative"
           >
             <SplineClosingCTA />
           </div>

@@ -45,7 +45,7 @@ export default function CybiLearnPage() {
                 className="rounded-2xl p-6 transition-all duration-250 ease-in-out hover:-translate-y-[6px]"
                 style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)", borderTop: "3px solid #4F46E5" }}>
                 <h3 className="font-display font-bold text-lg" style={{ color: "#F0EEFF" }}>{t.t}</h3>
-                <p className="text-sm mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{t.d}</p>
+                <p className="text-sm mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{t.d}</p>
                 <div className="mt-4 font-mono text-[11px] uppercase tracking-wider text-violet">Coming soon →</div>
               </motion.div>
             ))}

@@ -19,12 +19,14 @@ class SplineErrorBoundary extends Component<
   }
 }
 
-export default function SplineHero() {
+interface SplineHeroProps {
+  onLoad?: () => void;
+}
+
+export default function SplineHero({ onLoad }: SplineHeroProps) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // Defer Spline until the browser is idle so the hero text and
-    // preloader finish before the 4MB Spline runtime starts downloading.
     const schedule = typeof window.requestIdleCallback === "function"
       ? (cb: () => void) => window.requestIdleCallback(cb, { timeout: 2500 })
       : (cb: () => void) => setTimeout(cb, 500);
@@ -40,6 +42,7 @@ export default function SplineHero() {
           <SplineScene
             scene="https://prod.spline.design/Muui7g5HLutyfcP4/scene.splinecode"
             style={{ width: "100%", height: "100%" }}
+            onLoad={onLoad}
             // @ts-ignore - crossOrigin is passed to the internal canvas element
             crossOrigin="anonymous"
           />

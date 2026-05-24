@@ -161,7 +161,7 @@ export default function Stats() {
                 <div className="text-white/60 text-[15px] font-semibold mt-4">
                   {item.label}
                 </div>
-                <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-white/20 mt-2">
+                <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-white/60 mt-2">
                   {item.sub}
                 </div>
               </div>

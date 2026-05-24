@@ -50,7 +50,7 @@ export default function ServicesPage() {
             Every engagement is scoped to your situation — not a package from a dropdown.
           </motion.p>
           <motion.p
-            className="text-white/40 mt-4 max-w-md text-sm leading-relaxed"
+            className="text-white/70 mt-4 max-w-md text-sm leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}

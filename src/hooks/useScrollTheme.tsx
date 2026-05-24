@@ -10,6 +10,7 @@ export const sectionThemes: Record<string, { primary: string; secondary: string;
   "tech-section":         { primary: "#818CF8", secondary: "#A78BFA", glow: "rgba(129,140,248,0.10)" },
   "testimonials-section": { primary: "#EC4899", secondary: "#F472B6", glow: "rgba(236,72,153,0.10)"  },
   "cybilearn-section":    { primary: "#10B981", secondary: "#06B6D4", glow: "rgba(16,185,129,0.08)"  },
+  "why-us-section":       { primary: "#00C4FF", secondary: "#39FF14", glow: "rgba(0,196,255,0.10)"  },
   "cta-section":          { primary: "#4F46E5", secondary: "#818CF8", glow: "rgba(79,70,229,0.18)"   },
 };
 

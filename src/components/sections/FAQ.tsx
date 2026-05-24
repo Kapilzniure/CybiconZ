@@ -160,7 +160,7 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
             style={{
               fontFamily: "'DM Mono', monospace",
               fontSize: 10,
-              color: "rgba(255,255,255,0.2)",
+              color: "rgba(255,255,255,0.62)",
               marginTop: 6,
               letterSpacing: "0.04em",
             }}
@@ -229,7 +229,7 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
                         variants={indexVariants}
                         custom={isOpen}
                         className="font-mono text-[11px] w-8 shrink-0 transition-colors duration-250 block"
-                        style={{ color: isOpen || isHovered ? "#A78BFA" : "rgba(255,255,255,0.2)" }}
+                        style={{ color: isOpen || isHovered ? "#A78BFA" : "rgba(255,255,255,0.55)" }}
                       >
                         {String(i + 1).padStart(2, "0")}
                       </motion.span>
@@ -304,7 +304,7 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
             ref={closingRef}
             className="mt-10 flex items-center gap-2.5"
           >
-            <span className="font-sans text-[14px] text-white/40">
+            <span className="font-sans text-[14px] text-white/70">
               Still have a question?
             </span>
             <Link

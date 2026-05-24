@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <Logo />
             <p className="text-ink-muted text-sm mt-4 leading-relaxed max-w-sm">A digital agency building real products for real businesses. Not a template shop.</p>
-            <a href="mailto:hello@cybiconz.com" className="text-ink-muted hover:text-ink text-sm mt-4 inline-block font-medium underline underline-offset-4 decoration-white/10 hover:decoration-white/30 transition-all">hello@cybiconz.com</a>
+            <a href="mailto:cybiconz@gmail.com" className="text-ink-muted hover:text-ink text-sm mt-4 inline-block font-medium underline underline-offset-4 decoration-white/10 hover:decoration-white/30 transition-all">cybiconz@gmail.com</a>
           </div>
           <FooterCol title="Services" links={[
             { label: "Website Development", to: "/services" },
@@ -48,15 +48,15 @@ export default function Footer() {
           ]} />
         </div>
 
-        <div className="border-t border-white/5 pt-8 flex flex-col lg:flex-row items-center justify-between text-[11px] sm:text-xs text-white/20 gap-6 text-center lg:text-left">
+        <div className="border-t border-white/10 pt-8 flex flex-col lg:flex-row items-center justify-between text-[11px] sm:text-xs text-white/55 gap-6 text-center lg:text-left">
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <span>© 2024 CybiconZ</span>
             <span className="hidden sm:inline">·</span>
-            <Link to="#" className="hover:text-white/50 transition-colors">Privacy</Link>
+            <Link to="#" className="hover:text-white/80 transition-colors">Privacy</Link>
             <span className="hidden sm:inline">·</span>
-            <Link to="#" className="hover:text-white/50 transition-colors">Terms</Link>
+            <Link to="#" className="hover:text-white/80 transition-colors">Terms</Link>
           </div>
-          <div style={{ color: "rgba(255,255,255,0.15)", fontSize: 11 }} className="order-first lg:order-none font-medium tracking-wide">DESIGNED AND BUILT BY CYBICONZ</div>
+          <div style={{ color: "rgba(255,255,255,0.48)", fontSize: 11 }} className="order-first lg:order-none font-medium tracking-wide">DESIGNED AND BUILT BY CYBICONZ</div>
           
         </div>
       </div>
@@ -67,10 +67,10 @@ export default function Footer() {
 function FooterCol({ title, links }: { title: string; links: { label: string; to: string }[] }) {
   return (
     <div>
-      <h4 className="label-eyebrow text-white/25 mb-4">{title}</h4>
+      <h4 className="label-eyebrow text-white/60 mb-4">{title}</h4>
       <ul className="space-y-2.5">
         {links.map(l => (
-          <li key={l.label}><Link to={l.to} className="text-[13px] text-white/35 hover:text-ink transition-colors">{l.label}</Link></li>
+          <li key={l.label}><Link to={l.to} className="text-[13px] text-white/70 hover:text-ink transition-colors">{l.label}</Link></li>
         ))}
       </ul>
     </div>

@@ -170,7 +170,7 @@ export default function Contact() {
                 {/* Header */}
                 <div className="mb-6">
                   <h2 className="font-display font-extrabold text-xl text-ink">Start a Project</h2>
-                  <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.7)" }}>
                     {step === 1    && "What do you need?"}
                     {step === 2    && "A few details. That's all."}
                     {step === 3    && "Here's what we'll send."}
@@ -242,7 +242,7 @@ export default function Contact() {
                       </div>
                       <p
                         className="text-center text-[12px] mt-5"
-                        style={{ color: "rgba(255,255,255,0.2)" }}
+                        style={{ color: "rgba(255,255,255,0.62)" }}
                       >
                         Select one to continue
                       </p>
@@ -349,7 +349,7 @@ export default function Contact() {
                       >
                         <p
                           className="font-mono text-[10px] uppercase tracking-wider mb-4"
-                          style={{ color: "rgba(255,255,255,0.28)" }}
+                          style={{ color: "rgba(255,255,255,0.62)" }}
                         >
                           Here's what we'll send:
                         </p>
@@ -364,7 +364,7 @@ export default function Contact() {
                             <div key={label} className="flex gap-3 text-[13px]">
                               <span
                                 className="font-mono shrink-0"
-                                style={{ width: "52px", color: "rgba(255,255,255,0.28)" }}
+                                style={{ width: "52px", color: "rgba(255,255,255,0.62)" }}
                               >
                                 {label}
                               </span>
@@ -388,7 +388,7 @@ export default function Contact() {
                           type="button"
                           onClick={() => back(2)}
                           className="font-sans text-[13px] transition-colors hover:text-white/60"
-                          style={{ color: "rgba(255,255,255,0.35)" }}
+                          style={{ color: "rgba(255,255,255,0.68)" }}
                         >
                           ← Edit
                         </button>
@@ -406,7 +406,7 @@ export default function Contact() {
                     >
                       <div className="text-violet text-3xl">✓</div>
                       <h3 className="font-display font-bold text-ink mt-3">Brief received</h3>
-                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
+                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.72)" }}>
                         We'll be in touch within one business day.
                       </p>
                     </motion.div>
@@ -417,14 +417,14 @@ export default function Contact() {
             </div>
 
             {/* Quick contact */}
-            <p className="mt-4 text-center text-[12px]" style={{ color: "rgba(255,255,255,0.22)" }}>
+            <p className="mt-4 text-center text-[12px]" style={{ color: "rgba(255,255,255,0.62)" }}>
               Just want to ask something?{" "}
               <a
-                href="mailto:hello@cybiconz.com"
-                className="transition-colors hover:text-white/50 underline underline-offset-2"
-                style={{ color: "rgba(255,255,255,0.32)" }}
+                href="mailto:cybiconz@gmail.com"
+                className="transition-colors hover:text-white/85 underline underline-offset-2"
+                style={{ color: "rgba(255,255,255,0.75)" }}
               >
-                hello@cybiconz.com
+                cybiconz@gmail.com
               </a>
             </p>
           </motion.div>
@@ -479,7 +479,7 @@ export default function Contact() {
                     </p>
                     <p
                       className="font-sans text-[13px] mt-1.5 leading-[1.65]"
-                      style={{ color: "rgba(255,255,255,0.45)" }}
+                      style={{ color: "rgba(255,255,255,0.72)" }}
                     >
                       {item.desc}
                     </p>
@@ -488,7 +488,7 @@ export default function Contact() {
               ))}
             </div>
 
-            <p className="font-mono text-[11px] mt-2" style={{ color: "rgba(255,255,255,0.22)" }}>
+            <p className="font-mono text-[11px] mt-2" style={{ color: "rgba(255,255,255,0.6)" }}>
               Average response time: under 4 hours during business hours (JST)
             </p>
 
@@ -499,7 +499,7 @@ export default function Contact() {
                   key={t}
                   className="text-[11px] px-3 py-1.5 rounded-full"
                   style={{
-                    color: "rgba(255,255,255,0.35)",
+                    color: "rgba(255,255,255,0.68)",
                     background: "rgba(255,255,255,0.03)",
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}

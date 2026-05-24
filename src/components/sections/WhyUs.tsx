@@ -1,279 +1,448 @@
-import { motion } from "framer-motion";
-import { useState, useEffect, lazy, Suspense } from "react";
-import SplitText from "@/components/ui/SplitText";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const GlowingSphere = lazy(() => import("./GlowingSphere"));
 
-const objections = [
+const ITEMS = [
   {
-    fear: '"I\'ve been burned by agencies before."',
-    answer:
-      "We work with 2–3 clients at a time. You'll always reach us directly. No account managers, no handoffs to juniors. The person you talk to is building your product.",
-    icon: "shield",
+    number: "01",
+    fear: "I can't reach anyone after I sign.",
+    answer: "We work with 2–3 clients at a time. The person who responds is the person building your product.",
     color: "#00C4FF",
+    rgb: "0,196,255",
+    accent: [0, 0.769, 1.0] as [number, number, number],
   },
   {
-    fear: '"I don\'t know if I can afford this."',
-    answer:
-      "We scope every project individually and tell you the price before you commit. No packages. No surprises. If it's outside your budget, we'll say so upfront.",
-    icon: "tag",
+    number: "02",
+    fear: "I don't know if I can afford this.",
+    answer: "We give you the price before you commit. No packages, no hidden costs.",
     color: "#39FF14",
+    rgb: "57,255,20",
+    accent: [0.224, 1.0, 0.078] as [number, number, number],
   },
   {
-    fear: '"I won\'t understand what was built."',
-    answer:
-      "Every project ends with a video walkthrough and written documentation. You'll know how to manage your own product. We build for handoff, not dependency.",
-    icon: "book",
+    number: "03",
+    fear: "I won't understand what was built.",
+    answer: "Every project ends with a walkthrough and full docs. You own it completely.",
     color: "#F59E0B",
-  },
-  {
-    fear: '"What if it takes forever?"',
-    answer:
-      "Timelines are agreed before we start. Milestones are fixed. You review at every stage. If something changes scope, you approve it first. That's in writing.",
-    icon: "clock",
-    color: "#4F46E5",
+    rgb: "245,158,11",
+    accent: [0.961, 0.620, 0.043] as [number, number, number],
   },
 ] as const;
 
-type IconType = (typeof objections)[number]["icon"];
+type Idx = 0 | 1 | 2;
 
-function Icon({ name, color }: { name: IconType; color: string }) {
-  const style = { stroke: color, fill: "none", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const ORB_SIZE = 200;
 
-  if (name === "shield")
-    return (
-      <svg width="18" height="18" viewBox="0 0 24 24" {...style}>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    );
-  if (name === "tag")
-    return (
-      <svg width="18" height="18" viewBox="0 0 24 24" {...style}>
-        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
-        <line x1="7" y1="7" x2="7.01" y2="7" />
-      </svg>
-    );
-  if (name === "book")
-    return (
-      <svg width="18" height="18" viewBox="0 0 24 24" {...style}>
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-      </svg>
-    );
-  // clock
+// Orb center as fraction of container (0–1)
+const ORB_CENTERS: [number, number][] = [
+  [0.32, 0.48],  // phase 0 — upper-left
+  [0.70, 0.76],  // phase 1 — lower-right
+  [0.32, 0.76],  // phase 2 — lower-left
+];
+
+// Item card anchors (fraction of container) — placed at the corners
+// We'll render them as position:absolute using these fractions
+const ITEM_ANCHORS = [
+  { cx: 0.32, cy: 0.48, side: "left"  as const },
+  { cx: 0.70, cy: 0.76, side: "right" as const },
+  { cx: 0.32, cy: 0.76, side: "left"  as const },
+];
+
+// ─── Desktop ───────────────────────────────────────────────────────────────────
+
+function Desktop() {
+  const [phase, setPhase]   = useState<Idx>(0);
+  const [paused, setPaused] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [dim, setDim] = useState({ w: 1200, h: 820 });
+
+  // Measure container
+  useEffect(() => {
+    const update = () => {
+      if (wrapRef.current) {
+        setDim({ w: wrapRef.current.offsetWidth, h: wrapRef.current.offsetHeight });
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Auto-cycle
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => setPhase(p => ((p + 1) % 3) as Idx), 3800);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  const item = ITEMS[phase];
+  const { w, h } = dim;
+
+  // Orb top-left pixel positions
+  const orbX = ORB_CENTERS[phase][0] * w - ORB_SIZE / 2;
+  const orbY = ORB_CENTERS[phase][1] * h - ORB_SIZE / 2;
+
+  // SVG waypoint centers for path lines
+  const pts = ORB_CENTERS.map(([cx, cy]) => ({ x: cx * w, y: cy * h }));
+
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" {...style}>
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
+    <div
+      ref={wrapRef}
+      style={{
+        position:   "relative",
+        width:      "100%",
+        height:     "100vh",
+        overflow:   "hidden",
+        minHeight:  720,
+      }}
+    >
+      {/* Headline */}
+      <div style={{
+        position:      "absolute",
+        top:           0,
+        left:          0,
+        right:         0,
+        textAlign:     "center",
+        paddingTop:    72,
+        zIndex:        10,
+        pointerEvents: "none",
+      }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+          <div style={{ width: 16, height: 1, background: "linear-gradient(to right, #00C4FF, transparent)" }} />
+          <span style={{
+            fontFamily:    "'DM Mono', monospace",
+            fontSize:      10,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color:         "rgba(255,255,255,0.28)",
+          }}>
+            Why clients choose us
+          </span>
+          <div style={{ width: 16, height: 1, background: "linear-gradient(to left, #00C4FF, transparent)" }} />
+        </div>
+        <h2 style={{
+          fontFamily:    "'Bricolage Grotesque', sans-serif",
+          fontWeight:    800,
+          fontSize:      "clamp(36px, 4vw, 58px)",
+          letterSpacing: "-0.04em",
+          lineHeight:    0.95,
+          color:         "#ffffff",
+          margin:        0,
+        }}>
+          We know what you're
+          <br />
+          <span style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.18)", WebkitTextFillColor: "transparent" }}>
+            worried about.
+          </span>
+        </h2>
+      </div>
+
+      {/* Faint triangular path */}
+      <svg
+        aria-hidden
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 1 }}
+      >
+        <polygon
+          points={pts.map(p => `${p.x},${p.y}`).join(" ")}
+          fill="none"
+          stroke="rgba(255,255,255,0.05)"
+          strokeWidth="1"
+          strokeDasharray="5 16"
+        />
+        {/* Tiny corner markers */}
+        {pts.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r="3" fill="rgba(255,255,255,0.06)" />
+        ))}
+      </svg>
+
+      {/* Moving orb */}
+      <motion.div
+        animate={{ x: orbX, y: orbY }}
+        transition={{ duration: 1.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        style={{
+          position:      "absolute",
+          left:          0,
+          top:           0,
+          width:         ORB_SIZE,
+          height:        ORB_SIZE,
+          zIndex:        2,
+          pointerEvents: "none",
+        }}
+      >
+        {/* Ambient glow */}
+        <motion.div
+          animate={{
+            background: `radial-gradient(circle at 50% 50%, rgba(${item.rgb}, 0.22) 0%, transparent 65%)`,
+          }}
+          transition={{ duration: 1.0, ease: "easeInOut" }}
+          style={{ position: "absolute", inset: "-70%", borderRadius: "50%", pointerEvents: "none" }}
+        />
+        <Suspense fallback={null}>
+          <GlowingSphere accentColor={item.accent} />
+        </Suspense>
+      </motion.div>
+
+      {/* Item cards */}
+      {ITEMS.map((it, i) => {
+        const idx      = i as Idx;
+        const isActive = phase === idx;
+        const anchor   = ITEM_ANCHORS[i];
+        const cx       = anchor.cx * w;
+        const cy       = anchor.cy * h;
+        const CARD_W   = 240;
+        const isRight  = anchor.side === "right";
+
+        // Position card so it doesn't sit on top of orb:
+        // - left side items: card right edge ends just before orb left
+        // - right side items: card left edge starts just after orb right
+        const OFFSET = ORB_SIZE / 2 + 28; // half orb + gap
+
+        const cardStyle: React.CSSProperties = isRight
+          ? { left: cx + OFFSET, top: cy - 64 }
+          : { left: cx - OFFSET - CARD_W, top: cy - 64 };
+
+        return (
+          <motion.div
+            key={i}
+            onMouseEnter={() => { setPaused(true); setPhase(idx); }}
+            onMouseLeave={() => setPaused(false)}
+            animate={{ opacity: isActive ? 1 : 0.22 }}
+            transition={{ duration: 0.45 }}
+            style={{
+              position:  "absolute",
+              width:     CARD_W,
+              zIndex:    5,
+              cursor:    "default",
+              textAlign: isRight ? "left" : "right",
+              ...cardStyle,
+            }}
+          >
+            <span style={{
+              fontFamily:    "'DM Mono', monospace",
+              fontSize:      10,
+              letterSpacing: "0.15em",
+              color:         isActive ? it.color : "rgba(255,255,255,0.18)",
+              display:       "block",
+              marginBottom:  10,
+              transition:    "color 0.4s",
+            }}>
+              {it.number}
+            </span>
+            <p style={{
+              fontFamily: "'Bricolage Grotesque', sans-serif",
+              fontWeight: 700,
+              fontSize:   "clamp(15px, 1.3vw, 19px)",
+              color:      isActive ? "#ffffff" : "rgba(255,255,255,0.4)",
+              lineHeight: 1.25,
+              margin:     "0 0 12px",
+              transition: "color 0.4s",
+            }}>
+              {it.fear}
+            </p>
+            <AnimatePresence>
+              {isActive && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 4 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontSize:   13,
+                    lineHeight: 1.72,
+                    color:      "rgba(255,255,255,0.52)",
+                    margin:     0,
+                  }}
+                >
+                  {it.answer}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        );
+      })}
+
+      {/* Phase dots + CTA — bottom center */}
+      <div style={{
+        position:       "absolute",
+        bottom:         48,
+        left:           "50%",
+        transform:      "translateX(-50%)",
+        display:        "flex",
+        flexDirection:  "column",
+        alignItems:     "center",
+        gap:            20,
+        zIndex:         10,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {ITEMS.map((it, i) => (
+            <motion.button
+              key={i}
+              onClick={() => {
+                setPhase(i as Idx);
+                setPaused(true);
+                setTimeout(() => setPaused(false), 6000);
+              }}
+              animate={{
+                width:      phase === i ? 26 : 8,
+                background: phase === i ? it.color : "rgba(255,255,255,0.18)",
+              }}
+              transition={{ duration: 0.35 }}
+              style={{ height: 8, borderRadius: 4, border: "none", cursor: "pointer", padding: 0, flexShrink: 0 }}
+            />
+          ))}
+        </div>
+        <MagneticButton href="/contact" variant="primary">
+          Start a conversation →
+        </MagneticButton>
+      </div>
+    </div>
   );
 }
 
-// RGB 0-1 tuples matching each card's accent hex
-const accentColors: [number, number, number][] = [
-  [0,     0.769, 1.0  ], // #00C4FF cyan  — trust
-  [0.224, 1.0,   0.078], // #39FF14 green — price
-  [0.961, 0.620, 0.043], // #F59E0B amber — understanding
-  [0.310, 0.275, 0.898], // #4F46E5 indigo — timeline
-];
+// ─── Mobile ────────────────────────────────────────────────────────────────────
 
-const cardVariants = {
-  hidden: (i: number) => ({ opacity: 0, x: i % 2 === 0 ? -20 : 20 }),
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
+function Mobile() {
+  const [active, setActive] = useState<Idx | null>(null);
+  const accentColor = active !== null ? ITEMS[active].accent : null;
 
-const reducedVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.01 } },
-};
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: "100%", padding: "88px 24px 80px" }}>
 
-const leftVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-};
+      {/* Headline */}
+      <div style={{ marginBottom: 36 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+          <div style={{ width: 14, height: 1, background: "#00C4FF", opacity: 0.6 }} />
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>
+            Why clients choose us
+          </span>
+        </div>
+        <h2 style={{
+          fontFamily: "'Bricolage Grotesque', sans-serif",
+          fontWeight: 800,
+          fontSize: "clamp(32px, 9vw, 44px)",
+          letterSpacing: "-0.04em",
+          lineHeight: 0.95,
+          color: "#ffffff",
+          margin: 0,
+        }}>
+          We know what
+          <br />you're worried
+          <br />
+          <span style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.2)", WebkitTextFillColor: "transparent" }}>
+            about.
+          </span>
+        </h2>
+      </div>
 
-const footerVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.35 } },
-};
+      {/* Orb */}
+      <div style={{ width: "min(240px, 68vw)", height: "min(240px, 68vw)", alignSelf: "center", marginBottom: 36, position: "relative" }}>
+        <motion.div
+          animate={{
+            background: active !== null
+              ? `radial-gradient(circle at 50% 50%, rgba(${ITEMS[active].rgb}, 0.2) 0%, transparent 70%)`
+              : "radial-gradient(circle at 50% 50%, rgba(100,60,200,0.1) 0%, transparent 70%)",
+          }}
+          transition={{ duration: 0.9 }}
+          style={{ position: "absolute", inset: "-35%", borderRadius: "50%", pointerEvents: "none" }}
+        />
+        <Suspense fallback={null}>
+          <GlowingSphere accentColor={accentColor} />
+        </Suspense>
+      </div>
+
+      {/* Accordion */}
+      <div>
+        {ITEMS.map((item, i) => {
+          const idx      = i as Idx;
+          const isActive = active === idx;
+
+          return (
+            <div
+              key={i}
+              onClick={() => setActive(isActive ? null : idx)}
+              style={{ borderTop: "1px solid rgba(255,255,255,0.07)", padding: "18px 0", cursor: "pointer" }}
+            >
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+                <span style={{
+                  fontFamily: "'DM Mono', monospace", fontSize: 10,
+                  color: isActive ? item.color : "rgba(255,255,255,0.2)",
+                  flexShrink: 0, marginTop: 2, transition: "color 0.3s",
+                }}>
+                  {item.number}
+                </span>
+                <div style={{ flex: 1 }}>
+                  <p style={{
+                    fontFamily: "'Bricolage Grotesque', sans-serif",
+                    fontWeight: 700, fontSize: 16,
+                    color: isActive ? "#ffffff" : "rgba(255,255,255,0.55)",
+                    lineHeight: 1.3, margin: 0, transition: "color 0.3s",
+                  }}>
+                    {item.fear}
+                  </p>
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                        animate={{ opacity: 1, height: "auto", marginTop: 10 }}
+                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.52)", lineHeight: 1.7, margin: 0, overflow: "hidden" }}
+                      >
+                        {item.answer}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </div>
+                <motion.span
+                  animate={{ color: isActive ? item.color : "rgba(255,255,255,0.15)", rotate: isActive ? 90 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  style={{ fontFamily: "'DM Mono', monospace", fontSize: 14, flexShrink: 0, marginTop: 2 }}
+                >
+                  →
+                </motion.span>
+              </div>
+            </div>
+          );
+        })}
+        <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} />
+      </div>
+
+      <div style={{ marginTop: 36, display: "flex", justifyContent: "center" }}>
+        <MagneticButton href="/contact" variant="primary">
+          Start a conversation →
+        </MagneticButton>
+      </div>
+    </div>
+  );
+}
+
+// ─── Root ──────────────────────────────────────────────────────────────────────
 
 export default function WhyUs() {
-  const [prefersReduced, setPrefersReduced] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReduced(media.matches);
-    const listener = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
-    media.addEventListener("change", listener);
-    return () => media.removeEventListener("change", listener);
+    const h = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", h);
+    return () => window.removeEventListener("resize", h);
   }, []);
 
   return (
     <section
-      data-section="services-section"
-      className="py-[100px] relative overflow-hidden"
-      style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)" }}
+      data-section="why-us-section"
+      style={{
+        position:   "relative",
+        overflow:   "hidden",
+        background: "#020408",
+        borderTop:  "1px solid rgba(255,255,255,0.05)",
+      }}
     >
-      {/* Ambient glow — cyan left */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "10%",
-          left: "-150px",
-          width: "500px",
-          height: "500px",
-          borderRadius: "50%",
-          background: "radial-gradient(rgba(0,196,255,0.07), transparent 65%)",
-          pointerEvents: "none",
-          zIndex: 0,
-          filter: "blur(1px)",
-        }}
-      />
-      {/* Ambient glow — indigo right */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          bottom: "10%",
-          right: "-150px",
-          width: "500px",
-          height: "500px",
-          borderRadius: "50%",
-          background: "radial-gradient(rgba(79,70,229,0.07), transparent 65%)",
-          pointerEvents: "none",
-          zIndex: 0,
-          filter: "blur(1px)",
-        }}
-      />
-
-      <div className="container relative z-10">
-        {/* Three-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr_1fr] gap-12 lg:gap-16 items-start">
-          {/* LEFT — sticky heading */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={prefersReduced ? reducedVariants : leftVariants}
-            className="lg:sticky lg:top-32 animate-gpu"
-          >
-            <span className="label-eyebrow text-[#00C4FF]">Why clients choose us</span>
-            <h2
-              className="section-headline-reveal font-display font-extrabold text-ink mt-3 leading-[1.1]"
-              style={{ fontSize: "clamp(32px, 4vw, 52px)", letterSpacing: "-0.03em" }}
-            >
-              <SplitText delay={0.04}>We know what you're worried about.</SplitText>
-            </h2>
-            <p
-              className="font-sans mt-5 leading-[1.75]"
-              style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", maxWidth: "340px" }}
-            >
-              We've heard every objection. Here's the honest answer to each one.
-            </p>
-          </motion.div>
-
-          {/* MIDDLE — objection cards */}
-          <div className="flex flex-col gap-4">
-            {objections.map((obj, i) => {
-              const isHovered = hoveredIndex === i;
-              return (
-                <motion.div
-                  key={i}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-40px" }}
-                  variants={prefersReduced ? reducedVariants : cardVariants}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className="rounded-2xl p-6 sm:p-7 relative animate-gpu"
-                  style={{
-                    background: isHovered ? `rgba(${hexToRgbStr(obj.color)}, 0.03)` : "#0F0F1C",
-                    border: `1px solid ${isHovered ? `rgba(${hexToRgbStr(obj.color)}, 0.3)` : "rgba(255,255,255,0.06)"}`,
-                    transition: "background 0.25s ease, border-color 0.25s ease",
-                    transform: "translateZ(0)",
-                  }}
-                >
-                  {/* Icon — top right */}
-                  <div
-                    className="absolute top-5 right-5 opacity-70"
-                    style={{ transition: "opacity 0.2s ease", opacity: isHovered ? 1 : 0.5 }}
-                  >
-                    <Icon name={obj.icon} color={obj.color} />
-                  </div>
-
-                  {/* Fear */}
-                  <p
-                    className="font-display font-bold"
-                    style={{
-                      fontSize: "17px",
-                      color: "#fff",
-                      paddingLeft: "14px",
-                      borderLeft: `3px solid rgba(${hexToRgbStr(obj.color)}, 0.4)`,
-                      lineHeight: "1.5",
-                    }}
-                  >
-                    {obj.fear}
-                  </p>
-
-                  {/* Answer */}
-                  <p
-                    className="font-sans"
-                    style={{
-                      fontSize: "14px",
-                      color: "rgba(255,255,255,0.55)",
-                      lineHeight: "1.75",
-                      marginTop: "12px",
-                    }}
-                  >
-                    {obj.answer}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* RIGHT — glowing sphere */}
-          <div className="flex items-center justify-center lg:sticky lg:top-32">
-            <div style={{ width: "min(420px, 80vw)", height: "min(420px, 80vw)" }}>
-              <Suspense fallback={null}>
-                <GlowingSphere accentColor={hoveredIndex !== null ? accentColors[hoveredIndex] : null} />
-              </Suspense>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer CTA */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-          variants={prefersReduced ? reducedVariants : footerVariants}
-          className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 text-center animate-gpu"
-        >
-          <p className="font-sans text-[15px]" style={{ color: "rgba(255,255,255,0.45)" }}>
-            Still not sure? Talk to us for 15 minutes.{" "}
-            <span style={{ color: "rgba(255,255,255,0.25)" }}>No pitch, no pressure.</span>
-          </p>
-          <MagneticButton href="/contact" variant="primary">
-            Start a conversation →
-          </MagneticButton>
-        </motion.div>
-      </div>
+      {isMobile ? <Mobile /> : <Desktop />}
     </section>
   );
-}
-
-function hexToRgbStr(hex: string): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `${r},${g},${b}`;
 }

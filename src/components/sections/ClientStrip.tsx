@@ -60,7 +60,7 @@ export default function ClientStrip() {
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 py-4 md:py-0">
         {/* Left Side: Label + Clients */}
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/20 whitespace-nowrap">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/55 whitespace-nowrap">
             Trusted by
           </span>
 
@@ -96,7 +96,7 @@ export default function ClientStrip() {
                     <span className="font-sans text-[13px] font-semibold text-white/60 group-hover:text-white transition-colors duration-300">
                       {client.name}
                     </span>
-                    <span className="font-mono text-[10px] text-white/25">
+                    <span className="font-mono text-[10px] text-white/55">
                       {client.type}
                     </span>
                   </div>
@@ -113,10 +113,10 @@ export default function ClientStrip() {
 
             {/* Placeholder */}
             <motion.div variants={itemVariants} className="flex flex-col pl-4 md:pl-6">
-              <span className="font-mono text-[10px] text-white/15">
+              <span className="font-mono text-[10px] text-white/45">
                 +3 more
               </span>
-              <span className="font-mono text-[10px] text-white/15">
+              <span className="font-mono text-[10px] text-white/45">
                 More projects being announced
               </span>
             </motion.div>

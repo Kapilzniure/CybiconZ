@@ -217,7 +217,7 @@ export default function Process() {
             How an Engagement Works
           </h2>
           
-          <div className="mt-4 font-mono text-[11px] text-white/30 uppercase tracking-widest">
+          <div className="mt-4 font-mono text-[11px] text-white/65 uppercase tracking-widest">
             From first call to handoff: typically 3–14 weeks depending on scope.
           </div>
 
@@ -232,7 +232,7 @@ export default function Process() {
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.28, ease: "easeOut" }}
                   className="block font-mono"
-                  style={{ fontSize: "11px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.1em" }}
+                  style={{ fontSize: "11px", color: "rgba(255,255,255,0.62)", letterSpacing: "0.1em" }}
                 >
                   Step {steps[activeStep].n}: {steps[activeStep].name}
                 </motion.span>
@@ -364,8 +364,8 @@ export default function Process() {
                   className="text-sm leading-relaxed max-w-sm"
                   animate={{
                     color: activeStep >= 0 && activeStep !== i
-                      ? "rgba(255,255,255,0.22)"
-                      : "rgba(255,255,255,0.45)",
+                      ? "rgba(255,255,255,0.52)"
+                      : "rgba(255,255,255,0.72)",
                   }}
                   transition={{ duration: 0.4 }}
                 >
@@ -411,7 +411,7 @@ export default function Process() {
 
                 {/* Client Feels */}
                 <div className="mt-3">
-                  <span className="italic text-[13px] text-white/30">
+                  <span className="italic text-[13px] text-white/65">
                     {s.clientFeels}
                   </span>
                 </div>

@@ -59,7 +59,7 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-8">
           {links.map(l => (
             <NavLink key={l.to} to={l.to} className={({ isActive }) =>
-              `relative text-sm font-medium transition-colors ${isActive ? "text-ink" : "text-white/45 hover:text-ink"}`
+              `relative text-sm font-medium transition-colors ${isActive ? "text-ink" : "text-white/70 hover:text-ink"}`
             }>
               {({ isActive }) => (<>
                 {l.label}

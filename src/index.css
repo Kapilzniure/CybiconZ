@@ -36,7 +36,7 @@
     --bg-light-card: 240 22% 9%;
 
     --text-white: 247 100% 97%;
-    --text-muted: 234 14% 49%;
+    --text-muted: 234 18% 72%;
     --text-dark: 232 33% 6%;
 
     --accent-from: 243 75% 59%;
@@ -346,7 +346,7 @@ const useScrollReveal = (selector = '.reveal-hidden', threshold = 0.1) => {
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.65);
 }
 
 /* MOTION UTILITIES */

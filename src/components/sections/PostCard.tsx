@@ -58,7 +58,7 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
 
             {/* Content Overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10" style={{ zIndex: 2 }}>
-              <div className="font-mono text-[12px] text-white/40 mb-3">
+              <div className="font-mono text-[12px] text-white/65 mb-3">
                 {formatDate(post.date)} — {post.readTime}
               </div>
               <h3
@@ -116,8 +116,8 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#818CF8]">
               {post.category}
             </span>
-            <span className="text-[10px] text-white/20">•</span>
-            <span className="text-[10px] text-white/30 font-mono">
+            <span className="text-[10px] text-white/50">•</span>
+            <span className="text-[10px] text-white/60 font-mono">
               {post.readTime}
             </span>
           </div>
@@ -126,7 +126,7 @@ export default function PostCard({ post, featured = false }: { post: Post; featu
           >
             {post.title}
           </h3>
-          <p className="text-[13px] text-white/40 line-clamp-1 mt-1 font-light">
+          <p className="text-[13px] text-white/70 line-clamp-1 mt-1 font-light">
             {post.excerpt}
           </p>
         </div>

@@ -91,7 +91,7 @@ export default function Portfolio() {
 
             {/* Current clients row */}
             <div className="flex items-center gap-4 mt-8">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/25">Current clients</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">Current clients</span>
               <div className="flex items-center -space-x-2">
                 {currentClients.map((client, i) => (
                   <div 
@@ -107,7 +107,7 @@ export default function Portfolio() {
           </div>
           <div className="flex gap-2 flex-wrap">
             {tabs.map(t => (
-              <button key={t} onClick={() => setActive(t)} className={`text-sm font-semibold px-4 py-2 rounded-full transition ${active === t ? "bg-white/10 text-white border border-white/20" : "border border-white/[0.08] text-white/30 hover:border-white/15"}`}>{t}</button>
+              <button key={t} onClick={() => setActive(t)} className={`text-sm font-semibold px-4 py-2 rounded-full transition ${active === t ? "bg-white/10 text-white border border-white/20" : "border border-white/[0.12] text-white/70 hover:border-white/25 hover:text-white"}`}>{t}</button>
             ))}
           </div>
         </div>
@@ -190,7 +190,7 @@ export default function Portfolio() {
                     </div>
                   </MiniFrame>
                   <div className="mt-5">
-                    <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.3)" }}>{p.service} · {p.year}</div>
+              <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.62)" }}>{p.service} · {p.year}</div>
                     <h3 className="font-display font-bold text-[19px] mt-1.5 text-white/90 group-hover:text-white transition-colors">{p.name}</h3>
                   </div>
                 </motion.div>
@@ -201,8 +201,8 @@ export default function Portfolio() {
           {/* Coming soon placeholder */}
           {[1, 2].slice(0, Math.max(0, 3 - others.length)).map(i => (
             <div key={i} className="rounded-2xl flex flex-col items-center justify-center min-h-[220px] p-6 group transition-all duration-300" style={{ background: "rgba(255,255,255,0.01)", border: "1.5px dashed rgba(255,255,255,0.06)" }}>
-              <div className="font-display font-extrabold text-[48px] text-white/5 transition-colors group-hover:text-white/10">0{others.length + i + 1}</div>
-              <div className="text-[12px] uppercase tracking-widest mt-2 text-white/10 group-hover:text-white/20">Development in progress</div>
+              <div className="font-display font-extrabold text-[48px] text-white/25 transition-colors group-hover:text-white/35">0{others.length + i + 1}</div>
+              <div className="text-[12px] uppercase tracking-widest mt-2 text-white/55 group-hover:text-white/70">Development in progress</div>
             </div>
           ))}
         </div>

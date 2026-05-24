@@ -60,7 +60,7 @@ function ProofPointItem({ point, index, active }: { point: ProofPoint; index: nu
         >
           {displayValue}
         </div>
-        <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-[rgba(255,255,255,0.25)]">
+        <div className="mt-1 font-mono text-[11px] uppercase tracking-wider text-[rgba(255,255,255,0.62)]">
           {point.label}
         </div>
         {point.detail ? (

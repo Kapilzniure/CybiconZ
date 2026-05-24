@@ -17,7 +17,7 @@ function BrowserChrome() {
           background: "rgba(255,255,255,0.05)",
           fontFamily: '"DM Mono", ui-monospace, monospace',
           fontSize: 11,
-          color: "rgba(255,255,255,0.4)",
+          color: "rgba(255,255,255,0.68)",
         }}
       >
         cybiconz.com/work/lwangblack
@@ -75,7 +75,7 @@ function MockSiteContent() {
           </p>
           <p
             className="font-mono mt-0.5"
-            style={{ fontSize: 10, color: "rgba(255,255,255,0.4)" }}
+            style={{ fontSize: 10, color: "rgba(255,255,255,0.68)" }}
           >
             E-Commerce · In Development
           </p>
@@ -153,7 +153,7 @@ export default function HeroMockup() {
         </div>
         <span
           className="font-mono tracking-wider"
-          style={{ fontSize: 9, color: "rgba(255,255,255,0.4)" }}
+          style={{ fontSize: 9, color: "rgba(255,255,255,0.68)" }}
         >
           DELIVERY RATE
         </span>
@@ -184,7 +184,7 @@ export default function HeroMockup() {
         </span>
         <span
           className="font-mono tracking-wider"
-          style={{ fontSize: 9, color: "rgba(255,255,255,0.4)" }}
+          style={{ fontSize: 9, color: "rgba(255,255,255,0.68)" }}
         >
           LwangBlack Coffee
         </span>

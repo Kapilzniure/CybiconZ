@@ -63,7 +63,7 @@ export default function About() {
                 style={{ fontSize: "clamp(44px, 7vw, 84px)", letterSpacing: "-0.04em" }}
               >
                 A focused team.<br />
-                <span style={{ color: "rgba(255,255,255,0.35)" }}>Building real products.</span>
+                <span style={{ color: "rgba(255,255,255,0.65)" }}>Building real products.</span>
               </motion.h1>
 
               <motion.p
@@ -91,11 +91,11 @@ export default function About() {
                   Start a project →
                 </MagneticButton>
                 <a
-                  href="mailto:hello@cybiconz.com"
+                  href="mailto:cybiconz@gmail.com"
                   className="text-[13px] font-mono transition-colors"
-                  style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.02em" }}
+                  style={{ color: "rgba(255,255,255,0.62)", letterSpacing: "0.02em" }}
                 >
-                  hello@cybiconz.com
+                  cybiconz@gmail.com
                 </a>
               </motion.div>
             </div>
@@ -157,7 +157,7 @@ export default function About() {
                       fontFamily: "monospace",
                       letterSpacing: "0.14em",
                       textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.15)",
+                      color: "rgba(255,255,255,0.5)",
                       textAlign: "center",
                     }}
                   >
@@ -181,7 +181,7 @@ export default function About() {
                   <div style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontWeight: 700, fontSize: 14, color: "#fff" }}>
                     Niure Kapil
                   </div>
-                  <div style={{ fontSize: 11, marginTop: 2, color: "rgba(255,255,255,0.38)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
+                  <div style={{ fontSize: 11, marginTop: 2, color: "rgba(255,255,255,0.65)", fontFamily: "monospace", letterSpacing: "0.04em" }}>
                     Founder · CybiconZ · Tokyo
                   </div>
                 </div>
@@ -253,7 +253,8 @@ export default function About() {
             {/* Right — Spline robot */}
             <motion.div
               {...fade(0.1)}
-              style={{ height: "clamp(360px, 45vw, 520px)", position: "relative" }}
+              className="w-full relative"
+              style={{ height: "clamp(380px, 90vw, 600px)" }}
             >
               <SplineAbout />
             </motion.div>
@@ -305,7 +306,7 @@ export default function About() {
                 >
                   {v.title}
                 </h3>
-                <p className="text-[14px] leading-[1.75]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="text-[14px] leading-[1.75]" style={{ color: "rgba(255,255,255,0.72)" }}>
                   {v.body}
                 </p>
               </motion.div>
@@ -335,11 +336,11 @@ export default function About() {
                 Start a conversation →
               </MagneticButton>
               <a
-                href="mailto:hello@cybiconz.com"
+                href="mailto:cybiconz@gmail.com"
                 className="text-[13px] font-mono"
-                style={{ color: "rgba(255,255,255,0.35)", letterSpacing: "0.02em" }}
+                style={{ color: "rgba(255,255,255,0.62)", letterSpacing: "0.02em" }}
               >
-                hello@cybiconz.com
+                cybiconz@gmail.com
               </a>
             </div>
           </motion.div>

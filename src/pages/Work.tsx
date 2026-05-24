@@ -57,7 +57,7 @@ export default function WorkPage() {
                   <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700" />
                 </div>
                 <div className="p-6">
-                  <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.3)" }}>{p.service} · {p.year}</div>
+                  <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.62)" }}>{p.service} · {p.year}</div>
                   <h3 className="font-display font-bold text-[20px] mt-1" style={{ color: "#F0EEFF" }}>{p.name}</h3>
                   <p className="text-sm mt-2 leading-relaxed text-ink-muted">{p.outcome}</p>
                 </div>

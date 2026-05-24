@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { services } from "@/data/services";
 import type { Service } from "@/data/services";
@@ -132,13 +132,13 @@ function ServiceRow({ service, index, prefersReduced }: { service: Service; inde
         viewport={{ once: true, margin: '-40px' }}
         variants={prefersReduced ? reducedVariants : serviceRowVariants}
         custom={index}
-        className="relative py-7 grid grid-cols-[80px_1fr_auto] items-center gap-6 cursor-pointer transition-all duration-300 will-change-transform transform-gpu"
+        className="relative py-7 grid grid-cols-[40px_1fr] sm:grid-cols-[64px_1fr_auto] items-center gap-x-4 gap-y-3 sm:gap-6 cursor-pointer transition-all duration-300 will-change-transform transform-gpu"
         style={{ transform: "translateZ(0)" }}
       >
         {/* Number */}
         <span 
           className="font-mono text-[12px] tracking-[0.1em] transition-colors duration-300"
-          style={{ color: hovered ? service.color : 'rgba(255,255,255,0.2)' }}
+          style={{ color: hovered ? service.color : 'rgba(255,255,255,0.5)' }}
         >
           {service.id}
         </span>
@@ -147,10 +147,10 @@ function ServiceRow({ service, index, prefersReduced }: { service: Service; inde
         <div className="flex flex-col">
           <div className="flex items-center gap-4 flex-wrap">
             <h3 
-              className="font-display font-extrabold text-white/75 transition-colors duration-300 leading-none"
+              className="font-display font-extrabold text-white/90 transition-colors duration-300 leading-none"
               style={{ 
                 fontSize: 'clamp(20px, 3vw, 32px)',
-                color: hovered ? '#ffffff' : 'rgba(255,255,255,0.75)'
+                color: hovered ? '#ffffff' : 'rgba(255,255,255,0.9)'
               }}
             >
               {service.name}
@@ -170,32 +170,27 @@ function ServiceRow({ service, index, prefersReduced }: { service: Service; inde
           </div>
 
           {/* Description — revealed with scaleY/opacity */}
-          <AnimatePresence>
-            {hovered && !prefersReduced && (
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={accordionVariants}
-                className="mt-3 overflow-hidden will-change-transform"
-              >
-                <p className="text-white/45 text-[14px] leading-relaxed max-w-lg">
-                  {service.description}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={prefersReduced ? reducedVariants : accordionVariants}
+            className="mt-3 overflow-hidden will-change-transform"
+          >
+            <p className="text-white/75 text-[14px] leading-relaxed max-w-lg">
+              {service.description}
+            </p>
+          </motion.div>
         </div>
 
         {/* Right side — timeline + arrow */}
-        <div className="flex flex-col items-end gap-1.5 min-w-[120px]">
-          <span className="font-mono text-[11px] text-white/20 transition-colors duration-300">
+        <div className="col-start-2 sm:col-start-auto flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-1.5 min-w-0 sm:min-w-[120px]">
+          <span className="font-mono text-[11px] text-white/55 transition-colors duration-300">
             {service.timeline}
           </span>
           <motion.span
             animate={{
               x: hovered ? 0 : 8,
-              opacity: hovered ? 1 : 0,
+              opacity: hovered ? 1 : 0.65,
             }}
             transition={{ duration: 0.2 }}
             className="font-sans text-[13px] font-bold"
@@ -254,70 +249,36 @@ export default function Services() {
             >
               Five services. Every one end-to-end.
             </h2>
-            <p className="font-sans text-white/40 text-[16px] max-w-xl">
+            <p className="font-sans text-white/70 text-[16px] max-w-xl">
               We scope each project individually. No packages, no guessing.
             </p>
           </div>
         </div>
 
-        {/* Icon Summary Row */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-16 sm:mb-20">
-          {serviceIcons.map((item, i) => (
-            <motion.div
-              key={item.label}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              variants={iconCardVariants}
-              whileHover={{ 
-                y: -3,
-                backgroundColor: `${item.color}1F`, // 0.12 opacity
-                borderColor: `${item.color}80`    // 0.5 opacity
-              }}
-              className="group flex-1 min-w-[160px] h-[100px] p-5 rounded-[16px] border transition-all duration-300 flex flex-col justify-between"
-              style={{ 
-                backgroundColor: item.bg,
-                borderColor: `${item.color}26` // rgba(color, 0.15) approx
-              }}
-            >
-              <div className="flex flex-col">
-                <div className="mb-2">
-                  {item.icon(item.color)}
-                </div>
-                <h4 className="font-display font-bold text-[15px] text-white">
-                  {item.label}
-                </h4>
-              </div>
-              <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">
-                {item.sub}
-              </span>
-            </motion.div>
-          ))}
-        </div>
+        
 
         {/* Service List Area */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-16">
 
-          {/* Left column — sticky robot */}
+          {/* Robot column */}
           <div
-            className="hidden lg:block lg:sticky"
+            className="lg:sticky order-last lg:order-first"
             style={{ top: "120px" }}
           >
-            <div style={{ width: "100%", height: "520px", position: "relative" }}>
+            <div className="w-full h-[420px] sm:h-[400px] lg:h-[600px] relative">
               <SplineServices />
             </div>
           </div>
 
           {/* Right column — service rows + footer */}
           <div>
-            <div className="divide-y border-y border-white/5">
+            <div className="divide-y divide-white/10 border-y border-white/10">
               {services.map((service, i) => (
                 <ServiceRow key={service.id} service={service} index={i} prefersReduced={prefersReduced} />
               ))}
             </div>
             <div className="mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/5">
-              <p className="text-white/30 text-[14px]">
+              <p className="text-white/65 text-[14px]">
                 5 services. Every one delivered end-to-end.
               </p>
               <MagneticButton href="/services" variant="ghost">

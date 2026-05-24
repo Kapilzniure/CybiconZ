@@ -7,20 +7,25 @@ interface Particle {
   radius: number;
   baseOpacity: number;
   phase: number;
-  colorIndex: 0 | 1 | 2;
+  colorIndex: 0 | 1 | 2 | 3 | 4;
 }
 
+// 5 distinct colors: White, Cyan, Lime Green, Electric Purple, Warm Gold
 const COLORS = [
-  (a: number) => `rgba(255,255,255,${a})`,
-  (a: number) => `rgba(0,196,255,${a})`,
-  (a: number) => `rgba(57,255,20,${a})`,
+  (a: number) => `rgba(255,255,255,${a})`,           // White
+  (a: number) => `rgba(0,196,255,${a})`,             // Cyan
+  (a: number) => `rgba(57,255,20,${a})`,             // Lime Green
+  (a: number) => `rgba(180,50,255,${a})`,            // Electric Purple
+  (a: number) => `rgba(255,180,40,${a})`,            // Warm Gold
 ];
 
-function pickColorIndex(): 0 | 1 | 2 {
+function pickColorIndex(): 0 | 1 | 2 | 3 | 4 {
   const r = Math.random();
-  if (r < 0.72) return 0;
-  if (r < 0.94) return 1;
-  return 2;
+  if (r < 0.4) return 0;      // 40% white
+  if (r < 0.6) return 1;      // 20% cyan
+  if (r < 0.75) return 2;     // 15% lime green
+  if (r < 0.88) return 3;     // 13% purple
+  return 4;                    // 12% gold
 }
 
 export default function HeroParticles() {
@@ -33,7 +38,8 @@ export default function HeroParticles() {
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
-    const COUNT = prefersReduced ? 20 : isMobile ? 50 : 90;
+    // Massive particle counts — disabled on mobile to clear view of robot
+    const COUNT = prefersReduced ? 80 : isMobile ? 0 : 550;
 
     let W = 0, H = 0;
     let particles: Particle[] = [];
@@ -61,17 +67,17 @@ export default function HeroParticles() {
           y: Math.random() * H,
           vx: bvx, vy: bvy,
           basevx: bvx, basevy: bvy,
-          radius: 0.8 + Math.random() * 1.8,
+          radius: 0.6 + Math.random() * 2.2, // Slightly more variety in size
           baseOpacity: prefersReduced
-            ? 0.05 + Math.random() * 0.1
-            : 0.12 + Math.random() * 0.32,
+            ? 0.04 + Math.random() * 0.12
+            : 0.1 + Math.random() * 0.35,
           phase: Math.random() * Math.PI * 2,
           colorIndex: pickColorIndex(),
         };
       });
     };
 
-    const REPEL_RADIUS = 130;
+    const REPEL_RADIUS = 140;
 
     const tick = () => {
       rafId = requestAnimationFrame(tick);
