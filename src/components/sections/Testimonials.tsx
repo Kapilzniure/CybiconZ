@@ -5,7 +5,6 @@ import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import { InitialsAvatar } from "@/components/ui/avatar";
 
-// TODO: replace these placeholder quotes with real client quotes when available.
 const items = [
   {
     badge: "E-Commerce",
@@ -21,14 +20,6 @@ const items = [
     name: "Johnnies Owner",
     role: "Liquor Retail · Johnnies",
     accentColor: "#06B6D4",
-    verified: false,
-  },
-  {
-    badge: "Website",
-    quote: "Working with CybiconZ felt like having a team, not a vendor. They asked the right questions and delivered exactly what we needed.",
-    name: "Business Owner",
-    role: "Independent · Local Brand",
-    accentColor: "#F97316",
     verified: false,
   },
 ];

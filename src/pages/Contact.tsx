@@ -379,7 +379,14 @@ export default function Contact() {
                       <div className="flex items-center gap-4">
                         <button
                           type="button"
-                          onClick={() => advance("sent")}
+                          onClick={() => {
+                            const subject = encodeURIComponent(`Project Inquiry — ${service}`);
+                            const body = encodeURIComponent(
+                              `Name: ${name}\nEmail: ${email}\nService: ${service}${budget ? `\nBudget: ${budget}` : ""}\n\nProject Brief:\n${brief}`
+                            );
+                            window.location.href = `mailto:cybiconz@gmail.com?subject=${subject}&body=${body}`;
+                            advance("sent");
+                          }}
                           className="flex-1 bg-accent-gradient text-white font-bold text-[15px] px-6 py-4 rounded-xl hover:brightness-110 transition-all active:scale-[0.98]"
                         >
                           Confirm &amp; Send →
@@ -404,10 +411,16 @@ export default function Contact() {
                       transition={{ duration: 0.4, ease: EASE }}
                       className="rounded-2xl border border-violet/30 bg-violet/5 p-8 text-center"
                     >
-                      <div className="text-violet text-3xl">✓</div>
-                      <h3 className="font-display font-bold text-ink mt-3">Brief received</h3>
-                      <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.72)" }}>
-                        We'll be in touch within one business day.
+                      <div className="text-violet text-3xl">✉</div>
+                      <h3 className="font-display font-bold text-ink mt-3">Your email client opened</h3>
+                      <p className="text-sm mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                        The message is pre-filled — just hit <strong style={{ color: "#fff" }}>Send</strong> in your email app. We'll reply within one business day.
+                      </p>
+                      <p className="text-xs mt-4" style={{ color: "rgba(255,255,255,0.38)" }}>
+                        Nothing opened?{" "}
+                        <a href="mailto:cybiconz@gmail.com" className="underline underline-offset-2 hover:text-white/60 transition-colors">
+                          Email us directly
+                        </a>
                       </p>
                     </motion.div>
                   )}

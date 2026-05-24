@@ -24,6 +24,8 @@ const CybiLearnPage = lazy(() => import("./pages/CybiLearn"));
 const Careers       = lazy(() => import("./pages/Careers"));
 const Blog          = lazy(() => import("./pages/Blog"));
 const BlogPost      = lazy(() => import("./pages/BlogPost"));
+const Privacy       = lazy(() => import("./pages/Privacy"));
+const Terms         = lazy(() => import("./pages/Terms"));
 const NotFound      = lazy(() => import("./pages/NotFound"));
 
 function PageFallback() {
@@ -57,6 +59,8 @@ function AnimatedRoutes() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

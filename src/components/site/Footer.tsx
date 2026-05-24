@@ -8,30 +8,27 @@ export default function Footer() {
       {/* Dim violet glow — top-center, fading story */}
       <div aria-hidden style={{ position: "absolute", top: "-100px", left: "50%", transform: "translateX(-50%)", width: "300px", height: "300px", borderRadius: "50%", background: "radial-gradient(rgba(79,70,229,0.05), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
       <div className="container relative z-10">
-        {/* Newsletter */}
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-3xl p-6 md:p-8 mb-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h3 className="font-display font-bold text-lg text-ink">Stay updated with CybiconZ</h3>
-            <p className="text-ink-muted text-sm mt-1">Quarterly notes on what we're shipping. No spam, ever.</p>
-          </div>
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-3">
-            <input type="email" required placeholder="you@business.com" className="flex-1 min-h-[48px] bg-brand-base border border-white/10 rounded-xl px-4 py-3 text-sm text-ink placeholder:text-ink-muted focus:outline-none focus:border-violet" />
-            <button className="text-white font-bold text-sm px-5 py-4 sm:py-3 rounded-xl min-h-[48px]" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)' }}>Subscribe</button>
-          </form>
-        </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 mb-16">
           <div className="sm:col-span-2 lg:col-span-1">
             <Logo />
             <p className="text-ink-muted text-sm mt-4 leading-relaxed max-w-sm">A digital agency building real products for real businesses. Not a template shop.</p>
             <a href="mailto:cybiconz@gmail.com" className="text-ink-muted hover:text-ink text-sm mt-4 inline-block font-medium underline underline-offset-4 decoration-white/10 hover:decoration-white/30 transition-all">cybiconz@gmail.com</a>
+
+            {/* Social links */}
+            <div className="flex items-center gap-4 mt-5">
+              <a href="https://www.facebook.com/profile.php?id=61587433456616" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="https://www.instagram.com/cybiconz_/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </a>
+              <a href="https://www.tiktok.com/@cybiconz_" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors" aria-label="TikTok">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+              </a>
+            </div>
           </div>
           <FooterCol title="Services" links={[
-            { label: "Website Development", to: "/services" },
-            { label: "E-Commerce", to: "/services" },
-            { label: "Applications", to: "/services" },
-            { label: "Design Systems", to: "/services" },
-            { label: "Marketing", to: "/services" },
+            { label: "Services", to: "/services" },
           ]} />
           <FooterCol title="Company" links={[
             { label: "About", to: "/about" },
@@ -52,9 +49,9 @@ export default function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <span>© 2026 CybiconZ</span>
             <span className="hidden sm:inline">·</span>
-            <Link to="#" className="hover:text-white/80 transition-colors">Privacy</Link>
+            <Link to="/privacy" className="hover:text-white/80 transition-colors">Privacy</Link>
             <span className="hidden sm:inline">·</span>
-            <Link to="#" className="hover:text-white/80 transition-colors">Terms</Link>
+            <Link to="/terms" className="hover:text-white/80 transition-colors">Terms</Link>
           </div>
           <div style={{ color: "rgba(255,255,255,0.48)", fontSize: 11 }} className="order-first lg:order-none font-medium tracking-wide">DESIGNED AND BUILT BY CYBICONZ</div>
           
