@@ -131,7 +131,7 @@ export default function Portfolio() {
         {/* Featured */}
         <Link to={`/work/${featured.slug}`} className="block group" data-cursor="view">
           <motion.div
-            initial="hidden" 
+            initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={prefersReduced ? reducedVariants : cardVariants}
