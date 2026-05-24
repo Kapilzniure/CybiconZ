@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import SiteShell from "@/components/site/SiteShell";
 import { projects } from "@/data/projects";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { ProjectImagePlaceholder } from "@/components/ui/ProjectImagePlaceholder";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -30,7 +28,6 @@ const contentBlocks = (p: (typeof projects)[number]) => [
 export default function CaseStudy() {
   const { slug } = useParams();
   const p = projects.find(x => x.slug === slug);
-  const [heroImageError, setHeroImageError] = useState(false);
   if (!p) return <Navigate to="/work" replace />;
 
   const rgb = hexToRgb(p.statusColor);
@@ -127,17 +124,12 @@ export default function CaseStudy() {
           {...fadeUp(0.2)}
         >
           <div className="relative rounded-t-3xl overflow-hidden aspect-[16/9] md:aspect-[21/9] shadow-2xl">
-            {heroImageError ? (
-              <ProjectImagePlaceholder projectName={p.name} serviceColor={p.serviceColor} />
-            ) : (
-              <img
-                src={p.image}
-                alt={p.name}
-                loading="eager"
-                className="absolute inset-0 w-full h-full object-cover"
-                onError={() => setHeroImageError(true)}
-              />
-            )}
+            <img
+              src={p.image}
+              alt={p.name}
+              loading="eager"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
             <div
               className="absolute inset-0"
               style={{ background: "linear-gradient(to bottom, #060608 0%, transparent 30%)" }}
@@ -153,6 +145,24 @@ export default function CaseStudy() {
             {/* SIDEBAR */}
             <div className="md:w-[30%] shrink-0">
               <div className="md:sticky" style={{ top: 100 }}>
+                {/* Logo */}
+                {'logo' in p && p.logo && (
+                  <div className="mb-8" style={{ display: "inline-flex" }}>
+                    <div style={{
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: 10,
+                      padding: "8px 16px",
+                    }}>
+                      <img
+                        src={p.logo as string}
+                        alt={`${p.name} logo`}
+                        style={{ height: 44, width: "auto", objectFit: "contain", display: "block" }}
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <p className="font-mono text-[11px] uppercase tracking-wider text-ink-muted mb-6">
                   Project details
                 </p>

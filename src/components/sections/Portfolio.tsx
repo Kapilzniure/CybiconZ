@@ -45,8 +45,8 @@ function FloatingMetricCard() {
 }
 
 const currentClients = [
-  { initials: "LB", color: "#F59E0B" },
-  { initials: "JL", color: "#EC4899" }
+  { name: "LwangBlack Coffee", logo: "/lb-logo.png" },
+  { name: "Johnnies Liquor",   logo: "/johnnies-logo.jpg" },
 ];
 
 export default function Portfolio() {
@@ -90,16 +90,32 @@ export default function Portfolio() {
             </h2>
 
             {/* Current clients row */}
-            <div className="flex items-center gap-4 mt-8">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">Current clients</span>
-              <div className="flex items-center -space-x-2">
-                {currentClients.map((client, i) => (
-                  <div 
-                    key={i}
-                    className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center font-mono text-[9px] font-bold"
-                    style={{ backgroundColor: `${client.color}22`, color: client.color }}
+            <div className="flex items-center gap-5 mt-8">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Current clients</span>
+              <div className="flex items-center gap-3">
+                {currentClients.map((client) => (
+                  <div
+                    key={client.name}
+                    style={{
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      borderRadius: 8,
+                      padding: "6px 12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    {client.initials}
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      style={{
+                        height: 36,
+                        width: "auto",
+                        objectFit: "contain",
+                        display: "block",
+                      }}
+                    />
                   </div>
                 ))}
               </div>
@@ -123,7 +139,7 @@ export default function Portfolio() {
             className="bg-brand-card rounded-[32px] overflow-hidden grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] border border-white/[0.06] transition-all duration-300 ease-in-out hover:-translate-y-[6px] hover:border-violet/30 hover:shadow-2xl animate-gpu"
           >
             <div className="p-4 sm:p-6 lg:p-10 relative">
-              <BrowserFrame url="lwangblack.com" accentColor="#F59E0B">
+              <BrowserFrame url="lwangblack.co" accentColor="#F59E0B">
                 <div className="relative aspect-[4/3] lg:aspect-video overflow-hidden">
                   {assetError[featured.slug] ? (
                     <ProjectImagePlaceholder projectName={featured.name} serviceColor={featured.serviceColor} />
@@ -143,6 +159,13 @@ export default function Portfolio() {
             </div>
             <div className="p-8 sm:p-12 lg:pl-0 flex flex-col justify-center">
               <div className="font-mono text-[11px] text-ink-muted uppercase tracking-wider">Client · {featured.year}</div>
+              {'logo' in featured && featured.logo && (
+                <div style={{ display: "inline-flex", marginTop: 12, marginBottom: 4 }}>
+                  <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "5px 10px" }}>
+                    <img src={featured.logo as string} alt={featured.name} style={{ height: 32, width: "auto", objectFit: "contain", display: "block" }} />
+                  </div>
+                </div>
+              )}
               <h3 className="font-display font-extrabold text-[24px] sm:text-[36px] text-ink mt-2 leading-tight group-hover:text-white transition-colors">{featured.name}</h3>
               <p className="text-[15px] text-ink-muted mt-4 leading-relaxed max-w-md">{featured.outcome}</p>
               
@@ -190,7 +213,14 @@ export default function Portfolio() {
                     </div>
                   </MiniFrame>
                   <div className="mt-5">
-              <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.62)" }}>{p.service} · {p.year}</div>
+                    <div className="flex items-center gap-3">
+                      {'logo' in p && p.logo && (
+                        <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6, padding: "4px 9px", flexShrink: 0 }}>
+                          <img src={p.logo as string} alt={p.name} style={{ height: 28, width: "auto", objectFit: "contain", display: "block" }} />
+                        </div>
+                      )}
+                      <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.62)" }}>{p.service} · {p.year}</div>
+                    </div>
                     <h3 className="font-display font-bold text-[19px] mt-1.5 text-white/90 group-hover:text-white transition-colors">{p.name}</h3>
                   </div>
                 </motion.div>

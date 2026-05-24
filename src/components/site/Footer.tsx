@@ -50,7 +50,7 @@ export default function Footer() {
 
         <div className="border-t border-white/10 pt-8 flex flex-col lg:flex-row items-center justify-between text-[11px] sm:text-xs text-white/55 gap-6 text-center lg:text-left">
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            <span>© 2024 CybiconZ</span>
+            <span>© 2026 CybiconZ</span>
             <span className="hidden sm:inline">·</span>
             <Link to="#" className="hover:text-white/80 transition-colors">Privacy</Link>
             <span className="hidden sm:inline">·</span>

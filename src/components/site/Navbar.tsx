@@ -9,6 +9,7 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/cybilearn", label: "CybiLearn" },
   { to: "/careers", label: "Careers" },
+  { to: "/contact", label: "Contact" },
   { to: "/blog", label: "Blog" },
 ];
 

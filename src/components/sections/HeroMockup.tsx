@@ -180,7 +180,7 @@ export default function HeroMockup() {
           className="font-display font-bold text-white leading-tight"
           style={{ fontSize: 13 }}
         >
-          Live since 2024
+          Live since 2026
         </span>
         <span
           className="font-mono tracking-wider"

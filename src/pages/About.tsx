@@ -3,6 +3,7 @@ import SiteShell from "@/components/site/SiteShell";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { usePageMeta } from "@/hooks/usePageMeta";
 import SplineAbout from "@/components/sections/SplineAbout";
+import founderPhoto from "@/assets/founder.jpg";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
@@ -121,50 +122,7 @@ export default function About() {
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                 />
 
-                {/* Placeholder (shown when photo is missing) */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 12,
-                    background: "linear-gradient(145deg, #0e0f22 0%, #0a0b18 100%)",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 72,
-                      height: 72,
-                      borderRadius: "50%",
-                      background: "rgba(79,70,229,0.12)",
-                      border: "1px solid rgba(79,70,229,0.22)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(79,70,229,0.55)" strokeWidth="1.5" strokeLinecap="round">
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
-                  </div>
-                  <span
-                    style={{
-                      fontSize: 9,
-                      fontFamily: "monospace",
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.5)",
-                      textAlign: "center",
-                    }}
-                  >
-                    Add photo to<br />/public/founder.jpg
-                  </span>
-                </div>
-
+               
                 {/* Bottom gradient + name */}
                 <div
                   style={{
