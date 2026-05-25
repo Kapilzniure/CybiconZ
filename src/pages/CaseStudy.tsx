@@ -213,6 +213,27 @@ export default function CaseStudy() {
                     </motion.li>
                   ))}
                 </ul>
+
+                {/* Collaboration Credit */}
+                {'collaboration' in p && p.collaboration && (
+                  <motion.div 
+                    className="mt-12 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.05] group hover:bg-white/[0.04] transition-all duration-500"
+                    {...fadeUp(0.3)}
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-1 h-1 rounded-full bg-ink-muted/40" />
+                      <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-ink-muted/50">
+                        Collaboration Credit
+                      </p>
+                    </div>
+                    <p className="font-sans font-medium text-[13px] text-ink/70 leading-relaxed">
+                      Built in collaboration with <span className="text-ink/90 font-semibold">{p.collaboration.partner}</span>.
+                    </p>
+                    <p className="mt-2 text-[12px] text-ink-muted/60 leading-relaxed font-sans font-light">
+                      {p.collaboration.role}
+                    </p>
+                  </motion.div>
+                )}
               </div>
             </div>
 

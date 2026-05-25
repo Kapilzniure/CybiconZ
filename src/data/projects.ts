@@ -33,6 +33,10 @@ export const projects = [
       'Role-based admin system',
       'Performance-optimized across all markets',
     ],
+    collaboration: {
+      partner: 'Clevron Tech',
+      role: 'Contributed in project coordination, planning, system structuring, and development collaboration.'
+    }
   },
   {
     slug: 'johnnies-liquor',
