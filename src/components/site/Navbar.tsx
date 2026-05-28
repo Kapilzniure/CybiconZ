@@ -71,7 +71,11 @@ export default function Navbar() {
         </nav>
         <div className="flex items-center gap-3">
           <MusicToggle />
-          <Link to="/contact" className="hidden md:inline-flex text-white font-bold text-sm px-5 py-2.5 rounded-xl hover:opacity-90 transition" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)', boxShadow: '0 0 24px rgba(0,196,255,0.25)' }}>
+          <Link
+            to="/contact"
+            className="hidden md:inline-flex items-center text-white font-semibold text-sm px-5 py-2.5 rounded-lg border border-white/20 hover:bg-white/[0.06] hover:border-white/40 transition-all"
+            style={{ letterSpacing: "0.01em" }}
+          >
             Let's talk →
           </Link>
           <button onClick={() => setOpen(!open)} className="md:hidden text-ink p-2.5 -mr-2.5 touch-manipulation" aria-label="Menu">
@@ -85,7 +89,7 @@ export default function Navbar() {
             {links.map(l => (
               <NavLink key={l.to} to={l.to} className="text-ink text-xl font-medium py-1">{l.label}</NavLink>
             ))}
-            <Link to="/contact" className="text-white text-center font-bold px-5 py-4 rounded-xl mt-2" style={{ background: 'linear-gradient(135deg, #00C4FF, #0066FF)' }}>Let's talk →</Link>
+            <Link to="/contact" className="text-white text-center font-semibold px-5 py-4 rounded-lg mt-2 border border-white/20">Let's talk →</Link>
           </div>
         </div>
       )}

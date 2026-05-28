@@ -49,7 +49,7 @@ export default function About() {
         />
 
         <div className="container relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             {/* LEFT — text */}
             <div>

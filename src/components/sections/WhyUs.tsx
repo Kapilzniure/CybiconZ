@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 
 const GlowingSphere = lazy(() => import("./GlowingSphere"));
 
@@ -294,9 +293,6 @@ function Desktop() {
             />
           ))}
         </div>
-        <MagneticButton href="/contact" variant="primary">
-          Start a conversation →
-        </MagneticButton>
       </div>
     </div>
   );
@@ -410,11 +406,6 @@ function Mobile() {
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} />
       </div>
 
-      <div style={{ marginTop: 36, display: "flex", justifyContent: "center" }}>
-        <MagneticButton href="/contact" variant="primary">
-          Start a conversation →
-        </MagneticButton>
-      </div>
     </div>
   );
 }

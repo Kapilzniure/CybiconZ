@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SiteShell from "@/components/site/SiteShell";
 import Process from "@/components/sections/Process";
@@ -16,6 +17,16 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function ServicesPage() {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768
+  );
+
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+
   usePageMeta({
     title: "Services — Websites, E-Commerce & App Development",
     description: "Custom websites, e-commerce systems, and web applications built to work. No templates. No one-size-fits-all packages. Built to your specific business goals.",
@@ -171,7 +182,7 @@ export default function ServicesPage() {
                     <div
                       className="relative rounded-2xl overflow-hidden transition-transform duration-500"
                       style={{
-                        transform: `perspective(1200px) rotateY(${isOdd ? "-4deg" : "4deg"}) rotateX(2deg)`,
+                        transform: isMobile ? "none" : `perspective(1200px) rotateY(${isOdd ? "-4deg" : "4deg"}) rotateX(2deg)`,
                         boxShadow: "0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)",
                       }}
                     >

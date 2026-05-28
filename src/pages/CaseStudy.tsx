@@ -191,29 +191,6 @@ export default function CaseStudy() {
                   </div>
                 ))}
 
-                <p className="font-mono text-[11px] uppercase tracking-wider text-ink-muted mt-8 mb-4">
-                  What we're building
-                </p>
-                <ul className="flex flex-col gap-3">
-                  {p.delivering.map((item, i) => (
-                    <motion.li
-                      key={i}
-                      className="flex items-start gap-3 text-[14px] leading-relaxed"
-                      style={{ color: "rgba(255,255,255,0.55)" }}
-                      initial={{ opacity: 0, x: -8 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: i * 0.06 }}
-                    >
-                      <span
-                        className="mt-[6px] shrink-0 w-[7px] h-[7px] rounded-full"
-                        style={{ background: p.serviceColor }}
-                      />
-                      {item}
-                    </motion.li>
-                  ))}
-                </ul>
-
                 {/* Collaboration Credit */}
                 {'collaboration' in p && p.collaboration && (
                   <motion.div 

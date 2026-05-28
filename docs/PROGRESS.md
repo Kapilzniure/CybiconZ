@@ -1,4 +1,33 @@
 
+## UPGRADE — "Top-1% Designer" Pass (Remove AI-Template Patterns)
+
+**Problem:** Site looked AI-generated — too many competing effects, clichéd decorative elements, and inconsistent visual restraint.
+
+**Changes made:**
+
+**`src/components/sections/Testimonials.tsx` — Complete redesign**
+- Removed: FloatingGeometry ring, pink ambient glow, big decorative `"` quote mark (60px), gradient badge
+- New design: editorial typography list — large blockquote as primary element, clean horizontal dividers, attribution in flex row
+- No cards, no rounded boxes, just type hierarchy
+
+**`src/components/sections/ClosingCTA.tsx` — Remove 3rd Spline robot**
+- Removed: SplineClosingCTA (3rd robot on the page), FloatingGeometry cube, SplitText with gradient "in mind?", dark-texture
+- New design: full-width editorial layout, very large headline with dimmed third line, white CTA button + email link
+
+**`src/components/sections/Services.tsx` — Remove 2nd Spline robot**
+- Removed: SplineServices (2nd robot), dead `serviceIcons` array (was defined but never rendered)
+- Removed: the 50/50 grid split — service list is now full-width with better breathing room
+
+**`src/components/sections/Portfolio.tsx` — Remove FloatingGeometry**
+- Removed: FloatingGeometry torus (spinning ring), useScrollVelocity (was only feeding float speed)
+- Headline changed: "Work That Delivers." (with gradient) → "Selected work. / Ships on time." (plain contrast)
+
+**`src/components/site/Navbar.tsx` — Replace gradient button**
+- Removed: `linear-gradient(135deg, #00C4FF, #0066FF)` with glow shadow on the CTA button
+- Replaced with: clean border-only button with subtle hover state — more precise, less template-like
+
+---
+
 ## REDESIGN — Homepage Simplified + About Page Robot Fixed
 
 **Homepage: 12 sections → 5 sections**

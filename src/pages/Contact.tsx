@@ -7,13 +7,50 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 type Step = 1 | 2 | 3 | "sent";
 
 const SERVICES = [
-  { label: "A website",         emoji: "🌐", color: "#00C4FF" },
-  { label: "An online store",   emoji: "🛒", color: "#39FF14" },
-  { label: "A web application", emoji: "⚙️", color: "#4F46E5" },
-  { label: "Something else",    emoji: "💬", color: "#F59E0B" },
+  {
+    label: "A website",
+    color: "#00C4FF",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="9" stroke="currentColor" />
+        <path d="M11 2c-2.5 3-4 5.5-4 9s1.5 6 4 9M11 2c2.5 3 4 5.5 4 9s-1.5 6-4 9M2 11h18" stroke="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    label: "An online store",
+    color: "#39FF14",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 3h2l2.4 9.6a2 2 0 0 0 1.94 1.4h7.32a2 2 0 0 0 1.94-1.5L20 7H6" stroke="currentColor" />
+        <circle cx="9" cy="19" r="1.2" stroke="currentColor" />
+        <circle cx="17" cy="19" r="1.2" stroke="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    label: "A web application",
+    color: "#4F46E5",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="7 9 3 12 7 15" stroke="currentColor" />
+        <polyline points="15 9 19 12 15 15" stroke="currentColor" />
+        <line x1="13" y1="6" x2="9" y2="18" stroke="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    label: "Something else",
+    color: "#F59E0B",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10l5 4V4a2 2 0 0 0-2-2z" stroke="currentColor" />
+      </svg>
+    ),
+  },
 ];
 
-const BUDGETS = ["Under $5k", "$5–15k", "$15–50k", "$50k+"];
+const BUDGETS = ["$5–15k", "$15–50k", "$50k+", "Let's discuss"];
 
 const TIMELINE = [
   {
@@ -221,7 +258,12 @@ export default function Contact() {
                                 background: selected ? `rgba(${toRgb(svc.color)}, 0.05)` : "rgba(255,255,255,0.02)",
                               }}
                             >
-                              <span className="text-2xl leading-none">{svc.emoji}</span>
+                              <span
+                                className="leading-none"
+                                style={{ color: selected ? svc.color : "rgba(255,255,255,0.45)" }}
+                              >
+                                {svc.icon}
+                              </span>
                               <span
                                 className="block font-display font-bold text-[14px] mt-2 leading-tight"
                                 style={{ color: selected ? svc.color : "rgba(255,255,255,0.75)" }}

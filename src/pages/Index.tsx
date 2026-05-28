@@ -16,8 +16,8 @@ export default function Index() {
     <SiteShell>
       <Hero />
       <Services />
-      <Portfolio />
       <WhyUs />
+      <Portfolio />
       <Testimonials />
       <ClosingCTA />
     </SiteShell>

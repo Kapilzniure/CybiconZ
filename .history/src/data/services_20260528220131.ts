@@ -43,7 +43,7 @@ export const services = [
       'Admin system for managing products and orders',
       'Mobile-first, performance-optimized',
     ],
-    
+    timeline: '6 – 10 weeks',
     note: 'We are currently building this for LwangBlack Coffee — a global multi-country e-commerce platform.',
   },
   {
@@ -65,7 +65,7 @@ export const services = [
       'Design system and component library',
       'Developer handoff specifications',
     ],
-   
+    timeline: '4 – 8 weeks',
     note: null,
   },
   {
@@ -88,7 +88,7 @@ export const services = [
       'Deployment and hosting setup',
       'Documentation and handoff',
     ],
-    
+    timeline: '8 – 14 weeks',
     note: null,
   },
   {
@@ -110,7 +110,7 @@ export const services = [
       'Performance reporting',
       'Content direction and brand voice',
     ],
-    
+    timeline: 'Ongoing, minimum 3 months',
     note: 'We handled digital marketing for Johnnies Liquor alongside their website build.',
   },
 ];

@@ -8,7 +8,6 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 
 const ACCENT = "rgba(255,255,255,0.55)";
-const ACCENT_GLOW = "rgba(255,255,255,0.08)";
 
 // ─── Mobile Hero ───────────────────────────────────────────────────────────────
 function MobileHero({
@@ -18,17 +17,13 @@ function MobileHero({
 }) {
   const { scrollY } = useScroll();
 
-  // Same scroll-driven transforms as desktop, tuned for mobile viewport
   const logoY = useTransform(scrollY, [100, 400], [120, -180]);
   const logoOpacity = useTransform(scrollY, [100, 280, 380, 500], [0, 1, 1, 0]);
   const logoScale = useTransform(scrollY, [300, 500], [1, 0.75]);
-
   const headlineY = useTransform(scrollY, [300, 500], [80, 0]);
   const headlineOpacity = useTransform(scrollY, [300, 500], [0, 1]);
-
   const ctaY = useTransform(scrollY, [500, 650], [30, 0]);
   const ctaOpacity = useTransform(scrollY, [500, 650], [0, 1]);
-
   const robotScale = useTransform(scrollY, [0, 800], [0.9, 1.0]);
   const scrollIndicatorOpacity = useTransform(scrollY, [0, 150], [1, 0]);
 
@@ -43,7 +38,7 @@ function MobileHero({
           backgroundColor: "#020408",
         }}
       >
-        {/* Robot — z=0, stays behind everything */}
+        {/* Robot */}
         <motion.div
           ref={canvasWrapperRef}
           style={{
@@ -63,7 +58,7 @@ function MobileHero({
           <HeroParticles />
         </div>
 
-        {/* Radial vignette — darkens edges so centred text pops */}
+        {/* Vignette */}
         <div
           style={{
             position: "absolute",
@@ -80,7 +75,7 @@ function MobileHero({
           <MusicToggle />
         </div>
 
-        {/* CybiconZ — rises first */}
+        {/* CybiconZ wordmark */}
         <motion.div
           style={{
             position: "absolute",
@@ -111,7 +106,7 @@ function MobileHero({
           </span>
         </motion.div>
 
-        {/* Headline — appears after CybiconZ */}
+        {/* Headline */}
         <motion.div
           style={{
             position: "absolute",
@@ -144,7 +139,7 @@ function MobileHero({
                 letterSpacing: "-0.03em",
                 color: accent ? ACCENT : "#FFFFFF",
                 textShadow: accent
-                  ? `0 0 40px ${ACCENT_GLOW}, 0 2px 20px rgba(2,4,8,0.9)`
+                  ? "0 0 40px rgba(255,255,255,0.08), 0 2px 20px rgba(2,4,8,0.9)"
                   : "0 2px 30px rgba(2,4,8,0.8)",
               }}
             >
@@ -153,7 +148,7 @@ function MobileHero({
           ))}
         </motion.div>
 
-        {/* CTAs — appear last */}
+        {/* CTAs */}
         <motion.div
           style={{
             position: "absolute",
@@ -241,7 +236,7 @@ function MobileHero({
             style={{
               width: "1px",
               height: "24px",
-              background: `linear-gradient(to bottom, ${ACCENT_GLOW}, transparent)`,
+              background: "linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)",
               animation: "hScrollLine 2s ease-in-out infinite",
             }}
           />
@@ -364,7 +359,7 @@ function DesktopHero({
                   lineHeight: 0.92,
                   letterSpacing: "-0.03em",
                   color: accent ? ACCENT : "#FFFFFF",
-                  textShadow: accent ? `0 0 30px ${ACCENT_GLOW}` : "none",
+                  textShadow: accent ? "0 0 30px rgba(255,255,255,0.08)" : "none",
                 }}
               >
                 {text}

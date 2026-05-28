@@ -21,7 +21,7 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
       onComplete: () => {
         gsap.to(el, {
           yPercent: -100,
-          duration: 0.9,
+          duration: 0.5,
           ease: 'power3.inOut',
           onComplete: () => {
             onComplete();
@@ -34,16 +34,16 @@ export function Preloader({ onComplete }: { onComplete: () => void }) {
     tl.to(spans, {
       opacity: 1,
       y: 0,
-      duration: 0.04,
-      stagger: 0.07,
+      duration: 0.03,
+      stagger: 0.04,
       ease: 'power2.out',
     });
-    tl.to({}, { duration: 0.8 });
+    tl.to({}, { duration: 0.25 });
     tl.to(spans, {
       opacity: 0,
       y: -15,
-      duration: 0.3,
-      stagger: 0.03,
+      duration: 0.2,
+      stagger: 0.02,
       ease: 'power2.in',
     });
 

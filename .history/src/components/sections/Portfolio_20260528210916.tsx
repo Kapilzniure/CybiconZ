@@ -115,13 +115,11 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
-          {projects.length >= 4 && (
-            <div className="flex gap-2 flex-wrap">
-              {tabs.map(t => (
-                <button key={t} onClick={() => setActive(t)} className={`text-sm font-semibold px-4 py-2 rounded-full transition ${active === t ? "bg-white/10 text-white border border-white/20" : "border border-white/[0.12] text-white/70 hover:border-white/25 hover:text-white"}`}>{t}</button>
-              ))}
-            </div>
-          )}
+          <div className="flex gap-2 flex-wrap">
+            {tabs.map(t => (
+              <button key={t} onClick={() => setActive(t)} className={`text-sm font-semibold px-4 py-2 rounded-full transition ${active === t ? "bg-white/10 text-white border border-white/20" : "border border-white/[0.12] text-white/70 hover:border-white/25 hover:text-white"}`}>{t}</button>
+            ))}
+          </div>
         </div>
 
         {/* Featured */}

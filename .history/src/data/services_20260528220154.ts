@@ -110,7 +110,7 @@ export const services = [
       'Performance reporting',
       'Content direction and brand voice',
     ],
-    
+    timeline: 'Ongoing, minimum 3 months',
     note: 'We handled digital marketing for Johnnies Liquor alongside their website build.',
   },
 ];
