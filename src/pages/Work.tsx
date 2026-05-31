@@ -21,29 +21,32 @@ export default function WorkPage() {
   return (
     <SiteShell>
       {/* HERO */}
-      <section data-section="hero-section" className="relative bg-[#060608] pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 grid-overlay pointer-events-none" />
-        <div className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }} />
-        
+      <section data-section="hero-section" className="relative bg-[#050507] pt-28 pb-12 overflow-hidden">
         <div className="container relative">
-          <motion.span className="label-eyebrow text-violet" {...fadeUp(0)}>Work</motion.span>
-          <h1 className="section-headline-reveal font-display font-extrabold text-ink mt-5 leading-[0.95] max-w-4xl" style={{ fontSize: "clamp(48px, 8vw, 96px)", letterSpacing: "-0.04em" }}>
+          <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-6">
+            <span className="w-8 h-[1px] bg-white/30" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Portfolio</span>
+          </motion.div>
+
+          <h1 className="font-display font-extrabold text-white leading-[0.9] mt-5 max-w-4xl" style={{ fontSize: "clamp(36px, 6vw, 76px)", letterSpacing: "-0.05em" }}>
             <SplitText as="span" className="block">Work we're building.</SplitText>
-            <SplitText as="span" className="block" style={{ opacity: 0.65 }} delay={0.3}>Current and recent projects.</SplitText>
+            <SplitText as="span" className="block" style={{ color: "rgba(255,255,255,0.25)" }} delay={0.3}>Selected Case Studies.</SplitText>
           </h1>
           <motion.p 
-            className="text-ink-muted text-lg mt-6 max-w-xl"
+            className="mt-8 max-w-lg leading-relaxed text-[17px]"
+            style={{ color: "rgba(255,255,255,0.85)" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            We document our work honestly — including projects in active development.
+            We focus on technical execution and measurable results. 
+            Every project here was delivered on objective.
           </motion.p>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20 lg:py-[100px]" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <section className="py-16 sm:py-20 bg-[#050507]" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8">
           {projects.map((p, i) => (
             <Link key={p.slug} to={`/work/${p.slug}`} className="group block" data-cursor="view">
               <motion.div
@@ -51,15 +54,15 @@ export default function WorkPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.65, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] hover:shadow-xl"
-                style={{ background: "#0F0F1C", border: "1px solid rgba(255,255,255,0.07)" }}>
+                className="rounded-2xl overflow-hidden transition-all duration-250 ease-in-out hover:-translate-y-[6px] shadow-sm hover:shadow-xl"
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="aspect-[16/10] overflow-hidden">
-                  <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700" />
+                  <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
-                <div className="p-6">
-                  <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.62)" }}>{p.service} · {p.year}</div>
-                  <h3 className="font-display font-bold text-[20px] mt-1" style={{ color: "#F0EEFF" }}>{p.name}</h3>
-                  <p className="text-sm mt-2 leading-relaxed text-ink-muted">{p.outcome}</p>
+                <div className="p-8">
+                  <div className="font-mono text-[10px] uppercase tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>{p.service} · {p.year}</div>
+                  <h3 className="font-display font-bold text-[24px] text-white transition-colors group-hover:text-white/90">{p.name}</h3>
+                  <p className="text-[15px] mt-4 leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{p.outcome}</p>
                 </div>
               </motion.div>
             </Link>

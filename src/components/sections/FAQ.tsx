@@ -122,39 +122,39 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="bg-brand-base"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "100px 0" }}
-    >
-      <div className="container">
-        <div style={{ maxWidth: 960, margin: "0 auto" }}>
+   <section
+     ref={sectionRef}
+     className="bg-[#050507]"
+     style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "80px 0" }}
+   >
+     <div className="container">
+       <div style={{ maxWidth: 960, margin: "0 auto" }}>
 
-          {/* Eyebrow label */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div
-              ref={eyebrowLineRef}
-              style={{ height: 1, background: "#A78BFA", flexShrink: 0 }}
-            />
-            <span
-              ref={eyebrowLabelRef}
-              className="label-eyebrow text-violet"
-            >
-              FAQ
-            </span>
-          </div>
+         {/* Eyebrow label */}
+         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+           <div
+             ref={eyebrowLineRef}
+             style={{ height: 1, background: "rgba(255,255,255,0.3)", flexShrink: 0 }}
+           />
+           <span
+             ref={eyebrowLabelRef}
+             className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50"
+           >
+             FAQ
+           </span>
+         </div>
 
-          {/* Heading */}
-          <h2
-            className="section-headline-reveal font-display font-extrabold text-ink"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em", marginTop: 20 }}
-          >
-            {heading}
-          </h2>
+         {/* Heading */}
+         <h2
+           className="section-headline-reveal font-display font-extrabold text-white"
+           style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.05em", marginTop: 24 }}
+         >
+           {heading}
+         </h2>
 
-          <p className="text-white/55" style={{ fontSize: 16, marginTop: 12 }}>
-            Straight answers. No runaround.
-          </p>
+         <p className="text-white/40" style={{ fontSize: 16, marginTop: 12 }}>
+           Straight answers. No runaround.
+         </p>
 
           <p
             style={{

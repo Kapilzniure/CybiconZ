@@ -26,26 +26,22 @@
 
 @layer base {
   :root {
-    /* Brand surfaces */
-    --bg-base: 240 14% 3%;
-    --bg-card: 240 15% 5%;
-    --bg-raised: 240 14% 8%;
-    --bg-hover: 240 13% 11%;
+    /* Brand surfaces - High Contrast B&W */
+    --bg-base: 240 10% 2%;
+    --bg-card: 240 10% 4%;
+    --bg-raised: 240 10% 6%;
+    --bg-hover: 240 10% 10%;
 
-    --bg-light: 240 20% 7%;
-    --bg-light-card: 240 22% 9%;
+    --bg-light: 240 10% 8%;
+    --bg-light-card: 240 10% 10%;
 
-    --text-white: 247 100% 97%;
-    --text-muted: 234 18% 72%;
-    --text-dark: 232 33% 6%;
+    --text-white: 0 0% 100%;
+    --text-muted: 0 0% 50%;
+    --text-dark: 0 0% 0%;
 
     --accent-from: 243 75% 59%;
     --accent-mid: 243 75% 59%;
     --accent-to: 243 75% 59%;
-
-    --cyan: 188 94% 43%;
-    --amber: 38 92% 50%;
-    --emerald: 160 84% 39%;
 
     /* shadcn semantic tokens */
     --background: var(--bg-base);
@@ -54,33 +50,20 @@
     --card-foreground: var(--text-white);
     --popover: var(--bg-card);
     --popover-foreground: var(--text-white);
-    --primary: var(--accent-from);
-    --primary-foreground: 0 0% 100%;
+    --primary: var(--text-white);
+    --primary-foreground: 0 0% 0%;
     --secondary: var(--bg-raised);
     --secondary-foreground: var(--text-white);
     --muted: var(--bg-raised);
     --muted-foreground: var(--text-muted);
     --accent: var(--bg-hover);
     --accent-foreground: var(--text-white);
-    --destructive: 0 84% 60%;
+    --destructive: 0 100% 50%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 100%;
     --input: 0 0% 100%;
-    --ring: var(--accent-from);
-    --radius: 1.25rem;
-
-    /* Elite Brand Colors */
-    --brand-blue: #00C4FF;
-    --brand-green: #39FF14;
-    --brand-dark-blue: #0066FF;
-    --hero-bg: #020408;
-
-    /* Cinematic Color Glow Variables */
-    --glow-blue: rgba(0,196,255,0.35);
-    --glow-green: rgba(57,255,20,0.3);
-    --glow-indigo: rgba(79,70,229,0.35);
-    --glow-orange: rgba(249,115,22,0.35);
-    --glow-pink: rgba(236,72,153,0.3);
+    --ring: var(--text-white);
+    --radius: 0.75rem;
   }
 }
 
@@ -253,29 +236,7 @@
 
 /* --- Cinematic Animation System --- */
 
-/* GRAIN OVERLAY (global, fixed) */
-@keyframes grainShift {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(-5%, 5%); }
-  50% { transform: translate(5%, -5%); }
-  75% { transform: translate(-5%, -5%); }
-}
 
-body.grain::before {
-  content: "";
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  z-index: 9998;
-  pointer-events: none;
-  background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMDUgMjAwNSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNSIgbnVtT2N0YXZlcz0iMiIgc3RpdGNoVGlsZXM9Im5vU3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIvPjwvc3ZnPg=='); /* Base64 SVG for fractal noise */
-  background-size: 220px;
-  opacity: 0.026;
-  animation: grainShift 0.4s steps(2) infinite;
-}
-/* To apply, add class "grain" to the <body> tag in main.tsx or index.html */
 
 /* SCROLL REVEAL SYSTEM */
 .reveal-hidden {

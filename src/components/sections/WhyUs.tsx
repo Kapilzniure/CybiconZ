@@ -109,31 +109,29 @@ function Desktop() {
         pointerEvents: "none",
       }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-          <div style={{ width: 16, height: 1, background: "linear-gradient(to right, #00C4FF, transparent)" }} />
+          <div style={{ width: 16, height: 1, background: "rgba(255,255,255,0.2)" }} />
           <span style={{
             fontFamily:    "'DM Mono', monospace",
             fontSize:      10,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color:         "rgba(255,255,255,0.28)",
+            color:         "rgba(255,255,255,0.35)",
           }}>
-            Why clients choose us
+            Why Us
           </span>
-          <div style={{ width: 16, height: 1, background: "linear-gradient(to left, #00C4FF, transparent)" }} />
         </div>
         <h2 style={{
           fontFamily:    "'Bricolage Grotesque', sans-serif",
           fontWeight:    800,
-          fontSize:      "clamp(36px, 4vw, 58px)",
-          letterSpacing: "-0.04em",
-          lineHeight:    0.95,
+          fontSize:      "clamp(40px, 5vw, 72px)",
+          letterSpacing: "-0.05em",
+          lineHeight:    0.9,
           color:         "#ffffff",
           margin:        0,
         }}>
-          We know what you're
-          <br />
-          <span style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.18)", WebkitTextFillColor: "transparent" }}>
-            worried about.
+          Built for<br />
+          <span style={{ color: "rgba(255,255,255,0.2)" }}>
+            certainty.
           </span>
         </h2>
       </div>
@@ -310,25 +308,23 @@ function Mobile() {
       {/* Headline */}
       <div style={{ marginBottom: 36 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-          <div style={{ width: 14, height: 1, background: "#00C4FF", opacity: 0.6 }} />
-          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.3)" }}>
-            Why clients choose us
+          <div style={{ width: 14, height: 1, background: "rgba(255,255,255,0.2)" }} />
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
+            Why Us
           </span>
         </div>
         <h2 style={{
           fontFamily: "'Bricolage Grotesque', sans-serif",
           fontWeight: 800,
-          fontSize: "clamp(32px, 9vw, 44px)",
-          letterSpacing: "-0.04em",
-          lineHeight: 0.95,
+          fontSize: "clamp(32px, 9vw, 48px)",
+          letterSpacing: "-0.05em",
+          lineHeight: 0.9,
           color: "#ffffff",
           margin: 0,
         }}>
-          We know what
-          <br />you're worried
-          <br />
-          <span style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.2)", WebkitTextFillColor: "transparent" }}>
-            about.
+          Built for<br />
+          <span style={{ color: "rgba(255,255,255,0.2)" }}>
+            certainty.
           </span>
         </h2>
       </div>
@@ -429,8 +425,8 @@ export default function WhyUs() {
       style={{
         position:   "relative",
         overflow:   "hidden",
-        background: "#020408",
-        borderTop:  "1px solid rgba(255,255,255,0.05)",
+        background: "#050507",
+        borderTop:  "1px solid rgba(255,255,255,0.06)",
       }}
     >
       {isMobile ? <Mobile /> : <Desktop />}

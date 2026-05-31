@@ -7,7 +7,7 @@ import { useHeroIntro } from "@/hooks/useHeroIntro";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 
-const ACCENT = "rgba(255,255,255,0.55)";
+const ACCENT = "rgba(148, 163, 184, 0.55)";
 
 // ─── Mobile Hero ───────────────────────────────────────────────────────────────
 function MobileHero({
@@ -171,7 +171,7 @@ function MobileHero({
               display: "block",
               textAlign: "center",
               padding: "14px 0",
-              borderRadius: "10px",
+              borderRadius: "12px",
               background: "#FFFFFF",
               color: "#060608",
               fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -190,7 +190,7 @@ function MobileHero({
               display: "block",
               textAlign: "center",
               padding: "14px 0",
-              borderRadius: "10px",
+              borderRadius: "12px",
               background: "transparent",
               color: "rgba(255,255,255,0.9)",
               fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -389,7 +389,7 @@ function DesktopHero({
               to="/contact"
               style={{
                 padding: "11px 28px",
-                borderRadius: "4px",
+                borderRadius: "12px",
                 background: "#FFFFFF",
                 color: "#060608",
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
@@ -408,7 +408,7 @@ function DesktopHero({
               to="/work"
               style={{
                 padding: "11px 28px",
-                borderRadius: "4px",
+                borderRadius: "12px",
                 background: "transparent",
                 color: "rgba(255,255,255,0.85)",
                 fontFamily: "'Plus Jakarta Sans', sans-serif",

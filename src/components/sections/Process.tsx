@@ -168,53 +168,23 @@ export default function Process() {
       ref={sectionRef}
       data-section="process-section"
       className="grid grid-cols-1 lg:grid-cols-2 relative overflow-hidden"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.05)", "--float-speed": floatSpeed } as CSSProperties}
+      style={{ borderTop: "1px solid rgba(255,255,255,0.06)" } as CSSProperties}
     >
-      {/* Ambient orange glow */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute", bottom: "-150px", left: "-150px",
-          width: "500px", height: "500px", borderRadius: "50%",
-          background: "radial-gradient(rgba(249,115,22,0.09), transparent 65%)",
-          pointerEvents: "none", zIndex: 0, filter: "blur(1px)",
-        }}
-      />
-      {!prefersReduced && (
-        <FloatingGeometry
-          variant="cube" color="#F97316" size={80} opacity={0.15}
-          position={{ bottom: "10%", right: "5%" }} speed={7}
-        />
-      )}
 
       {/* ── LEFT PANEL — cinematic sticky ───────────────────────── */}
-      <div className="bg-[#060608] p-8 sm:p-16 md:p-20 flex flex-col justify-center relative z-10 lg:sticky lg:top-0 lg:h-screen overflow-hidden">
-        {/* Step-reactive background glow — color crossfades with active step */}
-        <AnimatePresence>
-          {activeStep >= 0 && !prefersReduced && (
-            <motion.div
-              key={activeStep}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.04 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8 }}
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: `radial-gradient(ellipse 80% 60% at 30% 50%, ${steps[activeStep].color}, transparent)`,
-                filter: "blur(120px)",
-              }}
-            />
-          )}
-        </AnimatePresence>
-
-        <span className="relative z-10 label-eyebrow text-violet mb-4">Process</span>
+      <div className="bg-[#050507] p-8 sm:p-12 md:p-16 flex flex-col justify-center relative z-10 lg:sticky lg:top-0 lg:h-screen overflow-hidden">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-8 h-[1px] bg-white/30" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Execution Sequence</span>
+        </div>
 
         <div className="relative z-10">
           <h2
-            className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95]"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}
+            className="section-headline-reveal font-display font-extrabold text-white leading-[0.9]"
+            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.05em" }}
           >
-            How an Engagement Works
+            How we deliver<br />
+            technical results.
           </h2>
           
           <div className="mt-4 font-mono text-[11px] text-white/65 uppercase tracking-widest">

@@ -6,27 +6,11 @@ export default function ClosingCTA() {
   return (
     <section
       data-section="cta-section"
-      className="relative py-[140px] sm:py-[200px] overflow-hidden"
-      style={{ background: "#060608" }}
+      className="relative pt-8 pb-[140px] sm:pt-12 sm:pb-[200px] overflow-hidden"
+      style={{ background: "#050507" }}
     >
-      {/* Single, restrained ambient glow */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "40%",
-          left: "20%",
-          width: "600px",
-          height: "600px",
-          borderRadius: "50%",
-          background: "radial-gradient(rgba(79,70,229,0.07), transparent 65%)",
-          pointerEvents: "none",
-          filter: "blur(1px)",
-        }}
-      />
-
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* Left — content */}
           <motion.div
@@ -37,61 +21,60 @@ export default function ClosingCTA() {
           >
             {/* Eyebrow */}
             <div className="flex items-center gap-4 mb-10">
-              <span className="w-4 h-px bg-[#4F46E5] block" />
-              <span className="label-eyebrow text-white/40">Start a project</span>
+              <span className="w-8 h-[1px] bg-white/30 block" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/70">
+                Ready to begin?
+              </span>
             </div>
 
             {/* Headline */}
             <h2
-              className="font-display font-extrabold text-white leading-[0.92] mb-8"
+              className="font-display font-extrabold text-white leading-[0.88] mb-10"
               style={{
-                fontSize: "clamp(44px, 6vw, 96px)",
-                letterSpacing: "-0.045em",
+                fontSize: "clamp(48px, 7vw, 110px)",
+                letterSpacing: "-0.05em",
               }}
             >
               Let's build<br />
               something<br />
-              <span style={{ color: "rgba(255,255,255,0.32)" }}>worth shipping.</span>
+              <span style={{ color: "rgba(255,255,255,0.25)" }}>extraordinary.</span>
             </h2>
 
             {/* Description */}
             <p
-              className="max-w-md leading-relaxed mb-12"
+              className="max-w-md leading-relaxed mb-14"
               style={{
-                fontSize: "clamp(15px, 1.6vw, 17px)",
-                color: "rgba(255,255,255,0.52)",
+                fontSize: "clamp(16px, 1.8vw, 18px)",
+                color: "rgba(255,255,255,0.75)",
               }}
             >
-              Tell us what you need. We respond within one business day.
-              If we're not the right fit, we'll say so.
+              We're currently accepting new projects for Q3 2026. 
+              Drop us a line and we'll get back to you within 24 hours.
             </p>
 
             {/* Actions */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white font-bold rounded-lg transition-colors hover:bg-white/90"
-                style={{ color: "#060608", fontSize: "14px", letterSpacing: "-0.01em" }}
+                className="inline-flex items-center gap-2 px-10 py-5 bg-white text-black font-bold rounded-full transition-transform hover:scale-105 active:scale-95 shadow-xl"
+                style={{ fontSize: "14px", letterSpacing: "0.02em", textTransform: "uppercase" }}
               >
-                Start a conversation →
+                Start the brief →
               </Link>
               <a
                 href="mailto:cybiconz@gmail.com"
-                className="transition-colors hover:text-white/70"
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  fontSize: "12px",
-                  letterSpacing: "0.06em",
-                  color: "rgba(255,255,255,0.38)",
-                }}
+                className="group flex flex-col"
               >
-                cybiconz@gmail.com
+                <span className="font-mono text-[9px] text-white/40 tracking-widest uppercase mb-1">Direct Email</span>
+                <span className="font-mono text-[14px] text-white/75 group-hover:text-white transition-colors underline decoration-white/20 underline-offset-4">
+                  cybiconz@gmail.com
+                </span>
               </a>
             </div>
           </motion.div>
 
           {/* Robot */}
-          <div className="w-full h-[420px] sm:h-[400px] lg:h-[550px] relative">
+          <div className="w-full h-[450px] lg:h-[600px] relative">
             <SplineClosingCTA />
           </div>
 

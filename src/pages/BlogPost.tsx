@@ -29,33 +29,29 @@ export default function BlogPost() {
     <SiteShell>
       {/* Dark header */}
       <section
-        className="relative overflow-hidden bg-[#060608] pt-32 pb-20"
+        className="relative overflow-hidden bg-[#050507] pt-28 pb-16"
       >
-        <div className="absolute inset-0 grid-overlay" />
-        <div className="absolute -top-24 -right-24 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }} />
-        
         <div className="container relative" style={{ maxWidth: 720 }}>
           <motion.div {...fadeUp(0)}>
-            <Link to="/blog" className="text-sm text-ink-muted hover:text-ink transition-colors">
-              ← Back to Blog
+            <Link to="/blog" className="font-mono text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors">
+              ← Back to Thinking
             </Link>
           </motion.div>
           
           <motion.div className="flex items-center gap-3 mt-8" {...fadeUp(0.1)}>
             <span
-              className="text-[11px] font-medium px-2.5 py-1 rounded-full"
-              style={{ background: "hsl(var(--accent-from) / 0.15)", color: "hsl(var(--accent-from))", border: "1px solid hsl(var(--accent-from) / 0.25)" }}
+              className="text-[9px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-white/5 text-white/40 border border-white/10"
             >
               {post.category}
             </span>
-            <span className="font-mono text-[12px] text-ink-muted">{formatDate(post.date)}</span>
-            <span className="font-mono text-[12px] text-ink-muted">·</span>
-            <span className="font-mono text-[12px] text-ink-muted">{post.readTime}</span>
+            <span className="font-mono text-[11px] text-white/20">{formatDate(post.date)}</span>
+            <span className="font-mono text-[11px] text-white/20">·</span>
+            <span className="font-mono text-[11px] text-white/20">{post.readTime}</span>
           </motion.div>
 
           <h1
-            className="section-headline-reveal font-display font-extrabold text-ink mt-5 leading-[1.05]"
-            style={{ fontSize: "clamp(32px, 5vw, 56px)", letterSpacing: "-0.03em" }}
+            className="font-display font-extrabold text-white mt-6 leading-[1.05]"
+            style={{ fontSize: "clamp(32px, 5vw, 64px)", letterSpacing: "-0.04em" }}
           >
             <SplitText as="span">{post.title}</SplitText>
           </h1>
@@ -63,17 +59,17 @@ export default function BlogPost() {
       </section>
 
       {/* Body */}
-      <section style={{ background: "#0A0A12", padding: "80px 0 120px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section style={{ background: "#050507", padding: "60px 0 100px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="container" style={{ maxWidth: 720 }}>
           {/* Excerpt as lead */}
           <motion.p
             style={{
               fontFamily: "'Plus Jakarta Sans', sans-serif",
               fontSize: 20,
-              color: "rgba(255,255,255,0.75)",
-              lineHeight: 1.75,
+              color: "rgba(255,255,255,0.5)",
+              lineHeight: 1.7,
               fontStyle: "italic",
-              borderLeft: "3px solid hsl(var(--accent-from))",
+              borderLeft: "2px solid rgba(255,255,255,0.1)",
               paddingLeft: 24,
               marginBottom: 48,
             }}
@@ -85,16 +81,12 @@ export default function BlogPost() {
           {post.content.trim().split(/\n\n+/).map((paragraph, index) => (
             <motion.p
               key={index}
-              className="rounded-2xl shadow-xl"
               style={{
-                background: "rgba(79,70,229,0.06)",
-                border: "1px solid rgba(79,70,229,0.15)",
-                padding: "32px 40px",
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: 16,
-                color: "rgba(255,255,255,0.75)",
-                lineHeight: 1.9,
-                marginBottom: 24,
+                color: "rgba(255,255,255,0.45)",
+                lineHeight: 1.85,
+                marginBottom: 28,
               }}
               {...fadeUp(0.3 + index * 0.05)}
             >
@@ -103,8 +95,8 @@ export default function BlogPost() {
           ))}
 
           <motion.div className="mt-16 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} {...fadeUp(0.4)}>
-            <Link to="/blog" className="text-sm font-bold hover:opacity-80 transition-opacity" style={{ color: "hsl(var(--accent-from))" }}>
-              ← Back to all posts
+            <Link to="/blog" className="font-mono text-[11px] uppercase tracking-widest text-white/40 hover:text-white transition-colors">
+              ← Return to all posts
             </Link>
           </motion.div>
         </div>

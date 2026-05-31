@@ -15,11 +15,13 @@ export default function Index() {
   return (
     <SiteShell>
       <Hero />
-      <Services />
-      <WhyUs />
-      <Portfolio />
-      <Testimonials />
-      <ClosingCTA />
+      <div className="flex flex-col">
+        <Services />
+        <WhyUs />
+        <Portfolio />
+        <Testimonials />
+        <ClosingCTA />
+      </div>
     </SiteShell>
   );
 }

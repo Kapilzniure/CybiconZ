@@ -66,23 +66,23 @@ export function MagneticButton({
 
   const variantConfigs = {
     primary: {
-      className: `text-white font-bold text-sm px-8 py-4 rounded-xl transition-all duration-300 btn-primary-magnetic ${className}`,
+      className: `text-[#050507] font-bold text-sm px-8 py-4 rounded-xl transition-all duration-300 btn-primary-magnetic ${className}`,
       style: {
-        background: 'linear-gradient(135deg, #00C4FF 0%, #0066FF 100%)',
-        boxShadow: '0 0 30px rgba(0,196,255,0.25)',
+        background: '#FFFFFF',
+        boxShadow: '0 0 40px rgba(255,255,255,0.05)',
       },
-      hoverTap: { boxShadow: '0 0 24px rgba(0,196,255,0.35)' },
+      hoverTap: { boxShadow: '0 0 30px rgba(255,255,255,0.15)' },
     },
     secondary: {
-      className: `text-white/70 font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-300 btn-secondary-magnetic ${className}`,
+      className: `text-white/80 font-semibold text-sm px-8 py-4 rounded-xl transition-all duration-300 btn-secondary-magnetic ${className}`,
       style: {
-        background: 'rgba(255,255,255,0.02)',
-        border: '1px solid rgba(255,255,255,0.12)',
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.08)',
       },
       hoverTap: {},
     },
     ghost: {
-      className: `text-[#00C4FF] font-bold text-sm px-0 py-2 transition-all duration-300 btn-ghost-magnetic ${className}`,
+      className: `text-white/80 hover:text-white font-bold text-sm px-0 py-2 transition-all duration-300 btn-ghost-magnetic ${className}`,
       style: {
         background: 'transparent',
       },
@@ -134,37 +134,21 @@ export function MagneticButton({
         .btn-primary-magnetic {
           overflow: hidden;
           position: relative;
-          transition: background 0.3s ease, box-shadow 0.35s ease;
-        }
-        .btn-primary-magnetic::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
-          background-size: 200% 100%;
-          z-index: 0;
-          pointer-events: none;
-          transition: left 0.4s ease;
+          transition: background 0.3s ease, box-shadow 0.35s ease, transform 0.3s ease;
         }
         .btn-primary-magnetic:hover {
-          background: linear-gradient(155deg, #00C4FF 0%, #0066FF 100%) !important;
-          box-shadow: 0 0 50px rgba(0,196,255,0.45), 0 0 100px rgba(0,196,255,0.15) !important;
-        }
-        .btn-primary-magnetic:hover::before {
-          left: 100%;
+          background: #FFFFFF !important;
+          box-shadow: 0 0 60px rgba(255,255,255,0.12) !important;
+          transform: scale(1.02);
         }
 
         .btn-secondary-magnetic {
           transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
         }
         .btn-secondary-magnetic:hover {
-          border-color: rgba(0,196,255,0.4) !important;
-          background: rgba(0,196,255,0.04) !important;
+          border-color: rgba(255,255,255,0.2) !important;
+          background: rgba(255,255,255,0.06) !important;
           color: white !important;
-          box-shadow: inset 0 0 20px rgba(0,196,255,0.06) !important;
         }
 
         .btn-ghost-magnetic {

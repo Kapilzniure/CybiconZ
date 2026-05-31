@@ -48,74 +48,74 @@ export default function Testimonials() {
   return (
     <section
       data-section="testimonials-section"
-      className="py-[120px] relative overflow-hidden"
+      className="py-16 sm:py-20 relative overflow-hidden"
       style={{ background: "#060608", borderTop: "1px solid rgba(255,255,255,0.05)" }}
     >
       <div className="container relative z-10">
-        {/* Header row */}
-        <div className="flex items-center justify-between pb-10 border-b border-white/[0.08]">
-          <div className="flex items-center gap-4">
-            <span className="w-4 h-px bg-[#4F46E5] block" />
-            <span className="label-eyebrow text-[#4F46E5]">What clients say</span>
-          </div>
-          <span className="font-mono text-[11px] text-white/25 tracking-widest">
-            01 — 02
+        {/* Compact Header */}
+        <div className="flex items-center gap-4 mb-10 pb-4 border-b border-white/[0.08]">
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+            Client Feedback
           </span>
+          <div className="flex-1 h-[1px] bg-white/[0.05]" />
         </div>
 
-        {/* Quotes */}
-        {items.map((t, i) => (
-          <motion.div
-            key={i}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-40px" }}
-            variants={prefersReduced ? reducedVariants : itemVariants}
-            custom={i}
-            className="py-14 sm:py-20 border-b border-white/[0.08]"
-          >
-            <blockquote
-              className="font-display font-bold leading-[1.1] mb-10 sm:mb-14 max-w-4xl"
-              style={{
-                fontSize: "clamp(22px, 3.8vw, 46px)",
-                letterSpacing: "-0.03em",
-                color: "rgba(255,255,255,0.88)",
-              }}
+        {/* Quotes Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+          {items.map((t, i) => (
+            <motion.div
+              key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-20px" }}
+              variants={prefersReduced ? reducedVariants : itemVariants}
+              custom={i}
+              className="flex flex-col"
             >
-              "{t.quote}"
-            </blockquote>
+              <blockquote
+                className="font-display font-medium leading-[1.2] mb-8"
+                style={{
+                  fontSize: "clamp(20px, 2.2vw, 28px)",
+                  letterSpacing: "-0.02em",
+                  color: "#FFFFFF",
+                }}
+              >
+                "{t.quote}"
+              </blockquote>
 
-            <div className="flex items-end justify-between flex-wrap gap-5">
-              <div>
-                <div
-                  className="font-sans font-semibold text-white"
-                  style={{ fontSize: "14px" }}
-                >
-                  {t.name}
-                </div>
-                <div
-                  className="font-mono text-white/40 mt-0.5"
-                  style={{ fontSize: "11px", letterSpacing: "0.08em" }}
-                >
-                  {t.role}
+              <div className="mt-auto flex items-center gap-4">
+                <div className="w-8 h-[1px] bg-white/30" />
+                <div>
+                  <div
+                    className="font-sans font-bold text-white text-[11px] uppercase tracking-wider"
+                  >
+                    {t.name}
+                  </div>
+                  <div
+                    className="font-mono text-white/70 text-[9px] mt-1 uppercase tracking-widest"
+                  >
+                    {t.role}
+                  </div>
                 </div>
               </div>
-              <span
-                className="font-mono text-white/30 uppercase"
-                style={{ fontSize: "10px", letterSpacing: "0.16em" }}
-              >
-                {t.badge}
-              </span>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
 
-        <p
-          className="pt-8 font-mono text-white/25"
-          style={{ fontSize: "11px", letterSpacing: "0.1em" }}
-        >
-          Names withheld by client preference
-        </p>
+        <div className="mt-12 pt-6 flex items-center justify-between border-t border-white/[0.05]">
+           <p
+            className="font-mono text-white/30 uppercase"
+            style={{ fontSize: "9px", letterSpacing: "0.2em" }}
+          >
+            Verified Outcomes
+          </p>
+          <p
+            className="font-mono text-white/30"
+            style={{ fontSize: "9px", letterSpacing: "0.1em" }}
+          >
+            CYBICONZ // 2026
+          </p>
+        </div>
       </div>
     </section>
   );

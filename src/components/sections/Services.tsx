@@ -45,12 +45,12 @@ function ServiceRow({
         viewport={{ once: true, margin: "-40px" }}
         variants={prefersReduced ? reducedVariants : serviceRowVariants}
         custom={index}
-        className="relative py-7 sm:py-8 grid grid-cols-[44px_1fr] sm:grid-cols-[64px_1fr_auto] items-center gap-x-4 gap-y-2 sm:gap-6 cursor-pointer transition-colors duration-200"
+        className="relative py-8 grid grid-cols-[44px_1fr] sm:grid-cols-[64px_1fr_auto] items-center gap-x-4 gap-y-2 sm:gap-6 cursor-pointer transition-colors duration-200"
       >
         {/* Index */}
         <span
-          className="font-mono text-[11px] tracking-[0.1em] transition-colors duration-300"
-          style={{ color: hovered ? service.color : "rgba(255,255,255,0.28)" }}
+          className="font-mono text-[10px] tracking-[0.2em] transition-colors duration-300"
+          style={{ color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.2)" }}
         >
           {service.id}
         </span>
@@ -59,30 +59,30 @@ function ServiceRow({
         <div>
           <div className="flex items-center gap-4 flex-wrap mb-2">
             <h3
-              className="font-display font-extrabold leading-none transition-colors duration-200"
+              className="font-display font-bold leading-none transition-colors duration-200"
               style={{
-                fontSize: "clamp(20px, 2.8vw, 30px)",
-                color: hovered ? "#ffffff" : "rgba(255,255,255,0.88)",
+                fontSize: "clamp(22px, 3vw, 34px)",
+                color: hovered ? "#ffffff" : "rgba(255,255,255,0.95)",
               }}
             >
-              {service.name}
+              <span className={hovered ? "text-gradient" : ""}>{service.name}</span>
             </h3>
             {service.popular && (
               <span
-                className="font-mono text-[10px] px-2 py-0.5 rounded border uppercase tracking-wider"
+                className="font-mono text-[9px] px-2 py-0.5 rounded-xl border uppercase tracking-widest"
                 style={{
-                  background: `${service.color}14`,
-                  borderColor: `${service.color}35`,
-                  color: service.color,
+                  background: "rgba(255,255,255,0.08)",
+                  borderColor: "rgba(255,255,255,0.3)",
+                  color: "rgba(255,255,255,0.9)",
                 }}
               >
-                Popular
+                Featured
               </span>
             )}
           </div>
           <p
             className="leading-relaxed max-w-xl"
-            style={{ fontSize: "14px", color: "rgba(255,255,255,0.52)" }}
+            style={{ fontSize: "14px", color: "rgba(255,255,255,0.85)" }}
           >
             {service.description}
           </p>
@@ -93,19 +93,18 @@ function ServiceRow({
           <span
             className="font-mono transition-colors duration-300"
             style={{
-              fontSize: "11px",
-              color: "rgba(255,255,255,0.35)",
+              fontSize: "10px",
+              color: "rgba(255,255,255,0.75)",
             }}
           >
             {service.timeline}
           </span>
           <motion.span
-            animate={{ x: hovered ? 0 : 6, opacity: hovered ? 1 : 0.45 }}
-            transition={{ duration: 0.18 }}
-            className="font-sans font-bold text-[13px]"
-            style={{ color: service.color }}
+            animate={{ x: hovered ? 0 : 4, opacity: hovered ? 1 : 0.3 }}
+            transition={{ duration: 0.2 }}
+            className="font-sans font-bold text-[12px] uppercase tracking-wider text-white"
           >
-            Explore →
+            Details →
           </motion.span>
         </div>
 
@@ -113,11 +112,8 @@ function ServiceRow({
         <motion.div
           animate={{ scaleX: hovered ? 1 : 0 }}
           initial={{ scaleX: 0 }}
-          transition={{ duration: 0.28 }}
-          className="absolute bottom-0 left-0 w-full h-px origin-left"
-          style={{
-            background: `linear-gradient(to right, ${service.color}, transparent)`,
-          }}
+          transition={{ duration: 0.3, ease: "circOut" }}
+          className="absolute bottom-0 left-0 w-full h-[1px] origin-left bg-white/20"
         />
       </motion.div>
     </Link>
@@ -138,57 +134,47 @@ export default function Services() {
   return (
     <section
       data-section="services-section"
-      className="bg-[#060608] overflow-hidden relative py-20 sm:py-28"
+      className="bg-[#050507] overflow-hidden relative py-24 sm:py-32"
     >
-      {/* Ambient glow */}
-      <div
-        aria-hidden
-        className="absolute -top-[150px] -right-[150px] w-[600px] h-[600px] rounded-full pointer-events-none z-0"
-        style={{
-          background: "radial-gradient(rgba(79,70,229,0.08), transparent 65%)",
-          filter: "blur(60px)",
-        }}
-      />
-
       <div className="container relative z-10">
         {/* Section header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-4 h-0.5 bg-[#4F46E5]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider text-[#4F46E5]">
-                What we build
+            <div className="flex items-center gap-4 mb-5">
+              <div className="w-6 h-[1px] bg-white/30" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
+                Core Capabilities
               </span>
             </div>
             <h2
-              className="font-display font-extrabold text-white leading-[0.92] tracking-[-0.04em] mb-4"
-              style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
+              className="font-display font-extrabold text-white leading-[0.9] tracking-[-0.05em] mb-6"
+              style={{ fontSize: "clamp(40px, 6vw, 82px)" }}
             >
-              Five services.<br className="hidden sm:block" />
-              Every one end-to-end.
+              Engineered for<br className="hidden sm:block" />
+              <span style={{ color: "rgba(255,255,255,0.4)" }}>high performance.</span>
             </h2>
             <p
-              className="max-w-md"
-              style={{ fontSize: "15px", color: "rgba(255,255,255,0.52)" }}
+              className="max-w-md leading-relaxed"
+              style={{ fontSize: "16px", color: "rgba(255,255,255,0.85)" }}
             >
-              We scope each project individually. No packages, no guessing.
+              We deliver end-to-end digital solutions that scale. No compromises, just results.
             </p>
           </div>
         </div>
 
         {/* Two-column: robot left, service list right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           {/* Robot — sticky on desktop, stacked below on mobile */}
           <div className="lg:sticky order-last lg:order-first" style={{ top: "120px" }}>
-            <div className="w-full h-[420px] sm:h-[400px] lg:h-[600px] relative">
+            <div className="w-full h-[400px] lg:h-[650px] relative">
               <SplineServices />
             </div>
           </div>
 
           {/* Service list */}
-          <div>
-            <div className="divide-y border-y" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
+          <div className="lg:pt-12">
+            <div className="divide-y border-t border-b" style={{ borderColor: "rgba(255,255,255,0.15)" }}>
               {services.map((service, i) => (
                 <ServiceRow
                   key={service.id}
@@ -200,17 +186,20 @@ export default function Services() {
             </div>
 
             <div
-              className="mt-10 flex flex-col sm:flex-row justify-between items-center gap-4 pt-6"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
+              className="mt-12 flex flex-col sm:flex-row justify-between items-center gap-6 pt-8"
+              style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
             >
-              <p
-                className="font-mono"
-                style={{ fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.06em" }}
-              >
-                5 services · delivered end-to-end
-              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-white/40 animate-pulse" />
+                <p
+                  className="font-mono"
+                  style={{ fontSize: "10px", color: "rgba(255,255,255,0.6)", letterSpacing: "0.1em" }}
+                >
+                  NOW BOOKING FOR Q3 2026
+                </p>
+              </div>
               <MagneticButton href="/services" variant="ghost">
-                Full breakdown →
+                View Methodology →
               </MagneticButton>
             </div>
           </div>

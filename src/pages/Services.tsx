@@ -34,39 +34,25 @@ export default function ServicesPage() {
   return (
     <SiteShell>
       {/* SECTION 1 — HERO */}
-      <section data-section="hero-section" className="relative bg-[#060608] pt-40 pb-24 overflow-hidden">
-        <div className="absolute inset-0 grid-overlay pointer-events-none" />
-        <div
-          className="absolute -top-32 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "rgba(79,70,229,0.12)", filter: "blur(120px)" }}
-        />
+      <section data-section="hero-section" className="relative bg-[#050507] pt-32 pb-16 overflow-hidden">
         <div className="container relative">
-          <motion.span
-            className="label-eyebrow text-violet"
-            {...fadeUp(0)}
-          >
-            Services
-          </motion.span>
-          <h1 className="section-headline-reveal font-display font-extrabold text-ink leading-[0.95] mt-5" style={{ fontSize: "clamp(52px, 8vw, 96px)", letterSpacing: "-0.04em" }}>
+          <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-6">
+            <span className="w-8 h-[1px] bg-white/30" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Capabilities</span>
+          </motion.div>
+          <h1 className="font-display font-extrabold text-white leading-[0.9] mt-5" style={{ fontSize: "clamp(48px, 8vw, 100px)", letterSpacing: "-0.05em" }}>
             <SplitText as="span" className="block">What we build,</SplitText>
-            <SplitText as="span" className="block" style={{ opacity: 0.7 }} delay={0.24}>and how we build it.</SplitText>
+            <SplitText as="span" className="block" style={{ color: "rgba(255,255,255,0.4)" }} delay={0.24}>and how we build it.</SplitText>
           </h1>
           <motion.p
-            className="text-ink-muted mt-6 max-w-lg"
-            style={{ fontSize: 17 }}
+            className="mt-8 max-w-lg leading-relaxed text-[17px]"
+            style={{ color: "rgba(255,255,255,0.75)" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Every engagement is scoped to your situation — not a package from a dropdown.
-          </motion.p>
-          <motion.p
-            className="text-white/70 mt-4 max-w-md text-sm leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            We don't do templates. We don't do "one size fits all." We build digital systems that serve specific business objectives.
+            Every engagement is scoped individually to your business situation — 
+            never a generic package from a list.
           </motion.p>
         </div>
       </section>
@@ -78,122 +64,85 @@ export default function ServicesPage() {
           return (
             <div
               key={service.id}
-              className="py-24 relative overflow-hidden"
+              className="py-20 relative overflow-hidden"
               style={{
-                background: isOdd ? "#060608" : "#0A0A12",
-                borderBottom: i < services.length - 1 ? "1px solid rgba(255,255,255,0.07)" : "none",
+                background: "#050507",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
               }}
             >
-              {/* Atmospheric Glow */}
-              <div 
-                aria-hidden 
-                className="absolute w-[500px] h-[500px] rounded-full pointer-events-none opacity-20"
-                style={{ 
-                  background: `radial-gradient(${service.accent}, transparent 70%)`,
-                  top: '50%',
-                  [isOdd ? 'right' : 'left']: '-100px',
-                  transform: 'translateY(-50%)',
-                  filter: 'blur(80px)'
-                }}
-              />
-
               <div className="container relative z-10">
                 <div
-                  className={`flex flex-col ${isOdd ? "lg:flex-row" : "lg:flex-row-reverse"} gap-10 lg:gap-20 items-center`}
+                  className={`flex flex-col ${isOdd ? "lg:flex-row" : "lg:flex-row-reverse"} gap-12 lg:gap-24 items-start`}
                 >
                   {/* TEXT SIDE */}
                   <motion.div
                     className="flex-1 w-full"
                     {...fadeUp(0)}
                   >
-                    <span
-                      className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-[12px] font-semibold font-mono uppercase tracking-wider text-white"
-                      style={{ background: service.accent }}
-                    >
-                      {service.category}
-                    </span>
+                    <div className="flex items-center gap-4 mb-6">
+                      <span className="font-mono text-[11px] text-white/40 uppercase tracking-widest">{service.id}</span>
+                      <div className="w-8 h-[1px] bg-white/20" />
+                    </div>
 
                     <h2
-                      className="section-headline-reveal font-display font-extrabold text-ink mt-4 leading-[0.95]"
-                      style={{ fontSize: "clamp(28px, 4vw, 48px)", letterSpacing: "-0.03em" }}
+                      className="font-display font-extrabold text-white leading-[0.95]"
+                      style={{ fontSize: "clamp(32px, 4vw, 56px)", letterSpacing: "-0.04em" }}
                     >
-                      {service.name}
+                      <span className="text-gradient">{service.name}</span>
                     </h2>
 
-                    <p className="font-sans font-semibold text-[11px] sm:text-[13px] uppercase tracking-wider text-ink-muted mt-8 mb-3">
-                      Who it's for
-                    </p>
-                    <p className="text-[14px] sm:text-[15px] text-ink-muted leading-relaxed max-w-md">
-                      {service.whoFor}
-                    </p>
+                    <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10">
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Goal</p>
+                        <p className="text-[14px] leading-relaxed text-white/85">
+                          {service.whoFor}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Deliverables</p>
+                        <ul className="flex flex-col gap-2">
+                          {service.delivers.map((item, j) => (
+                            <li key={j} className="flex items-start gap-2 text-[14px] text-white/80">
+                              <span className="w-1 h-1 rounded-full bg-white/20 mt-[8px]" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
 
-                    <p className="font-sans font-semibold text-[11px] sm:text-[13px] uppercase tracking-wider text-ink-muted mt-7 mb-3">
-                      What we deliver
-                    </p>
-                    <ul className="flex flex-col gap-2.5">
-                      {service.delivers.map((item, j) => (
-                        <motion.li
-                          key={j}
-                          className="flex items-start gap-3 text-[14px] sm:text-[15px] text-ink-muted leading-snug"
-                          initial={{ opacity: 0, x: -8 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.4, delay: j * 0.06 }}
-                        >
-                          <span
-                            className="mt-[7px] shrink-0 w-[6px] h-[6px] rounded-full"
-                            style={{ background: service.accent }}
-                          />
-                          {item}
-                        </motion.li>
-                      ))}
-                    </ul>
-
-                    <p className="font-sans font-semibold text-[11px] sm:text-[13px] uppercase tracking-wider text-ink-muted mt-7 mb-2">
-                      Typical timeline
-                    </p>
-                    <p
-                      className="font-display font-bold text-ink text-[17px] sm:text-[18px]"
-                    >
-                      {service.timeline}
-                    </p>
-
-                    {service.note && (
-                      <p className="text-[12px] sm:text-[13px] text-ink-muted italic mt-3 max-w-md leading-relaxed">
-                        {service.note}
-                      </p>
-                    )}
-
-                    <div className="mt-10">
+                    <div className="mt-12 flex items-center gap-8">
+                      <div className="flex flex-col">
+                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 mb-1">Timeline</span>
+                        <span className="font-display font-bold text-white text-[18px]">{service.timeline}</span>
+                      </div>
                       <MagneticButton href="/contact" variant="primary">
-                        Start this project →
+                        Inquire →
                       </MagneticButton>
                     </div>
                   </motion.div>
 
                   {/* IMAGE SIDE */}
                   <motion.div
-                    className="flex-1 w-full mt-4 lg:mt-0"
-                    initial={{ opacity: 0, x: isOdd ? -40 : 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex-1 w-full lg:sticky lg:top-32"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 1 }}
                   >
                     <div
-                      className="relative rounded-2xl overflow-hidden transition-transform duration-500"
+                      className="relative rounded-2xl overflow-hidden transition-all duration-700"
                       style={{
-                        transform: isMobile ? "none" : `perspective(1200px) rotateY(${isOdd ? "-4deg" : "4deg"}) rotateX(2deg)`,
-                        boxShadow: "0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(255,255,255,0.02)",
                       }}
                     >
                       <img
                         src={service.image}
                         alt={service.name}
                         loading="lazy"
-                        className="w-full object-cover"
-                        style={{ aspectRatio: "4/3" }}
+                        className="w-full object-cover aspect-[4/3] transition-transform duration-700 hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     </div>
                   </motion.div>
                 </div>
@@ -204,27 +153,26 @@ export default function ServicesPage() {
       </section>
 
       {/* SECTION 3 — PROCESS HEADER */}
-      <section className="bg-brand-base pt-20 pb-12" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <section className="bg-[#050507] pt-20 pb-12" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="container text-center">
-          <motion.span
-            className="label-eyebrow text-violet"
-            {...fadeUp(0)}
-          >
-            How we work
-          </motion.span>
+          <motion.div {...fadeUp(0)} className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-8 h-[1px] bg-white/10" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">Execution Sequence</span>
+            <div className="w-8 h-[1px] bg-white/10" />
+          </motion.div>
           <motion.h2
-            className="section-headline-reveal font-display font-extrabold text-ink mt-4 leading-[0.95]"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.03em" }}
+            className="font-display font-extrabold text-white mt-4 leading-[0.95]"
+            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.04em" }}
             {...fadeUp(0.1)}
           >
-            The same process, every project.
+            A consistent process.
           </motion.h2>
         </div>
       </section>
       <Process />
 
       {/* SECTION 4 — FAQ */}
-      <FAQ heading="Common questions about our services." />
+      <FAQ heading="Technical & Process FAQs." />
 
       {/* SECTION 5 — CLOSING CTA */}
       <ClosingCTA />

@@ -10,13 +10,13 @@ interface Particle {
   colorIndex: 0 | 1 | 2 | 3 | 4;
 }
 
-// 5 distinct colors: White, Cyan, Lime Green, Electric Purple, Warm Gold
+// 5 grayscale tones for a minimalist feel
 const COLORS = [
-  (a: number) => `rgba(255,255,255,${a})`,           // White
-  (a: number) => `rgba(0,196,255,${a})`,             // Cyan
-  (a: number) => `rgba(57,255,20,${a})`,             // Lime Green
-  (a: number) => `rgba(180,50,255,${a})`,            // Electric Purple
-  (a: number) => `rgba(255,180,40,${a})`,            // Warm Gold
+  (a: number) => `rgba(255,255,255,${a})`,           // Pure White
+  (a: number) => `rgba(200,200,210,${a})`,           // Off White
+  (a: number) => `rgba(150,150,165,${a})`,           // Neutral Gray
+  (a: number) => `rgba(100,100,120,${a})`,           // Deep Gray
+  (a: number) => `rgba(255,255,255,${a * 0.5})`,     // Faint White
 ];
 
 function pickColorIndex(): 0 | 1 | 2 | 3 | 4 {

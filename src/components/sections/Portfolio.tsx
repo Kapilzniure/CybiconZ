@@ -64,61 +64,61 @@ export default function Portfolio() {
   const others = projects.filter(p => !p.featured);
 
   return (
-    <section data-section="portfolio-section" className="relative py-[100px] overflow-hidden" style={{ background: "#0A0A12", borderTop: "1px solid rgba(255,255,255,0.05)" } as CSSProperties}>
-      {/* Glow Story - Portfolio */}
-      <div aria-hidden style={{ position: "absolute", top: "-100px", right: "-100px", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.1), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
-      <div aria-hidden style={{ position: "absolute", bottom: "-50px", left: "-50px", width: "300px", height: "300px", borderRadius: "50%", background: "radial-gradient(rgba(6,182,212,0.05), transparent 65%)", pointerEvents: "none", zIndex: 0, filter: "blur(1px)" }} />
-      
-      <div aria-hidden className="absolute right-0 top-20 font-display font-extrabold pointer-events-none select-none" style={{ fontSize: "clamp(120px, 18vw, 260px)", color: "rgba(255,255,255,0.018)", letterSpacing: "-0.05em" }}>WORK</div>
+    <section data-section="portfolio-section" className="relative py-[120px] overflow-hidden" style={{ background: "#050507", borderTop: "1px solid rgba(255,255,255,0.06)" } as CSSProperties}>
+      <div aria-hidden className="absolute right-0 top-20 font-display font-extrabold pointer-events-none select-none" style={{ fontSize: "clamp(120px, 18vw, 260px)", color: "rgba(255,255,255,0.012)", letterSpacing: "-0.05em" }}>WORK</div>
       
       <div className="container relative z-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-4 h-px bg-violet" />
-              <span className="label-eyebrow text-violet">Selected Work</span>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-8 h-[1px] bg-white/30" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Curated Work</span>
             </div>
-            <h2 className="section-headline-reveal font-display font-extrabold text-white leading-[0.92]" style={{ fontSize: "clamp(44px, 6vw, 72px)", letterSpacing: "-0.04em" }}>
+            <h2 className="font-display font-extrabold text-white leading-[0.9] tracking-[-0.05em]" style={{ fontSize: "clamp(42px, 6vw, 84px)" }}>
               Selected work.<br />
-              <span style={{ color: "rgba(255,255,255,0.35)" }}>Ships on time.</span>
+              <span style={{ color: "rgba(255,255,255,0.25)" }}>Ships on time.</span>
             </h2>
 
             {/* Current clients row */}
-            <div className="flex items-center gap-5 mt-8">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">Current clients</span>
-              <div className="flex items-center gap-3">
+            <div className="flex items-center gap-6 mt-10">
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">Trusted partners</span>
+              <div className="flex items-center gap-4">
                 {currentClients.map((client) => (
                   <div
                     key={client.name}
-                    style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      borderRadius: 8,
-                      padding: "6px 12px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
+                    className="group relative"
                   >
-                    <img
-                      src={client.logo}
-                      alt={client.name}
+                    <div className="absolute inset-0 bg-white/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div
                       style={{
-                        height: 36,
-                        width: "auto",
-                        objectFit: "contain",
-                        display: "block",
+                        background: "rgba(255,255,255,0.03)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        borderRadius: 12,
+                        padding: "8px 16px",
+                        position: "relative",
                       }}
-                    />
+                    >
+                      <img
+                        src={client.logo}
+                        alt={client.name}
+                        style={{
+                          height: 32,
+                          width: "auto",
+                          objectFit: "contain",
+                          display: "block",
+                          filter: "brightness(1.5)",
+                        }}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
           {projects.length >= 4 && (
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-3 flex-wrap">
               {tabs.map(t => (
-                <button key={t} onClick={() => setActive(t)} className={`text-sm font-semibold px-4 py-2 rounded-full transition ${active === t ? "bg-white/10 text-white border border-white/20" : "border border-white/[0.12] text-white/70 hover:border-white/25 hover:text-white"}`}>{t}</button>
+                <button key={t} onClick={() => setActive(t)} className={`text-[11px] font-mono uppercase tracking-widest px-5 py-2.5 rounded-xl transition ${active === t ? "bg-white text-black" : "border border-white/[0.1] text-white/40 hover:border-white/20 hover:text-white"}`}>{t}</button>
               ))}
             </div>
           )}
@@ -130,57 +130,47 @@ export default function Portfolio() {
             initial="hidden" 
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            
             variants={prefersReduced ? reducedVariants : cardVariants}
             custom={0}
-            className="bg-brand-card rounded-[32px] overflow-hidden grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] border border-white/[0.06] transition-all duration-300 ease-in-out hover:-translate-y-[6px] hover:border-violet/30 hover:shadow-2xl animate-gpu"
+            className="bg-brand-card rounded-[32px] overflow-hidden grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] border border-white/[0.06] transition-all duration-500 ease-out hover:border-white/20 animate-gpu"
           >
             <div className="p-4 sm:p-6 lg:p-10 relative">
-              <BrowserFrame url="lwangblack.co" accentColor="#F59E0B">
+              <BrowserFrame url="lwangblack.co">
                 <div className="relative aspect-[4/3] lg:aspect-video overflow-hidden">
                   {assetError[featured.slug] ? (
-                    <ProjectImagePlaceholder projectName={featured.name} serviceColor={featured.serviceColor} />
+                    <ProjectImagePlaceholder projectName={featured.name} serviceColor="#FFFFFF" />
                   ) : (
                     <img
                       src={featured.image}
                       alt={featured.name}
                       loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                       onError={() => setAssetError((prev) => ({ ...prev, [featured.slug]: true }))}
                     />
                   )}
-                  <FloatingMetricCard />
                 </div>
               </BrowserFrame>
             </div>
             <div className="p-8 sm:p-12 lg:pl-0 flex flex-col justify-center">
-              <div className="font-mono text-[11px] text-ink-muted uppercase tracking-wider">Client · {featured.year}</div>
-              {'logo' in featured && featured.logo && (
-                <div style={{ display: "inline-flex", marginTop: 12, marginBottom: 4 }}>
-                  <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "5px 10px" }}>
-                    <img src={featured.logo as string} alt={featured.name} style={{ height: 32, width: "auto", objectFit: "contain", display: "block" }} />
-                  </div>
-                </div>
-              )}
-              <h3 className="font-display font-extrabold text-[24px] sm:text-[36px] text-ink mt-2 leading-tight group-hover:text-white transition-colors">{featured.name}</h3>
-              <p className="text-[15px] text-ink-muted mt-4 leading-relaxed max-w-md">{featured.outcome}</p>
+              <div className="font-mono text-[10px] text-white/30 uppercase tracking-[0.2em] mb-4">Case Study · {featured.year}</div>
+              <h3 className="font-display font-extrabold text-[32px] sm:text-[48px] text-white leading-tight">{featured.name}</h3>
+              <p className="text-[16px] text-white/45 mt-6 leading-relaxed max-w-md">{featured.outcome}</p>
               
               <div className="flex flex-wrap gap-2 mt-8">
                 {featured.tags.map(t => (
-                  <span key={t} className="text-[10px] sm:text-[11px] text-ink-muted px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.08]">{t}</span>
+                  <span key={t} className="text-[10px] text-white/40 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08]">{t}</span>
                 ))}
               </div>
               
-              <div className="mt-10 inline-flex items-center gap-2 text-violet text-sm font-bold uppercase tracking-widest">
-                Explore Case Study <span className="transition-all group-hover:translate-x-1">→</span>
+              <div className="mt-12 inline-flex items-center gap-3 text-white text-[11px] font-bold uppercase tracking-[0.2em]">
+                Explore Study <span className="transition-transform group-hover:translate-x-2">→</span>
               </div>
             </div>
           </motion.div>
         </Link>
 
         {/* Grid below */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
           {others.map((p, i) => {
             return (
               <Link key={p.slug} to={`/work/${p.slug}`} className="group" data-cursor="view">
@@ -190,48 +180,36 @@ export default function Portfolio() {
                   viewport={{ once: true, margin: "-40px" }}
                   variants={prefersReduced ? reducedVariants : cardVariants}
                   custom={i + 1}
-                  className="transition-all duration-300 ease-in-out hover:-translate-y-[6px] animate-gpu"
+                  className="transition-all duration-500 ease-out animate-gpu"
                 >
                   <MiniFrame>
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-[#0A0A12]">
                       {assetError[p.slug] ? (
-                        <ProjectImagePlaceholder projectName={p.name} serviceColor={p.serviceColor} />
+                        <ProjectImagePlaceholder projectName={p.name} serviceColor="#FFFFFF" />
                       ) : (
                         <img
                           src={p.image}
                           alt={p.name}
                           loading="lazy"
-                          decoding="async"
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                           onError={() => setAssetError((prev) => ({ ...prev, [p.slug]: true }))}
                         />
                       )}
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300" />
                     </div>
                   </MiniFrame>
-                  <div className="mt-5">
-                    <div className="flex items-center gap-3">
-                      {'logo' in p && p.logo && (
-                        <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6, padding: "4px 9px", flexShrink: 0 }}>
-                          <img src={p.logo as string} alt={p.name} style={{ height: 28, width: "auto", objectFit: "contain", display: "block" }} />
-                        </div>
-                      )}
-                      <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.62)" }}>{p.service} · {p.year}</div>
+                  <div className="mt-6 flex items-start justify-between">
+                    <div>
+                      <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/25 mb-1.5">{p.service} · {p.year}</div>
+                      <h3 className="font-display font-bold text-[20px] text-white group-hover:text-white/80 transition-colors">{p.name}</h3>
                     </div>
-                    <h3 className="font-display font-bold text-[19px] mt-1.5 text-white/90 group-hover:text-white transition-colors">{p.name}</h3>
+                    <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/30 group-hover:bg-white group-hover:text-black transition-all">
+                      <span className="text-[14px]">→</span>
+                    </div>
                   </div>
                 </motion.div>
               </Link>
             );
           })}
-          
-          {/* Coming soon placeholder */}
-          {[1, 2].slice(0, Math.max(0, 3 - others.length)).map(i => (
-            <div key={i} className="rounded-2xl flex flex-col items-center justify-center min-h-[220px] p-6 group transition-all duration-300" style={{ background: "rgba(255,255,255,0.01)", border: "1.5px dashed rgba(255,255,255,0.06)" }}>
-              <div className="font-display font-extrabold text-[48px] text-white/25 transition-colors group-hover:text-white/35">0{others.length + i + 1}</div>
-              <div className="text-[12px] uppercase tracking-widest mt-2 text-white/55 group-hover:text-white/70">Development in progress</div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
