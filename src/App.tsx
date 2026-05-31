@@ -68,6 +68,8 @@ function AnimatedRoutes() {
   );
 }
 
+import { GrainLayer } from "@/components/ui/GrainLayer";
+
 const App = () => {
   const velocity = useScrollVelocity();
 
@@ -87,6 +89,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <GrainLayer />
         {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
         <BrowserRouter>
           <ScrollThemeProvider>
