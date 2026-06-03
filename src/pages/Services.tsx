@@ -8,6 +8,7 @@ import { services } from "@/data/services";
 import SplitText from "@/components/ui/SplitText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { ServiceJsonLd } from "@/components/seo/JsonLd";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -33,16 +34,21 @@ export default function ServicesPage() {
   });
   return (
     <SiteShell>
+      <ServiceJsonLd
+        name="Website & Digital Product Development"
+        description="Custom websites, e-commerce systems, and web applications built for businesses globally."
+        url="https://cybiconz.com/services"
+      />
       {/* SECTION 1 — HERO */}
       <section data-section="hero-section" className="relative bg-[#050507] pt-32 pb-16 overflow-hidden">
         <div className="container relative">
           <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-6">
             <span className="w-8 h-[1px] bg-white/30" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Capabilities</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">Capabilities</span>
           </motion.div>
           <h1 className="font-display font-extrabold text-white leading-[0.9] mt-5" style={{ fontSize: "clamp(48px, 8vw, 100px)", letterSpacing: "-0.05em" }}>
             <SplitText as="span" className="block">What we build,</SplitText>
-            <SplitText as="span" className="block" style={{ color: "rgba(255,255,255,0.4)" }} delay={0.24}>and how we build it.</SplitText>
+            <SplitText as="span" className="block" style={{ color: "rgba(255,255,255,0.65)" }} delay={0.24}>and how we build it.</SplitText>
           </h1>
           <motion.p
             className="mt-8 max-w-lg leading-relaxed text-[17px]"
@@ -80,7 +86,7 @@ export default function ServicesPage() {
                     {...fadeUp(0)}
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <span className="font-mono text-[11px] text-white/40 uppercase tracking-widest">{service.id}</span>
+                      <span className="font-mono text-[11px] text-white/65 uppercase tracking-widest">{service.id}</span>
                       <div className="w-8 h-[1px] bg-white/20" />
                     </div>
 
@@ -93,13 +99,13 @@ export default function ServicesPage() {
 
                     <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10">
                       <div>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Goal</p>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/65 mb-3">Goal</p>
                         <p className="text-[14px] leading-relaxed text-white/85">
                           {service.whoFor}
                         </p>
                       </div>
                       <div>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Deliverables</p>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/65 mb-3">Deliverables</p>
                         <ul className="flex flex-col gap-2">
                           {service.delivers.map((item, j) => (
                             <li key={j} className="flex items-start gap-2 text-[14px] text-white/80">
@@ -113,7 +119,7 @@ export default function ServicesPage() {
 
                     <div className="mt-12 flex items-center gap-8">
                       <div className="flex flex-col">
-                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 mb-1">Timeline</span>
+                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/65 mb-1">Timeline</span>
                         <span className="font-display font-bold text-white text-[18px]">{service.timeline}</span>
                       </div>
                       <MagneticButton href="/contact" variant="primary">
@@ -157,7 +163,7 @@ export default function ServicesPage() {
         <div className="container text-center">
           <motion.div {...fadeUp(0)} className="flex items-center justify-center gap-4 mb-6">
             <div className="w-8 h-[1px] bg-white/10" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">Execution Sequence</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/60">Execution Sequence</span>
             <div className="w-8 h-[1px] bg-white/10" />
           </motion.div>
           <motion.h2

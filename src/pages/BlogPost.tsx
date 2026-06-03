@@ -33,20 +33,20 @@ export default function BlogPost() {
       >
         <div className="container relative" style={{ maxWidth: 720 }}>
           <motion.div {...fadeUp(0)}>
-            <Link to="/blog" className="font-mono text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors">
+            <Link to="/blog" className="font-mono text-[10px] uppercase tracking-widest text-white/60 hover:text-white transition-colors">
               ← Back to Thinking
             </Link>
           </motion.div>
           
           <motion.div className="flex items-center gap-3 mt-8" {...fadeUp(0.1)}>
             <span
-              className="text-[9px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-white/5 text-white/40 border border-white/10"
+              className="text-[9px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-white/5 text-white/65 border border-white/10"
             >
               {post.category}
             </span>
-            <span className="font-mono text-[11px] text-white/20">{formatDate(post.date)}</span>
-            <span className="font-mono text-[11px] text-white/20">·</span>
-            <span className="font-mono text-[11px] text-white/20">{post.readTime}</span>
+            <span className="font-mono text-[11px] text-white/45">{formatDate(post.date)}</span>
+            <span className="font-mono text-[11px] text-white/45">·</span>
+            <span className="font-mono text-[11px] text-white/45">{post.readTime}</span>
           </motion.div>
 
           <h1
@@ -66,7 +66,7 @@ export default function BlogPost() {
             style={{
               fontFamily: "'Plus Jakarta Sans', sans-serif",
               fontSize: 20,
-              color: "rgba(255,255,255,0.5)",
+              color: "rgba(255,255,255,0.7)",
               lineHeight: 1.7,
               fontStyle: "italic",
               borderLeft: "2px solid rgba(255,255,255,0.1)",
@@ -84,7 +84,7 @@ export default function BlogPost() {
               style={{
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: 16,
-                color: "rgba(255,255,255,0.45)",
+                color: "rgba(255,255,255,0.65)",
                 lineHeight: 1.85,
                 marginBottom: 28,
               }}
@@ -95,7 +95,7 @@ export default function BlogPost() {
           ))}
 
           <motion.div className="mt-16 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} {...fadeUp(0.4)}>
-            <Link to="/blog" className="font-mono text-[11px] uppercase tracking-widest text-white/40 hover:text-white transition-colors">
+            <Link to="/blog" className="font-mono text-[11px] uppercase tracking-widest text-white/65 hover:text-white transition-colors">
               ← Return to all posts
             </Link>
           </motion.div>

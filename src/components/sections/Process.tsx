@@ -175,7 +175,7 @@ export default function Process() {
       <div className="bg-[#050507] p-8 sm:p-12 md:p-16 flex flex-col justify-center relative z-10 lg:sticky lg:top-0 lg:h-screen overflow-hidden">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-8 h-[1px] bg-white/30" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Execution Sequence</span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">Execution Sequence</span>
         </div>
 
         <div className="relative z-10">
@@ -243,11 +243,11 @@ export default function Process() {
             <div key={i} className="flex items-center gap-3">
               <span 
                 className="text-[14px] leading-none" 
-                style={{ color: activeStep >= 0 ? steps[activeStep].color : "rgba(255,255,255,0.5)" }}
+                style={{ color: activeStep >= 0 ? steps[activeStep].color : "rgba(255,255,255,0.7)" }}
               >
                 ✓
               </span>
-              <span className="font-sans text-[13px] text-white/50">{signal}</span>
+              <span className="font-sans text-[13px] text-white/70">{signal}</span>
             </div>
           ))}
         </div>

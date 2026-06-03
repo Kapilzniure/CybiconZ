@@ -26,7 +26,7 @@ export default function AnnouncementBar() {
               <span className="text-ink/80 sm:hidden">CybiLearn. Free.</span>
               <Link to="/cybilearn" className="text-violet font-semibold hover:underline">Explore →</Link>
             </div>
-            <button onClick={close} aria-label="Close" className="text-white/30 hover:text-white text-lg leading-none">×</button>
+            <button onClick={close} aria-label="Close" className="text-white/60 hover:text-white text-lg leading-none">×</button>
           </div>
         </motion.div>
       )}

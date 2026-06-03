@@ -49,7 +49,7 @@ export default function About() {
             <div>
               <motion.div {...fade(0)} className="flex items-center gap-3 mb-6">
                 <span className="w-8 h-[1px] bg-white/30" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Who We Are</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">Who We Are</span>
               </motion.div>
 
               <motion.h1
@@ -151,7 +151,7 @@ export default function About() {
             {/* Left — story text */}
             <div>
               <motion.div {...fade(0)} className="mb-8">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">The Narrative</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/65">The Narrative</span>
                 <h2
                   className="font-display font-extrabold text-white mt-4 leading-[0.95]"
                   style={{ fontSize: "clamp(32px, 5vw, 64px)", letterSpacing: "-0.04em" }}
@@ -197,7 +197,7 @@ export default function About() {
       >
         <div className="container relative z-10">
           <motion.div {...fade(0)} className="mb-14">
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/30">Foundations</span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/60">Foundations</span>
             <h2
               className="font-display font-extrabold text-white mt-4 leading-[0.95]"
               style={{ fontSize: "clamp(32px, 5vw, 64px)", letterSpacing: "-0.04em" }}
@@ -228,7 +228,7 @@ export default function About() {
                 >
                   {v.title}
                 </h3>
-                <p className="text-[14px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="text-[14px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.65)" }}>
                   {v.body}
                 </p>
               </motion.div>
@@ -250,7 +250,7 @@ export default function About() {
             >
               Work with us.
             </h2>
-            <p className="mt-8 text-[17px] leading-relaxed max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.4)" }}>
+            <p className="mt-8 text-[17px] leading-relaxed max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.65)" }}>
               Tell us about your project. We'll tell you honestly if we're the right fit.
             </p>
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-8">
@@ -259,7 +259,7 @@ export default function About() {
               </MagneticButton>
               <a
                 href="mailto:cybiconz@gmail.com"
-                className="font-mono text-[13px] text-white/50 hover:text-white transition-colors"
+                className="font-mono text-[13px] text-white/70 hover:text-white transition-colors"
                 style={{ letterSpacing: "0.1em" }}
               >
                 CYBICONZ@GMAIL.COM

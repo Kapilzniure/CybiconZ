@@ -7,7 +7,12 @@
       "Bash(npm run *)",
       "Bash(bun run *)",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\niure\\\\OneDrive\\\\Desktop\\\\CybiconZ\\\\src\\\\components\\\\ui\\\\\" | Where-Object { $_.Name -match \"Cursor|Orb|Magnetic|Bridge|Hook\" } | Select-Object Name)",
-      "WebFetch(domain:mdx.so)"
+      "WebFetch(domain:mdx.so)",
+      "Bash(Get-ChildItem -Recurse -Directory src)",
+      "Bash(Select-Object -First 20)",
+      "Bash(Format-Table FullName)",
+      "Bash(xargs grep \"export\\\\|import\")",
+      "Bash(Test-Path *)"
     ]
   }
 }

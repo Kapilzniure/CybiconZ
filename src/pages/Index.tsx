@@ -6,6 +6,7 @@ import WhyUs from "@/components/sections/WhyUs";
 import Testimonials from "@/components/sections/Testimonials";
 import ClosingCTA from "@/components/sections/ClosingCTA";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/seo/JsonLd";
 
 export default function Index() {
   usePageMeta({
@@ -14,6 +15,8 @@ export default function Index() {
   });
   return (
     <SiteShell>
+      <OrganizationJsonLd />
+      <WebsiteJsonLd />
       <Hero />
       <div className="flex flex-col">
         <Services />

@@ -25,12 +25,12 @@ export default function WorkPage() {
         <div className="container relative">
           <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-6">
             <span className="w-8 h-[1px] bg-white/30" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">Portfolio</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">Portfolio</span>
           </motion.div>
 
           <h1 className="font-display font-extrabold text-white leading-[0.9] mt-5 max-w-4xl" style={{ fontSize: "clamp(36px, 6vw, 76px)", letterSpacing: "-0.05em" }}>
             <SplitText as="span" className="block">Work we're building.</SplitText>
-            <SplitText as="span" className="block" style={{ color: "rgba(255,255,255,0.25)" }} delay={0.3}>Selected Case Studies.</SplitText>
+            <SplitText as="span" className="block" style={{ color: "rgba(255,255,255,0.6)" }} delay={0.3}>Selected Case Studies.</SplitText>
           </h1>
           <motion.p 
             className="mt-8 max-w-lg leading-relaxed text-[17px]"
@@ -60,7 +60,7 @@ export default function WorkPage() {
                   <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 <div className="p-8">
-                  <div className="font-mono text-[10px] uppercase tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>{p.service} · {p.year}</div>
+                  <div className="font-mono text-[10px] uppercase tracking-widest mb-1.5" style={{ color: "rgba(255,255,255,0.65)" }}>{p.service} · {p.year}</div>
                   <h3 className="font-display font-bold text-[24px] text-white transition-colors group-hover:text-white/90">{p.name}</h3>
                   <p className="text-[15px] mt-4 leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{p.outcome}</p>
                 </div>

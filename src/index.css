@@ -19,6 +19,11 @@
   font-display: swap;
   src: local('Plus Jakarta Sans');
 }
+@font-face {
+  font-family: 'DM Mono';
+  font-display: swap;
+  src: local('DM Mono');
+}
 
 @tailwind base;
 @tailwind components;

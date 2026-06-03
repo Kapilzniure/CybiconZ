@@ -55,12 +55,12 @@ export default function Contact() {
               <h1 className="font-display font-extrabold text-white leading-[0.9] mb-12" style={{ fontSize: "clamp(54px, 8vw, 110px)", letterSpacing: "-0.05em" }}>
                 Let's<br />
                 build the<br />
-                <span style={{ color: "rgba(255,255,255,0.3)" }}>future.</span>
+                <span style={{ color: "rgba(255,255,255,0.65)" }}>future.</span>
               </h1>
 
               <div className="space-y-12">
                 <div>
-                  <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-4">Availability</h3>
+                  <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60 mb-4">Availability</h3>
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-[#39FF14] animate-pulse" />
                     <p className="text-white/80 font-medium">Currently accepting Q3 2026 projects</p>
@@ -68,7 +68,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30 mb-4">Direct Contact</h3>
+                  <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60 mb-4">Direct Contact</h3>
                   <a href="mailto:cybiconz@gmail.com" className="text-[20px] text-white hover:text-white/70 transition-colors underline decoration-white/20 underline-offset-8">
                     cybiconz@gmail.com
                   </a>
@@ -95,7 +95,7 @@ export default function Contact() {
                             className="text-left p-6 rounded-xl border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all group"
                           >
                             <span className="block font-display font-bold text-lg text-white/60 group-hover:text-white mb-2">{svc.label}</span>
-                            <span className="text-[12px] text-white/30 group-hover:text-white/50 font-mono uppercase tracking-widest">Select →</span>
+                            <span className="text-[12px] text-white/60 group-hover:text-white/70 font-mono uppercase tracking-widest">Select →</span>
                           </button>
                         ))}
                       </div>
@@ -104,13 +104,13 @@ export default function Contact() {
 
                   {step === 2 && (
                     <motion.div key="s2" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                      <button onClick={() => advance(1)} className="font-mono text-[10px] text-white/30 uppercase tracking-widest mb-8 hover:text-white transition-colors">← Back</button>
+                      <button onClick={() => advance(1)} className="font-mono text-[10px] text-white/60 uppercase tracking-widest mb-8 hover:text-white transition-colors">← Back</button>
                       <h2 className="font-display font-bold text-white text-[28px] mb-10">Project Details</h2>
                       
                       <div className="space-y-8">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                           <div className="space-y-3">
-                            <label className="block font-mono text-[9px] uppercase tracking-widest text-white/40">Your Name</label>
+                            <label className="block font-mono text-[9px] uppercase tracking-widest text-white/65">Your Name</label>
                             <input
                               type="text"
                               value={name}
@@ -120,7 +120,7 @@ export default function Contact() {
                             />
                           </div>
                           <div className="space-y-3">
-                            <label className="block font-mono text-[9px] uppercase tracking-widest text-white/40">Email Address</label>
+                            <label className="block font-mono text-[9px] uppercase tracking-widest text-white/65">Email Address</label>
                             <input
                               type="email"
                               value={email}
@@ -132,7 +132,7 @@ export default function Contact() {
                         </div>
 
                         <div className="space-y-3">
-                          <label className="block font-mono text-[9px] uppercase tracking-widest text-white/40">The Brief</label>
+                          <label className="block font-mono text-[9px] uppercase tracking-widest text-white/65">The Brief</label>
                           <textarea
                             rows={3}
                             value={brief}
@@ -143,13 +143,13 @@ export default function Contact() {
                         </div>
 
                         <div className="space-y-5">
-                          <label className="block font-mono text-[9px] uppercase tracking-widest text-white/40">Budget Range</label>
+                          <label className="block font-mono text-[9px] uppercase tracking-widest text-white/65">Budget Range</label>
                           <div className="flex flex-wrap gap-2">
                             {BUDGETS.map((b) => (
                               <button
                                 key={b}
                                 onClick={() => setBudget(b)}
-                                className={`px-5 py-2.5 rounded-full text-[11px] font-mono uppercase tracking-widest transition-all ${budget === b ? "bg-white text-black" : "bg-white/5 text-white/40 border border-white/10 hover:border-white/20"}`}
+                                className={`px-5 py-2.5 rounded-full text-[11px] font-mono uppercase tracking-widest transition-all ${budget === b ? "bg-white text-black" : "bg-white/5 text-white/65 border border-white/10 hover:border-white/20"}`}
                               >
                                 {b}
                               </button>

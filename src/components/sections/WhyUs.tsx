@@ -115,7 +115,7 @@ function Desktop() {
             fontSize:      10,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color:         "rgba(255,255,255,0.35)",
+            color:         "rgba(255,255,255,0.65)",
           }}>
             Why Us
           </span>
@@ -130,7 +130,7 @@ function Desktop() {
           margin:        0,
         }}>
           Built for<br />
-          <span style={{ color: "rgba(255,255,255,0.2)" }}>
+          <span style={{ color: "rgba(255,255,255,0.65)" }}>
             certainty.
           </span>
         </h2>
@@ -220,7 +220,7 @@ function Desktop() {
               fontFamily:    "'DM Mono', monospace",
               fontSize:      10,
               letterSpacing: "0.15em",
-              color:         isActive ? it.color : "rgba(255,255,255,0.18)",
+              color:         isActive ? it.color : "rgba(255,255,255,0.45)",
               display:       "block",
               marginBottom:  10,
               transition:    "color 0.4s",
@@ -231,7 +231,7 @@ function Desktop() {
               fontFamily: "'Bricolage Grotesque', sans-serif",
               fontWeight: 700,
               fontSize:   "clamp(15px, 1.3vw, 19px)",
-              color:      isActive ? "#ffffff" : "rgba(255,255,255,0.4)",
+              color:      isActive ? "#ffffff" : "rgba(255,255,255,0.7)",
               lineHeight: 1.25,
               margin:     "0 0 12px",
               transition: "color 0.4s",
@@ -249,7 +249,7 @@ function Desktop() {
                     fontFamily: "'Plus Jakarta Sans', sans-serif",
                     fontSize:   13,
                     lineHeight: 1.72,
-                    color:      "rgba(255,255,255,0.52)",
+                    color:      "rgba(255,255,255,0.75)",
                     margin:     0,
                   }}
                 >
@@ -309,7 +309,7 @@ function Mobile() {
       <div style={{ marginBottom: 36 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
           <div style={{ width: 14, height: 1, background: "rgba(255,255,255,0.2)" }} />
-          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)" }}>
             Why Us
           </span>
         </div>
@@ -323,7 +323,7 @@ function Mobile() {
           margin: 0,
         }}>
           Built for<br />
-          <span style={{ color: "rgba(255,255,255,0.2)" }}>
+          <span style={{ color: "rgba(255,255,255,0.65)" }}>
             certainty.
           </span>
         </h2>
@@ -360,7 +360,7 @@ function Mobile() {
               <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
                 <span style={{
                   fontFamily: "'DM Mono', monospace", fontSize: 10,
-                  color: isActive ? item.color : "rgba(255,255,255,0.2)",
+                  color: isActive ? item.color : "rgba(255,255,255,0.5)",
                   flexShrink: 0, marginTop: 2, transition: "color 0.3s",
                 }}>
                   {item.number}
@@ -369,7 +369,7 @@ function Mobile() {
                   <p style={{
                     fontFamily: "'Bricolage Grotesque', sans-serif",
                     fontWeight: 700, fontSize: 16,
-                    color: isActive ? "#ffffff" : "rgba(255,255,255,0.55)",
+                    color: isActive ? "#ffffff" : "rgba(255,255,255,0.7)",
                     lineHeight: 1.3, margin: 0, transition: "color 0.3s",
                   }}>
                     {item.fear}
@@ -381,7 +381,7 @@ function Mobile() {
                         animate={{ opacity: 1, height: "auto", marginTop: 10 }}
                         exit={{ opacity: 0, height: 0, marginTop: 0 }}
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.52)", lineHeight: 1.7, margin: 0, overflow: "hidden" }}
+                        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 14, color: "rgba(255,255,255,0.75)", lineHeight: 1.7, margin: 0, overflow: "hidden" }}
                       >
                         {item.answer}
                       </motion.p>

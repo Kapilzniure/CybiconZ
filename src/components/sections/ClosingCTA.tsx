@@ -65,7 +65,7 @@ export default function ClosingCTA() {
                 href="mailto:cybiconz@gmail.com"
                 className="group flex flex-col"
               >
-                <span className="font-mono text-[9px] text-white/40 tracking-widest uppercase mb-1">Direct Email</span>
+                <span className="font-mono text-[9px] text-white/65 tracking-widest uppercase mb-1">Direct Email</span>
                 <span className="font-mono text-[14px] text-white/75 group-hover:text-white transition-colors underline decoration-white/20 underline-offset-4">
                   cybiconz@gmail.com
                 </span>

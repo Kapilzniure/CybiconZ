@@ -54,7 +54,7 @@ export default function Testimonials() {
       <div className="container relative z-10">
         {/* Compact Header */}
         <div className="flex items-center gap-4 mb-10 pb-4 border-b border-white/[0.08]">
-          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40">
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/65">
             Client Feedback
           </span>
           <div className="flex-1 h-[1px] bg-white/[0.05]" />
@@ -104,13 +104,13 @@ export default function Testimonials() {
 
         <div className="mt-12 pt-6 flex items-center justify-between border-t border-white/[0.05]">
            <p
-            className="font-mono text-white/30 uppercase"
+            className="font-mono text-white/60 uppercase"
             style={{ fontSize: "9px", letterSpacing: "0.2em" }}
           >
             Verified Outcomes
           </p>
           <p
-            className="font-mono text-white/30"
+            className="font-mono text-white/60"
             style={{ fontSize: "9px", letterSpacing: "0.1em" }}
           >
             CYBICONZ // 2026

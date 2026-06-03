@@ -50,7 +50,7 @@ function ServiceRow({
         {/* Index */}
         <span
           className="font-mono text-[10px] tracking-[0.2em] transition-colors duration-300"
-          style={{ color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.2)" }}
+          style={{ color: hovered ? "#FFFFFF" : "rgba(255,255,255,0.6)" }}
         >
           {service.id}
         </span>
@@ -142,7 +142,7 @@ export default function Services() {
           <div>
             <div className="flex items-center gap-4 mb-5">
               <div className="w-6 h-[1px] bg-white/30" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50">
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">
                 Core Capabilities
               </span>
             </div>
@@ -151,7 +151,7 @@ export default function Services() {
               style={{ fontSize: "clamp(40px, 6vw, 82px)" }}
             >
               Engineered for<br className="hidden sm:block" />
-              <span style={{ color: "rgba(255,255,255,0.4)" }}>high performance.</span>
+              <span style={{ color: "rgba(255,255,255,0.65)" }}>high performance.</span>
             </h2>
             <p
               className="max-w-md leading-relaxed"

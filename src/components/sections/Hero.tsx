@@ -7,7 +7,7 @@ import { useHeroIntro } from "@/hooks/useHeroIntro";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 
-const ACCENT = "rgba(148, 163, 184, 0.55)";
+const ACCENT = "rgba(255, 255, 255, 0.65)";
 
 // ─── Mobile Hero ───────────────────────────────────────────────────────────────
 function MobileHero({
@@ -71,7 +71,7 @@ function MobileHero({
         />
 
         {/* Music toggle */}
-        <div style={{ position: "absolute", top: 20, right: 20, zIndex: 20 }}>
+        <div style={{ position: "absolute", top: 20, right: 20, zIndex: 100 }}>
           <MusicToggle />
         </div>
 
@@ -288,6 +288,7 @@ function DesktopHero({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            pointerEvents: "none",
           }}
         >
           <SplineHero />
@@ -428,7 +429,7 @@ function DesktopHero({
         </motion.div>
 
         {/* Music toggle */}
-        <div style={{ position: "absolute", top: 20, left: 24, zIndex: 20 }}>
+        <div style={{ position: "absolute", top: 20, left: 24, zIndex: 100 }}>
           <MusicToggle />
         </div>
 

@@ -138,7 +138,7 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
            />
            <span
              ref={eyebrowLabelRef}
-             className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/50"
+             className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70"
            >
              FAQ
            </span>
@@ -152,7 +152,7 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
            {heading}
          </h2>
 
-         <p className="text-white/40" style={{ fontSize: 16, marginTop: 12 }}>
+         <p className="text-white/65" style={{ fontSize: 16, marginTop: 12 }}>
            Straight answers. No runaround.
          </p>
 

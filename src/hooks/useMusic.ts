@@ -9,7 +9,7 @@ function getAudio(): HTMLAudioElement {
   if (!audio) {
     audio = document.createElement("audio");
     audio.loop = true;
-    audio.volume = 0.45;
+    audio.volume = 1.0;
     // Explicit type so Chrome doesn't reject before even fetching
     const source = document.createElement("source");
     source.src = SRC;
