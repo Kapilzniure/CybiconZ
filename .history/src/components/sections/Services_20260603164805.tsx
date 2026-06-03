@@ -157,7 +157,7 @@ export default function Services() {
               className="max-w-md leading-relaxed"
               style={{ fontSize: "16px", color: "rgba(255,255,255,0.85)" }}
             >
-              We deliver end-to-end digital solutions that scale. No compromises, just results.  
+              We deliver end-to-end digital solutions that scale. No compromises, just results.
             </p>
           </div>
         </div>
