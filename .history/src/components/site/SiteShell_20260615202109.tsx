@@ -8,8 +8,9 @@ import PageWrapper from "./PageWrapper";
 export default function SiteShell({ children }: { children: ReactNode }) {
   const location = useLocation();
   return (
-    <div>
-      <Navbar />
+    <div className="min-h-screen flex flex-col bg-brand-base">
+      {/* Fixed header stack: announcement bar + navbar stacked vertically */}
+      <Navbar/>
       <PageWrapper>{children}</PageWrapper>
       <Footer />
     </div>

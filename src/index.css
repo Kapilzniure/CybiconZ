@@ -1,3 +1,4 @@
+/* Self-hosted fonts via @fontsource */
 @import "@fontsource/bricolage-grotesque/400.css";
 @import "@fontsource/bricolage-grotesque/700.css";
 @import "@fontsource/bricolage-grotesque/800.css";
@@ -308,12 +309,29 @@ const useScrollReveal = (selector = '.reveal-hidden', threshold = 0.1) => {
   line-height: 0.95;
 }
 .label-cinematic {
-  font-family: 'DM Mono', monospace; /* Assuming DM Mono based on previous context */
+  font-family: 'DM Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.65);
 }
+
+
+/* ── Johnnies-style headline system ───────────────────────────
+   Bold italic sans-serif — matches johnniesliquor.com aesthetic
+   Usage: <h2 class="headline headline-xl"> */
+.headline {
+  font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+}
+.headline-sm  { font-size: clamp(1.5rem,  3vw,  2rem); }
+.headline-md  { font-size: clamp(2rem,    4vw,  3rem); }
+.headline-lg  { font-size: clamp(2.5rem,  5vw,  4.5rem); }
+.headline-xl  { font-size: clamp(3.5rem,  7vw,  7rem); }
+.headline-2xl { font-size: clamp(5rem,   10vw, 10rem); }
 
 /* MOTION UTILITIES */
 .motion-safe-only {

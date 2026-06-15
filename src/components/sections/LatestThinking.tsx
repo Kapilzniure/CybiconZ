@@ -97,8 +97,8 @@ export default function LatestThinking() {
             </div>
 
             <h2
-              className="section-headline-reveal font-display font-extrabold mt-4"
-              style={{ fontSize: "clamp(32px, 5vw, 48px)", letterSpacing: "-0.03em", color: "#F0EEFF" }}
+              className="section-headline-reveal headline mt-4"
+              style={{ fontSize: "clamp(32px, 5vw, 48px)", color: "#F0EEFF" }}
             >
               <SplitText delay={0.05}>Latest Thinking</SplitText>
             </h2>

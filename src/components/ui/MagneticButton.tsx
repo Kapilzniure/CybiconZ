@@ -37,6 +37,8 @@ const ArrowIcon = () => (
   </svg>
 )
 
+const MotionLink = motion.create(Link)
+
 export function MagneticButton({
   href,
   children,
@@ -180,8 +182,6 @@ export function MagneticButton({
       </a>
     )
   }
-
-  const MotionLink = motion(Link)
 
   return (
     <MotionLink to={href} {...wrapperProps}>

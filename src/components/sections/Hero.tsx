@@ -132,11 +132,12 @@ function MobileHero({
             <div
               key={text}
               style={{
-                fontFamily: "'Bricolage Grotesque', sans-serif",
+                fontFamily: "'Bricolage Grotesque', system-ui, sans-serif",
                 fontWeight: 800,
+                fontStyle: "italic",
                 fontSize: "clamp(36px, 9vw, 56px)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.03em",
+                lineHeight: 0.85,
+                letterSpacing: "-0.04em",
                 color: accent ? ACCENT : "#FFFFFF",
                 textShadow: accent
                   ? "0 0 40px rgba(255,255,255,0.08), 0 2px 20px rgba(2,4,8,0.9)"
@@ -354,11 +355,12 @@ function DesktopHero({
               <div
                 key={text}
                 style={{
-                  fontFamily: "'Bricolage Grotesque', sans-serif",
+                  fontFamily: "'Bricolage Grotesque', system-ui, sans-serif",
                   fontWeight: 800,
+                  fontStyle: "italic",
                   fontSize: "clamp(32px, 5vw, 80px)",
-                  lineHeight: 0.92,
-                  letterSpacing: "-0.03em",
+                  lineHeight: 0.85,
+                  letterSpacing: "-0.04em",
                   color: accent ? ACCENT : "#FFFFFF",
                   textShadow: accent ? "0 0 30px rgba(255,255,255,0.08)" : "none",
                 }}

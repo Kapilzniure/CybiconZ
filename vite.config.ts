@@ -41,21 +41,34 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force all packages (including @splinetool/runtime) to share the same
+      // three.js instance and eliminate the "Multiple instances" warning.
+      "three": path.resolve(__dirname, "node_modules/three"),
     },
-    dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime", "@tanstack/react-query", "@tanstack/query-core"],
+    dedupe: [
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "three",
+      "@react-three/fiber",
+      "@tanstack/react-query",
+      "@tanstack/query-core",
+    ],
   },
   build: {
     modulePreload: { polyfill: false },
     rollupOptions: {
       output: {
-        manualChunks: {
-          "vendor-react":    ["react", "react-dom", "react-router-dom"],
-          "vendor-framer":   ["framer-motion"],
-          "vendor-gsap":     ["gsap"],
-          "vendor-three":    ["three", "@react-three/fiber"],
-          "vendor-spline":   ["@splinetool/react-spline"],
-          "vendor-tanstack": ["@tanstack/react-query"],
-          "vendor-lenis":    ["@studio-freight/lenis"],
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (id.includes("react-router-dom") || id.includes("react-dom") || id.includes("react/")) return "vendor-react";
+          if (id.includes("framer-motion")) return "vendor-framer";
+          if (id.includes("gsap")) return "vendor-gsap";
+          if (id.includes("three") || id.includes("@react-three")) return "vendor-three";
+          if (id.includes("@splinetool")) return "vendor-spline";
+          if (id.includes("@tanstack")) return "vendor-tanstack";
+          if (id.includes("@studio-freight/lenis")) return "vendor-lenis";
         },
       },
     },

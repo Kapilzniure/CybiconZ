@@ -180,8 +180,8 @@ export default function Process() {
 
         <div className="relative z-10">
           <h2
-            className="section-headline-reveal font-display font-extrabold text-white leading-[0.9]"
-            style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.05em" }}
+            className="section-headline-reveal headline text-white"
+            style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
           >
             How we deliver<br />
             technical results.

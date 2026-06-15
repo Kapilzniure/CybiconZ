@@ -90,7 +90,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollThemeProvider>
             <ThemeOverlay />
             <ScrollProgress />

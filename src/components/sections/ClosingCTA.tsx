@@ -29,11 +29,8 @@ export default function ClosingCTA() {
 
             {/* Headline */}
             <h2
-              className="font-display font-extrabold text-white leading-[0.88] mb-10"
-              style={{
-                fontSize: "clamp(48px, 7vw, 110px)",
-                letterSpacing: "-0.05em",
-              }}
+              className="headline text-white mb-10"
+              style={{ fontSize: "clamp(48px, 7vw, 110px)" }}
             >
               Let's build<br />
               something<br />

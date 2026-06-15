@@ -74,7 +74,7 @@ export default function Portfolio() {
               <span className="w-8 h-[1px] bg-white/30" />
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">Curated Work</span>
             </div>
-            <h2 className="font-display font-extrabold text-white leading-[0.9] tracking-[-0.05em]" style={{ fontSize: "clamp(42px, 6vw, 84px)" }}>
+            <h2 className="headline text-white" style={{ fontSize: "clamp(42px, 6vw, 84px)" }}>
               Selected work.<br />
               <span style={{ color: "rgba(255,255,255,0.65)" }}>Ships on time.</span>
             </h2>
@@ -153,7 +153,7 @@ export default function Portfolio() {
             </div>
             <div className="p-8 sm:p-12 lg:pl-0 flex flex-col justify-center">
               <div className="font-mono text-[10px] text-white/60 uppercase tracking-[0.2em] mb-4">Case Study · {featured.year}</div>
-              <h3 className="font-display font-extrabold text-[32px] sm:text-[48px] text-white leading-tight">{featured.name}</h3>
+              <h3 className="headline text-white" style={{ fontSize: "clamp(28px, 4vw, 48px)" }}>{featured.name}</h3>
               <p className="text-[16px] text-white/45 mt-6 leading-relaxed max-w-md">{featured.outcome}</p>
               
               <div className="flex flex-wrap gap-2 mt-8">

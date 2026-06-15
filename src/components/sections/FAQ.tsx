@@ -146,8 +146,8 @@ export default function FAQ({ heading = "Questions We Get Asked" }: { heading?: 
 
          {/* Heading */}
          <h2
-           className="section-headline-reveal font-display font-extrabold text-white"
-           style={{ fontSize: "clamp(36px, 5vw, 64px)", letterSpacing: "-0.05em", marginTop: 24 }}
+           className="section-headline-reveal headline text-white"
+           style={{ fontSize: "clamp(36px, 5vw, 64px)", marginTop: 24 }}
          >
            {heading}
          </h2>

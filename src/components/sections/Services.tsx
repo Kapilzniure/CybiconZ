@@ -59,7 +59,7 @@ function ServiceRow({
         <div>
           <div className="flex items-center gap-4 flex-wrap mb-2">
             <h3
-              className="font-display font-bold leading-none transition-colors duration-200"
+              className="headline leading-none transition-colors duration-200"
               style={{
                 fontSize: "clamp(22px, 3vw, 34px)",
                 color: hovered ? "#ffffff" : "rgba(255,255,255,0.95)",
@@ -147,7 +147,7 @@ export default function Services() {
               </span>
             </div>
             <h2
-              className="font-display font-extrabold text-white leading-[0.9] tracking-[-0.05em] mb-6"
+              className="headline text-white mb-6"
               style={{ fontSize: "clamp(40px, 6vw, 82px)" }}
             >
               Engineered for<br className="hidden sm:block" />

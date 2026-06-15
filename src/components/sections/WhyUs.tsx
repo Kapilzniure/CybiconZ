@@ -121,11 +121,12 @@ function Desktop() {
           </span>
         </div>
         <h2 style={{
-          fontFamily:    "'Bricolage Grotesque', sans-serif",
+          fontFamily:    "'Bricolage Grotesque', system-ui, sans-serif",
           fontWeight:    800,
+          fontStyle:     "italic",
           fontSize:      "clamp(40px, 5vw, 72px)",
-          letterSpacing: "-0.05em",
-          lineHeight:    0.9,
+          letterSpacing: "-0.04em",
+          lineHeight:    0.85,
           color:         "#ffffff",
           margin:        0,
         }}>
@@ -314,13 +315,14 @@ function Mobile() {
           </span>
         </div>
         <h2 style={{
-          fontFamily: "'Bricolage Grotesque', sans-serif",
-          fontWeight: 800,
-          fontSize: "clamp(32px, 9vw, 48px)",
-          letterSpacing: "-0.05em",
-          lineHeight: 0.9,
-          color: "#ffffff",
-          margin: 0,
+          fontFamily:    "'Bricolage Grotesque', system-ui, sans-serif",
+          fontWeight:    800,
+          fontStyle:     "italic",
+          fontSize:      "clamp(32px, 9vw, 48px)",
+          letterSpacing: "-0.04em",
+          lineHeight:    0.85,
+          color:         "#ffffff",
+          margin:        0,
         }}>
           Built for<br />
           <span style={{ color: "rgba(255,255,255,0.65)" }}>
