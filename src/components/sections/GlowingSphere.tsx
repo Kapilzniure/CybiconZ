@@ -186,7 +186,7 @@ function OrbSphere({ accentColor }: OrbProps) {
 
   return (
     <mesh ref={meshRef}>
-      <sphereGeometry args={[0.65, 128, 128]} />
+      <sphereGeometry args={[0.65, 48, 48]} />
       <shaderMaterial
         ref={matRef}
         vertexShader={vertexShader}

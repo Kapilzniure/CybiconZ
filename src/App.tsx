@@ -13,7 +13,7 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { ThemeOverlay } from "@/components/ui/ThemeOverlay";
 import { ScrollThemeProvider } from "@/hooks/useScrollTheme";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { LoadingProvider } from "@/contexts/LoadingContext";
 
 const Index         = lazy(() => import("./pages/Index"));
 const ServicesPage  = lazy(() => import("./pages/Services"));
@@ -70,36 +70,27 @@ function AnimatedRoutes() {
 }
 
 const App = () => {
-  const velocity = useScrollVelocity();
-
-  useEffect(() => {
-    ScrollTrigger.config({ limitCallbacks: velocity > 20 });
-  }, [velocity]);
-
-  const [showPreloader, setShowPreloader] = useState(() => {
-    if (typeof window === "undefined") return false;
-    if (sessionStorage.getItem("visited")) return false;
-    sessionStorage.setItem("visited", "1");
-    return true;
-  });
+  const [showPreloader, setShowPreloader] = useState(true);
 
   return (
     <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
-        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <ScrollThemeProvider>
-            <ThemeOverlay />
-            <ScrollProgress />
-            <Cursor />
-            <TransitionOverlay />
-            <AnimatedRoutes />
-          </ScrollThemeProvider>
-        </BrowserRouter>
-      </TooltipProvider>
+      <LoadingProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
+          <BrowserRouter>
+            <ScrollThemeProvider>
+              <ThemeOverlay />
+              <ScrollProgress />
+              <Cursor />
+              <TransitionOverlay />
+              <AnimatedRoutes />
+            </ScrollThemeProvider>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LoadingProvider>
     </QueryClientProvider>
     </ErrorBoundary>
   );

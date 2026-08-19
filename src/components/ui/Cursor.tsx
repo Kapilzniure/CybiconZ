@@ -45,34 +45,29 @@ export function Cursor() {
     
     if (!media.matches) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      mouseX.set(clientX);
-      mouseY.set(clientY);
 
-      const target = e.target as HTMLElement;
-      if (!target) return;
-
-      const isInput = !!target.closest("input, textarea, select, [contenteditable]");
-      isInputTargetRef.current = isInput;
-
-      const isHover = !!target.closest("a, button, [role='button']");
-      const isView = !!target.closest("[data-cursor='view']");
-      const isExplore = !!target.closest("[data-cursor='explore']") && !isHover;
-
-      const newState = isView ? "view" : isExplore ? "explore" : isHover ? "hover" : "default";
-      cursorStateRef.current = newState;
-      setCursorState(newState);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     // Animation Loop
     let rafId: number;
+    let isSleeping = false;
+    let sleepTimeout: NodeJS.Timeout;
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
 
+    const wakeUp = () => {
+      if (isSleeping) {
+        isSleeping = false;
+        lastMousePosRef.current = { x: mouseX.get(), y: mouseY.get() };
+        rafId = requestAnimationFrame(animate);
+      }
+      clearTimeout(sleepTimeout);
+      sleepTimeout = setTimeout(() => {
+        isSleeping = true;
+      }, 500); // Sleep after 500ms of no movement
+    };
+
     const animate = () => {
+      if (isSleeping) return; // Halt loop
       const currentX = mouseX.get();
       const currentY = mouseY.get();
       const isHidden = isInputTargetRef.current;
@@ -107,6 +102,30 @@ export function Cursor() {
       rafId = requestAnimationFrame(animate);
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      mouseX.set(clientX);
+      mouseY.set(clientY);
+
+      const target = e.target as HTMLElement;
+      if (!target) return;
+
+      const isInput = !!target.closest("input, textarea, select, [contenteditable]");
+      isInputTargetRef.current = isInput;
+
+      const isHover = !!target.closest("a, button, [role='button']");
+      const isView = !!target.closest("[data-cursor='view']");
+      const isExplore = !!target.closest("[data-cursor='explore']") && !isHover;
+
+      const newState = isView ? "view" : isExplore ? "explore" : isHover ? "hover" : "default";
+      cursorStateRef.current = newState;
+      setCursorState(newState);
+
+      wakeUp();
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
     const handleResize = () => {
       if (canvas) {
         canvas.width = window.innerWidth;
@@ -116,12 +135,13 @@ export function Cursor() {
 
     handleResize();
     window.addEventListener("resize", handleResize);
-    rafId = requestAnimationFrame(animate);
+    wakeUp(); // Initial wake
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(rafId);
+      clearTimeout(sleepTimeout);
     };
   }, []);
 

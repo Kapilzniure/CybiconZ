@@ -65,7 +65,7 @@ function BuildingLights({ w, h, d, buildingIndex }: {
     <group>
       {lights.map((l, i) => (
         <mesh key={i} position={l.pos} ref={(el) => { refs.current[i] = el; }} visible={l.visible}>
-          <sphereGeometry args={[0.025]} />
+          <sphereGeometry args={[0.025, 8, 8]} />
           <meshBasicMaterial color={BRAND_BLUE} transparent opacity={0.6} />
         </mesh>
       ))}
@@ -202,7 +202,7 @@ function GlowingGrid() {
   useFrame((s) => { if (matRef.current) matRef.current.uniforms.uTime.value = s.clock.elapsedTime; });
   return (
     <mesh position={[0, -3.5, 4]} rotation={[-Math.PI*0.5, 0, 0]}>
-      <planeGeometry args={[80, 80, 64, 64]} />
+      <planeGeometry args={[80, 80]} />
       <shaderMaterial ref={matRef} vertexShader={gridVertex} fragmentShader={gridFragment}
         transparent side={THREE.DoubleSide} uniforms={{ uTime:{value:0} }} />
     </mesh>

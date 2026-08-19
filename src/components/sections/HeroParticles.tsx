@@ -39,7 +39,8 @@ export default function HeroParticles() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.innerWidth < 768;
     // Massive particle counts — disabled on mobile to clear view of robot
-    const COUNT = prefersReduced ? 80 : isMobile ? 0 : 550;
+    // Desktop count reduced from 550 to 180 to save CPU cycles
+    const COUNT = prefersReduced ? 50 : isMobile ? 0 : 180;
 
     let W = 0, H = 0;
     let particles: Particle[] = [];
@@ -48,6 +49,7 @@ export default function HeroParticles() {
     let opacityMultiplier = 0;
     let rafId = 0;
     let startTime = performance.now();
+    let isVisible = true;
 
     const resize = () => {
       W = canvas.offsetWidth;
@@ -89,6 +91,8 @@ export default function HeroParticles() {
       const scrollFade = Math.max(0, 1 - scrollY / 420);
       const globalAlpha = opacityMultiplier * scrollFade;
 
+      if (globalAlpha <= 0) return;
+
       for (const p of particles) {
         // Cursor repulsion
         if (!isMobile && !prefersReduced) {
@@ -126,6 +130,12 @@ export default function HeroParticles() {
       }
     };
 
+    const runLoop = () => {
+      if (!isVisible) return;
+      tick();
+      rafId = requestAnimationFrame(runLoop);
+    };
+
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
@@ -135,9 +145,18 @@ export default function HeroParticles() {
 
     const ro = new ResizeObserver(() => { resize(); initParticles(); });
 
+    const io = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        startTime = performance.now(); // Prevent large time jumps
+        cancelAnimationFrame(rafId);
+        runLoop();
+      }
+    }, { rootMargin: "100px" });
+    io.observe(canvas);
+
     resize();
     initParticles();
-    tick();
 
     if (!isMobile && !prefersReduced) {
       window.addEventListener("mousemove", onMouseMove, { passive: true });
@@ -150,6 +169,7 @@ export default function HeroParticles() {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("scroll", onScroll);
       ro.disconnect();
+      io.disconnect();
     };
   }, []);
 

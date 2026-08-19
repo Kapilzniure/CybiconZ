@@ -8,7 +8,6 @@ import {
 import { Link } from "react-router-dom";
 import type { CSSProperties } from "react";
 import { FloatingGeometry } from "@/components/ui/FloatingGeometry";
-import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -81,8 +80,6 @@ const youGetVariants = {
 };
 
 export default function Process() {
-  const velocity   = useScrollVelocity();
-  const floatSpeed = Math.max(3, 7 - velocity * 0.3);
 
   const sectionRef = useRef<HTMLElement>(null);
   const stepRefs   = useRef<(HTMLDivElement | null)[]>([]);

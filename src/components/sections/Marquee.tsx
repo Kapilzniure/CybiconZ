@@ -1,4 +1,4 @@
-import { useScrollVelocity } from "@/hooks/useScrollVelocity";
+import { useScroll, useVelocity, useTransform, motion } from "framer-motion";
 
 const items = [
   "Website Development",
@@ -12,14 +12,17 @@ const items = [
 ];
 
 export default function Marquee() {
-  const velocity = useScrollVelocity();
-  const duration = Math.max(30, 80 - velocity * 2);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  
+  // Map scroll velocity (0 to ~1000) to animation duration (80s down to 30s)
+  const duration = useTransform(scrollVelocity, [-1000, 0, 1000], [30, 80, 30]);
 
   return (
     <div className="h-[52px] overflow-hidden border-y border-white/5 bg-white/[0.015] flex items-center group">
-      <div
+      <motion.div
         className="flex whitespace-nowrap group-hover:[animation-play-state:paused]"
-        style={{ animation: `marquee ${duration}s linear infinite` }}
+        style={{ animationName: "marquee", animationTimingFunction: "linear", animationIterationCount: "infinite", animationDuration: duration }}
       >
         {[...items, ...items].map((it, i) => (
           <div key={i} className="flex items-center gap-3 px-8">
@@ -27,7 +30,7 @@ export default function Marquee() {
             <span className="text-ink-muted text-sm font-medium">{it}</span>
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

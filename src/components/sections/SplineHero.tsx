@@ -13,6 +13,7 @@ export default function SplineHero({ onLoad }: SplineHeroProps) {
       height="100%"
       onLoad={onLoad}
       placeholder={<HeroPlaceholder />}
+      critical={true}
     />
   )
 }
