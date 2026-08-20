@@ -46,6 +46,7 @@ export function SplineLoader({
 }: SplineLoaderProps) {
   const [shouldLoad, setShouldLoad] = useState(critical)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   let loadingManager: any = null;
@@ -64,16 +65,16 @@ export function SplineLoader({
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !critical) {
-          setShouldLoad(true)
-          observer.disconnect()
+        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting && !critical && !shouldLoad) {
+          setShouldLoad(true);
         }
       },
       { rootMargin }
     )
-    if (containerRef.current && !critical) observer.observe(containerRef.current)
+    if (containerRef.current) observer.observe(containerRef.current)
     return () => observer.disconnect()
-  }, [rootMargin, critical])
+  }, [rootMargin, critical, shouldLoad])
 
   function handleLoad() {
     setIsLoaded(true)
@@ -114,7 +115,14 @@ export function SplineLoader({
         <motion.div
           animate={{ opacity: isLoaded ? 1 : 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+          style={{ 
+            position: 'absolute', 
+            inset: 0, 
+            width: '100%', 
+            height: '100%', 
+            pointerEvents: 'none',
+            display: isVisible ? 'block' : 'none' 
+          }}
         >
           <SplineErrorBoundary>
             <Suspense fallback={null}>

@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -204,13 +204,27 @@ interface GlowingSphereProps {
 }
 
 export default function GlowingSphere({ accentColor = null }: GlowingSphereProps) {
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin: "200px" } // Render slightly before scrolling into view
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   // Hold last accent so bloom colour doesn't snap to black while fading out
   const lastAccent = useRef<[number, number, number]>([230 / 255, 80 / 255, 160 / 255]);
   if (accentColor) lastAccent.current = accentColor;
   const [r, g, b] = lastAccent.current.map((v) => Math.round(v * 255));
 
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
+    <div ref={containerRef} style={{ width: "100%", height: "100%", position: "relative" }}>
 
       {/* Default atmospheric bloom */}
       <div style={{
@@ -236,14 +250,16 @@ export default function GlowingSphere({ accentColor = null }: GlowingSphereProps
         zIndex: 0,
       }} />
 
-      <Canvas
-        camera={{ position: [0, 0, 3.8], fov: 40 }}
-        dpr={[1, 1.5]}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        style={{ width: "100%", height: "100%", background: "transparent", position: "relative", zIndex: 1 }}
-      >
-        <OrbSphere accentColor={accentColor} />
-      </Canvas>
+      {isVisible && (
+        <Canvas
+          camera={{ position: [0, 0, 3.8], fov: 40 }}
+          dpr={[1, 1.5]}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          style={{ width: "100%", height: "100%", background: "transparent", position: "relative", zIndex: 1 }}
+        >
+          <OrbSphere accentColor={accentColor} />
+        </Canvas>
+      )}
     </div>
   );
 }
