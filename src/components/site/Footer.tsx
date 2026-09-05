@@ -40,7 +40,7 @@ export default function Footer() {
           ]} />
           <FooterCol title="Work & Partners" links={[
             
-            { label: "Johnnies Liquor", to: "/work/johnnies-liquor" },
+            { label: "Little Nepal", to: "/work/little-nepal" },{ label: "Johnnies Liquor", to: "/work/johnnies-liquor" },
             { label: "ZenHost (Partner)", to: "#" },
           ]} />
         </div>

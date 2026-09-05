@@ -42,7 +42,7 @@ function FloatingMetricCard() {
   );
 }
 
-const currentClients = [ { name: "Little Nepal", logo: "/littlenepal-logo.png" },
+const currentClients = [ { name: "Little Nepal", logo: "/littlenepal-logo," },
   
   { name: "Johnnies Liquor",   logo: "/johnnies-logo.jpg" },
 ];
@@ -106,7 +106,7 @@ export default function Portfolio() {
                           width: "auto",
                           objectFit: "contain",
                           display: "block",
-                          
+                          filter: "brightness(1.5)",
                         }}
                       />
                     </div>

@@ -20,7 +20,7 @@ function BrowserChrome() {
           color: "rgba(255,255,255,0.68)",
         }}
       >
-        cybiconz.com/work/johnnies-liquor
+        cybiconz.com/work/little-nepal
       </div>
     </div>
   );
@@ -62,7 +62,7 @@ function MockSiteContent() {
           style={{
             height: 76,
             background:
-              "linear-gradient(135deg, rgba(120,40,20,0.55) 0%, rgba(60,10,10,0.85) 100%)",
+              "linear-gradient(135deg, rgba(16,185,129,0.3) 0%, rgba(6,78,59,0.7) 100%)",
           }}
         />
 
@@ -71,13 +71,13 @@ function MockSiteContent() {
             className="font-display font-bold text-white leading-tight"
             style={{ fontSize: 22 }}
           >
-            Johnnies Liquor
+            Little Nepal
           </p>
           <p
             className="font-mono mt-0.5"
             style={{ fontSize: 10, color: "rgba(255,255,255,0.68)" }}
           >
-            Website + Marketing
+            E-Commerce Platform
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export default function HeroMockup() {
           className="font-mono tracking-wider"
           style={{ fontSize: 9, color: "rgba(255,255,255,0.68)" }}
         >
-          Johnnies Liquor
+          Little Nepal
         </span>
       </motion.div>
     </div>

@@ -1,4 +1,4 @@
-﻿export const services = [
+export const services = [
   {
     id: '01',
     slug: 'websites',
@@ -44,7 +44,7 @@
       'Mobile-first, performance-optimized',
     ],
     
-    note: null,
+    note: 'We recently engineered a custom zero-fee WhatsApp checkout platform for Little Nepal.',
   },
   {
     id: '03',

@@ -106,7 +106,7 @@ export default function Portfolio() {
                           width: "auto",
                           objectFit: "contain",
                           display: "block",
-                          
+                          filter: "brightness(1.5)",
                         }}
                       />
                     </div>

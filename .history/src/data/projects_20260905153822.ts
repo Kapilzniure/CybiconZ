@@ -9,9 +9,9 @@
     status: 'Live',
     statusColor: '#10B981',
     outcome: 'A blazing-fast, mobile-optimized catalog with a zero-fee WhatsApp checkout and custom CMS.',
-    image: '/little-nepal.png',
+    image: '/littlenepal-website.png',
     logo: '/littlenepal-logo.png',
-    gallery: ['/little-nepal.png'],
+    gallery: ['/littlenepal-website.png'],
     tags: ['React', 'Firebase', 'E-Commerce', 'WhatsApp Checkout'],
     featured: true,
 

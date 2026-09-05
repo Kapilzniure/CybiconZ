@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { Link, useParams, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { ProjectImagePlaceholder } from "@/components/ui/ProjectImagePlaceholder";
 import SiteShell from "@/components/site/SiteShell";
 import { projects } from "@/data/projects";
 import SplitText from "@/components/ui/SplitText";
@@ -26,6 +28,7 @@ const contentBlocks = (p: (typeof projects)[number]) => [
 ];
 
 export default function CaseStudy() {
+  const [assetError, setAssetError] = useState(false);
   const { slug } = useParams();
   const p = projects.find(x => x.slug === slug);
   if (!p) return <Navigate to="/work" replace />;
