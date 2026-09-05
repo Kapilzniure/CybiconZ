@@ -1,43 +1,4 @@
-export const projects = [
-  {
-    slug: 'lwangblack',
-    name: 'LwangBlack Coffee',
-    sector: 'Coffee Brand',
-    year: '2026',
-    service: 'E-Commerce System',
-    serviceColor: '#4F46E5',
-    status: 'In Development',
-    statusColor: '#4F46E5',
-    outcome: 'Building a global e-commerce infrastructure with multi-country support, multi-currency checkout, and delivery integrations.',
-    image: '/lb-website.png',
-    logo: '/lb-logo.png',
-    gallery: ['/lb-website.png'],
-    tags: ['E-Commerce', 'Multi-Country', 'Multi-Currency', 'Delivery Integration'],
-    featured: true,
-
-    situation: 'LwangBlack Coffee needed a digital infrastructure that could operate globally — not a basic online shop, but a full commercial system capable of handling different countries, currencies, and delivery partners from a single platform.',
-
-    challenge: 'Building for multiple countries means more than just translating a website. It means country-specific pricing, currency conversion, different delivery partners per region, and an admin system that the team can actually manage without technical help.',
-
-    approach: 'We are building the system in layers. The foundation is a mobile-first storefront designed for clarity — no confusion at checkout, no unnecessary steps. On top of that, we are building the multi-country configuration, payment gateway integration, and delivery partner hooks. An admin role system gives the LwangBlack team full control without needing a developer for every change.',
-
-    inProgress: true,
-    inProgressNote: 'This project is currently in active development. The architecture is complete and core features are being built and tested.',
-
-    delivering: [
-      'Global e-commerce storefront (mobile-first)',
-      'Multi-country support with localized experiences',
-      'Multi-currency pricing and checkout',
-      'Country-based pricing configuration',
-      'Multiple delivery partner integrations',
-      'Role-based admin system',
-      'Performance-optimized across all markets',
-    ],
-    collaboration: {
-      partner: 'Clevron Tech',
-      role: 'Contributed in project coordination, planning, system structuring, and development collaboration.'
-    }
-  },
+﻿export const projects = [
   {
     slug: 'johnnies-liquor',
     name: 'Johnnies Liquor',
@@ -52,7 +13,7 @@ export const projects = [
     logo: '/johnnies-logo.jpg',
     gallery: ['/johnnies-website.png'],
     tags: ['Website', 'Digital Marketing', 'Social Media', 'Brand Consistency'],
-    featured: false,
+    featured: true,
 
     situation: 'Johnnies Liquor had an inconsistent online presence. No structured digital strategy, irregular social media, and a website that did not reflect the quality of the business.',
 
@@ -74,3 +35,4 @@ export const projects = [
 ];
 
 export type Project = typeof projects[number];
+

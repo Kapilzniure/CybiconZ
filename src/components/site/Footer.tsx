@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import Logo from "./Logo";
 
 export default function Footer() {
@@ -39,7 +39,7 @@ export default function Footer() {
             { label: "Contact", to: "/contact" },
           ]} />
           <FooterCol title="Work & Partners" links={[
-            { label: "LwangBlack Coffee", to: "/work/lwangblack" },
+            
             { label: "Johnnies Liquor", to: "/work/johnnies-liquor" },
             { label: "ZenHost (Partner)", to: "#" },
           ]} />

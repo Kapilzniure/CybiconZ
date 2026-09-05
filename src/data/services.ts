@@ -1,4 +1,4 @@
-export const services = [
+﻿export const services = [
   {
     id: '01',
     slug: 'websites',
@@ -44,7 +44,7 @@ export const services = [
       'Mobile-first, performance-optimized',
     ],
     
-    note: 'We are currently building this for LwangBlack Coffee — a global multi-country e-commerce platform.',
+    note: null,
   },
   {
     id: '03',

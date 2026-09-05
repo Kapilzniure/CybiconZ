@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 
 function BrowserChrome() {
   return (
@@ -20,7 +20,7 @@ function BrowserChrome() {
           color: "rgba(255,255,255,0.68)",
         }}
       >
-        cybiconz.com/work/lwangblack
+        cybiconz.com/work/johnnies-liquor
       </div>
     </div>
   );
@@ -71,13 +71,13 @@ function MockSiteContent() {
             className="font-display font-bold text-white leading-tight"
             style={{ fontSize: 22 }}
           >
-            LwangBlack Coffee
+            Johnnies Liquor
           </p>
           <p
             className="font-mono mt-0.5"
             style={{ fontSize: 10, color: "rgba(255,255,255,0.68)" }}
           >
-            E-Commerce · In Development
+            Website + Marketing
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export default function HeroMockup() {
           className="font-mono tracking-wider"
           style={{ fontSize: 9, color: "rgba(255,255,255,0.68)" }}
         >
-          LwangBlack Coffee
+          Johnnies Liquor
         </span>
       </motion.div>
     </div>

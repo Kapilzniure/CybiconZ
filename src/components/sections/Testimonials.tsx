@@ -1,13 +1,7 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 
 const items = [
-  {
-    badge: "E-Commerce",
-    quote: "They built a system that just works. Orders come in, payments clear, and we ship. No firefighting, no surprise breakage.",
-    name: "LwangBlack Founder",
-    role: "Coffee Brand · LwangBlack",
-  },
   {
     badge: "Website + Marketing",
     quote: "Our online presence finally matches the store. Direct communication every step — they actually pick up the phone.",
@@ -120,3 +114,4 @@ export default function Testimonials() {
     </section>
   );
 }
+

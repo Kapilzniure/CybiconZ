@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { useState, useEffect, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
@@ -36,14 +36,14 @@ function FloatingMetricCard() {
     >
       <div className="w-1.5 h-1.5 rounded-full bg-[#39FF14] animate-pulse" />
       <span className="font-mono text-[10px] text-white/70 tracking-wider whitespace-nowrap">
-        Live · Multi-Country · Multi-Currency
+        Live · Web · Marketing
       </span>
     </motion.div>
   );
 }
 
 const currentClients = [
-  { name: "LwangBlack Coffee", logo: "/lb-logo.png" },
+  
   { name: "Johnnies Liquor",   logo: "/johnnies-logo.jpg" },
 ];
 
@@ -135,7 +135,7 @@ export default function Portfolio() {
             className="bg-brand-card rounded-[32px] overflow-hidden grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] border border-white/[0.06] transition-all duration-500 ease-out hover:border-white/20 animate-gpu"
           >
             <div className="p-4 sm:p-6 lg:p-10 relative">
-              <BrowserFrame url="lwangblack.co">
+              <BrowserFrame url="johnniesliquor.com">
                 <div className="relative aspect-[4/3] lg:aspect-video overflow-hidden">
                   {assetError[featured.slug] ? (
                     <ProjectImagePlaceholder projectName={featured.name} serviceColor="#FFFFFF" />
