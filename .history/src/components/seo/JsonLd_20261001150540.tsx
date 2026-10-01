@@ -13,7 +13,7 @@ export function OrganizationJsonLd() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'cybiconz@gmail.com',
+      email: 'cybiconz.com',
       contactType: 'customer service',
       availableLanguage: ['English'],
     },

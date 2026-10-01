@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Grocery Hub x CybiconZ — Premium Category Takeover</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GLOBAL & PRINT ARCHITECTURE (1280x720 Pitch Deck Scale)
+   ============================================================ */
+:root {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --text: #475569;
+  --heading: #0F172A;
+  --accent: #059669; /* Emerald Green */
+  --accent-light: #D1FAE5;
+  --border: #E2E8F0;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#E5E5E5;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display:flex; flex-direction:column; align-items:center; gap: 40px; padding: 40px;
+}
+.slide {
+  width:1280px; height:720px; position:relative;
+  overflow:hidden; page-break-after:always; flex-shrink:0; background:var(--bg);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  padding: 60px 80px;
+  display: flex; flex-direction: column;
+}
+@media print {
+  body { background:#fff; padding: 0; gap: 0; }
+  .slide { margin:0; box-shadow:none; border-bottom: 1px solid var(--border); }
+  @page { margin:0; size:1280px 720px landscape; }
+}
+
+/* ============================================================
+   TYPOGRAPHY & LAYOUT (Condensed, High-Density, Premium)
+   ============================================================ */
+h1 { font-size: 56px; font-weight: 900; letter-spacing: -2px; line-height: 1.1; color: var(--heading); margin-bottom: 16px; }
+h2 { font-size: 36px; font-weight: 800; letter-spacing: -1px; color: var(--heading); margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 16px; }
+h3 { font-size: 22px; font-weight: 700; color: var(--heading); margin-bottom: 12px; line-height: 1.3; }
+p { font-size: 15px; line-height: 1.6; color: var(--text); margin-bottom: 16px; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--heading); font-weight: 700; }
+
+.section-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 12px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+
+.footer { position: absolute; bottom: 24px; left: 80px; right: 80px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #94a3b8; }
+
+/* The Vault Gallery */
+.poster-grid-dense { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 10px; }
+.poster-grid-dense .poster-item { height: 120px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 4px; display: flex; justify-content: center; align-items: center; }
+.poster-grid-dense img { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+
+/* Classified Badge */
+.confidential {
+    position: absolute; top: 30px; left: 80px;
+    font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+    color: #E11D48; background: #FFF1F2; border: 1px solid #FECDD3; padding: 4px 10px; border-radius: 4px;
+    z-index: 50;
+}
+
+/* Premium Animations */
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+h1, h2, .card, .grid-2 > div, .grid-3 > div, p {
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.slide {
+    animation: slideUpFade 0.6s ease-out forwards;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 01 COVER ===== -->
+<div class="slide" style="justify-content: center; align-items: center; text-align: center; background: var(--surface);">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <div class="section-title" style="margin-bottom: 24px;">Strategic Growth Partnership</div>
+    <div style="display:flex; justify-content:center; align-items:center; gap:30px; margin-bottom: 40px;">
+        <img src="grocery hub logo.jpeg" style="height:80px; border-radius:16px; border: 1px solid var(--border); box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+        <span style="font-size:28px; color:#cbd5e1; font-weight: 300;">&times;</span>
+        <img src="cybiconz-logo.jpg" style="height:80px; border-radius:16px; border: 1px solid var(--border); box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+    </div>
+    <h1 style="font-size: 72px;">The Grocery Hub Era:<br><span style="color: var(--accent);">A Category Takeover.</span></h1>
+    <p style="font-size: 20px; max-width: 600px; margin: 20px auto 50px auto;">Engineered by CybiconZ to turn a fleeting viral moment into an unbreakable, generational customer moat.</p>
+    
+    <div class="grid-2" style="gap: 60px; text-align: left; border-top: 1px solid var(--border); padding-top: 40px;">
+        <div>
+            <div style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Prepared For</div>
+            <div style="font-size:16px; font-weight:700; color:var(--heading);">Grocery Hub — Rockdale</div>
+        </div>
+        <div>
+            <div style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;">Prepared By</div>
+            <div style="font-size:16px; font-weight:700; color:var(--heading);">CybiconZ Digital — Tokyo</div>
+        </div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>01 / 08</div></div>
+</div>
+
+<!-- ===== 02 CATALYST & REALITY ===== -->
+<div class="slide">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <h2 style="margin-top: 20px;">The Current Landscape</h2>
+    <div class="grid-2">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+            <div class="section-title">The Catalyst</div>
+            <h3 style="min-height: 56px;">You Didn't Just Hire Staff. You Bought The Spotlight.</h3>
+            <p>In the Sydney Nepali community, loyalty isn't built on pricing—it’s built on familiar faces. When Prajita crossed over from Rice Spice Dice, she brought the feeling of 'home' with her. Over the last 30 days, we watched the Rockdale market shift in real-time.</p>
+            <div style="background: var(--bg); border-left: 4px solid var(--accent); padding: 14px 16px; font-size: 14px; font-weight: 600; color: var(--heading); margin-top: 16px; border-radius: 0 6px 6px 0;">
+                You haven’t just hired a star staff member; you’ve captured the community's spotlight. Our job is to lock in this foot traffic so they never look back.
+            </div>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--heading);">
+            <div class="section-title" style="color: var(--heading);">The Reality Check</div>
+            <h3 style="min-height: 56px;">Virality Expires. Infrastructure Scales.</h3>
+            <p>Attention is a decaying asset. A viral video is just a spark. If you rely entirely on raw, unedited phone clips, the hype will eventually die and customers will return to their old habits. To permanently dethrone the competition, you need a relentless, high-retention content engine that forces Rockdale to see Grocery Hub as the undisputed, premium choice.</p>
+        </div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>02 / 08</div></div>
+</div>
+
+<!-- ===== 03 STRATEGY & OPERATIONS ===== -->
+<div class="slide">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <h2 style="margin-top: 20px;">Strategy & Operations</h2>
+    <div class="grid-2">
+        <div>
+            <div class="section-title">Audience Segments</div>
+            <h3 style="margin-bottom: 20px;">Marketing Directly to the Wallet.</h3>
+            <p>We don't post randomly. We engineer content specifically for your two profit drivers:</p>
+            <div class="grid-2" style="gap: 20px; margin-top: 20px;">
+                <div class="card" style="padding: 20px; background: var(--surface);">
+                    <h4 style="font-size: 15px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">The Students</h4>
+                    <p style="font-size: 14px; margin: 0;">Pushing late-night Wai Wai combos, budget deals, and relatable diaspora humor.</p>
+                </div>
+                <div class="card" style="padding: 20px; background: var(--surface);">
+                    <h4 style="font-size: 15px; font-weight: 800; color: var(--accent); margin-bottom: 8px;">The Families</h4>
+                    <p style="font-size: 14px; margin: 0;">Selling trust, fresh goat meat, 20kg rice bags, and massive weekend Puja hauls. We make them drive past the competition to buy from you.</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="section-title">The Agency Advantage</div>
+            <h3 style="margin-bottom: 20px;">We Don't Wait For Instructions.</h3>
+            <p>You shouldn't be writing TikTok scripts. A solo freelancer waits for you to say, <em>"What should we post?"</em> If they get busy or lack strategic vision, your momentum dies.</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 16px;">
+                <div style="padding: 16px; background: var(--bg); border: 1px solid rgba(226, 29, 72, 0.2); border-left: 3px solid #e11d48; border-radius: 6px;">
+                    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #e11d48; margin-bottom: 4px;">The Freelancer Risk</div>
+                    <div style="font-size: 13px; color: var(--text);">Inconsistent output, requires your constant management, and zero proactive strategy.</div>
+                </div>
+                <div style="padding: 16px; background: var(--surface); border: 1px solid rgba(5, 150, 105, 0.2); border-left: 3px solid var(--accent); border-radius: 6px; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.05);">
+                    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--accent); margin-bottom: 4px;">The CybiconZ Engine</div>
+                    <div style="font-size: 13px; color: var(--text);">Full offshore team. Every Sunday, we deliver a <strong>Weekly Shoot List</strong>. We write the hooks. You just point the camera.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>03 / 08</div></div>
+</div>
+
+<!-- ===== 04 THE 3 PILLARS ===== -->
+<div class="slide">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <h2 style="margin-top: 20px;">The 3 Pillars of Domination</h2>
+    <div class="grid-3">
+        <div class="card">
+            <div class="section-title">Pillar 1: Community Anchoring</div>
+            <h3 style="min-height: 56px;">Amplifying Prajita & The Culture.</h3>
+            <p>A standard freelancer just trims clips and hits post. We build a high-retention cultural narrative. By amplifying Prajita's authentic energy with strategic hooks and targeted storytelling, we don't just chase likes—we actively pull loyalty away from your competitors and build an emotional bond that makes Grocery Hub the cultural center of Sydney.</p>
+        </div>
+        <div class="card">
+            <div class="section-title">Pillar 2: Premium Merchandising</div>
+            <h3 style="min-height: 56px;">Selling Convenience, Not Just Rice.</h3>
+            <p>We stop promoting single items and start selling convenience. We design ultra-premium digital posters for high-margin combos (e.g., 'The Complete Dashain Puja Pack'). We create that instant <em>'Dami'</em> impression that elevates your brand's perceived value and instantly increases the average customer cart size.</p>
+        </div>
+        <div class="card">
+            <div class="section-title">Pillar 3: The Ecosystem</div>
+            <h3 style="min-height: 56px;">The Rockdale Monopoly.</h3>
+            <p>We know you own the salon next door. We engineer aggressive, dual-branded campaigns that trap the community’s disposable income entirely within your ecosystem. If they spend money in Rockdale, they spend it with you. We build a wall around your customers that Rice Spice Dice cannot cross.</p>
+        </div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>04 / 08</div></div>
+</div>
+
+<!-- ===== 05 THE VAULT ===== -->
+<div class="slide">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <h2 style="margin-top: 20px;">The Vault: Sample Posters & Visuals</h2>
+    <div style="background: var(--heading); color: var(--surface); padding: 16px 24px; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div style="flex-shrink: 0; width: 40px; height: 40px; background: var(--accent); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: white;">!</div>
+        <div>
+            <strong style="display: block; font-size: 13px; color: var(--accent-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">The CybiconZ Visual Standard</strong>
+            <span style="font-size: 14px; line-height: 1.5; opacity: 0.9;">Notice the architecture of these campaigns. We don't use cluttered 3D elements or confusing text. Every graphic is engineered for split-second readability, cultural relevance, and immediate purchase intent. These aren't just pretty pictures; they are conversion assets.</span>
+        </div>
+    </div>
+    <div class="poster-grid-dense" style="margin-top: 0;">
+        <div class="poster-item"><img src="ref-fulki-alliswell.png"></div>
+        <div class="poster-item"><img src="ref-fulki-charger.png"></div>
+        <div class="poster-item"><img src="ref-fulki-date.png"></div>
+        <div class="poster-item"><img src="ref-fulki-diet.png"></div>
+        <div class="poster-item"><img src="ref-fulki-human-needs.png"></div>
+        <div class="poster-item"><img src="ref-fulki-priorities.png"></div>
+        <div class="poster-item"><img src="ref-fulki-worldcup.png"></div>
+        
+        <div class="poster-item"><img src="ref-sodapani-chill.png"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 8.02.57 PM (1).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 8.02.57 PM (2).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 8.02.57 PM.jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 8.02.58 PM.jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 8.04.17 PM (1).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 8.04.17 PM.jpeg"></div>
+
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 9.04.33 PM (1).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 9.04.33 PM (2).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 9.04.33 PM.jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-09-30 at 9.04.34 PM.jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.51 AM.jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.52 AM (1).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.52 AM (2).jpeg"></div>
+
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.52 AM (3).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.52 AM.jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.53 AM (1).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.53 AM (2).jpeg"></div>
+        <div class="poster-item"><img src="WhatsApp Image 2026-10-01 at 9.09.53 AM.jpeg"></div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>05 / 08</div></div>
+</div>
+
+<!-- ===== 06 AUTHORITY & MOAT ===== -->
+<div class="slide">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <h2 style="margin-top: 20px;">Authority & The Future Moat</h2>
+    <div class="grid-2">
+        <div class="card" style="background: var(--heading); color: var(--surface); border: none;">
+            <div class="section-title" style="color: var(--accent-light);">Domain Authority</div>
+            <h3 style="color: var(--surface);">We Already Speak Your Language.</h3>
+            <p style="color: #cbd5e1;">We aren't a generic agency learning on your dime. We have built digital infrastructure for diaspora grocery stores before. We already know the exact profit margins on masalas, lentils, and fresh meat. You don't have to spend a month training us on Nepali retail—we are ready to execute today.</p>
+        </div>
+        <div class="card">
+            <div class="section-title">Phase 2 – Building the Digital Moat</div>
+            <h3>Building The Fortress.</h3>
+            <p>Social media brings them in, but custom tech locks them in. Once the content engine is running, our engineering team is ready to build Grocery Hub’s future.</p>
+            <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px;">
+                <div style="border-left: 3px solid var(--accent); padding-left: 12px;">
+                    <strong style="font-size: 14px;">Phase 1: Content Engine</strong><br>
+                    <span style="font-size: 13px; color: var(--text);">Viral social media presence capturing attention (Current Proposal)</span>
+                </div>
+                <div style="border-left: 3px solid var(--border); padding-left: 12px;">
+                    <strong style="font-size: 14px;">Phase 2: Custom E-Commerce</strong><br>
+                    <span style="font-size: 13px; color: var(--text);">Owned digital platform to lock in customer loyalty & ordering</span>
+                </div>
+                <div style="border-left: 3px solid var(--border); padding-left: 12px;">
+                    <strong style="font-size: 14px;">Phase 3: Delivery Integration</strong><br>
+                    <span style="font-size: 13px; color: var(--text);">End-to-end fulfillment infrastructure for Rockdale & beyond</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>06 / 08</div></div>
+</div>
+
+<!-- ===== 07 ECONOMICS & PIPELINE ===== -->
+<div class="slide">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <h2 style="margin-top: 20px;">Operations & Economics</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="section-title">The Economic Advantage</div>
+            <h3>The Math Makes Sense.</h3>
+            <p>An in-house Sydney creative costs $6,000+ AUD/month. CybiconZ gives you an entire offshore creative department, operating perfectly on your timezone (Tokyo JST to Sydney AEST), for a fraction of that cost.</p>
+            
+            <div class="grid-2" style="margin-top: 30px; gap: 20px;">
+                <div style="padding-top: 16px; border-top: 1px solid var(--border);">
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text);">In-House Sydney</div>
+                    <div style="font-size: 24px; font-weight: 800; color: var(--text); text-decoration: line-through;">$6,000+</div>
+                </div>
+                <div style="padding-top: 16px; border-top: 2px solid var(--accent);">
+                    <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--accent);">CybiconZ Offshore</div>
+                    <div style="font-size: 24px; font-weight: 800; color: var(--accent);">Fraction</div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="section-title">The Operational Pipeline</div>
+            <h3 style="margin-bottom: 8px;">Zero WhatsApp Spam.</h3>
+            <p style="font-size: 13px; line-height: 1.5; margin-bottom: 20px;">We don't blow up your phone with questions. All approvals and assets are managed asynchronously through your dedicated CybiconZ portal. We respect your time.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: flex; gap: 16px; align-items: center;">
+                    <div style="width: 32px; height: 32px; border-radius: 16px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 800; border: 1px solid var(--border); flex-shrink: 0; font-size: 12px;">1</div>
+                    <div><strong style="display: block; font-size: 14px;">Dedicated Client Portal</strong><span style="font-size: 12px; color: var(--text);">Instant, asynchronous file syncing (Day 1)</span></div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: center;">
+                    <div style="width: 32px; height: 32px; border-radius: 16px; background: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 800; border: 1px solid var(--border); flex-shrink: 0; font-size: 12px;">2</div>
+                    <div><strong style="display: block; font-size: 14px;">You Drop iPhone Clips</strong><span style="font-size: 12px; color: var(--text);">Zero friction upload straight from your phone (Day 2)</span></div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: center;">
+                    <div style="width: 32px; height: 32px; border-radius: 16px; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; font-size: 12px;">3</div>
+                    <div><strong style="display: block; font-size: 14px; color: var(--accent);">Dashain Campaign Goes Live</strong><span style="font-size: 12px; color: var(--text);">First promo graphic & reel delivered (Day 3)</span></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; padding: 14px; background: #F8FAFC; border: 1px solid #E2E8F0; border-left: 4px solid #0F172A; border-radius: 8px;">
+                <div style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: #0F172A; margin-bottom: 4px;">The CybiconZ SLA Guarantee</div>
+                <div style="font-size: 12px; color: var(--text); line-height: 1.5;">We guarantee a <strong>48-hour turnaround</strong> on standard assets. If we miss a deadline, you do not pay for that asset. We take the risk, you take the market.</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"><div>CybiconZ Digital</div><div>07 / 08</div></div>
+</div>
+
+<!-- ===== 08 ACTIVATION ===== -->
+<div class="slide" style="align-items: center; text-align: center; justify-content: center; padding-top: 70px;">
+    <div class="confidential">Strictly Confidential — Grocery Hub Board Only</div>
+    <div class="section-title" style="margin-bottom: 12px;">The Activation Protocol</div>
+    <h2 style="font-size: 44px; margin-bottom: 24px; border: none; padding: 0;">Let's Lock in The Momentum.</h2>
+    
+    <!-- Decoy Pricing Grid -->
+    <div class="grid-2" style="width: 100%; max-width: 900px; margin: 0 auto 30px auto; gap: 24px;">
+        <div class="card" style="border-top: 4px solid var(--border); text-align: left; padding: 24px; box-shadow: none;">
+            <div class="section-title" style="color: var(--text);">Tier 1</div>
+            <h3 style="font-size: 18px; margin-bottom: 4px;">The Content Engine</h3>
+            <div style="font-size: 32px; font-weight: 900; color: var(--heading); margin-bottom: 12px;">$800 <span style="font-size: 13px; color: var(--text); font-weight: 500;">AUD / mo</span></div>
+            <p style="font-size: 13px; margin-bottom: 0;">Weekly Shoot Lists, High-Retention Reels, and Basic Posters. Perfect for maintaining social presence.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--accent); background: var(--surface); text-align: left; position: relative; padding: 24px; box-shadow: 0 12px 24px rgba(5,150,105,0.15);">
+            <div style="position: absolute; top: -12px; right: 20px; background: var(--accent); color: white; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 12px;">Recommended</div>
+            <div class="section-title" style="color: var(--accent);">Tier 2</div>
+            <h3 style="font-size: 18px; margin-bottom: 4px;">The Monopoly Package</h3>
+            <div style="font-size: 32px; font-weight: 900; color: var(--heading); margin-bottom: 12px;">$1,400 <span style="font-size: 13px; color: var(--text); font-weight: 500;">AUD / mo</span></div>
+            <p style="font-size: 13px; margin-bottom: 0;">Everything in Tier 1 + High-Margin Combo Posters, Salon Cross-Promotion, and Full Strategic Direction.</p>
+        </div>
+    </div>
+
+    <!-- Exclusivity Guarantee -->
+    <div style="padding: 16px 24px; background: #FFF1F2; border: 1px solid #FECDD3; border-left: 4px solid #E11D48; border-radius: 8px; text-align: left; max-width: 900px; margin: 0 auto 30px auto; width: 100%;">
+        <strong style="color: #E11D48; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;">The Exclusivity Guarantee</strong>
+        <span style="color: #881337; font-size: 13px; line-height: 1.5; display: block;">To ensure absolute dedication to your growth, CybiconZ strictly partners with only <strong>ONE grocer per suburb</strong>. Activating this partnership means we become your dedicated weapon, and your Rockdale competitors are permanently locked out from using our engine.</span>
+    </div>
+
+    <div class="grid-3" style="width: 100%; max-width: 900px; text-align: left; gap: 16px;">
+        <div class="card" style="text-align: center; border-top: 4px solid var(--border); padding: 16px;">
+            <div class="section-title">Step 1</div>
+            <h3 style="margin:0; font-size: 14px;">Approve Retainer</h3>
+        </div>
+        <div class="card" style="text-align: center; border-top: 4px solid var(--border); padding: 16px;">
+            <div class="section-title">Step 2</div>
+            <h3 style="margin:0; font-size: 14px;">30-Minute Growth Sync</h3>
+        </div>
+        <div class="card" style="text-align: center; background: var(--accent); color: white; border: none; border-top: 4px solid #047857; padding: 16px;">
+            <div class="section-title" style="color: rgba(255,255,255,0.8);">Step 3</div>
+            <h3 style="margin:0; font-size: 14px; color: white;">Campaign Goes Live</h3>
+        </div>
+    </div>
+
+    <!-- The 1-Click Acceptance Button -->
+    <div style="margin-top: 40px; text-align: center;">
+        <a href="mailto:cybiconz@gmail.com?subject=Grocery%20Hub%20x%20CybiconZ%20%E2%80%94%20We%20Are%20In.&body=We%20are%20ready%20to%20activate%20the%20partnership.%20Let's%20lock%20down%20Rockdale." style="display: inline-block; background: var(--heading); color: var(--surface); padding: 18px 40px; border-radius: 8px; font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+            Initiate Partnership &rarr;
+        </a>
+    </div>
+
+    <div class="footer"><div>CybiconZ Digital</div><div>08 / 08</div></div>
+</div>
+
+</body>
+</html>
